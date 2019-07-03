@@ -1,0 +1,45 @@
+<div id="cover">
+    <div class="text-center">
+        <h1><strong>Welcome to EAS</strong></h1>
+        <h4><strong>Energy Audit System</strong></h4>
+    </div>
+    <br>
+    <br>
+    <div class="card text-center bg-dark text-white mb-3">
+        <div class="card-header">EAS - Login</div>
+        <div class="card-body">
+            <div *ngIf="loginError">
+                <div class="form-group">
+                    <label class="font-weight-bold">{{loginErrorText}}</label>
+                </div>
+            </div>
+            <div>
+                <form #loginForm="ngForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="sr-only">Username</label>
+                        <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username" placeholder="Enter Your Username" #username="ngModel" 
+                        [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}" required>
+                        <div class="invalid-feedback text-left" *ngIf="username.errors && (username.dirty || username.touched)">
+                            <div [hidden]="!username.errors.required">required field</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password" placeholder="Enter Your Password" #password="ngModel"
+                        [ngClass]="{'is-valid': !password.errors && (password.dirty || password.touched),'is-invalid': password.errors && (password.dirty || password.touched)}" required>
+                        <div class="invalid-feedback text-left" *ngIf="password.errors && (password.dirty || password.touched)">
+                            <div [hidden]="!password.errors.required">required field</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success mx-sm-3" (click)="processLoginForm()" [disabled]="loading || loginForm.invalid">login</button>
+                        <button type="reset" class="btn btn-danger mx-sm-3">clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <strong>&copy; MPPKVVCL Indore 2018-2019</strong>
+        </div>
+    </div>
+</div>
