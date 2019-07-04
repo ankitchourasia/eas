@@ -4,6 +4,8 @@ import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { HeaderModule } from 'src/app/components/header/header.module';
+import { AdminSubstationAddComponent } from './admin-substation-add/admin-substation-add.component';
+import { AdminSubstationViewComponent } from './admin-substation-view/admin-substation-view.component';
 
 @NgModule({
   imports: [
@@ -11,6 +13,6 @@ import { HeaderModule } from 'src/app/components/header/header.module';
     AdminRoutingModule,
     HeaderModule
   ],
-  declarations: [AdminComponent, AdminHomeComponent]
+  declarations: [AdminComponent, AdminHomeComponent, AdminSubstationAddComponent, AdminSubstationViewComponent]
 })
 export class AdminModule { }
