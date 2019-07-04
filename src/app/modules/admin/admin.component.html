@@ -1,11 +1,11 @@
 <eas-header></eas-header>
 <div id="content">
-    <div id="sideMenu" class="collapse show">
+    <div id="sideMenu" class="accordion">
         <ul class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">
                 33/11KV Substations
             </a>
-            <div class="collapse" id="substationCollapseMenu">
+            <div class="collapse" id="substationCollapseMenu" data-parent="#sideMenu">
                 <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('substation/add')">
                     Add
                 </a>
@@ -14,7 +14,7 @@
                 </a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders</a>
-            <div class="collapse" id="feederCollapseMenu">
+            <div class="collapse" id="feederCollapseMenu" data-parent="#sideMenu">
                 <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
                     Add
                 </a>
@@ -44,7 +44,7 @@
                 </a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
-            <div class="collapse" id="htConsumerCollapseMenu">
+            <div class="collapse" id="htConsumerCollapseMenu" data-parent="#sideMenu">
                 <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
                     View Consumers
                 </a>
@@ -56,7 +56,7 @@
                 </a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
-            <div class="collapse" id="dtrCollapseMenu">
+            <div class="collapse" id="dtrCollapseMenu" data-parent="#sideMenu">
                 <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
                     Add
                 </a>
@@ -83,7 +83,7 @@
                 </a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
-            <div class="collapse" id="billFileCollapseMenu">
+            <div class="collapse" id="billFileCollapseMenu" data-parent="#sideMenu">
                 <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
                     Upload
                 </a>
