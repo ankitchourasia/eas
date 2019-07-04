@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalResources } from 'src/app/utility/global.resources';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private globalResources: GlobalResources) { }
 
   ngOnInit() {
   }
@@ -16,8 +17,10 @@ export class LoginComponent implements OnInit {
   user : any = {};
   loading : boolean;
 
-  processLoginForm(){
+  processLoginForm(loginForm){
     console.log(this.user);
-    this.router.navigate(['/admin']);
+    if (this.globalResources.validateForm(loginForm)) {
+      this.router.navigate(['/admin']);
+    }
   }
 }

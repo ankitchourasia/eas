@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-success mx-sm-3" (click)="processLoginForm()" [disabled]="loading || loginForm.invalid">login</button>
+                        <button type="submit" class="btn btn-success mx-sm-3" (click)="processLoginForm(loginForm)" [disabled]="loading">login</button>
                         <button type="reset" class="btn btn-danger mx-sm-3">clear</button>
                     </div>
                 </form>
