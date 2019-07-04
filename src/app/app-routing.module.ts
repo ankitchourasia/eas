@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import { AdminModule } from './modules/admin/admin.module';
 
 const routes: Routes = [
   { 
@@ -15,8 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    // loadChildren: 'app/modules/admin/admin.module#AdminModule'
-    loadChildren: () => AdminModule
+    loadChildren: 'app/modules/admin/admin.module#AdminModule'
   },
   { 
     path: '**', 
@@ -25,9 +23,7 @@ const routes: Routes = [
   }
 ];
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

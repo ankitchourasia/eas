@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,6 +15,13 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths":{
+      "@eas-components/*":["app/components/*"],
+      "@eas-directives/*":["app/directives/*"],
+      "@eas-services/*":["app/services/*"],
+      "@eas-modules/*":["app/modules/*"],
+      "@environments/*":["environments/*"]
+    }
   }
 }

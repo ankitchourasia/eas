@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalResources } from 'src/app/utility/global.resources';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
-  selector: 'app-login',
+  selector: 'eas-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
