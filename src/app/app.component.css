@@ -1,0 +1,3 @@
+:host /deep/ .router-link-active{
+    background-color: #d3d0cd; /**spring-boot color code #34302d;**/
+}
