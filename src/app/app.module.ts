@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './modules/login/login.module';
 import { GlobalResources } from './utility/global.resources';
 import { GlobalConstants } from './utility/global.constants';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { GlobalConstants } from './utility/global.constants';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     LoginModule,
     AppRoutingModule
   ],

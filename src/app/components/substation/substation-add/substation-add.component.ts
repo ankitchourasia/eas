@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubstationAddComponent implements OnInit {
 
+  region : any = {};
   constructor() { }
 
   ngOnInit() {
