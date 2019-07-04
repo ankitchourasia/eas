@@ -1,96 +1,96 @@
 <eas-header></eas-header>
 <div id="content">
-        <div id="sideMenu" class="collapse show">
-            <ul class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">
-                    33/11KV Substations
+    <div id="sideMenu" class="collapse show">
+        <ul class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">
+                33/11KV Substations
+            </a>
+            <div class="collapse" id="substationCollapseMenu">
+                <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('substation/add')">
+                    Add
                 </a>
-                <div class="collapse" id="substationCollapseMenu">
-                    <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('region/add')">
-                        Add
-                    </a>
-                    <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('region/view')">
-                        View
-                    </a>
-                </div>
-                <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders</a>
-                <div class="collapse" id="feederCollapseMenu">
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                        Add
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                        View
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                        Add Reading
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                        View Reading
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                        View Absent Reading
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                        T&D Loss Report
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                        T&D Loss Report (Without HT)
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                        AT&C Loss Report
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                        Other Report
-                    </a>
-                </div>
-                <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
-                <div class="collapse" id="htConsumerCollapseMenu">
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
-                        View Consumers
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('division/view')">
-                        View Consumption
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('division/view')">
-                        View Absent HT Consumption
-                    </a>
-                </div>
-                <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
-                <div class="collapse" id="dtrCollapseMenu">
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                        Add
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                        View
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                        Add S/R Reading
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                        Add Reading
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                        View Reading
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                        Loss Report
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                        Pre Billing Activity
-                    </a>
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                        Other Reports
-                    </a>
-                </div>
-                <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
-                <div class="collapse" id="billFileCollapseMenu">
-                    <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
-                        Upload
-                    </a>
-                </div>
-            </ul>
-        </div>
-        <div id="mainMenu">
-            <router-outlet></router-outlet>
-        </div>
-      </div>
+                <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('substation/view')">
+                    View
+                </a>
+            </div>
+            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders</a>
+            <div class="collapse" id="feederCollapseMenu">
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
+                    Add
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
+                    View
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
+                    Add Reading
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
+                    View Reading
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
+                    View Absent Reading
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
+                    T&D Loss Report
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
+                    T&D Loss Report (Without HT)
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
+                    AT&C Loss Report
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
+                    Other Report
+                </a>
+            </div>
+            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
+            <div class="collapse" id="htConsumerCollapseMenu">
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
+                    View Consumers
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/view')">
+                    View Consumption
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/view')">
+                    View Absent HT Consumption
+                </a>
+            </div>
+            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
+            <div class="collapse" id="dtrCollapseMenu">
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
+                    Add
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
+                    View
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
+                    Add S/R Reading
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
+                    Add Reading
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
+                    View Reading
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
+                    Loss Report
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
+                    Pre Billing Activity
+                </a>
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
+                    Other Reports
+                </a>
+            </div>
+            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
+            <div class="collapse" id="billFileCollapseMenu">
+                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
+                    Upload
+                </a>
+            </div>
+        </ul>
+    </div>
+    <div id="mainMenu">
+        <router-outlet></router-outlet>
+    </div>
+</div>

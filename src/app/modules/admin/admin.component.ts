@@ -16,6 +16,6 @@ export class AdminComponent implements OnInit {
   menuClicked(menuLink){
     if(menuLink){
       this.router.navigate([menuLink],{relativeTo: this.route});
-  }
+    }
   }
 }
