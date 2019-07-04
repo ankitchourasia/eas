@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'eas-admin',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit() {
   }
 
+  menuClicked(menuLink){
+    if(menuLink){
+      this.router.navigate([menuLink],{relativeTo: this.route});
+  }
+  }
 }
