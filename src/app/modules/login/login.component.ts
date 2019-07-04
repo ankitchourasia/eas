@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalResources } from 'src/app/utility/global.resources';
-import { LoginService } from 'src/app/services/login/login.service';
+import { GlobalResources } from 'app/utility/global.resources';
+import { LoginService } from '@eas-services/login/login.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'eas-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

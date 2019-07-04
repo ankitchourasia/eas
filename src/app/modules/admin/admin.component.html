@@ -2,91 +2,43 @@
 <div id="content">
     <div id="sideMenu" class="accordion">
         <ul class="list-group list-group-flush">
-            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">
-                33/11KV Substations
-            </a>
+            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">33/11KV Substations</a>
             <div class="collapse" id="substationCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('substation/add')">
-                    Add
-                </a>
-                <a class="list-group-item list-group-item-action sub-menu" (click)="menuClicked('substation/view')">
-                    View
-                </a>
+                <a class="list-group-item list-group-item-action sub-menu" routerLinkActive="router-link-active" [routerLink]="['substation/add']">Add</a>
+                <a class="list-group-item list-group-item-action sub-menu" routerLinkActive="router-link-active" [routerLink]="['substation/view']">View</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders</a>
             <div class="collapse" id="feederCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                    Add
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                    View
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                    Add Reading
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                    View Reading
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                    View Absent Reading
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                    T&D Loss Report
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/add')">
-                    T&D Loss Report (Without HT)
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                    AT&C Loss Report
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('circle/view')">
-                    Other Report
-                </a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/add']">Add</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/view']">View</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/add']">Add Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/view']">View Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/add']">View Absent Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/view']">T&D Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/add']">T&D Loss Report (Without HT)</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/view']">AT&C Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['circle/add']">Other Report</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
             <div class="collapse" id="htConsumerCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
-                    View Consumers
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/view')">
-                    View Consumption
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/view')">
-                    View Absent HT Consumption
-                </a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['division/add']">View Consumers</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['division/view']">View Consumption</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['division/add']">View Absent HT Consumption</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
             <div class="collapse" id="dtrCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                    Add
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                    View
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                    Add S/R Reading
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                    Add Reading
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                    View Reading
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                    Loss Report
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/add')">
-                    Pre Billing Activity
-                </a>
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('zone/view')">
-                    Other Reports
-                </a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/add']">Add</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/view']">View</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/add']">Add S/R Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/view']">Add Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/add']">View Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/view']">Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/add']">Pre Billing Activity</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['zone/view']">Other Reports</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
             <div class="collapse" id="billFileCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" (click)="menuClicked('division/add')">
-                    Upload
-                </a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['division/add']">Upload</a>
             </div>
         </ul>
     </div>
