@@ -48,4 +48,8 @@ export class GlobalResources {
             return false;
         }
     }
+
+    getUserDetails(){
+        return JSON.parse(sessionStorage.getItem('userDetails'));
+    }
 }

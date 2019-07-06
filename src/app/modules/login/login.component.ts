@@ -18,17 +18,25 @@ export class LoginComponent implements OnInit {
   user : any = {};
   loading : boolean;
 
-  processLoginForm(loginForm){
+  processLoginForm(){
     console.log(this.user);
-    this.loginService.authenticate(this.user).subscribe(success =>{
-      console.log(success);
-      this.router.navigate(["/admin"]);
+    this.loginService.authenticate(this.user).subscribe((success) =>{
+      if(success.status === 200){
+        sessionStorage.setItem('userDetails', JSON.stringify(success.json()));
+        this.router.navigate(["/admin"]);
+      }
     }, error =>{
       console.log(error);
+      alert("Invalid credentials");
     });
 
-    // if (this.globalResources.validateForm(loginForm)) {
-    //   this.router.navigate(['/admin']);
-    // }
+    
   }
+
+  loginClicked(loginForm){
+    if (this.globalResources.validateForm(loginForm)) {
+      this.processLoginForm();
+    }
+  }
+
 }
