@@ -13,6 +13,9 @@
     */
     flex-grow : 8; 
     flex-basis: 85%;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 #content{

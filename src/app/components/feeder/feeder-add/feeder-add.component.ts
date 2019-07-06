@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-feeder-add',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeederAddComponent implements OnInit {
 
-  constructor() { }
+  formData:any = {};
+  constructor(public globalResources: GlobalResources) { }
 
   ngOnInit() {
+  }
+
+  submitClicked(feederAddForm){
+    if(this.globalResources.validateForm(feederAddForm)){
+      console.log("valid form");
+    }
+  }
+
+  resetClicked(){
+
   }
 
 }
