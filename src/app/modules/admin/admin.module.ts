@@ -7,14 +7,25 @@ import { AdminSubstationAddComponent } from './admin-substation-add/admin-substa
 import { AdminSubstationViewComponent } from './admin-substation-view/admin-substation-view.component';
 import { HeaderModule } from '@eas-components/header/header.module';
 import { SubstationModule } from '@eas-components/substation/substation.module';
+import { AdminFeederAddComponent } from './admin-feeder-add/admin-feeder-add.component';
+import { AdminFeederViewComponent } from './admin-feeder-view/admin-feeder-view.component';
+import { FeederModule } from '@eas-components/feeder/feeder.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HeaderModule,
     SubstationModule,
-    AdminRoutingModule
+    FeederModule,
+    AdminRoutingModule,
   ],
-  declarations: [AdminComponent, AdminHomeComponent, AdminSubstationAddComponent, AdminSubstationViewComponent]
+  declarations: [
+    AdminComponent,
+    AdminHomeComponent,
+    AdminSubstationAddComponent,
+    AdminSubstationViewComponent,
+    AdminFeederAddComponent,
+    AdminFeederViewComponent
+  ]
 })
 export class AdminModule { }
