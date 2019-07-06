@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingMenuService } from '../setting-menu.service';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-setting-update-profile',
@@ -8,13 +9,24 @@ import { SettingMenuService } from '../setting-menu.service';
 })
 export class SettingUpdateProfileComponent implements OnInit {
 
-  constructor(private settingMenuService: SettingMenuService) { 
+  formData: any = {};
+  constructor(private settingMenuService: SettingMenuService, public globalResources: GlobalResources) { 
     if(!this.settingMenuService.SECOND_MENU.active){
       this.settingMenuService.menuClicked(this.settingMenuService.SECOND_MENU);
     }
   }
 
   ngOnInit() {
+  }
+
+  submitClicked(updateProfileForm){
+    if(this.globalResources.validateForm(updateProfileForm)){
+      console.log("valid form");
+    }
+  }
+
+  resetClicked(){
+
   }
 
 }
