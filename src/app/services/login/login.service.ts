@@ -8,7 +8,7 @@ export class LoginService {
 
   constructor(private http: Http) { }
 
-  AUTHENTICATION_URL : string = "/backend/authentication/login";
+  AUTHENTICATION_URL : string = "/ROOT/backend/authentication/login";
   public authenticate(user : any){
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(user.username + ':' + user.password));
