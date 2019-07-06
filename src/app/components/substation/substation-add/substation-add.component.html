@@ -1,79 +1,93 @@
 <div class="card">
   <div class="card-header bg-dark text-white text-center">
-    Substation Add
+      Add 33/11KV Substation
   </div>
   <div class="card-body">
     <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <form #zoneAddForm="ngForm" id="substationAddForm">
-        <div class="form-group form-inline">
-            <label for="regionId" class="required col-md-3">Select Region</label>
-            <select class="form-control col-md-6" [ngClass]="{'is-valid': !regionId.errors && (regionId.dirty || regionId.touched),'is-invalid': regionId.errors && (regionId.dirty || regionId.touched)}"
-              [(ngModel)]="region" name="regionId" id="regionId" #regionId="ngModel" (change)="regionChanged()" required>
-              <option [ngValue]=undefined selected disabled>SELECT</option>
-              <option *ngFor="let region of regions" [ngValue]="region">{{ region?.name | uppercase }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="regionId.errors && (regionId.dirty || regionId.touched)">
-              <div [hidden]="!regionId.errors.required">required field</div>
+      <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+        <form #feederAddForm="ngForm" autocomplete="off">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Region</label>
+            <div class="col-sm-9">
+              <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+                class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required>
+                <option disabled selected [ngValue]='undefind'>Choose...</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+                <div *ngIf="region.errors.required">required field</div>
+              </div>
             </div>
-        </div>
-        <div class="form-group form-inline">
-            <label for="regionId" class="required col-md-3">Select Region</label>
-            <select class="form-control col-md-6" [ngClass]="{'is-valid': !regionId.errors && (regionId.dirty || regionId.touched),'is-invalid': regionId.errors && (regionId.dirty || regionId.touched)}"
-              [(ngModel)]="region" name="regionId" id="regionId" #regionId="ngModel" (change)="regionChanged()" required>
-              <option [ngValue]=undefined selected disabled>SELECT</option>
-              <option *ngFor="let region of regions" [ngValue]="region">{{ region?.name | uppercase }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="regionId.errors && (regionId.dirty || regionId.touched)">
-              <div [hidden]="!regionId.errors.required">required field</div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Circle</label>
+            <div class="col-sm-9">
+              <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
+                class="form-control" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required>
+                <option disabled selected [ngValue]='undefind'>Choose...</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
+                <div *ngIf="circle.errors.required">required field</div>
+              </div>
             </div>
-        </div>
-        <div class="form-group form-inline">
-            <label for="regionId" class="required col-md-3">Select Region</label>
-            <select class="form-control col-md-6" [ngClass]="{'is-valid': !regionId.errors && (regionId.dirty || regionId.touched),'is-invalid': regionId.errors && (regionId.dirty || regionId.touched)}"
-              [(ngModel)]="region" name="regionId" id="regionId" #regionId="ngModel" (change)="regionChanged()" required>
-              <option [ngValue]=undefined selected disabled>SELECT</option>
-              <option *ngFor="let region of regions" [ngValue]="region">{{ region?.name | uppercase }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="regionId.errors && (regionId.dirty || regionId.touched)">
-              <div [hidden]="!regionId.errors.required">required field</div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Division</label>
+            <div class="col-sm-9">
+              <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
+                class="form-control" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required>
+                <option disabled selected [ngValue]='undefind'>Choose...</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
+                <div *ngIf="division.errors.required">required field</div>
+              </div>
             </div>
-        </div>
-        <div class="form-group form-inline">
-            <label for="regionId" class="required col-md-3">Select Region</label>
-            <select class="form-control col-md-6" [ngClass]="{'is-valid': !regionId.errors && (regionId.dirty || regionId.touched),'is-invalid': regionId.errors && (regionId.dirty || regionId.touched)}"
-              [(ngModel)]="region" name="regionId" id="regionId" #regionId="ngModel" (change)="regionChanged()" required>
-              <option [ngValue]=undefined selected disabled>SELECT</option>
-              <option *ngFor="let region of regions" [ngValue]="region">{{ region?.name | uppercase }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="regionId.errors && (regionId.dirty || regionId.touched)">
-              <div [hidden]="!regionId.errors.required">required field</div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Zone</label>
+            <div class="col-sm-9">
+              <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+                class="form-control" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required>
+                <option disabled selected [ngValue]='undefind'>Choose...</option>
+                <option>...</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+                <div *ngIf="zone.errors.required">required field</div>
+              </div>
             </div>
-        </div>
-        <div class="form-group form-inline">
-            <label for="regionId" class="required col-md-3">Select Region</label>
-            <select class="form-control col-md-6" [ngClass]="{'is-valid': !regionId.errors && (regionId.dirty || regionId.touched),'is-invalid': regionId.errors && (regionId.dirty || regionId.touched)}"
-              [(ngModel)]="region" name="regionId" id="regionId" #regionId="ngModel" (change)="regionChanged()" required>
-              <option [ngValue]=undefined selected disabled>SELECT</option>
-              <option *ngFor="let region of regions" [ngValue]="region">{{ region?.name | uppercase }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="regionId.errors && (regionId.dirty || regionId.touched)">
-              <div [hidden]="!regionId.errors.required">required field</div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Substation Name</label>
+            <div class="col-sm-9">
+              <input type="text" [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
+                class="form-control" [(ngModel)]="formData.substationName" #substationName="ngModel" id="substationName"  name="substationName" required>
+              <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
+                <div *ngIf="substationName.errors.required">required field</div>
+              </div>
             </div>
-        </div>
-        <div class="form-group form-inline">
-            <label for="regionId" class="required col-md-3">Select Region</label>
-            <select class="form-control col-md-6" [ngClass]="{'is-valid': !regionId.errors && (regionId.dirty || regionId.touched),'is-invalid': regionId.errors && (regionId.dirty || regionId.touched)}"
-              [(ngModel)]="region" name="regionId" id="regionId" #regionId="ngModel" (change)="regionChanged()" required>
-              <option [ngValue]=undefined selected disabled>SELECT</option>
-              <option *ngFor="let region of regions" [ngValue]="region">{{ region?.name | uppercase }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="regionId.errors && (regionId.dirty || regionId.touched)">
-              <div [hidden]="!regionId.errors.required">required field</div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Substation Name</label>
+            <div class="col-sm-9">
+              <input type="text" [ngClass]="{'is-valid': !substationCode.errors && (substationCode.dirty || substationCode.touched),'is-invalid': substationCode.errors && (substationCode.dirty || substationCode.touched)}"
+                class="form-control" [(ngModel)]="formData.substationCode" #substationCode="ngModel" id="substationCode"  name="substationCode" required>
+              <div class="invalid-feedback" *ngIf="substationCode.errors && (substationCode.dirty || substationCode.touched)">
+                <div *ngIf="substationCode.errors.required">required field</div>
+              </div>
             </div>
-        </div>
-      </form>
-    </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-5 offset-3">
+              <button type="submit" class="btn btn-success form-control" (click)=submitClicked(feederAddForm)>Submit</button>
+            </div>
+            <div class="col-4">
+              <button type="reset" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

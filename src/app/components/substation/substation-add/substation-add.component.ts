@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-substation-add',
@@ -7,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubstationAddComponent implements OnInit {
 
-  region : any = {};
-  constructor() { }
+  formData : any = {};
+  constructor(public globalResources: GlobalResources) { }
 
   ngOnInit() {
+  }
+
+  submitClicked(feederAddForm){
+    if(this.globalResources.validateForm(feederAddForm)){
+      console.log("valid form");
+    }
+  }
+
+  resetClicked(){
+
   }
 
 }
