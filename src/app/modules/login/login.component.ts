@@ -20,15 +20,13 @@ export class LoginComponent implements OnInit {
 
   processLoginForm(loginForm){
     console.log(this.user);
-    this.loginService.authenticate(this.user).subscribe(success =>{
-      console.log(success);
-      this.router.navigate(["/admin"]);
-    }, error =>{
-      console.log(error);
-    });
-
-    // if (this.globalResources.validateForm(loginForm)) {
-    //   this.router.navigate(['/admin']);
-    // }
+    if (this.globalResources.validateForm(loginForm)) {
+      this.loginService.authenticate(this.user).subscribe(success =>{
+        console.log(success);
+        this.router.navigate(["/admin"]);
+      }, error =>{
+        console.log(error);
+      });
+    }
   }
 }
