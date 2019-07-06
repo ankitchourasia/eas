@@ -17,4 +17,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/admin/home']);
   }
 
+  logoutClicked() {
+    this.router.navigate(['/']);
+  }
+
+  settingClicked() {
+    this.router.navigate(['setting'],{ queryParams: { source: this.router.url }, queryParamsHandling: "merge" });
+  }
+
 }

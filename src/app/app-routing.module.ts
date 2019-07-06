@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: 'app/modules/admin/admin.module#AdminModule'
   },
+  {
+    path: 'setting',
+    loadChildren: 'app/modules/setting/setting.module#SettingModule'
+  },
   { 
     path: '**', 
     redirectTo: '/login',

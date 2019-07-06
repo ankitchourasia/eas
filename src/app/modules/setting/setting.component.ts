@@ -1,0 +1,48 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SettingMenuService } from './setting-menu.service';
+
+@Component({
+  selector: 'eas-setting',
+  templateUrl: './setting.component.html',
+  styleUrls: ['./setting.component.css']
+})
+export class SettingComponent implements OnInit {
+
+  public sourceUrl : string;
+  public menus : any[] = new Array();
+  constructor(private route: ActivatedRoute, private router: Router, private settingMenuService: SettingMenuService) { }
+
+  ngOnInit() {
+    this.menus = this.settingMenuService.getMenus();
+    this.route.queryParams.subscribe(params => {
+      this.sourceUrl = params['source'];
+    });
+  }
+
+  public backClicked() : void {
+    this.router.navigate([this.sourceUrl]);
+  }
+
+  public menuClicked(menu : any) : void{
+    let methodName : string = "menuClicked() : ";
+    /**
+     * making global configuration call to get the log prefix
+     */
+    // let logPrefix : string = this.globalConfiguration.getLogPrefix(this.componentName,methodName);
+    // console.log(logPrefix + "clicked");
+    if(menu != null){
+        menu.active = true;
+        this.switchActive(menu);
+        console.log("Navigating to " + menu.name + " with relative to config");
+        this.router.navigate([menu.link],{relativeTo: this.route,queryParamsHandling: "merge"});
+    }
+  }
+
+  public switchActive(menu : any) : void{
+      this.menus.forEach(element =>{
+          if(element.name != menu.name) element.active = false;
+      });
+  }
+
+}
