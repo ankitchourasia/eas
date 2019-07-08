@@ -17,16 +17,34 @@ export class SettingUpdatePasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    let user =this.globalResources.getUserDetails();
+    console.log(user);
   }
 
   submitClicked(updatePasswordForm){
     if(this.globalResources.validateForm(updatePasswordForm)){
-      console.log("valid form");
+      console.log(this.formData);
     }
   }
 
   resetClicked(){
 
+  }
+
+  currentPasswordChanged(currentPasswordNgModel){
+    if(this.formData.currentPassword && this.formData.currentPassword !== "sonal#123"){
+      currentPasswordNgModel.control.setErrors({ 'invalid-password': true })
+    }else if(this.formData.currentPassword && this.formData.currentPassword === "sonal#123"){
+      currentPasswordNgModel.control.setErrors(null)
+    }
+  }
+
+  newPasswordChanged(newPasswordNgModel){
+    if(this.formData.newPassword && this.formData.currentPassword && (this.formData.newPassword === this.formData.currentPassword)){
+      newPasswordNgModel.control.setErrors({ 'same-password': true });
+    }else if(this.formData.newPassword && this.formData.currentPassword && (this.formData.newPassword !== this.formData.currentPassword)){
+      newPasswordNgModel.control.setErrors(null)
+    }
   }
 
 }
