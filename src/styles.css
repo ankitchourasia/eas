@@ -35,3 +35,33 @@
     height: 100vh;
     overflow-y: auto; /*setting overflow for vertical scrollbar in side menu */
 }
+
+.eas-space-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.eas-space-around{
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.eas-space-evenly{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.eas-space-start{
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+
