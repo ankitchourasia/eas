@@ -5,8 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    CommonModule,
-    HttpClientModule
+    CommonModule
   ],
   providers: [LoginService]
 })

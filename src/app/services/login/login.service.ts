@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { HttpResponse, HttpClient } from "@angular/common/http";
 import {map} from 'rxjs/operators';
+import { GlobalConstants } from 'app/utility/global.constants';
 
 @Injectable()
 export class LoginService {
 
   constructor(private http: Http) { }
 
-  AUTHENTICATION_URL : string = "/ROOT/backend/authentication/login";
+  AUTHENTICATION_URL : string = GlobalConstants.URL_PREFIX + "authentication/login";
   public authenticate(user : any){
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(user.username + ':' + user.password));

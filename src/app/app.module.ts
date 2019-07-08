@@ -6,6 +6,8 @@ import { LoginModule } from './modules/login/login.module';
 import { GlobalResources } from './utility/global.resources';
 import { GlobalConstants } from './utility/global.constants';
 import { HttpModule } from '@angular/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthorizationInterceptor } from './interceptors/authorization.interceptor';
 
 @NgModule({
   declarations: [
@@ -13,13 +15,19 @@ import { HttpModule } from '@angular/http';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     HttpModule,
     LoginModule,
     AppRoutingModule
   ],
   providers: [ 
     GlobalResources,
-    GlobalConstants
+    GlobalConstants,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
