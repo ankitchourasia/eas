@@ -25,7 +25,8 @@
     "core-js": "^2.6.1",
     "jquery": "^3.4.1",
     "rxjs": "6.3.3",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^7.1.4",
