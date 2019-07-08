@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     console.log(this.user);
     this.loginService.authenticate(this.user).subscribe((success) =>{
       if(success.status === 200){
+        sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
         sessionStorage.setItem('userDetails', JSON.stringify(success.json()));
         this.router.navigate(["/admin"]);
       }

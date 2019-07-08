@@ -1,3 +1,27 @@
-<p>
-  substation-view works!
-</p>
+<div class="card">
+  <div class="card-header bg-dark text-center text-white">
+    Substation View
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>SNo</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Zone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let substation of substations; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{substation.name | uppercase}}</td>
+            <td>{{substation.code}}</td>
+            <td>{{substation.zone.name | uppercase}} - {{substation.zone.locationCode}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
