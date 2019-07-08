@@ -4,13 +4,21 @@ import { SettingComponent } from './setting.component';
 import { SettingHomeComponent } from './setting-home/setting-home.component';
 import { SettingUpdateProfileComponent } from './setting-update-profile/setting-update-profile.component';
 import { SettingUpdatePasswordComponent } from './setting-update-password/setting-update-password.component';
+import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 const settingRoutes: Routes = [
   {
-    path: '', component: SettingComponent, 
+    path: '', 
+    component: SettingComponent, 
+    canActivate: [CanActivateAuthGuard],
+    data: {
+      expectedRoles: [GlobalConfiguration.ADMIN]
+    },
     children: [
       {
         path: '',
+        canActivateChild: [CanActivateAuthGuard],
         children: [
           {
             path: 'home', component: SettingHomeComponent
