@@ -14,3 +14,24 @@
     border-radius: 10px; */
     background: #343a40;
 }
+
+
+#content{
+    display: flex;
+}
+
+#sideMenu{
+    background: #343a40;
+    flex-grow : 1;
+    flex-basis: 15%;
+}
+
+#mainMenu{
+    flex-grow : 8; 
+    flex-basis: 85%;
+}
+
+#sideMenu > ul {
+    height: 100vh;
+    overflow-y: auto; /*setting overflow for vertical scrollbar in side menu */
+}

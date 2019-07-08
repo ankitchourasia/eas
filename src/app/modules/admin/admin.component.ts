@@ -13,9 +13,4 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
   }
 
-  menuClicked(menuLink){
-    if(menuLink){
-      this.router.navigate([menuLink],{relativeTo: this.route});
-    }
-  }
 }
