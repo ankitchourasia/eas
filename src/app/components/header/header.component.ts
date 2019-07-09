@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-header',
@@ -8,13 +9,15 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  user : any;
+  constructor(private router: Router, public globalResources: GlobalResources) { }
 
   ngOnInit() {
+    this.user = this.globalResources.getUserDetails();
   }
 
   titleClicked(){
-    this.router.navigate(['/admin/home']);
+    this.router.navigate(['/' + this.user.role + '/home']);
   }
 
   logoutClicked() {

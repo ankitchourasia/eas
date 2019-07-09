@@ -3,11 +3,10 @@
     EAS
   </a>
   <div id="welcomeMessage">
-      
       <div class="dropdown">
-          <label class="text-white mx-sm-3">Welcome</label>
-          <a class="badge badge-pill badge-warning dropdown-toggle mx-sm-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-            <span class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</span>{{loggedInUser?.getUsername()}}
+          <label class="text-white">Welcome &nbsp;</label>
+          <a class="dropdown-toggle text-white" role="button" id="dropdownMenuLink" data-toggle="dropdown" href="javascript:void(0);">
+            <span class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</span>{{user?.name | titlecase}}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="javascript:void(0);" (click)="settingClicked()"><span class="fa fa-wrench" aria-hidden="true">&nbsp;&nbsp;</span>Settings</a>
