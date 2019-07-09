@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalResources } from 'app/utility/global.resources';
 import { LoginService } from '@eas-services/login/login.service';
+import { GlobalConstants } from 'app/utility/global.constants';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-login',
@@ -10,7 +12,8 @@ import { LoginService } from '@eas-services/login/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService) { }
+  constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService, private globalConstants : GlobalConstants,
+    private zoneService : ZoneService) { }
 
   ngOnInit() {
   }
@@ -19,12 +22,14 @@ export class LoginComponent implements OnInit {
   loading : boolean;
 
   processLoginForm(){
-    console.log(this.user);
     this.loginService.authenticate(this.user).subscribe((success) =>{
       if(success.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
-        sessionStorage.setItem('userDetails', JSON.stringify(success.json()));
-        this.router.navigate(["/admin"]);
+        let user = success.json();
+        if(user.role === this.globalConstants.ROLE_ADMIN){
+          this.getZones(user);
+          this.router.navigate(["/admin"]);
+        }
       }
     }, error =>{
       console.log(error);
@@ -38,6 +43,15 @@ export class LoginComponent implements OnInit {
     if (this.globalResources.validateForm(loginForm)) {
       this.processLoginForm();
     }
+  }
+
+  getZones(user){
+    this.zoneService.getZonesFromDivisionId(user.division.id).subscribe(success =>{
+      user.zoneList = success;
+      sessionStorage.setItem('userDetails', JSON.stringify(user));
+    }, error =>{
+      console.log(error);
+    });
   }
 
 }

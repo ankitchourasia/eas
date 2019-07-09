@@ -5,7 +5,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
-        <form #feederAddForm="ngForm" autocomplete="off">
+        <form #substationAddForm="ngForm" autocomplete="off">
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Region</label>
             <div class="col-sm-9">
@@ -36,7 +36,7 @@
               <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
                 class="form-control" [(ngModel)]="substation.zoneId" #zone="ngModel" id="zone"  name="zone" required>
                 <option disabled selected [ngValue]='undefind'>Select</option>
-                <option *ngFor="let zone of zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
+                <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
               </select>
               <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
                 <div *ngIf="zone.errors.required">required field</div>
@@ -65,10 +65,10 @@
           </div>
           <div class="form-group row">
             <div class="col-5 offset-3">
-              <button type="submit" class="btn btn-success form-control" (click)=submitClicked(feederAddForm)>Submit</button>
+              <button type="submit" class="btn btn-success form-control" (click)=submitClicked(substationAddForm) [disabled]="loading">Submit</button>
             </div>
             <div class="col-4">
-              <button type="reset" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
+              <button type="reset" class="btn btn-danger form-control">Reset</button>
             </div>
           </div>
         </form>

@@ -11,36 +11,44 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 })
 export class SubstationAddComponent implements OnInit {
 
-  formData = {};
   substation : any = {};
-  zoneList : any = [];
+  // zoneList : any = [];
   user : any;
+  loading : boolean;
   constructor(public globalResources: GlobalResources, private globalConstants : GlobalConstants, private zoneService : ZoneService,
     private substationService : SubstationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.getZones();
-    }
+    // if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    //   this.getZones();
+    // }
   }
 
-  submitClicked(feederAddForm){
-    if(this.globalResources.validateForm(feederAddForm)){
+  submitClicked(substationAddForm){
+    this.loading = true;
+    if(this.globalResources.validateForm(substationAddForm)){
       this.substationService.addSubstation(this.substation).subscribe(success =>{
+        this.loading = false;
+        alert("SubstationAdded successfully");
+        this.substation = {};
+        this.globalResources.resetValidateForm(substationAddForm);
         console.log(success);
       }, error =>{
+        this.loading = false;
         console.log(error);
       })
+    } else{
+      this.loading = false;
     }
   }
 
-  getZones(){
-    this.zoneService.getZonesFromDivisionId(this.user.division.id).subscribe(success =>{
-      this.zoneList = success;
-    }, error =>{
-      console.log(error);
-    })
-  }
+  // getZones(){
+  //   this.zoneService.getZonesFromDivisionId(this.user.division.id).subscribe(success =>{
+  //     this.zoneList = success;
+  //   }, error =>{
+  //     console.log(error);
+  //   })
+  // }
 
 }
