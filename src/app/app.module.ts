@@ -10,6 +10,7 @@ import { CanActivateAuthGuard } from './guards/can-activate.authguard';
 import { GlobalConfiguration } from './utility/global-configuration';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthorizationInterceptor } from './interceptors/authorization.interceptor';
+import { EasServicesModule } from '@eas-services/eas-service.module';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,8 @@ import { AuthorizationInterceptor } from './interceptors/authorization.intercept
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     HttpModule,
+    HttpClientModule,
     LoginModule,
     AppRoutingModule
   ],
