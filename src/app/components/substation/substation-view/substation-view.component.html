@@ -24,98 +24,92 @@
             <td>{{substation.name | uppercase}}</td>
             <td>{{substation.code}}</td>
             <td>{{substation.zone.name | uppercase}} - {{substation.zone.locationCode}}</td>
-            <td><span class="fa fa-pencil" (click)="editButtonClicked(substation)" data-toggle="modal" data-target="#exampleModal"></span></td>
-            <td><span class="fa fa-trash" (click)="deleteButtonClicked(substation)"></span></td>
+            <td><a href="javascript:void(0)" (click)="editButtonClicked(substation)" data-toggle="modal" data-target="#updateSubstationModal"><span class="fa fa-pencil"></span></a></td>
+            <td><a href="javascript:void(0)" (click)="deleteButtonClicked(substation)"><span class="fa fa-trash"></span></a></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
-<ng-template [ngIf]="showModal">
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit Substation</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-              <form #updateSubstattionForm="ngForm" autocomplete="off">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Region</label>
-                  <div class="col-sm-9">
-                    <select class="form-control" id="region" name="region">
-                      <option selected [ngValue]='undefind'>{{user.region.name | uppercase}}</option>
-                    </select>
+<div class="modal fade" id="updateSubstationModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Edit Substation</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form #updateSubstattionForm="ngForm" autocomplete="off">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Region</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="region" name="region">
+                    <option selected [ngValue]='undefind'>{{user.region.name | uppercase}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Circle</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="circle"  name="circle" required>
+                    <option selected>{{user.circle.name | uppercase}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Division</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="division"  name="division" required>
+                    <option selected>{{user.division.name | uppercase}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Zone</label>
+                <div class="col-sm-9">
+                  <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+                    class="form-control" [(ngModel)]="substationToEdit.zoneId" #zone="ngModel" id="zone"  name="zone" required>
+                    <option disabled selected [ngValue]='undefind'>Select</option>
+                    <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+                    <div *ngIf="zone.errors.required">required field</div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Circle</label>
-                  <div class="col-sm-9">
-                    <select class="form-control" id="circle"  name="circle" required>
-                      <option selected>{{user.circle.name | uppercase}}</option>
-                    </select>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                  <input type="text" [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
+                    class="form-control" [(ngModel)]="substationToEdit.name" #substationName="ngModel" id="substationName"  name="substationName" required>
+                  <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
+                    <div *ngIf="substationName.errors.required">required field</div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Division</label>
-                  <div class="col-sm-9">
-                    <select class="form-control" id="division"  name="division" required>
-                      <option selected>{{user.division.name | uppercase}}</option>
-                    </select>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Code</label>
+                <div class="col-sm-9">
+                  <input type="text" [ngClass]="{'is-valid': !substationCode.errors && (substationCode.dirty || substationCode.touched),'is-invalid': substationCode.errors && (substationCode.dirty || substationCode.touched)}"
+                    class="form-control" [(ngModel)]="substationToEdit.code" #substationCode="ngModel" id="substationCode"  name="substationCode" required>
+                  <div class="invalid-feedback" *ngIf="substationCode.errors && (substationCode.dirty || substationCode.touched)">
+                    <div *ngIf="substationCode.errors.required">required field</div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Zone</label>
-                  <div class="col-sm-9">
-                    <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-                      class="form-control" [(ngModel)]="substationToEdit.zoneId" #zone="ngModel" id="zone"  name="zone" required>
-                      <option disabled selected [ngValue]='undefind'>Select</option>
-                      <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
-                    </select>
-                    <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
-                      <div *ngIf="zone.errors.required">required field</div>
-                    </div>
-                  </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-5 offset-3">
+                  <button type="submit" class="btn btn-success form-control" (click)=updateSubstation(updateSubstattionForm)>Submit</button>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Name</label>
-                  <div class="col-sm-9">
-                    <input type="text" [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
-                      class="form-control" [(ngModel)]="substationToEdit.name" #substationName="ngModel" id="substationName"  name="substationName" required>
-                    <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
-                      <div *ngIf="substationName.errors.required">required field</div>
-                    </div>
-                  </div>
+                <div class="col-4">
+                  <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef>Cancel</button>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Code</label>
-                  <div class="col-sm-9">
-                    <input type="text" [ngClass]="{'is-valid': !substationCode.errors && (substationCode.dirty || substationCode.touched),'is-invalid': substationCode.errors && (substationCode.dirty || substationCode.touched)}"
-                      class="form-control" [(ngModel)]="substationToEdit.code" #substationCode="ngModel" id="substationCode"  name="substationCode" required>
-                    <div class="invalid-feedback" *ngIf="substationCode.errors && (substationCode.dirty || substationCode.touched)">
-                      <div *ngIf="substationCode.errors.required">required field</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-5 offset-3">
-                    <button type="submit" class="btn btn-success form-control" (click)=updateSubstation(updateSubstattionForm)>Submit</button>
-                  </div>
-                  <div class="col-4">
-                    <button type="button" class="btn btn-danger form-control" data-dismiss="modal">Cancel</button>
-                  </div>
-                </div>
-              </form>
-        </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
+              </div>
+            </form>
       </div>
     </div>
   </div>
-</ng-template>
+</div>
