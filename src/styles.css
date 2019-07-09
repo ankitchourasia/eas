@@ -57,9 +57,23 @@
     flex-wrap: wrap;
 }
 
-.eas-space-start{
+.eas-flex-start{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.eas-flex-end{
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.eas-flex-center{
+    display: flex;
+    justify-content: center;
     align-items: baseline;
     flex-wrap: wrap;
 }

@@ -3,6 +3,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalResources } from 'app/utility/global.resources';
 import $ from 'jQuery';
 import { GlobalConstants } from 'app/utility/global.constants';
+import { PaginationService } from '@eas-services/pagination/pagination.service';
 
 @Component({
   selector: 'eas-substation-view',
@@ -15,17 +16,29 @@ export class SubstationViewComponent implements OnInit {
   substations : any = [];
   substationToEdit = {};
   showModal : boolean;
-  constructor(private substationService : SubstationService, private globalResources : GlobalResources) { }
+  pagedSubstations : any = [];
+
+  pager: any = {};
+  pageSize: number;
+
+  constructor(private substationService : SubstationService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
     this.getSubstations();
+    this.initializePaginationVariables();
+  }
+
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 10;
   }
 
   getSubstations(){
     this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(success =>{
       console.log(success);
       this.substations = success;
+      this.setPage(1);
     }, error =>{
       console.log(error);
     });
@@ -77,6 +90,17 @@ export class SubstationViewComponent implements OnInit {
         alert("Unable to update substation.");
       })
     }
+  }
+
+  setPage(page: number) {
+    console.log(page);
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+    this.pager = this.paginationService.getPager(this.substations.length, page, this.pageSize);
+    console.log(this.pager);
+    this.pagedSubstations = this.substations.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    console.log(this.pagedSubstations);
   }
 
 }
