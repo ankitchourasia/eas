@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalResources } from 'app/utility/global.resources';
 import $ from 'jQuery';
@@ -21,6 +21,7 @@ export class SubstationViewComponent implements OnInit {
   pager: any = {};
   pageSize: number;
 
+  @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private substationService : SubstationService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
   ngOnInit() {
@@ -83,8 +84,7 @@ export class SubstationViewComponent implements OnInit {
     if(this.globalResources.validateForm(updateSubstationForm)){
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
         alert("Substation Updated successfully.");
-        // this.showModal = false;
-        $('#exampleModal').modal('hide');
+        this.closeModal(this.closeButtonRef);
       }, error =>{
         console.log(error);
         alert("Unable to update substation.");
@@ -101,6 +101,11 @@ export class SubstationViewComponent implements OnInit {
     console.log(this.pager);
     this.pagedSubstations = this.substations.slice(this.pager.startIndex, this.pager.endIndex + 1);
     console.log(this.pagedSubstations);
+  }
+  
+  closeModal(closeButtonRef: ElementRef){
+    console.log(closeButtonRef);
+    closeButtonRef.nativeElement.click();
   }
 
 }
