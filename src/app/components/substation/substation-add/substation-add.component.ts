@@ -30,10 +30,11 @@ export class SubstationAddComponent implements OnInit {
     if(this.globalResources.validateForm(substationAddForm)){
       this.substationService.addSubstation(this.substation).subscribe(success =>{
         this.loading = false;
-        alert("SubstationAdded successfully");
-        this.substation = {};
-        this.globalResources.resetValidateForm(substationAddForm);
-        console.log(success);
+        let alertResponse = this.globalResources.successAlert("Substation added Successfully");
+        alertResponse.then(result =>{
+          this.substation = {};
+          this.globalResources.resetValidateForm(substationAddForm);
+        });
       }, error =>{
         this.loading = false;
         console.log(error);

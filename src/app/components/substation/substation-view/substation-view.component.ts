@@ -63,18 +63,27 @@ export class SubstationViewComponent implements OnInit {
   }
 
   deleteButtonClicked(substation){
-    let confirmResponse : any = confirm("Are you sure to delete this Substation ?")
-    if(confirmResponse){
-      this.deleteSubstation(substation.id, this.user.username);
-    }
+    // let confirmResponse : any = confirm("Are you sure to delete this Substation ?")
+    // if(confirmResponse){
+    //   this.deleteSubstation(substation.id, this.user.username);
+    // }
+    let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this Substation ?")
+    confirmAlertResponse.then((result) => {
+      if(result.value) {
+        this.deleteSubstation(substation.id, this.user.username);
+      }else{
+        console.log("confirm alert else");
+      }
+    });
   }
 
   deleteSubstation(substationId, deletedBy){
     console.log(substationId, deletedBy);
     this.substationService.deleteSubstationById(substationId, deletedBy).subscribe(success => {
-      console.log(success);
-      alert("Substation deleted successfully.");
-      this.getSubstations();
+      let alertResponse = this.globalResources.successAlert("Substation deleted Successfully");
+      alertResponse.then(result =>{
+        this.getSubstations();
+      });
     }, error =>{
       console.log(error);
     });
@@ -83,11 +92,17 @@ export class SubstationViewComponent implements OnInit {
   updateSubstation(updateSubstationForm){
     if(this.globalResources.validateForm(updateSubstationForm)){
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
-        alert("Substation Updated successfully.");
-        this.closeModal(this.closeButtonRef);
+        let alertResponse = this.globalResources.successAlert("Substation updated Successfully");
+        alertResponse.then(result =>{
+          this.closeModal(this.closeButtonRef);
+          console.log("alert result", result);
+        });
       }, error =>{
         console.log(error);
-        alert("Unable to update substation.");
+        let alertResponse = this.globalResources.errorAlert("Unable to update substation.");
+        alertResponse.then(result =>{
+          console.log("alert result", result);
+        });
       })
     }
   }
