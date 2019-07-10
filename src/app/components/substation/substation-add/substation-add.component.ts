@@ -13,7 +13,7 @@ export class SubstationAddComponent implements OnInit {
 
   substation : any = {};
   user : any;
-  loading : boolean;
+  submitButtonClicked : boolean;
   constructor(public globalResources: GlobalResources, private globalConstants : GlobalConstants,
     private zoneService : ZoneService, private substationService : SubstationService) { 
 
@@ -24,21 +24,19 @@ export class SubstationAddComponent implements OnInit {
   }
 
   submitClicked(substationAddForm){
-    this.loading = true;
+    this.submitButtonClicked = true;
     if(this.globalResources.validateForm(substationAddForm)){
       this.substationService.addSubstation(this.substation).subscribe(success =>{
-        this.loading = false;
+        this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation added successfully");
         alertResponse.then(result =>{
           this.substation = {};
           this.globalResources.resetValidateForm(substationAddForm);
         });
       }, error =>{
-        this.loading = false;
+        this.submitButtonClicked = false;
         console.log(error);
       })
-    } else{
-      this.loading = false;
     }
   }
 

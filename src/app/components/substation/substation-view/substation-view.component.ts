@@ -13,14 +13,13 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 export class SubstationViewComponent implements OnInit {
 
   user : any;
-  substations : any = [];
-  substationToEdit = {};
-  showModal : boolean;
-  pagedSubstations : any = [];
+  substations : any;
+  substationToEdit : any;
+  pagedSubstations : any;
 
-  pager: any = {};
+  pager: any ;
   pageSize: number;
-
+  loading : boolean;
   @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private substationService : SubstationService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
@@ -36,11 +35,13 @@ export class SubstationViewComponent implements OnInit {
   }
 
   getSubstations(){
+    this.loading = true;
     this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(success =>{
-      console.log(success);
+      this.loading = false;
       this.substations = success;
       this.setPage(1);
     }, error =>{
+      this.loading = false;
       console.log(error);
     });
   }
@@ -57,12 +58,12 @@ export class SubstationViewComponent implements OnInit {
 		window.open(url);
   }
 
-  editButtonClicked(substation){
-    this.showModal = true;
+  editClicked(substation){
     this.substationToEdit = Object.assign({}, substation);
   }
 
-  deleteButtonClicked(substation){
+  deleteButtonClicked: boolean;
+  deleteClicked(substation){
     let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this substation ?")
     confirmAlertResponse.then((result) => {
       if(result.value) {
@@ -74,20 +75,25 @@ export class SubstationViewComponent implements OnInit {
   }
 
   deleteSubstation(substationId, deletedBy){
-    console.log(substationId, deletedBy);
+    this.deleteButtonClicked = true;
     this.substationService.deleteSubstationById(substationId, deletedBy).subscribe(success => {
+      this.deleteButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("Substation deleted successfully");
       alertResponse.then(result =>{
         this.getSubstations();
       });
     }, error =>{
       console.log(error);
+      this.deleteButtonClicked = false;
     });
   }
 
+  updateButtonClicked: boolean;
   updateSubstation(updateSubstationForm){
     if(this.globalResources.validateForm(updateSubstationForm)){
+      this.updateButtonClicked = true;
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
+        this.updateButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -96,6 +102,7 @@ export class SubstationViewComponent implements OnInit {
         });
       }, error =>{
         console.log(error);
+        this.updateButtonClicked = false;
         let alertResponse = this.globalResources.errorAlert("Unable to update substation.");
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -105,18 +112,14 @@ export class SubstationViewComponent implements OnInit {
   }
 
   setPage(page: number) {
-    console.log(page);
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
     this.pager = this.paginationService.getPager(this.substations.length, page, this.pageSize);
-    console.log(this.pager);
     this.pagedSubstations = this.substations.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedSubstations);
   }
   
   closeModal(closeButtonRef: ElementRef){
-    console.log(closeButtonRef);
     closeButtonRef.nativeElement.click();
   }
 

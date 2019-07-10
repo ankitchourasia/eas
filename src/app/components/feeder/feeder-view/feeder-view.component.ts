@@ -61,7 +61,8 @@ export class FeederViewComponent implements OnInit {
 		window.open(url);
   }
 
-  deleteButtonClicked(feeder){
+  deleteButtonClicked: boolean;
+  deleteClicked(feeder){
     let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this feeder ?")
     confirmAlertResponse.then((result) => {
       if(result.value) {
@@ -73,14 +74,16 @@ export class FeederViewComponent implements OnInit {
   }
 
   deleteFeeder(feederId, deletedBy){
-    console.log(feederId, deletedBy);
+    this.deleteButtonClicked = true;
     this.feederService.deleteFeederById(feederId, deletedBy).subscribe(success => {
+      this.deleteButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("feeder deleted successfully");
       alertResponse.then(result =>{
         this.getFeeders();
       });
     }, error =>{
       console.log(error);
+      this.deleteButtonClicked = false;
     });
   }
 
@@ -107,7 +110,7 @@ export class FeederViewComponent implements OnInit {
   }
   
   updateButtonClicked: boolean;
-  updateClicked(updateFeederForm){
+  updateFeeder(updateFeederForm){
     if(this.globalResources.validateForm(updateFeederForm)){
       this.updateButtonClicked = true;
       this.feederService.updateFeeder(this.feederToEdit, this.user.username).subscribe(success =>{

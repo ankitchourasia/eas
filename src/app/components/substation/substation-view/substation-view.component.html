@@ -1,61 +1,72 @@
-<div class="form-group  eas-flex-end">
-  <button class="button btn btn-primary" (click)="exportClicked()">Export</button>
+<div class="text-center" *ngIf="loading">
+  <div class='form-group'>
+    <span class="spinner-border mx-sm-3" role="status" aria-hidden="true"></span>
+    <label class="font-weight-bold">Loading...</label>
+  </div>
 </div>
-<div class="table-responsive">
-  <table class="table table-bordered text-center">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th>SNo</th>
-        <th>Name</th>
-        <th>Code</th>
-        <th>Zone</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let substation of pagedSubstations; let i = index">
-        <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-        <td>{{substation.name | uppercase}}</td>
-        <td>{{substation.code}}</td>
-        <td>{{substation.zone.locationCode}} - {{substation.zone.name | uppercase}}</td>
-        <td><a href="javascript:void(0)" (click)="editButtonClicked(substation)" data-toggle="modal" data-target="#updateSubstationModal"><span class="fa fa-pencil"></span></a></td>
-        <td><a href="javascript:void(0)" (click)="deleteButtonClicked(substation)"><span class="fa fa-trash"></span></a></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="pagination" *ngIf="substations.length > pageSize" class="eas-flex-center">
-  <nav>
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-      </li>
-    </ul>
-  </nav>
-</div>
-<div class="modal fade" id="updateSubstationModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title">Edit Substation</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+
+<div *ngIf="substations && !loading">
+  <div class="form-group  eas-flex-end">
+    <button class="button btn btn-primary" (click)="exportClicked()">Export</button>
+  </div>
+  <fieldset [disabled]="deleteButtonClicked">
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead class="bg-dark text-white">
+          <tr>
+            <th>SNo</th>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Zone</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let substation of pagedSubstations; let i = index">
+            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td>{{substation.name | uppercase}}</td>
+            <td>{{substation.code}}</td>
+            <td>{{substation.zone.locationCode}} - {{substation.zone.name | uppercase}}</td>
+            <td><a href="javascript:void(0)" (click)="editClicked(substation)" data-toggle="modal" data-target="#updateSubstationModal"><span class="fa fa-pencil"></span></a></td>
+            <td><a href="javascript:void(0)" (click)="deleteClicked(substation)"><span class="fa fa-trash"></span></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+  <div id="pagination" *ngIf="substations && substations.length > pageSize" class="eas-flex-center">
+    <nav>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="modal fade" id="updateSubstationModal" tabindex="-1" role="dialog" *ngIf="substationToEdit">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">Edit Substation</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <fieldset [disabled]="updateButtonClicked">
             <form #updateSubstattionForm="ngForm" autocomplete="off">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Region</label>
@@ -116,13 +127,17 @@
               </div>
               <div class="form-group row">
                 <div class="col-5 offset-3">
-                  <button type="submit" class="btn btn-success form-control" (click)=updateSubstation(updateSubstattionForm)>Submit</button>
+                  <button type="submit" class="btn btn-success form-control" (click)=updateSubstation(updateSubstattionForm)>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span> Update
+                  </button>
                 </div>
                 <div class="col-4">
                   <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef>Cancel</button>
                 </div>
               </div>
             </form>
+          </fieldset>
+        </div>
       </div>
     </div>
   </div>
