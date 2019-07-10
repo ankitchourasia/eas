@@ -9,6 +9,8 @@ import { AdminFeederAddComponent } from './admin-feeder-add/admin-feeder-add.com
 import { AdminFeederViewComponent } from './admin-feeder-view/admin-feeder-view.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
+import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
 
 const adminRoutes: Routes = [
   {
@@ -37,6 +39,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/view',component: AdminFeederViewComponent
+          },
+          {
+            path: 'dtr/add', component: AdminDtrAddComponent
+          },
+          {
+            path: 'dtr/view',component: AdminDtrViewComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

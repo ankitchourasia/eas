@@ -10,6 +10,9 @@ import { SubstationModule } from '@eas-components/substation/substation.module';
 import { AdminFeederAddComponent } from './admin-feeder-add/admin-feeder-add.component';
 import { AdminFeederViewComponent } from './admin-feeder-view/admin-feeder-view.component';
 import { FeederModule } from '@eas-components/feeder/feeder.module';
+import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
+import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
+import { DtrComponentModule } from '@eas-components/dtr/dtr-component.module';
 
 @NgModule({
   imports: [
@@ -17,6 +20,7 @@ import { FeederModule } from '@eas-components/feeder/feeder.module';
     HeaderModule,
     SubstationModule,
     FeederModule,
+    DtrComponentModule,
     AdminRoutingModule,
   ],
   declarations: [
@@ -25,7 +29,9 @@ import { FeederModule } from '@eas-components/feeder/feeder.module';
     AdminSubstationAddComponent,
     AdminSubstationViewComponent,
     AdminFeederAddComponent,
-    AdminFeederViewComponent
+    AdminFeederViewComponent,
+    AdminDtrAddComponent,
+    AdminDtrViewComponent
   ]
 })
 export class AdminModule { }
