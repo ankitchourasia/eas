@@ -9,6 +9,9 @@ import { AdminFeederAddComponent } from './admin-feeder-add/admin-feeder-add.com
 import { AdminFeederViewComponent } from './admin-feeder-view/admin-feeder-view.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { AdminFeederReadingAddComponent } from './admin-feeder-reading-add/admin-feeder-reading-add.component';
+import { AdminFeederReadingViewComponent } from './admin-feeder-reading-view/admin-feeder-reading-view.component';
+import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
 
 const adminRoutes: Routes = [
   {
@@ -37,6 +40,15 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/view',component: AdminFeederViewComponent
+          },
+          {
+            path: 'feeder/reading/add', component: AdminFeederReadingAddComponent
+          },
+          {
+            path: 'feeder/reading/view',component: AdminFeederReadingViewComponent
+          },
+          {
+            path: 'feeder/absent/reading/view',component: AdminFeederAbsentReadingViewComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

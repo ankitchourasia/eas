@@ -10,6 +10,9 @@ import { SubstationModule } from '@eas-components/substation/substation.module';
 import { AdminFeederAddComponent } from './admin-feeder-add/admin-feeder-add.component';
 import { AdminFeederViewComponent } from './admin-feeder-view/admin-feeder-view.component';
 import { FeederModule } from '@eas-components/feeder/feeder.module';
+import { AdminFeederReadingAddComponent } from './admin-feeder-reading-add/admin-feeder-reading-add.component';
+import { AdminFeederReadingViewComponent } from './admin-feeder-reading-view/admin-feeder-reading-view.component';
+import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
 
 @NgModule({
   imports: [
@@ -25,7 +28,10 @@ import { FeederModule } from '@eas-components/feeder/feeder.module';
     AdminSubstationAddComponent,
     AdminSubstationViewComponent,
     AdminFeederAddComponent,
-    AdminFeederViewComponent
+    AdminFeederViewComponent,
+    AdminFeederReadingAddComponent,
+    AdminFeederReadingViewComponent,
+    AdminFeederAbsentReadingViewComponent
   ]
 })
 export class AdminModule { }
