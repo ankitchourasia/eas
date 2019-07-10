@@ -69,8 +69,8 @@ export class GlobalResources {
         return alert.fire({
             html: message,
             animation: true,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
             allowEnterKey: true,
             focusConfirm: true,
             buttonsStyling: false,
