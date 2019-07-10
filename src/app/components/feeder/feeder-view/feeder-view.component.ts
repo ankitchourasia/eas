@@ -14,14 +14,15 @@ import $ from 'jQuery';
 export class FeederViewComponent implements OnInit {
 
   user : any;
-  feeders : any = [];
-  feederToEdit: any = {};
-  showModal : boolean;
-  pagedFeeders : any = [];
+  feeders : any;
+  feederToEdit: any;
   substationList: any;
-  pager: any = {};
+  pager: any;
   pageSize: number;
+  pagedFeeders : any;
+  loading : boolean;
   @ViewChild('modalCloseButtonRef') modalCloseButtonRef: ElementRef;
+  
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
     private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
@@ -37,12 +38,14 @@ export class FeederViewComponent implements OnInit {
   }
 
   getFeeders(){
+    this.loading = true;
     this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(success =>{
-      console.log(success);
+      this.loading = false;
       this.feeders = success;
       this.setPage(1);
     }, error =>{
       console.log(error);
+      this.loading = false;
     });
   }
 
@@ -83,7 +86,6 @@ export class FeederViewComponent implements OnInit {
 
   
   editButtonClicked(feeder){
-    this.showModal = true;
     this.feederToEdit = Object.assign({}, feeder);
     console.log(this.feederToEdit);
     this.getSubstationByZoneId(this.feederToEdit.zoneId);
@@ -104,17 +106,22 @@ export class FeederViewComponent implements OnInit {
     });
   }
   
+  updateButtonClicked: boolean;
   updateClicked(updateFeederForm){
     if(this.globalResources.validateForm(updateFeederForm)){
+      this.updateButtonClicked = true;
       this.feederService.updateFeeder(this.feederToEdit, this.user.username).subscribe(success =>{
+        this.updateButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
           this.closeModal(this.modalCloseButtonRef);
           this.getFeeders();
+          this.feederToEdit = null;
         });
       }, error =>{
         console.log(error);
+        this.updateButtonClicked = false;
         let alertResponse = this.globalResources.errorAlert("Unable to update substation.");
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -124,18 +131,14 @@ export class FeederViewComponent implements OnInit {
   }
 
   setPage(page: number) {
-    console.log(page);
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
     this.pager = this.paginationService.getPager(this.feeders.length, page, this.pageSize);
-    console.log(this.pager);
     this.pagedFeeders = this.feeders.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedFeeders);
   }
   
   closeModal(modalCloseButtonRef: ElementRef){
-    console.log(modalCloseButtonRef);
     modalCloseButtonRef.nativeElement.click();
   }
 

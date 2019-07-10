@@ -13,7 +13,7 @@ export class FeederAddComponent implements OnInit {
   user : any;
   feeder:any;
   substationList: any;
-  loading : boolean;
+  submitButtonClicked : boolean;
   
   constructor(public globalResources: GlobalResources, private feederService : FeederService,
     private substationService: SubstationService) { 
@@ -42,21 +42,21 @@ export class FeederAddComponent implements OnInit {
   }
   
   submitClicked(feederAddForm){
-    this.loading = true;
+    this.submitButtonClicked = true;
     if(this.globalResources.validateForm(feederAddForm)){
       this.feederService.addFeeder(this.feeder).subscribe(success =>{
-        this.loading = false;
+        this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
         alertResponse.then(result =>{
           this.feeder = {};
           this.globalResources.resetValidateForm(feederAddForm);
         });
       }, error =>{
-        this.loading = false;
+        this.submitButtonClicked = false;
         console.log(error);
       })
     } else{
-      this.loading = false;
+      this.submitButtonClicked = false;
     }
   }
 
