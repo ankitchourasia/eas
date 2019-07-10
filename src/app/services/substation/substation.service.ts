@@ -37,4 +37,7 @@ export class SubstationService {
     return this.http.put(this.URL_PREFIX + "substation/" + substation.id, substation, options);
   }
 
+  getSubstationsByZoneId(zoneId){
+    return this.http.get(this.URL_PREFIX + 'substation/zone/' + zoneId);
+  }
 }
