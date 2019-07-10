@@ -12,17 +12,15 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 export class SubstationAddComponent implements OnInit {
 
   substation : any = {};
-  // zoneList : any = [];
   user : any;
   loading : boolean;
-  constructor(public globalResources: GlobalResources, private globalConstants : GlobalConstants, private zoneService : ZoneService,
-    private substationService : SubstationService) { }
+  constructor(public globalResources: GlobalResources, private globalConstants : GlobalConstants,
+    private zoneService : ZoneService, private substationService : SubstationService) { 
+
+  }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    // if(this.user.role === this.globalConstants.ROLE_ADMIN){
-    //   this.getZones();
-    // }
   }
 
   submitClicked(substationAddForm){

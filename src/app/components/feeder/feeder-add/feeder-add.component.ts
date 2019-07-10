@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
+import { FeederService } from '@eas-services/feeder/feeder.service';
 
 @Component({
   selector: 'eas-feeder-add',
@@ -8,15 +9,34 @@ import { GlobalResources } from 'app/utility/global.resources';
 })
 export class FeederAddComponent implements OnInit {
 
-  formData:any = {};
-  constructor(public globalResources: GlobalResources) { }
+  feeder:any = {};
+  user : any;
+  loading : boolean;
+  
+  constructor(public globalResources: GlobalResources, private feederService : FeederService) { 
+
+  }
 
   ngOnInit() {
+    this.user = this.globalResources.getUserDetails();
   }
 
   submitClicked(feederAddForm){
+    this.loading = true;
     if(this.globalResources.validateForm(feederAddForm)){
-      console.log("valid form");
+      this.feederService.addFeeder(this.feeder).subscribe(success =>{
+        this.loading = false;
+        let alertResponse = this.globalResources.successAlert("Feeder added successfully");
+        alertResponse.then(result =>{
+          this.feeder = {};
+          this.globalResources.resetValidateForm(feederAddForm);
+        });
+      }, error =>{
+        this.loading = false;
+        console.log(error);
+      })
+    } else{
+      this.loading = false;
     }
   }
 
