@@ -63,11 +63,7 @@ export class SubstationViewComponent implements OnInit {
   }
 
   deleteButtonClicked(substation){
-    // let confirmResponse : any = confirm("Are you sure to delete this Substation ?")
-    // if(confirmResponse){
-    //   this.deleteSubstation(substation.id, this.user.username);
-    // }
-    let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this Substation ?")
+    let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this substation ?")
     confirmAlertResponse.then((result) => {
       if(result.value) {
         this.deleteSubstation(substation.id, this.user.username);
@@ -80,7 +76,7 @@ export class SubstationViewComponent implements OnInit {
   deleteSubstation(substationId, deletedBy){
     console.log(substationId, deletedBy);
     this.substationService.deleteSubstationById(substationId, deletedBy).subscribe(success => {
-      let alertResponse = this.globalResources.successAlert("Substation deleted Successfully");
+      let alertResponse = this.globalResources.successAlert("Substation deleted successfully");
       alertResponse.then(result =>{
         this.getSubstations();
       });
@@ -92,10 +88,11 @@ export class SubstationViewComponent implements OnInit {
   updateSubstation(updateSubstationForm){
     if(this.globalResources.validateForm(updateSubstationForm)){
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
-        let alertResponse = this.globalResources.successAlert("Substation updated Successfully");
+        let alertResponse = this.globalResources.successAlert("Substation updated successfully");
         alertResponse.then(result =>{
-          this.closeModal(this.closeButtonRef);
           console.log("alert result", result);
+          this.closeModal(this.closeButtonRef);
+          this.getSubstations();
         });
       }, error =>{
         console.log(error);
