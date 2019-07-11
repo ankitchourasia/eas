@@ -45,4 +45,22 @@ export class FeederService {
     return this.http.get(this.URL_PREFIX + 'feeder/reading/last-inserted/feeder/id/' + feederId);
   }
 
+  addFeederReading(feederReading, punchedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", punchedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.post(this.URL_PREFIX + 'feeder/reading', feederReading, options);
+  }
+
+  addFeederMeterReplacement(replacementData, punchedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", punchedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.post(this.URL_PREFIX + 'feeder/meter/replacement', replacementData, options);
+  }
+
 }

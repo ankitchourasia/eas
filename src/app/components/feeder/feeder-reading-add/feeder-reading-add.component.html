@@ -205,7 +205,7 @@
               <label class="col-sm-3 col-form-label">Current Read Date</label>
               <div class="col-sm-9">
                   <input type="date" class="form-control" [ngClass]="{'is-valid': !currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched),'is-invalid': currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)}"
-                  [(ngModel)]="feederReading.currentReadingDate" name="currentReadDate" id="currentReadDate" [min]="feederMeterReplacement ? (feederReading.meterReplacementDate | date : 'yyyy-MM-dd') : (feederReading.prevReadingDate | date : 'yyyy-MM-dd')"
+                  [(ngModel)]="feederReading.currReadingDate" name="currentReadDate" id="currentReadDate" [min]="feederMeterReplacement ? (feederReading.meterReplacementDate | date : 'yyyy-MM-dd') : (feederReading.prevReadingDate | date : 'yyyy-MM-dd')"
                   #currentReadDate="ngModel" required>
                 <div class="invalid-feedback" *ngIf="currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)">
                   <div [hidden]="!currentReadDate.errors.required">Reading date is required</div>

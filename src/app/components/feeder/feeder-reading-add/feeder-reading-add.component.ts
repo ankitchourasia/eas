@@ -65,6 +65,7 @@ export class FeederReadingAddComponent implements OnInit {
       this.previousReading = success;
       this.feederReading.prevReading = this.previousReading.currReading;
       this.feederReading.prevReadingDate = this.previousReading.currReadingDate;
+      this.feederReading.prevReadingDateInString = this.previousReading.currReadingDateInString;
       //this.feederReading.prevReadingDateInString = this.previousReading.currReadingDateInString;
       this.feederReading.prevBillMonth = this.previousReading.billMonth;
       this.feederReading.billMonth = this.getNextBillMonth(this.previousReading.billMonth);
@@ -133,14 +134,33 @@ export class FeederReadingAddComponent implements OnInit {
 
   submitClicked(feederReadingAddForm){
     if(this.globalResources.validateForm(feederReadingAddForm)){
+      this.feederReading.currReadingDateInString = this.feederReading.currReadingDate;
+      // this.feederReading.currReadingDate = new Date(this.feederReading.currReadingDate);
       this.calculateConsumption();
-      this.addFeederReading();
+      if(this.feederMeterReplacement){
+
+      } else{
+        this.addFeederReading();
+      }
     }
   }
 
   addFeederReading(){
-    this.loading = true;
-    
+    console.log(this.feederReading);
+    // this.loading = true;
+    // this.feederService.addFeederReading(this.feederReading, this.user.username).subscribe(success =>{
+    //   console.log(success);
+    // }, error =>{
+    //   console.log(error);
+    // });
+  }
+
+  replaceMeter(){
+    this.feederService.addFeederMeterReplacement(this.feederReading, this.user.username).subscribe(success =>{
+      console.log(success);
+    }, error=>{
+      console.log(error);
+    });
   }
 
   getNextBillMonth(billMonth) : string {
