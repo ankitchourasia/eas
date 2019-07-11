@@ -33,7 +33,7 @@
           <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
-          <div *ngIf="zone.errors.required">required field</div>
+          <div [hidden]="!zone.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
         <input type="text" [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
           class="form-control" [(ngModel)]="substation.name" #substationName="ngModel" id="substationName"  name="substationName" required>
         <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
-          <div *ngIf="substationName.errors.required">required field</div>
+          <div [hidden]="!substationName.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
         <input type="text" [ngClass]="{'is-valid': !substationCode.errors && (substationCode.dirty || substationCode.touched),'is-invalid': substationCode.errors && (substationCode.dirty || substationCode.touched)}"
           class="form-control" [(ngModel)]="substation.code" #substationCode="ngModel" id="substationCode"  name="substationCode" required>
         <div class="invalid-feedback" *ngIf="substationCode.errors && (substationCode.dirty || substationCode.touched)">
-          <div *ngIf="substationCode.errors.required">required field</div>
+          <div [hidden]="!substationCode.errors.required">required field</div>
         </div>
       </div>
     </div>

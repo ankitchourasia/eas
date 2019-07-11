@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
+import { GlobalConstants } from 'app/utility/global.constants';
 
 @Component({
   selector: 'eas-feeder-add',
@@ -15,8 +16,8 @@ export class FeederAddComponent implements OnInit {
   substationList: any;
   submitButtonClicked : boolean;
   
-  constructor(public globalResources: GlobalResources, private feederService : FeederService,
-    private substationService: SubstationService) { 
+  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
+    private feederService : FeederService, private substationService: SubstationService) { 
 
   }
 

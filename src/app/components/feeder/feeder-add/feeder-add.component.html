@@ -33,7 +33,7 @@
           <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
-          <div *ngIf="zone.errors.required">required field</div>
+          <div [hidden]="!zone.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
           <option *ngFor="let substation of substationList" [value]="substation.id">{{substation.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
-          <div *ngIf="substationName.errors.required">required field</div>
+          <div [hidden]="!substationName.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
         <input type="text" [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control" [(ngModel)]="feeder.name" #feederName="ngModel" id="feederName"  name="feederName" required>
         <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
-          <div *ngIf="feederName.errors.required">required field</div>
+          <div [hidden]="!feederName.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@
         <input type="text" [ngClass]="{'is-valid': !groupNo.errors && (groupNo.dirty || groupNo.touched),'is-invalid': groupNo.errors && (groupNo.dirty || groupNo.touched)}"
           class="form-control" [(ngModel)]="feeder.groupNo" #groupNo="ngModel" id="groupNo"  name="groupNo" required>
         <div class="invalid-feedback" *ngIf="groupNo.errors && (groupNo.dirty || groupNo.touched)">
-          <div *ngIf="groupNo.errors.required">required field</div>
+          <div [hidden]="!groupNo.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
         <input type="text" [ngClass]="{'is-valid': !feederIncharge.errors && (feederIncharge.dirty || feederIncharge.touched),'is-invalid': feederIncharge.errors && (feederIncharge.dirty || feederIncharge.touched)}"
           class="form-control" [(ngModel)]="feeder.link" #feederIncharge="ngModel" id="feederIncharge"  name="feederIncharge" required>
         <div class="invalid-feedback" *ngIf="feederIncharge.errors && (feederIncharge.dirty || feederIncharge.touched)">
-          <div *ngIf="feederIncharge.errors.required">required field</div>
+          <div [hidden]="!feederIncharge.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
         <input type="text" [ngClass]="{'is-valid': !gisId.errors && (gisId.dirty || gisId.touched),'is-invalid': gisId.errors && (gisId.dirty || gisId.touched)}"
           class="form-control" [(ngModel)]="feeder.feederGISId" #gisId="ngModel" id="gisId"  name="gisId" required>
         <div class="invalid-feedback" *ngIf="gisId.errors && (gisId.dirty || gisId.touched)">
-          <div *ngIf="gisId.errors.required">required field</div>
+          <div [hidden]="!gisId.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -106,12 +106,10 @@
         <select [ngClass]="{'is-valid': !feederType.errors && (feederType.dirty || feederType.touched),'is-invalid': feederType.errors && (feederType.dirty || feederType.touched)}"
           class="form-control" [(ngModel)]="feeder.type" #feederType="ngModel" id="feederType"  name="feederType" required>
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option [ngValue]="'INTER_DIVISION'">INTER DIVISION</option>
-          <option [ngValue]="'INTER_ZONE'">INTER ZONE</option>
-          <option [ngValue]="'PARENTAL'">PARENTAL</option>
+          <option *ngFor="let feederType of globalConstants.FEEDER_TYPES" [ngValue]="feederType.name">{{feederType.value}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="feederType.errors && (feederType.dirty || feederType.touched)">
-          <div *ngIf="feederType.errors.required">required field</div>
+          <div [hidden]="!feederType.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -121,7 +119,7 @@
         <input type="text" [ngClass]="{'is-valid': !feederMeterNo.errors && (feederMeterNo.dirty || feederMeterNo.touched),'is-invalid': feederMeterNo.errors && (feederMeterNo.dirty || feederMeterNo.touched)}"
           class="form-control" [(ngModel)]="feeder.meterNo" #feederMeterNo="ngModel" id="feederMeterNo"  name="feederMeterNo" required>
         <div class="invalid-feedback" *ngIf="feederMeterNo.errors && (feederMeterNo.dirty || feederMeterNo.touched)">
-          <div *ngIf="feederMeterNo.errors.required">required field</div>
+          <div [hidden]="!feederMeterNo.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -131,8 +129,8 @@
         <input type="number" [ngClass]="{'is-valid': !overallMF.errors && (overallMF.dirty || overallMF.touched),'is-invalid': overallMF.errors && (overallMF.dirty || overallMF.touched)}"
           class="form-control" [(ngModel)]="feeder.mf" #overallMF="ngModel" id="overallMF"  name="overallMF" [min]="1" [max]="10000" step="0.0001" required>
         <div class="invalid-feedback" *ngIf="overallMF.errors && (overallMF.dirty || overallMF.touched)">
-          <div *ngIf="overallMF.errors.required">required field</div>
-          <div [hidden]="!overallMF.errors.max || overallMF.errors.required">cannot be more than 1000</div>
+          <div [hidden]="!overallMF.errors.required">required field</div>
+          <div [hidden]="!overallMF.errors.max || overallMF.errors.required">cannot be more than 10000</div>
           <div [hidden]="!overallMF.errors.min || overallMF.errors.required">cannot be less than 1</div>
         </div>
       </div>
@@ -143,14 +141,10 @@
         <select [ngClass]="{'is-valid': !feederMeterMake.errors && (feederMeterMake.dirty || feederMeterMake.touched),'is-invalid': feederMeterMake.errors && (feederMeterMake.dirty || feederMeterMake.touched)}"
         class="form-control" [(ngModel)]="feeder.meterMake" #feederMeterMake="ngModel" id="feederMeterMake"  name="feederMeterMake" required>
         <option disabled selected [ngValue]='undefind'>Select</option>
-        <option>GENUS</option>
-        <option>HPL</option>
-        <option>OMINI</option>
-        <option>SECURE</option>
-        <option>OTHER</option>
+        <option *ngFor="let meter of globalConstants.METER_MAKES" [ngValue]="meter.name">{{meter.value}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="feederMeterMake.errors && (feederMeterMake.dirty || feederMeterMake.touched)">
-        <div *ngIf="feederMeterMake.errors.required">required field</div>
+        <div [hidden]="!feederMeterMake.errors.required">required field</div>
       </div>
       </div>
     </div>
