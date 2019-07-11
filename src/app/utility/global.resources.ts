@@ -99,6 +99,21 @@ export class GlobalResources {
         });
       }
 
+    makeDateAsDD_MM_YYYY(inputDate) {
+        let day: any;
+        let month: any;
+        let date = new Date(inputDate);
+        let dd = date.getDate();
+        let mm = date.getMonth() + 1;
+        if(dd < 10){ day ='0'+ dd; }
+        else{ day = dd; } 
+        if(mm < 10){ month ='0'+ mm; }
+        else{ month = mm; }
+        
+        let year = date.getFullYear();
+        return (day + "-" + month + "-" + year);
+    };
+
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));
     }

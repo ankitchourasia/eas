@@ -35,8 +35,8 @@ export class FeederAddComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
-    this.substationService.getSubstationsByZoneId(zoneId).subscribe(succcess =>{
-      this.substationList = succcess;
+    this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
+      this.substationList = successResponese;
     }, error =>{
       console.log(error);
     });
@@ -45,19 +45,21 @@ export class FeederAddComponent implements OnInit {
   submitClicked(feederAddForm){
     this.submitButtonClicked = true;
     if(this.globalResources.validateForm(feederAddForm)){
-      this.feederService.addFeeder(this.feeder).subscribe(success =>{
+      this.feederService.addFeeder(this.feeder).subscribe(successResponese =>{
         this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
         alertResponse.then(result =>{
           this.feeder = {};
           this.globalResources.resetValidateForm(feederAddForm);
         });
-      }, error =>{
+      }, errorResponse =>{
+        console.log(errorResponse);
         this.submitButtonClicked = false;
-        console.log(error);
-      })
-    } else{
-      this.submitButtonClicked = false;
+        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        alertResponse.then(result =>{
+          console.log("alert result", result);
+        });
+      });
     }
   }
 

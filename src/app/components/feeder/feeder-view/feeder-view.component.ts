@@ -39,12 +39,12 @@ export class FeederViewComponent implements OnInit {
 
   getFeeders(){
     this.loading = true;
-    this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(success =>{
+    this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(successResponese =>{
       this.loading = false;
-      this.feeders = success;
+      this.feeders = successResponese;
       this.setPage(1);
-    }, error =>{
-      console.log(error);
+    }, errorResponse =>{
+      console.log(errorResponse);
       this.loading = false;
     });
   }
@@ -102,10 +102,10 @@ export class FeederViewComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
-    this.substationService.getSubstationsByZoneId(zoneId).subscribe(succcess =>{
-      this.substationList = succcess;
-    }, error =>{
-      console.log(error);
+    this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
+      this.substationList = successResponese;
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
   
@@ -113,7 +113,7 @@ export class FeederViewComponent implements OnInit {
   updateFeeder(updateFeederForm){
     if(this.globalResources.validateForm(updateFeederForm)){
       this.updateButtonClicked = true;
-      this.feederService.updateFeeder(this.feederToEdit, this.user.username).subscribe(success =>{
+      this.feederService.updateFeeder(this.feederToEdit, this.user.username).subscribe(successResponese =>{
         this.updateButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
         alertResponse.then(result =>{
@@ -122,10 +122,10 @@ export class FeederViewComponent implements OnInit {
           this.getFeeders();
           this.feederToEdit = null;
         });
-      }, error =>{
-        console.log(error);
+      }, errorResponse =>{
+        console.log(errorResponse);
         this.updateButtonClicked = false;
-        let alertResponse = this.globalResources.errorAlert("Unable to update substation.");
+        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
         alertResponse.then(result =>{
           console.log("alert result", result);
         });
@@ -144,6 +144,4 @@ export class FeederViewComponent implements OnInit {
   closeModal(modalCloseButtonRef: ElementRef){
     modalCloseButtonRef.nativeElement.click();
   }
-
-
 }
