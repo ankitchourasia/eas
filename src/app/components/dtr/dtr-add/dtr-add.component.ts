@@ -56,19 +56,20 @@ export class DtrAddComponent implements OnInit {
   }
 
   srDateChanged(){
+    this.dtr.srDate = this.globalResources.makeDateAsDD_MM_YYYY(this.dtr.dummySrDate);
     this.dtr.srDateInString = this.dtr.srDate;
   }
   
   submitClicked(dtrAddForm){
-    this.submitButtonClicked = true;
+    console.log(this.dtr);
     if(this.globalResources.validateForm(dtrAddForm)){
-      this.dtr.srDate = new Date(this.dtr.srDate);
-      this.addDTR(dtrAddForm);
+      // this.addDTR(dtrAddForm);
     }
   }
 
   addDTR(dtrAddForm){
     console.log(this.dtr);
+    this.submitButtonClicked = true;
     this.dtrService.addDTR(this.dtr).subscribe(successResponese =>{
       this.submitButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR added successfully");
@@ -85,4 +86,6 @@ export class DtrAddComponent implements OnInit {
       });
     });
   }
+
+
 }

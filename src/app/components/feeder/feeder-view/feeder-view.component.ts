@@ -144,6 +144,4 @@ export class FeederViewComponent implements OnInit {
   closeModal(modalCloseButtonRef: ElementRef){
     modalCloseButtonRef.nativeElement.click();
   }
-
-
 }
