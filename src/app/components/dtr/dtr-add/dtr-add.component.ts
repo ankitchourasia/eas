@@ -3,6 +3,7 @@ import { GlobalResources } from 'app/utility/global.resources';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalConstants } from 'app/utility/global.constants';
+import { DtrService } from '@eas-services/dtr-service/dtr.service';
 
 @Component({
   selector: 'eas-dtr-add',
@@ -13,11 +14,12 @@ export class DtrAddComponent implements OnInit {
 
   user : any;
   dtr:any;
+  feederList: any;
   substationList: any;
   submitButtonClicked : boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private feederService : FeederService,private substationService: SubstationService) { }
+    private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService) { }
 
   ngOnInit() {
     this.dtr = {};
@@ -25,41 +27,62 @@ export class DtrAddComponent implements OnInit {
     this.user = this.globalResources.getUserDetails();
   }
   zoneChanged(){
-    console.log("zoneChanged");
     this.substationList = null;
+    this.dtr.feederId = undefined;
     this.dtr.substationId = undefined;
     this.getSubstationByZoneId(this.dtr.zoneId);
   }
 
   getSubstationByZoneId(zoneId){
-    this.substationService.getSubstationsByZoneId(zoneId).subscribe(succcess =>{
-      this.substationList = succcess;
+    this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
+      this.substationList = successResponese;
     }, error =>{
       console.log(error);
     });
   }
 
   substationChanged(){
+    this.feederList = null;
+    this.dtr.feederId = undefined;
+    this.getFeederBySubstationId(this.dtr.substationId);  
+  }
 
+  getFeederBySubstationId(substationId){
+    this.feederService.getFeederBySubstationId(substationId).subscribe(successResponese =>{
+      this.feederList = successResponese;
+    },error =>{
+      console.log(error);
+    });
+  }
+
+  srDateChanged(){
+    this.dtr.srDateInString = this.dtr.srDate;
   }
   
-  submitClicked(feederAddForm){
+  submitClicked(dtrAddForm){
     this.submitButtonClicked = true;
-    if(this.globalResources.validateForm(feederAddForm)){
-      this.feederService.addFeeder(this.dtr).subscribe(success =>{
-        this.submitButtonClicked = false;
-        let alertResponse = this.globalResources.successAlert("Feeder added successfully");
-        alertResponse.then(result =>{
-          this.dtr = {};
-          this.globalResources.resetValidateForm(feederAddForm);
-        });
-      }, error =>{
-        this.submitButtonClicked = false;
-        console.log(error);
-      })
-    } else{
-      this.submitButtonClicked = false;
+    if(this.globalResources.validateForm(dtrAddForm)){
+      this.dtr.srDate = new Date(this.dtr.srDate);
+      this.addDTR(dtrAddForm);
     }
   }
 
+  addDTR(dtrAddForm){
+    console.log(this.dtr);
+    this.dtrService.addDTR(this.dtr).subscribe(successResponese =>{
+      this.submitButtonClicked = false;
+      let alertResponse = this.globalResources.successAlert("DTR added successfully");
+      alertResponse.then(result =>{
+        this.dtr = {};
+        this.globalResources.resetValidateForm(dtrAddForm);
+      });
+    }, errorResponse =>{
+      console.log(errorResponse);
+      this.submitButtonClicked = false;
+      let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      alertResponse.then(result =>{
+        console.log("alert result", result);
+      });
+    });
+  }
 }

@@ -28,7 +28,7 @@
       <label class="col-sm-3 col-form-label">Zone</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-          class="form-control" [(ngModel)]="dtr.zoneId" #zone="ngModel" id="zone"  name="zone" required (change)="zoneChanged()">
+          class="form-control" [(ngModel)]="dtr.zoneId" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged()">
           <option disabled selected [ngValue]='undefind'>Select</option>
           <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
         </select>
@@ -41,7 +41,7 @@
       <label class="col-sm-3 col-form-label">Substation Name</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
-          class="form-control" [(ngModel)]="dtr.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="substationChanged()">
+          class="form-control" [(ngModel)]="dtr.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged()">
           <option disabled selected [ngValue]='undefind'>Select</option>
           <option *ngFor="let substation of substationList" [value]="substation.id">{{substation.name | uppercase}}</option>
         </select>
@@ -142,10 +142,11 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Meter S/R</label>
       <div class="col-sm-9">
-        <input type="text" [ngClass]="{'is-valid': !meterSR.errors && (meterSR.dirty || meterSR.touched),'is-invalid': meterSR.errors && (meterSR.dirty || meterSR.touched)}"
-          class="form-control" [(ngModel)]="dtr.dtrMeterSR" #meterSR="ngModel" id="meterSR"  name="meterSR" required>
+        <input type="number" [ngClass]="{'is-valid': !meterSR.errors && (meterSR.dirty || meterSR.touched),'is-invalid': meterSR.errors && (meterSR.dirty || meterSR.touched)}"
+          class="form-control" [(ngModel)]="dtr.dtrMeterSR" #meterSR="ngModel" id="meterSR"  name="meterSR" [min]="0" required>
         <div class="invalid-feedback" *ngIf="meterSR.errors && (meterSR.dirty || meterSR.touched)">
           <div [hidden]="!meterSR.errors.required">required field</div>
+          <div [hidden]="!meterSR.errors.min || meterSR.errors.required">invalid value</div>
         </div>
       </div>
     </div>
@@ -153,7 +154,7 @@
       <label class="col-sm-3 col-form-label">S/R Date</label>
       <div class="col-sm-9">
         <input type="date" [ngClass]="{'is-valid': !srDate.errors && (srDate.dirty || srDate.touched),'is-invalid': srDate.errors && (srDate.dirty || srDate.touched)}"
-          class="form-control" [(ngModel)]="dtr.srDate" #srDate="ngModel" id="srDate"  name="srDate" required>
+          class="form-control" [(ngModel)]="dtr.srDate" #srDate="ngModel" id="srDate"  name="srDate" required (change)="!srDate.errors && srDateChanged()">
         <div class="invalid-feedback" *ngIf="srDate.errors && (srDate.dirty || srDate.touched)">
           <div [hidden]="!srDate.errors.required">required field</div>
         </div>
@@ -174,10 +175,11 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">LT Feeders</label>
       <div class="col-sm-9">
-        <input type="text" [ngClass]="{'is-valid': !ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched),'is-invalid': ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched)}"
-          class="form-control" [(ngModel)]="dtr.ltFeeders" #ltFeeders="ngModel" id="ltFeeders"  name="ltFeeders" required>
+        <input type="number" [ngClass]="{'is-valid': !ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched),'is-invalid': ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched)}"
+          class="form-control" [(ngModel)]="dtr.ltFeeders" #ltFeeders="ngModel" id="ltFeeders"  name="ltFeeders" [min]="1" required>
         <div class="invalid-feedback" *ngIf="ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched)">
           <div [hidden]="!ltFeeders.errors.required">required field</div>
+          <div [hidden]="!ltFeeders.errors.min || ltFeeders.errors.required">invalid value</div>
         </div>
       </div>
     </div>
@@ -185,9 +187,10 @@
       <label class="col-sm-3 col-form-label">Billing RD No.</label>
       <div class="col-sm-9">
         <input type="number" [ngClass]="{'is-valid': !billingRdNo.errors && (billingRdNo.dirty || billingRdNo.touched),'is-invalid': billingRdNo.errors && (billingRdNo.dirty || billingRdNo.touched)}"
-          class="form-control" [(ngModel)]="dtr.billingRDNo" #billingRdNo="ngModel" id="billingRdNo"  name="billingRdNo" required>
+          class="form-control" [(ngModel)]="dtr.billingRDNo" #billingRdNo="ngModel" id="billingRdNo"  name="billingRdNo" [min]="1" required>
         <div class="invalid-feedback" *ngIf="billingRdNo.errors && (billingRdNo.dirty || billingRdNo.touched)">
           <div [hidden]="!billingRdNo.errors.required">required field</div>
+          <div [hidden]="!billingRdNo.errors.min || billingRdNo.errors.required">invalid value</div>
         </div>
       </div>
     </div>
