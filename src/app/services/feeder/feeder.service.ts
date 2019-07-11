@@ -37,4 +37,12 @@ export class FeederService {
     return this.http.put(this.URL_PREFIX + "feeder/" + feeder.id, feeder, options);
   }
 
+  getFeederBySubstationId(substationId){
+    return this.http.get(this.URL_PREFIX + 'feeder/substation/' + substationId);
+  }
+
+  getPreviousReadingByFeederId(feederId){
+    return this.http.get(this.URL_PREFIX + 'feeder/reading/last-inserted/feeder/id/' + feederId);
+  }
+
 }
