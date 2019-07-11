@@ -111,8 +111,13 @@ export class GlobalResources {
         else{ month = mm; }
         
         let year = date.getFullYear();
+        console.log(day + "-" + month + "-" + year);
         return (day + "-" + month + "-" + year);
     };
+
+    getDateFromDatetimestamp(dateWithTimeStamp){
+        return  dateWithTimeStamp.substring(0, 10);
+    }
 
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));

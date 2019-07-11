@@ -94,7 +94,7 @@ export class DtrViewComponent implements OnInit {
   editButtonClicked: boolean;
   editClicked(dtr){
     this.dtrToEdit = Object.assign({}, dtr);
-    console.log(this.dtrToEdit);
+    this.dtrToEdit.srDate = this.globalResources.getDateFromDatetimestamp(this.dtrToEdit.srDate);
     this.getSubstationByZoneId(this.dtrToEdit.zoneId);
     this.getFeederBySubstationId(this.dtrToEdit.substationId);
     this.editButtonClicked = true;
@@ -130,8 +130,7 @@ export class DtrViewComponent implements OnInit {
   }
 
   srDateChanged(){
-    this.dtrToEdit.srDate = this.globalResources.makeDateAsDD_MM_YYYY(this.dtrToEdit.srDate);
-    this.dtrToEdit.srDateInString = this.dtrToEdit.srDate;
+    this.dtrToEdit.srDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.dtrToEdit.srDate);
   }
   
   updateButtonClicked: boolean;
@@ -172,7 +171,6 @@ export class DtrViewComponent implements OnInit {
   }
 
   dtrUpdateModalCancel(dtrUpdateForm){
-    console.log(this.dtrToEdit);
     this.editButtonClicked = false;
     this.globalResources.resetValidateForm(dtrUpdateForm);
   }

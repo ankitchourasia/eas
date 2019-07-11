@@ -57,8 +57,7 @@ export class DtrAddComponent implements OnInit {
   }
 
   srDateChanged(){
-    this.dtr.srDate = this.globalResources.makeDateAsDD_MM_YYYY(this.dtr.dummySrDate);
-    this.dtr.srDateInString = this.dtr.srDate;
+    this.dtr.srDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.dtr.srDate);
   }
   
   submitClicked(dtrAddForm){
