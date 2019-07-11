@@ -26,6 +26,7 @@ export class DtrAddComponent implements OnInit {
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
   }
+  
   zoneChanged(){
     this.substationList = null;
     this.dtr.feederId = undefined;
@@ -61,9 +62,8 @@ export class DtrAddComponent implements OnInit {
   }
   
   submitClicked(dtrAddForm){
-    console.log(this.dtr);
     if(this.globalResources.validateForm(dtrAddForm)){
-      // this.addDTR(dtrAddForm);
+      this.addDTR(dtrAddForm);
     }
   }
 

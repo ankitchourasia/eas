@@ -15,6 +15,10 @@ export class DtrService {
     return this.http.post(this.URL_PREFIX + 'dtr', dtr);
   }
 
+  getDTRByDivisionId(divisionId){
+    return this.http.get(this.URL_PREFIX + 'dtr/division/' + divisionId);
+  }
+
   getDTRByFeederId(feederId){
     return this.http.get(this.URL_PREFIX + 'dtr/feeder/' + feederId);
   }
