@@ -12,6 +12,8 @@ import { GlobalConfiguration } from 'app/utility/global-configuration';
 import { AdminFeederReadingAddComponent } from './admin-feeder-reading-add/admin-feeder-reading-add.component';
 import { AdminFeederReadingViewComponent } from './admin-feeder-reading-view/admin-feeder-reading-view.component';
 import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
+import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
+import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
 
 const adminRoutes: Routes = [
   {
@@ -49,6 +51,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/absent/reading/view',component: AdminFeederAbsentReadingViewComponent
+          },
+          {
+            path: 'dtr/add', component: AdminDtrAddComponent
+          },
+          {
+            path: 'dtr/view',component: AdminDtrViewComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

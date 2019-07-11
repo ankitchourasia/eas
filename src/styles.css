@@ -33,7 +33,7 @@
 
 #sideMenu > ul {
     height: 100vh;
-    overflow-y: auto; /*setting overflow for vertical scrollbar in side menu */
+    overflow-y: auto;
 }
 
 .eas-space-between{

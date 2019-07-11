@@ -13,6 +13,9 @@ import { FeederModule } from '@eas-components/feeder/feeder.module';
 import { AdminFeederReadingAddComponent } from './admin-feeder-reading-add/admin-feeder-reading-add.component';
 import { AdminFeederReadingViewComponent } from './admin-feeder-reading-view/admin-feeder-reading-view.component';
 import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
+import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
+import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
+import { DtrComponentModule } from '@eas-components/dtr/dtr-component.module';
 
 @NgModule({
   imports: [
@@ -20,6 +23,7 @@ import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-rea
     HeaderModule,
     SubstationModule,
     FeederModule,
+    DtrComponentModule,
     AdminRoutingModule,
   ],
   declarations: [
@@ -31,7 +35,9 @@ import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-rea
     AdminFeederViewComponent,
     AdminFeederReadingAddComponent,
     AdminFeederReadingViewComponent,
-    AdminFeederAbsentReadingViewComponent
+    AdminFeederAbsentReadingViewComponent,
+    AdminDtrAddComponent,
+    AdminDtrViewComponent
   ]
 })
 export class AdminModule { }

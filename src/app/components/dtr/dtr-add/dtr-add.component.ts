@@ -5,33 +5,30 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalConstants } from 'app/utility/global.constants';
 
 @Component({
-  selector: 'eas-feeder-add',
-  templateUrl: './feeder-add.component.html',
-  styleUrls: ['./feeder-add.component.css']
+  selector: 'eas-dtr-add',
+  templateUrl: './dtr-add.component.html',
+  styleUrls: ['./dtr-add.component.css']
 })
-export class FeederAddComponent implements OnInit {
+export class DtrAddComponent implements OnInit {
 
   user : any;
-  feeder:any;
+  dtr:any;
   substationList: any;
   submitButtonClicked : boolean;
-  
-  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
-    private feederService : FeederService, private substationService: SubstationService) { 
 
-  }
+  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
+    private feederService : FeederService,private substationService: SubstationService) { }
 
   ngOnInit() {
-    this.feeder = {};
+    this.dtr = {};
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
   }
-
   zoneChanged(){
     console.log("zoneChanged");
     this.substationList = null;
-    this.feeder.substationId = undefined;
-    this.getSubstationByZoneId(this.feeder.zoneId);
+    this.dtr.substationId = undefined;
+    this.getSubstationByZoneId(this.dtr.zoneId);
   }
 
   getSubstationByZoneId(zoneId){
@@ -41,15 +38,19 @@ export class FeederAddComponent implements OnInit {
       console.log(error);
     });
   }
+
+  substationChanged(){
+
+  }
   
   submitClicked(feederAddForm){
     this.submitButtonClicked = true;
     if(this.globalResources.validateForm(feederAddForm)){
-      this.feederService.addFeeder(this.feeder).subscribe(success =>{
+      this.feederService.addFeeder(this.dtr).subscribe(success =>{
         this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
         alertResponse.then(result =>{
-          this.feeder = {};
+          this.dtr = {};
           this.globalResources.resetValidateForm(feederAddForm);
         });
       }, error =>{
@@ -59,10 +60,6 @@ export class FeederAddComponent implements OnInit {
     } else{
       this.submitButtonClicked = false;
     }
-  }
-
-  resetClicked(){
-
   }
 
 }
