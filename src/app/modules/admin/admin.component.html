@@ -1,48 +1,52 @@
 <eas-header></eas-header>
-<div id="content">
-    <div id="sideMenu" class="accordion">
+
+<!-- <div id="content">
+    <div id="sideMenu" class="accordion"> -->
+<div class="row flex-xl-nowrap">
+    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-2 accordion" id="menubar">
         <ul class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">33/11KV Substations</a>
-            <div class="collapse" id="substationCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action sub-menu" routerLinkActive="router-link-active" [routerLink]="['substation/add']">Add</a>
-                <a class="list-group-item list-group-item-action sub-menu" routerLinkActive="router-link-active" [routerLink]="['substation/view']">View</a>
+            <div class="collapse" id="substationCollapseMenu" data-parent="#menubar">
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['substation/add']">Add</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['substation/view']">View</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders</a>
-            <div class="collapse" id="feederCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/add']">Add</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/view']">View</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/reading/add']">Add Reading</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/reading/view']">View Reading</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/absent/reading/view']">View Absent Reading</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/view']">T&D Loss Report</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/add']">T&D Loss Report (Without HT)</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/view']">AT&C Loss Report</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['feeder/add']">Other Report</a>
+            <div class="collapse" id="feederCollapseMenu" data-parent="#menubar">
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Add</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">View</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/add']">Add Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/view']">View Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/absent/reading/view']">View Absent Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">T&D Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">T&D Loss Report (Without HT)</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">AT&C Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Other Report</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
-            <div class="collapse" id="htConsumerCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['11kv/consumer/add']">View Consumers</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['11kv/consumer/view']">View Consumption</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['11kv/consumer/add']">View Absent HT Consumption</a>
+            <div class="collapse" id="htConsumerCollapseMenu" data-parent="#menubar">
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/consumer/add']">View Consumers</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/consumer/view']">View Consumption</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/consumer/add']">View Absent HT Consumption</a>
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
-            <div class="collapse" id="dtrCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/add']">Add</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/view']">View</a>
-                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/add']">Add S/R Reading</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/view']">Add Reading</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/add']">View Reading</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/view']">Loss Report</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/add']">Pre Billing Activity</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['dtr/view']">Other Reports</a> -->
+            <div class="collapse" id="dtrCollapseMenu" data-parent="#menubar">
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/add']">Add</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/view']">View</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/add/initial-read']">Add Initial(S/R) Reading</a>
+                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/view']">Add Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/add']">View Reading</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/view']">Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/add']">Pre Billing Activity</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/view']">Other Reports</a> -->
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
-            <div class="collapse" id="billFileCollapseMenu" data-parent="#sideMenu">
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLink]="['bill/file/add']">Upload</a>
+            <div class="collapse" id="billFileCollapseMenu" data-parent="#menubar">
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['bill/file/add']">Upload</a>
             </div>
         </ul>
     </div>
-    <div id="mainMenu">
+    <!-- <div id="mainMenu"> -->
+    <div class="col-sm-9 col-md-9 col-lg-9 col-xl-10 py-sm-3 py-md-3 pl-sm-0 pl-md-0 pr-auto">
         <router-outlet></router-outlet>
     </div>
 </div>

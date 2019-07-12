@@ -11,29 +11,42 @@ import { ZoneService } from '@eas-services/zone/zone.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+ 
+  user : any;
+  loginErrorText: any;
+  loginError: boolean;
+  submitButtonClicked : boolean;
 
   constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService, private globalConstants : GlobalConstants,
     private zoneService : ZoneService) { }
 
   ngOnInit() {
+    this.user = {};
+    this.loginErrorText = undefined;
   }
 
-  user : any = {};
-  loading : boolean;
-
   processLoginForm(){
-    this.loginService.authenticate(this.user).subscribe((success) =>{
-      if(success.status === 200){
+    this.submitButtonClicked = true;
+    this.loginService.authenticate(this.user).subscribe((successResponse) =>{
+      if(successResponse && successResponse.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
-        let user = success.json();
+        let user = successResponse.json();
         if(user.role === this.globalConstants.ROLE_ADMIN){
           this.getZones(user);
           this.router.navigate(["/admin"]);
+          this.submitButtonClicked = false;
         }
+      }else{
+        this.loginError= true;
+        this.submitButtonClicked = false;
+        this.loginErrorText = "Invalid username/password. Try again!";
       }
-    }, error =>{
-      console.log(error);
-      alert("Invalid credentials");
+    }, errorResponse =>{
+      console.log(errorResponse);
+      this.loginError= true;
+      this.submitButtonClicked = false;
+      this.loginErrorText = "Invalid username/password. Try again!";
+      // alert("Invalid credentials");
     });
 
     
@@ -46,11 +59,11 @@ export class LoginComponent implements OnInit {
   }
 
   getZones(user){
-    this.zoneService.getZonesFromDivisionId(user.division.id).subscribe(success =>{
-      user.zoneList = success;
+    this.zoneService.getZonesFromDivisionId(user.division.id).subscribe(successResponse =>{
+      user.zoneList = successResponse;
       sessionStorage.setItem('userDetails', JSON.stringify(user));
-    }, error =>{
-      console.log(error);
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
