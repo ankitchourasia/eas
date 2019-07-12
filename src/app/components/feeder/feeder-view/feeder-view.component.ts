@@ -4,6 +4,7 @@ import { GlobalConstants } from 'app/utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
+import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import $ from 'jQuery';
 
 @Component({
@@ -24,7 +25,7 @@ export class FeederViewComponent implements OnInit {
   @ViewChild('modalCloseButtonRef') modalCloseButtonRef: ElementRef;
   
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
-    private globalResources : GlobalResources, private paginationService : PaginationService) { }
+    private dtrService : DtrService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();

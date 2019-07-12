@@ -154,7 +154,7 @@
       <label class="col-sm-3 col-form-label">S/R Date</label>
       <div class="col-sm-9">
         <input type="date" [ngClass]="{'is-valid': !srDate.errors && (srDate.dirty || srDate.touched),'is-invalid': srDate.errors && (srDate.dirty || srDate.touched)}"
-          class="form-control" [(ngModel)]="dtr.dummySrDate" #srDate="ngModel" id="srDate"  name="srDate" required (change)="!srDate.errors && srDateChanged()">
+          class="form-control" [(ngModel)]="dtr.srDate" #srDate="ngModel" id="srDate"  name="srDate" required (change)="!srDate.errors && srDateChanged()">
         <div class="invalid-feedback" *ngIf="srDate.errors && (srDate.dirty || srDate.touched)">
           <div [hidden]="!srDate.errors.required">required field</div>
         </div>

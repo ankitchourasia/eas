@@ -111,8 +111,24 @@ export class GlobalResources {
         else{ month = mm; }
         
         let year = date.getFullYear();
+        console.log(day + "-" + month + "-" + year);
         return (day + "-" + month + "-" + year);
     };
+
+    getDateFromDatetimestamp(dateWithTimeStamp){
+    // return  dateWithTimeStamp.substring(0, 10);
+    
+        let mm : any; let dd : any;
+        let day = new Date(dateWithTimeStamp).getDate();
+        let month = new Date(dateWithTimeStamp).getMonth() + 1;
+        let year = new Date(dateWithTimeStamp).getFullYear();
+        if(day < 10){ dd ='0'+ day; }
+        else{ dd = day; } 
+        if(month < 10){ mm ='0'+ month; }
+        else{ mm = month; }
+    
+        return (year + "-" + mm + "-" + dd);
+    }
 
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));
