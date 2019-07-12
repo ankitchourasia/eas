@@ -1,3 +1,237 @@
-<p>
-  feeder-reading-view works!
-</p>
+<div class="card">
+  <div class="card-header bg-dark test-center text-white">
+    Feeder Readings
+  </div>
+  <div class="card-body">
+    <div class="form-group eas-flex-center">
+      <div class="form-inline align-items-baseline">
+        <label class="mx-sm-3">Month</label>
+        <div>
+          <select class="form-control" [(ngModel)]="month" id="selectedMonth" name="selectedMonth" #selectedMonth="ngModel" required
+          [ngClass]="{'is-valid': !selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched),'is-invalid': selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched)}">
+            <option selected [ngValue]='undefind' disabled>Select</option>
+            <option *ngFor="let month of months">{{month}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched)">
+            <div *ngIf="selectedMonth.errors.required">required field</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-inline align-items-baseline">
+        <label class="mx-sm-3">Year</label>
+        <div>
+          <select class="form-control" id="year" [(ngModel)]="year" name="year" #selectedYear="ngModel" required
+          [ngClass]="{'is-valid': !selectedYear.errors && (selectedYear.dirty || selectedYear.touched),'is-invalid': selectedYear.errors && (selectedYear.dirty || selectedYear.touched)}">
+              <option selected [ngValue]='undefind' disabled>Select</option>
+            <option *ngFor="let year of years">{{year}}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="selectedYear.errors && (selectedYear.dirty || selectedYear.touched)">
+            <div *ngIf="selectedYear.errors.required">required field</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary mx-sm-3" (click)="getFeederReadings()" [disabled]="loading || !year || !month" >
+          <span class="spinner-border spinner-border-sm" [hidden]="!loading"></span>Fetch Readings</button>
+      </div>
+    </div>
+    <div>
+      <table class="table table-sm table-bordered text-center">
+        <tr class="bg-dark text-white">
+          <td>S.No</td>
+          <td>Zone</td>
+          <td>Feeder Name</td>
+          <td>Group no</td>
+          <td>Meter No</td>
+          <td>MF</td>
+          <td>Previous Reading</td>
+          <td>Previous Reading Date</td>
+          <td>Bill Month</td>
+          <td>Current Reading</td>
+          <td>Current Reading Date</td>
+          <td>Reading Difference</td>
+          <td>Assessment Unit</td>
+          <td>Metered Consumption</td>
+          <td>Total Consumption</td>
+          <td *ngIf="user.role==='admin'">Edit</td>
+        </tr>
+        <tr *ngFor="let reading of pagedFeederReadings; let i = index">
+          <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+          <td>{{reading.zone.name | uppercase}}</td>
+          <td>{{reading.feeder.name}}</td>
+          <td>{{reading.feeder.groupNo}}</td>
+          <td>{{reading.feeder.meterNo}}</td>
+          <td>{{reading.feeder.mf}}</td>
+          <td>{{reading.prevReading}}</td>
+          <td>{{reading.prevReadingDateInString}}</td>
+          <td>{{reading.billMonth}}</td>
+          <td>{{reading.currReading}}</td>
+          <td>{{reading.currReadingDateInString}}</td>
+          <td>{{reading.readingDiff}}</td>
+          <td>{{reading.assUnit}}</td>
+          <td>{{reading.meterConsumption}}</td>
+          <td>{{reading.totalConsumption}}</td>
+          <td>
+            <a href="javascript:void(0)" (click)="editClicked(reading)" data-toggle="modal" data-target="#updateReadingModal">
+              <span class="fa fa-pencil"></span>
+            </a>
+          </td>
+        </tr>
+        <tr *ngIf="feederReadings && feederReadings.length <= 0">
+          <td colspan="16">No Readings Found</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="pagination" *ngIf="feederReadings && feederReadings.length > pageSize" class="eas-flex-center">
+      <nav>
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+          <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+            <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+            <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+          </li>
+          <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateReadingModal" tabindex="-1" role="dialog" *ngIf="readingToEdit">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title">Edit Reading</h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <fieldset [disabled]="updateButtonClicked">
+                <form #updateReadingForm="ngForm" autocomplete="off">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Zone</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.zone.name | uppercase" name="zoneName" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Bill Month</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.billMonth" name="billMonth" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">feeder</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.feeder.name" name="feederName" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Group No</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.groupNo1" name="groupNo" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">MF</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.mf" name="mf" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Meter No</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.meterNo" name="meterNo" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Previous Read</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.prevReading" name="previousRead" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Previous Read Date</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.prevReadingDateInString | date : 'dd-MM-yyyy'" name="zoneName" disabled>
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Current Reading</label>
+                    <div class="col-sm-9">
+                      <input type="number" [ngClass]="{'is-valid': !currentRead.errors && (currentRead.dirty || currentRead.touched),'is-invalid': currentRead.errors && (currentRead.dirty || currentRead.touched)}"
+                        class="form-control" [(ngModel)]="readingToEdit.currReading" #currentRead="ngModel" id="currentRead"  name="currentRead" [min]="readingToEdit.prevReading" (change)="readingChanged()" required>
+                      <div class="invalid-feedback" *ngIf="currentRead.errors && (currentRead.dirty || currentRead.touched)">
+                        <div *ngIf="currentRead.errors.required">required field</div>
+                        <div [hidden]="!currentRead.errors.min || currentRead.errors.required">Current Read is less than previous read.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Current Read Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" [ngClass]="{'is-valid': !currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched),'is-invalid': currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)}"
+                        [(ngModel)]="readingToEdit.currReadingDate" name="currentReadDate" id="currentReadDate" [min]="readingToEdit.prevReadingDate | date : 'yyyy-MM-dd'"
+                        #currentReadDate="ngModel" required>
+                      <div class="invalid-feedback" *ngIf="currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)">
+                        <div [hidden]="!currentReadDate.errors.required">Reading date is required</div>
+                        <div [hidden]="!currentReadDate.errors.min || currentReadDate.errors.required">Reading date is more than previous reading date</div>
+                      </div>
+                    </div>
+                  </div>  
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Difference</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.readingDiff" name="difference" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Metered Consumption</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.meterConsumption" name="meterConsumption" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Assessment</label>
+                    <div class="col-sm-9">
+                      <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
+                        class="form-control" [(ngModel)]="readingToEdit.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="assessmentChanged()" required>
+                      <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
+                        <div *ngIf="assessment.errors.required">required field</div>
+                        <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Total Consumption</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" [ngModel]="readingToEdit.totalConsumption" name="totalConsumption" disabled>
+                    </div>
+                  </div>                 
+                  <div class="form-group row">
+                    <div class="col-5 offset-3">
+                      <button type="submit" class="btn btn-success form-control" (click)=updateClicked(updateReadingForm)>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span> Update
+                      </button>
+                    </div>
+                    <div class="col-4">
+                      <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef>Cancel</button>
+                    </div>
+                  </div>
+                </form>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

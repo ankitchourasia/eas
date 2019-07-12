@@ -133,4 +133,54 @@ export class GlobalResources {
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));
     }
+
+    getNextBillMonth = function(billMonth){
+        let values = billMonth.split('-');
+        let month = values[0];
+        let year = 	parseInt(values[1]);
+        let nextMonth;
+        let nextYear = year;
+        switch (month) {
+        case "DEC":
+            nextMonth = 'JAN';
+            nextYear = nextYear + 1;
+            break;
+        case "JAN":
+            nextMonth = 'FEB';
+            break;
+        case "FEB":
+            nextMonth = 'MAR';
+            break;
+        case "MAR":
+            nextMonth = 'APR';
+            break;
+        case "APR":
+            nextMonth = 'MAY';
+            break;
+        case "MAY":
+            nextMonth = 'JUN';
+            break;
+        case "JUN":
+            nextMonth = 'JUL';
+            break;
+        case "JUL":
+            nextMonth = 'AUG';
+            break;
+        case "AUG":
+            nextMonth = 'SEP';
+            break;
+        case "SEP":
+            nextMonth = 'OCT';
+            break;
+        case "OCT":
+            nextMonth = 'NOV';
+            break;
+        case "NOV":
+            nextMonth = 'DEC';
+            break;
+        default:
+            break;
+        }
+        return nextMonth.toUpperCase()+"-"+nextYear;
+    }
 }
