@@ -158,21 +158,21 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Initial(S/R) Reading</label>
       <div class="col-sm-9">
-        <input type="number" [ngClass]="{'is-valid': !dtrInitialRead.errors && (dtrInitialRead.dirty || dtrInitialRead.touched),'is-invalid': dtrInitialRead.errors && (dtrInitialRead.dirty || dtrInitialRead.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.initialRead" #dtrInitialRead="ngModel" id="dtrInitialRead"  name="dtrInitialRead" [min]="0" required>
-        <div class="invalid-feedback" *ngIf="dtrInitialRead.errors && (dtrInitialRead.dirty || dtrInitialRead.touched)">
-          <div [hidden]="!dtrInitialRead.errors.required">required field</div>
-          <div [hidden]="!dtrInitialRead.errors.min || dtrInitialRead.errors.required">invalid value</div>
+        <input type="number" [ngClass]="{'is-valid': !dtrInitialReading.errors && (dtrInitialReading.dirty || dtrInitialReading.touched),'is-invalid': dtrInitialReading.errors && (dtrInitialReading.dirty || dtrInitialReading.touched)}"
+          class="form-control" [(ngModel)]="dtrInitialRead.initialRead" #dtrInitialReading="ngModel" id="dtrInitialReading"  name="dtrInitialReading" [min]="0" required>
+        <div class="invalid-feedback" *ngIf="dtrInitialReading.errors && (dtrInitialReading.dirty || dtrInitialReading.touched)">
+          <div [hidden]="!dtrInitialReading.errors.required">required field</div>
+          <div [hidden]="!dtrInitialReading.errors.min || dtrInitialReading.errors.required">invalid value</div>
         </div>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Initial(S/R) Reading Date</label>
       <div class="col-sm-9">
-        <input type="date" [ngClass]="{'is-valid': !dtrInitialRead.errors && (dtrInitialRead.dirty || dtrInitialRead.touched),'is-invalid': dtrInitialRead.errors && (dtrInitialRead.dirty || dtrInitialRead.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.initialRead" #dtrInitialRead="ngModel" id="dtrInitialRead"  name="dtrInitialRead" required>
-        <div class="invalid-feedback" *ngIf="dtrInitialRead.errors && (dtrInitialRead.dirty || dtrInitialRead.touched)">
-          <div [hidden]="!dtrInitialRead.errors.required">required field</div>
+        <input type="date" [ngClass]="{'is-valid': !dtrInitialReadingDate.errors && (dtrInitialReadingDate.dirty || dtrInitialReadingDate.touched),'is-invalid': dtrInitialReadingDate.errors && (dtrInitialReadingDate.dirty || dtrInitialReadingDate.touched)}"
+          class="form-control" [(ngModel)]="dtrInitialReading.initialRead" #dtrInitialReadingDate="ngModel" id="dtrInitialReadingDate"  name="dtrInitialReadingDate" required>
+        <div class="invalid-feedback" *ngIf="dtrInitialReadingDate.errors && (dtrInitialReadingDate.dirty || dtrInitialReadingDate.touched)">
+          <div [hidden]="!dtrInitialReadingDate.errors.required">required field</div>
         </div>
       </div>
     </div>
