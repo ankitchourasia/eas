@@ -14,7 +14,31 @@
     border-radius: 10px; */
     background: #343a40;
 }
+/* 
+::-webkit-scrollbar-track-piece  { 
+    background-color: black;
+} */
 
+::-webkit-scrollbar:horizontal {
+    /* width: 3px; */
+    height: 5px;
+}
+ 
+::-webkit-scrollbar-track:horizontal {
+    background-color: #ebebeb;
+    /* -webkit-border-radius: 10px; */ 
+    /* border-radius: 10px; */
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    /* -webkit-border-radius: 10px;
+    border-radius: 10px; */
+    background: #343a40;
+}
+
+/* ::-webkit-scrollbar-track-piece:horizontal  { 
+    background-color: black;
+} */
 
 #content{
     display: flex;
