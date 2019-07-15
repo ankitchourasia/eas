@@ -15,6 +15,7 @@ import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-rea
 import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
 import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
 import { AdminDtrInitialReadAddComponent } from './admin-dtr-initial-read-add/admin-dtr-initial-read-add.component';
+import { AdminDtrReadingViewComponent } from './admin-dtr-reading-view/admin-dtr-reading-view.component';
 
 const adminRoutes: Routes = [
   {
@@ -60,7 +61,10 @@ const adminRoutes: Routes = [
             path: 'dtr/view',component: AdminDtrViewComponent
           },
           {
-            path: 'dtr/add/initial-read',component: AdminDtrInitialReadAddComponent
+            path: 'dtr/read/add/initial-read',component: AdminDtrInitialReadAddComponent
+          },
+          {
+            path: 'dtr/read/view',component: AdminDtrReadingViewComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'
