@@ -63,4 +63,22 @@ export class FeederService {
     return this.http.post(this.URL_PREFIX + 'feeder/meter/replacement', replacementData, options);
   }
 
+  getFeederReadingsByDivisionId(divisionId, billMonth){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    return this.http.get(this.URL_PREFIX + 'feeder/reading/division/id/' + divisionId, options);
+  }
+
+  updateFeederReading(reading, nextBillMonth, updatedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("nextBillMonth", nextBillMonth)
+    .append("updatedBy", updatedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.put(this.URL_PREFIX + 'feeder/reading/' + reading.id, reading, options);
+  }
 }
