@@ -7,10 +7,21 @@ export class ZoneService {
 
   constructor(private http: HttpClient) { }
 
-  private ZONE_URL = GlobalConstants.URL_PREFIX + "zone"
+  private URL_PREFIX = GlobalConstants.URL_PREFIX;
+  private ZONE_URL = "zone";
 
   getZonesFromDivisionId(divisionId){
-    return this.http.get(this.ZONE_URL + "/division/id/" + divisionId);
+    return this.http.get(this.URL_PREFIX + this.ZONE_URL + "/division/id/" + divisionId);
+  }
+
+  getZonseByDivisionId(divisionId,response){
+    // return this.http.get(this.URL_PREFIX + 'circle/');
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + this.ZONE_URL + 'division/id/' + divisionId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + this.ZONE_URL +  'division/id/' + divisionId);
+    }
   }
 
 }

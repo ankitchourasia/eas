@@ -6,10 +6,10 @@ import { HttpParams, HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FeederService {
+  
+  private URL_PREFIX = GlobalConstants.URL_PREFIX;
 
   constructor(private http : HttpClient) { }
-
-  private URL_PREFIX = GlobalConstants.URL_PREFIX;
 
   addFeeder(feeder){
     return this.http.post(this.URL_PREFIX + 'feeder', feeder);

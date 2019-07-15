@@ -7,9 +7,9 @@ import { GlobalConstants } from 'app/utility/global.constants';
 })
 export class DtrService {
 
-  constructor(private http : HttpClient) { }
-
   private URL_PREFIX = GlobalConstants.URL_PREFIX;
+
+  constructor(private http : HttpClient) { }
 
   addDTR(dtr){
     return this.http.post(this.URL_PREFIX + 'dtr', dtr);

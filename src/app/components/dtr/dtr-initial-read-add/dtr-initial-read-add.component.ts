@@ -4,6 +4,9 @@ import { GlobalConstants } from 'app/utility/global.constants';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
+import { RegionService } from '@eas-services/region-service/region.service';
+import { CircleService } from '@eas-services/circle-service/circle.service';
+import { DivisionService } from '@eas-services/division-service/division.service';
 
 @Component({
   selector: 'eas-dtr-initial-read-add',
@@ -24,7 +27,8 @@ export class DtrInitialReadAddComponent implements OnInit {
   submitButtonClicked : boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService) { }
+    private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService,
+    private regionService: RegionService, private circleService: CircleService, private divisionService: DivisionService) { }
 
   ngOnInit() {
     this.dtrInitialReadAdd = {};
@@ -63,10 +67,20 @@ export class DtrInitialReadAddComponent implements OnInit {
   }
 
   getRegions(){
-  
+    this.regionService.getRegions(false).subscribe(successResponse =>{
+      this.regionList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   regionChanged(reagion){
+    this.dtrInitialReadAdd.circle = undefined;
+    this.dtrInitialReadAdd.division = undefined;
+    this.dtrInitialReadAdd.zone = undefined;
+    this.dtrInitialReadAdd.substation = undefined;
+    this.dtrInitialReadAdd.feeder = undefined;
+    this.dtrInitialReadAdd.dtr = undefined;
     console.log(this.dtrInitialReadAdd);
   }
 
