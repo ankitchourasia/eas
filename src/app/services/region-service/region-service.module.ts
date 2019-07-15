@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtrService } from './dtr.service';
+import { RegionService } from './region.service';
 
 @NgModule({
+  declarations: [],
   imports: [
     CommonModule
   ],
-  declarations: [DtrService],
-  providers: [DtrService],
-  
+  providers: [RegionService]
 })
-export class DtrServiceModule { }
+export class RegionServiceModule { }

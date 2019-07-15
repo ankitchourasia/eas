@@ -100,19 +100,19 @@ export class GlobalResources {
       }
 
     makeDateAsDD_MM_YYYY(inputDate) {
-        let day: any;
-        let month: any;
+        let dd: any;
+        let mm: any;
         let date = new Date(inputDate);
-        let dd = date.getDate();
-        let mm = date.getMonth() + 1;
-        if(dd < 10){ day ='0'+ dd; }
-        else{ day = dd; } 
-        if(mm < 10){ month ='0'+ mm; }
-        else{ month = mm; }
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        if(day < 10){ dd ='0'+ day; }
+        else{ dd = day; } 
+        if(month < 10){ mm ='0'+ month; }
+        else{ mm = month; }
         
         let year = date.getFullYear();
-        console.log(day + "-" + month + "-" + year);
-        return (day + "-" + month + "-" + year);
+        console.log(dd + "-" + mm + "-" + year);
+        return (dd + "-" + mm + "-" + year);
     };
 
     getDateFromDatetimestamp(dateWithTimeStamp){

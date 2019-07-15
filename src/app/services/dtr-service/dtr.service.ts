@@ -40,5 +40,18 @@ export class DtrService {
     };
     return this.http.put(this.URL_PREFIX + "dtr/" + dtr.id, dtr, options);
   }
+
+  getReadingByDTRId(dtrId){
+    return this.http.get(this.URL_PREFIX + 'dtr/reading/dtr/id/' + dtrId);
+  }
+
+  addDTRRead(reading, punchedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", punchedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.post(this.URL_PREFIX + 'dtr/reading/', reading, options);
+  }
   
 }

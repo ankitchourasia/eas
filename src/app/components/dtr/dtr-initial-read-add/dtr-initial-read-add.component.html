@@ -4,9 +4,9 @@
       <label class="col-sm-3 col-form-label">Region</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.regionId" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged()">
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(dtrInitialReadAdd.region)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let region of regionList" [ngValue]="region.id">{{region.name | uppercase}}</option>
+          <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
           <div [hidden]="!region.errors.required">required field</div>
@@ -17,9 +17,9 @@
       <label class="col-sm-3 col-form-label">Circle</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.circleId" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged()">
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(dtrInitialReadAdd.circle)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let circle of circleList" [ngValue]="circle.id">{{circle.name | uppercase}}</option>
+          <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
           <div [hidden]="!circle.errors.required">required field</div>
@@ -30,9 +30,9 @@
       <label class="col-sm-3 col-form-label">Division</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.divisionId" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged()">
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(dtrInitialReadAdd.division)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let division of divisionList" [ngValue]="division.id">{{division.name | uppercase}}</option>
+          <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
           <div [hidden]="!division.errors.required">required field</div>
@@ -43,9 +43,9 @@
       <label class="col-sm-3 col-form-label">Zone</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.zoneId" #zone="ngModel" id="zone"  name="zone" required (blur)="!zone.errors && zoneChanged()">
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(dtrInitialReadAdd.zone)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let zone of zoneList" [ngValue]="zone.id">{{zone.name | uppercase}}</option>
+          <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
           <div [hidden]="!zone.errors.required">required field</div>
@@ -56,9 +56,9 @@
       <label class="col-sm-3 col-form-label">Substation Name</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged()">
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(dtrInitialReadAdd.substation)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let substation of substationList" [ngValue]="substation.id">{{substation.name | uppercase}}</option>
+          <option *ngFor="let substation of substationList" [ngValue]="substation">{{substation.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
           <div [hidden]="!substationName.errors.required">required field</div>
@@ -69,9 +69,9 @@
       <label class="col-sm-3 col-form-label">Feeder Name</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.feederId" #feederName="ngModel" id="feederName"  name="feederName" required>
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(dtrInitialReadAdd.feeder)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let feeder of feederList" [ngValue]="feeder.id">{{feeder.name | uppercase}}</option>
+          <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
         </select>
           <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
           <div [hidden]="!feederName.errors.required">required field</div>
@@ -82,7 +82,7 @@
       <label class="col-sm-3 col-form-label">Group No.</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrGroupNo.errors && (dtrGroupNo.dirty || dtrGroupNo.touched),'is-invalid': dtrGroupNo.errors && (dtrGroupNo.dirty || dtrGroupNo.touched)}"
-          class="form-control" [ngModel]="dtrInitialRead.dtrCode" #dtrGroupNo="ngModel" id="dtrGroupNo"  name="dtrGroupNo" required readonly>
+          class="form-control" [ngModel]="dtrInitialReadAdd.feeder?.groupNo" #dtrGroupNo="ngModel" id="dtrGroupNo"  name="dtrGroupNo" required readonly>
         <div class="invalid-feedback" *ngIf="dtrGroupNo.errors && (dtrGroupNo.dirty || dtrGroupNo.touched)">
           <div [hidden]="!dtrGroupNo.errors.required">required field</div>
         </div>
@@ -94,9 +94,9 @@
         <div class="row">
           <div class="col-6">
             <select [ngClass]="{'is-valid': !billMonth.errors && (billMonth.dirty || billMonth.touched),'is-invalid': billMonth.errors && (billMonth.dirty || billMonth.touched)}"
-              class="form-control" [(ngModel)]="dtrInitialRead.feederId" #billMonth="ngModel" id="billMonth"  name="billMonth" required>
+              class="form-control" [(ngModel)]="dtrInitialReadAdd.month" #billMonth="ngModel" id="billMonth"  name="billMonth" required (change)="!billMonth.errors && billMonthChanged()">
               <option disabled selected [ngValue]='undefind'>Select Month</option>
-              <option *ngFor="let feeder of feederList" [value]="feeder.id">{{feeder.name | uppercase}}</option>
+              <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
             </select>
             <div class="invalid-feedback" *ngIf="billMonth.errors && (billMonth.dirty || billMonth.touched)">
               <div [hidden]="!billMonth.errors.required">required field</div>
@@ -104,9 +104,9 @@
           </div>
           <div class="col-6">
             <select [ngClass]="{'is-valid': !billMonthYear.errors && (billMonthYear.dirty || billMonthYear.touched),'is-invalid': billMonthYear.errors && (billMonthYear.dirty || billMonthYear.touched)}"
-              class="form-control" [(ngModel)]="dtrInitialRead.feederId" #billMonthYear="ngModel" id="billMonthYear"  name="billMonthYear" required>
+              class="form-control" [(ngModel)]="dtrInitialReadAdd.year" #billMonthYear="ngModel" id="billMonthYear"  name="billMonthYear" required (change)="!billMonthYear.errors && billMonthYearChanged()">
               <option disabled selected [ngValue]='undefind'>Select Year</option>
-              <option *ngFor="let feeder of feederList" [value]="feeder.id">{{feeder.name | uppercase}}</option>
+              <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
             </select>
             <div class="invalid-feedback" *ngIf="billMonthYear.errors && (billMonthYear.dirty || billMonthYear.touched)">
               <div [hidden]="!billMonthYear.errors.required">required field</div>
@@ -116,12 +116,15 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">DTR Location Name</label>
+      <label class="col-sm-3 col-form-label">DTR Name</label>
       <div class="col-sm-9">
-        <input type="text" [ngClass]="{'is-valid': !dtrLocationName.errors && (dtrLocationName.dirty || dtrLocationName.touched),'is-invalid': dtrLocationName.errors && (dtrLocationName.dirty || dtrLocationName.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.dtrName" #dtrLocationName="ngModel" id="dtrLocationName"  name="dtrLocationName" required>
-        <div class="invalid-feedback" *ngIf="dtrLocationName.errors && (dtrLocationName.dirty || dtrLocationName.touched)">
-          <div [hidden]="!dtrLocationName.errors.required">required field</div>
+        <select [ngClass]="{'is-valid': !dtrName.errors && (dtrName.dirty || dtrName.touched),'is-invalid': dtrName.errors && (dtrName.dirty || dtrName.touched)}"
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.dtr" #dtrName="ngModel" id="dtrName"  name="dtrName" required (change)="!dtrName.errors && dtrChanged(dtrInitialReadAdd.dtr)">
+          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option *ngFor="let dtr of dtrList" [ngValue]="dtr">{{dtr.dtrName | uppercase}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="dtrName.errors && (dtrName.dirty || dtrName.touched)">
+          <div [hidden]="!dtrName.errors.required">required field</div>
         </div>
       </div>
     </div>
@@ -129,7 +132,7 @@
       <label class="col-sm-3 col-form-label">RD No.</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrRdNo.errors && (dtrRdNo.dirty || dtrRdNo.touched),'is-invalid': dtrRdNo.errors && (dtrRdNo.dirty || dtrRdNo.touched)}"
-          class="form-control" [ngModel]="dtrInitialRead.dtrCode" #dtrRdNo="ngModel" id="dtrRdNo"  name="dtrRdNo" required readonly>
+          class="form-control" [ngModel]="dtrInitialReadAdd.dtr?.billingRDNo" #dtrRdNo="ngModel" id="dtrRdNo"  name="dtrRdNo" required readonly>
         <div class="invalid-feedback" *ngIf="dtrRdNo.errors && (dtrRdNo.dirty || dtrRdNo.touched)">
           <div [hidden]="!dtrRdNo.errors.required">required field</div>
         </div>
@@ -139,7 +142,7 @@
       <label class="col-sm-3 col-form-label">Meter MF</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrMeterMF.errors && (dtrMeterMF.dirty || dtrMeterMF.touched),'is-invalid': dtrMeterMF.errors && (dtrMeterMF.dirty || dtrMeterMF.touched)}"
-          class="form-control" [ngModel]="dtrInitialRead.dtrCode" #dtrMeterMF="ngModel" id="dtrMeterMF"  name="dtrMeterMF" required readonly>
+          class="form-control" [ngModel]="dtrInitialReadAdd.dtr?.overallMF" #dtrMeterMF="ngModel" id="dtrMeterMF"  name="dtrMeterMF" required readonly>
         <div class="invalid-feedback" *ngIf="dtrMeterMF.errors && (dtrMeterMF.dirty || dtrMeterMF.touched)">
           <div [hidden]="!dtrMeterMF.errors.required">required field</div>
         </div>
@@ -149,7 +152,7 @@
       <label class="col-sm-3 col-form-label">Meter No</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched),'is-invalid': dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.dtrMeterNo" #dtrMeterNo="ngModel" id="dtrMeterNo"  name="dtrMeterNo" required>
+          class="form-control" [ngModel]="dtrInitialReadAdd.dtr?.dtrMeterNo" #dtrMeterNo="ngModel" id="dtrMeterNo"  name="dtrMeterNo" required readonly>
         <div class="invalid-feedback" *ngIf="dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched)">
           <div [hidden]="!dtrMeterNo.errors.required">required field</div>
         </div>
@@ -159,7 +162,7 @@
       <label class="col-sm-3 col-form-label">Initial(S/R) Reading</label>
       <div class="col-sm-9">
         <input type="number" [ngClass]="{'is-valid': !dtrInitialReading.errors && (dtrInitialReading.dirty || dtrInitialReading.touched),'is-invalid': dtrInitialReading.errors && (dtrInitialReading.dirty || dtrInitialReading.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.initialRead" #dtrInitialReading="ngModel" id="dtrInitialReading"  name="dtrInitialReading" [min]="0" required>
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.currReading" #dtrInitialReading="ngModel" id="dtrInitialReading"  name="dtrInitialReading" [min]="0" step="0.001" required (change)="!dtrInitialReading.errors && dtrInitialReadingChanged()">
         <div class="invalid-feedback" *ngIf="dtrInitialReading.errors && (dtrInitialReading.dirty || dtrInitialReading.touched)">
           <div [hidden]="!dtrInitialReading.errors.required">required field</div>
           <div [hidden]="!dtrInitialReading.errors.min || dtrInitialReading.errors.required">invalid value</div>
@@ -170,7 +173,7 @@
       <label class="col-sm-3 col-form-label">Initial(S/R) Reading Date</label>
       <div class="col-sm-9">
         <input type="date" [ngClass]="{'is-valid': !dtrInitialReadingDate.errors && (dtrInitialReadingDate.dirty || dtrInitialReadingDate.touched),'is-invalid': dtrInitialReadingDate.errors && (dtrInitialReadingDate.dirty || dtrInitialReadingDate.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialReading.initialRead" #dtrInitialReadingDate="ngModel" id="dtrInitialReadingDate"  name="dtrInitialReadingDate" required>
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.currReadingDate" #dtrInitialReadingDate="ngModel" id="dtrInitialReadingDate"  name="dtrInitialReadingDate" required (change)="!dtrInitialReadingDate.errors && dtrInitialReadingDateChanged()">
         <div class="invalid-feedback" *ngIf="dtrInitialReadingDate.errors && (dtrInitialReadingDate.dirty || dtrInitialReadingDate.touched)">
           <div [hidden]="!dtrInitialReadingDate.errors.required">required field</div>
         </div>
@@ -180,7 +183,7 @@
       <label class="col-sm-3 col-form-label">Difference</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrReadDifference.errors && (dtrReadDifference.dirty || dtrReadDifference.touched),'is-invalid': dtrReadDifference.errors && (dtrReadDifference.dirty || dtrReadDifference.touched)}"
-          class="form-control" [ngModel]="dtrInitialRead.dtrReadDifference" #dtrReadDifference="ngModel" id="dtrReadDifference"  name="dtrReadDifference" required readonly>
+          class="form-control" [ngModel]="dtrInitialReadAdd.readingDiff" #dtrReadDifference="ngModel" id="dtrReadDifference"  name="dtrReadDifference" required readonly>
         <div class="invalid-feedback" *ngIf="dtrReadDifference.errors && (dtrReadDifference.dirty || dtrReadDifference.touched)">
           <div [hidden]="!dtrReadDifference.errors.required">required field</div>
         </div>
@@ -190,7 +193,7 @@
       <label class="col-sm-3 col-form-label">Metered Consumption</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrMeteredConsumption.errors && (dtrMeteredConsumption.dirty || dtrMeteredConsumption.touched),'is-invalid': dtrMeteredConsumption.errors && (dtrMeteredConsumption.dirty || dtrMeteredConsumption.touched)}"
-          class="form-control" [ngModel]="dtrInitialRead.dtrMeteredConsumption" #dtrMeteredConsumption="ngModel" id="dtrMeteredConsumption"  name="dtrMeteredConsumption"required readonly>
+          class="form-control" [ngModel]="dtrInitialReadAdd.meterConsumption" #dtrMeteredConsumption="ngModel" id="dtrMeteredConsumption"  name="dtrMeteredConsumption"required readonly>
         <div class="invalid-feedback" *ngIf="dtrMeteredConsumption.errors && (dtrMeteredConsumption.dirty || dtrMeteredConsumption.touched)">
           <div [hidden]="!dtrMeteredConsumption.errors.required">required field</div>
         </div>
@@ -200,7 +203,7 @@
       <label class="col-sm-3 col-form-label">Assessment Units</label>
       <div class="col-sm-9">
         <input type="number" [ngClass]="{'is-valid': !dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched),'is-invalid': dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)}"
-          class="form-control" [(ngModel)]="dtrInitialRead.dtrAssessmentUnit" #dtrAssessmentUnit="ngModel" id="dtrAssessmentUnit"  name="dtrAssessmentUnit" [min]="0" required>
+          class="form-control" [(ngModel)]="dtrInitialReadAdd.assUnit" #dtrAssessmentUnit="ngModel" id="dtrAssessmentUnit"  name="dtrAssessmentUnit" [min]="0" step="0" required (change)="!dtrAssessmentUnit.errors && dtrAssessmentUnitChanged()">
         <div class="invalid-feedback" *ngIf="dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)">
           <div [hidden]="!dtrAssessmentUnit.errors.required">required field</div>
           <div [hidden]="!dtrAssessmentUnit.errors.min || dtrAssessmentUnit.errors.required">required field</div>
@@ -211,7 +214,7 @@
       <label class="col-sm-3 col-form-label">Total Consumption</label>
       <div class="col-sm-9">
         <input type="text" [ngClass]="{'is-valid': !dtrTotalConsumption.errors && (dtrTotalConsumption.dirty || dtrTotalConsumption.touched),'is-invalid': dtrTotalConsumption.errors && (dtrTotalConsumption.dirty || dtrTotalConsumption.touched)}"
-          class="form-control" [ngModel]="dtrInitialRead.dtrTotalConsumption" #dtrTotalConsumption="ngModel" id="dtrTotalConsumption"  name="dtrTotalConsumption"required readonly>
+          class="form-control" [ngModel]="dtrInitialReadAdd.totalConsumption" #dtrTotalConsumption="ngModel" id="dtrTotalConsumption"  name="dtrTotalConsumption"required readonly>
         <div class="invalid-feedback" *ngIf="dtrTotalConsumption.errors && (dtrTotalConsumption.dirty || dtrTotalConsumption.touched)">
           <div [hidden]="!dtrTotalConsumption.errors.required">required field</div>
         </div>
@@ -219,12 +222,12 @@
     </div>
     <div class="form-group row">
       <div class="col-5 offset-3">
-        <button type="submit" class="btn btn-success form-control" (click)=submitClicked(dtrInitialReadAddForm)>
+        <button type="button" class="btn btn-success form-control" (click)=submitClicked(dtrInitialReadAddForm) [disabled]="errorInReading">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span> Submit
         </button>
       </div>
       <div class="col-4">
-        <button type="reset" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
+        <button type="button" class="btn btn-danger form-control" (click)="clearPartialData()">Reset</button>
       </div>
     </div>
   </form>

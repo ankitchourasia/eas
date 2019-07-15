@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtrService } from './dtr.service';
+import { CircleService } from './circle.service';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [DtrService],
-  providers: [DtrService],
-  
+  declarations: [],
+  providers: [CircleService]
 })
-export class DtrServiceModule { }
+export class CircleServiceModule { }
