@@ -38,14 +38,15 @@ export class DtrInitialReadAddComponent implements OnInit {
   }
 
   checkUserRoll(user){
+    console.log(user);
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
     this.getCurrentYear();
-    if(user.role === 'super_admin'){
-      this.getRegions();
-    }else if(user.role === 'admin'){
+    if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.getRegionList();
+    }else if(user.role === this.globalConstants.ROLE_ADMIN){
       this.zoneList = (user.zoneList);
       this.regionList.push(user.region);
       this.circleList.push(user.circle);
@@ -53,7 +54,7 @@ export class DtrInitialReadAddComponent implements OnInit {
       this.dtrInitialReadAdd.region = user.region;
       this.dtrInitialReadAdd.circle = user.circle;
       this.dtrInitialReadAdd.division = user.division;
-    }else if(user.role === 'field_admin'){
+    }else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(user.zone);
       this.regionList.push(user.region);
       this.circleList.push(user.circle);
@@ -66,7 +67,7 @@ export class DtrInitialReadAddComponent implements OnInit {
     console.log(this.regionList, this.circleList, this.divisionList, this.zoneList);
   }
 
-  getRegions(){
+  getRegionList(){
     this.regionService.getRegions(false).subscribe(successResponse =>{
       this.regionList = successResponse;
     },errorResponse =>{
@@ -74,29 +75,81 @@ export class DtrInitialReadAddComponent implements OnInit {
     });
   }
 
-  regionChanged(reagion){
-    this.dtrInitialReadAdd.circle = undefined;
-    this.dtrInitialReadAdd.division = undefined;
-    this.dtrInitialReadAdd.zone = undefined;
-    this.dtrInitialReadAdd.substation = undefined;
-    this.dtrInitialReadAdd.feeder = undefined;
-    this.dtrInitialReadAdd.dtr = undefined;
-    console.log(this.dtrInitialReadAdd);
+  regionChanged(region){
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.circleList = null;
+      this.dtrInitialReadAdd.circle = undefined;
+      this.divisionList = null;
+      this.dtrInitialReadAdd.division = undefined;
+      this.zoneList = null;
+      this.dtrInitialReadAdd.zone = undefined;
+      this.substationList = null;
+      this.dtrInitialReadAdd.substation = undefined;
+      this.feederList = null;
+      this.dtrInitialReadAdd.feeder = undefined;
+      this.dtrList = null;
+      this.dtrInitialReadAdd.dtr = undefined;
+      this.getCircleListByRegionId(region.id);
+    }
+  }
+
+  getCircleListByRegionId(regionId){
+    this.circleService.getCirclesByRegionId(regionId, false).subscribe(successResponse =>{
+      this.circleList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   circleChanged(circle){
-    console.log(this.dtrInitialReadAdd);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.divisionList = null;
+      this.dtrInitialReadAdd.division = undefined;
+      this.zoneList = null;
+      this.dtrInitialReadAdd.zone = undefined;
+      this.substationList = null;
+      this.dtrInitialReadAdd.substation = undefined;
+      this.feederList = null;
+      this.dtrInitialReadAdd.feeder = undefined;
+      this.dtrList = null;
+      this.dtrInitialReadAdd.dtr = undefined;
+      this.getDivisionListByCircleId(circle.id);
+    }
+  }
+
+  getDivisionListByCircleId(circleId){
+    this.divisionService.getDivisionsByCircleId(circleId, false).subscribe(successResponse =>{
+      this.divisionList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   divisionChanged(division){
-    console.log(this.dtrInitialReadAdd);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.zoneList = null;
+      this.dtrInitialReadAdd.zone = undefined;
+      this.substationList = null;
+      this.dtrInitialReadAdd.substation = undefined;
+      this.feederList = null;
+      this.dtrInitialReadAdd.feeder = undefined;
+      this.dtrList = null;
+      this.dtrInitialReadAdd.dtr = undefined;
+      this.getZoneListByDivisionId(division.id);
+    }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = this.user.zoneList;
   }
   
   zoneChanged(zone){
     this.substationList = null;
-    this.dtrInitialReadAdd.feeder = undefined;
     this.dtrInitialReadAdd.substation = undefined;
-    console.log(this.dtrInitialReadAdd);
+    this.feederList = null;
+    this.dtrInitialReadAdd.feeder = undefined;
+    this.dtrList = null;
+    this.dtrInitialReadAdd.dtr = undefined;
     this.getSubstationByZoneId(zone.id);
   }
 
@@ -111,6 +164,8 @@ export class DtrInitialReadAddComponent implements OnInit {
   substationChanged(substation){
     this.feederList = null;
     this.dtrInitialReadAdd.feeder = undefined;
+    this.dtrList = null;
+    this.dtrInitialReadAdd.dtr = undefined;
     this.getFeederBySubstationId(substation.id);  
   }
 
@@ -164,13 +219,16 @@ export class DtrInitialReadAddComponent implements OnInit {
 
   checkInitialReadingPresent(dtr){
     if(dtr){
-      this.dtrService.getReadingByDTRId(dtr.id).subscribe(successResponse =>{
-        let existingReading = successResponse;
-        if(existingReading){
-          let alertResponse = this.globalResources.errorAlert("Initial Reading(S/R) for DTR <br><strong>" + dtr.dtrName + "</strong> exists!!!.");
-          alertResponse.then(result =>{
-            this.dtrInitialReadAdd.dtr = undefined;
-          });
+      this.dtrService.getReadingByDTRId(dtr.id, true).subscribe(successResponse =>{
+        let result = <any>successResponse;
+        if(result && result.status === 200){
+          let existingReading = result.body;
+          if(existingReading){
+            let alertResponse = this.globalResources.errorAlert("Initial Reading(S/R) for DTR <br><strong>" + dtr.dtrName + "</strong> exists!!!.");
+            alertResponse.then(result =>{
+              this.dtrInitialReadAdd.dtr = undefined;
+            });
+          }
         }
       },errorResponse =>{
         console.log(errorResponse);

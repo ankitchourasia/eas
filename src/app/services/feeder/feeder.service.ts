@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import { GlobalConstants } from 'app/utility/global.constants';
 import { HttpParams, HttpClient } from '@angular/common/http';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeederService {
   
-  private URL_PREFIX = GlobalConstants.URL_PREFIX;
+  private URL_PREFIX = GlobalConfiguration.URL_PREFIX;
+  FEEDER_URL = "feeder/";
 
   constructor(private http : HttpClient) { }
 
   addFeeder(feeder){
-    return this.http.post(this.URL_PREFIX + 'feeder', feeder);
+    return this.http.post(this.URL_PREFIX + this.FEEDER_URL, feeder);
   }
 
   getFeederByDivisionId(divisionId){
-    return this.http.get(this.URL_PREFIX + 'feeder/division/' + divisionId);
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL +'division/' + divisionId);
   }
 
   deleteFeederById(feederId, deletedBy){
@@ -25,7 +26,7 @@ export class FeederService {
     let options = {
       params: httpParams
     };
-    return this.http.delete(this.URL_PREFIX + "feeder/" + feederId, options);
+    return this.http.delete(this.URL_PREFIX + this.FEEDER_URL + feederId, options);
   }
 
   updateFeeder(feeder, updatedBy){
@@ -34,15 +35,15 @@ export class FeederService {
     let options = {
       params: httpParams
     };
-    return this.http.put(this.URL_PREFIX + "feeder/" + feeder.id, feeder, options);
+    return this.http.put(this.URL_PREFIX + this.FEEDER_URL + feeder.id, feeder, options);
   }
 
   getFeederBySubstationId(substationId){
-    return this.http.get(this.URL_PREFIX + 'feeder/substation/' + substationId);
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'substation/' + substationId);
   }
 
   getPreviousReadingByFeederId(feederId){
-    return this.http.get(this.URL_PREFIX + 'feeder/reading/last-inserted/feeder/id/' + feederId);
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'reading/last-inserted/feeder/id/' + feederId);
   }
 
   addFeederReading(feederReading, punchedBy){
@@ -51,7 +52,7 @@ export class FeederService {
     let options = {
       params: httpParams
     };
-    return this.http.post(this.URL_PREFIX + 'feeder/reading', feederReading, options);
+    return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'reading', feederReading, options);
   }
 
   addFeederMeterReplacement(replacementData, punchedBy){
@@ -60,7 +61,7 @@ export class FeederService {
     let options = {
       params: httpParams
     };
-    return this.http.post(this.URL_PREFIX + 'feeder/meter/replacement', replacementData, options);
+    return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'meter/replacement', replacementData, options);
   }
 
   getFeederReadingsByDivisionId(divisionId, billMonth){
@@ -69,7 +70,7 @@ export class FeederService {
     let options = {
       params: httpParams
     };
-    return this.http.get(this.URL_PREFIX + 'feeder/reading/division/id/' + divisionId, options);
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'reading/division/id/' + divisionId, options);
   }
 
   updateFeederReading(reading, nextBillMonth, updatedBy){
@@ -79,6 +80,6 @@ export class FeederService {
     let options = {
       params: httpParams
     };
-    return this.http.put(this.URL_PREFIX + 'feeder/reading/' + reading.id, reading, options);
+    return this.http.put(this.URL_PREFIX + this.FEEDER_URL + 'reading/' + reading.id, reading, options);
   }
 }

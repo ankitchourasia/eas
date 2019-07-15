@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
           this.getZones(user);
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
+        }else if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+          this.router.navigate(["/admin"]);
+          this.submitButtonClicked = false;
+          console.log("inside super-admin");
         }
       }else{
         this.loginError= true;

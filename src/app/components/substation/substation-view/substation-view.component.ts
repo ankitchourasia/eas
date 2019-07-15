@@ -4,6 +4,7 @@ import { GlobalResources } from 'app/utility/global.resources';
 import $ from 'jQuery';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
   selector: 'eas-substation-view',
@@ -51,9 +52,9 @@ export class SubstationViewComponent implements OnInit {
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
     if(this.user.role === 'admin'){
-			fileUrl = GlobalConstants.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/division/" + this.user.division.id;
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/division/" + this.user.division.id;
 		}else{
-			fileUrl = GlobalConstants.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/zone/" + this.user.zone.id;
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/zone/" + this.user.zone.id;
 		}
     var url = [fileUrl, $.param(params)].join('?');
 		window.open(url);

@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DtrService {
 
-  private URL_PREFIX = GlobalConstants.URL_PREFIX;
+  private URL_PREFIX = GlobalConfiguration.URL_PREFIX;
+  private DTR_URL = "dtr/";
 
   constructor(private http : HttpClient) { }
 
   addDTR(dtr){
-    return this.http.post(this.URL_PREFIX + 'dtr', dtr);
+    return this.http.post(this.URL_PREFIX + this.DTR_URL, dtr);
   }
 
   getDTRByDivisionId(divisionId){
-    return this.http.get(this.URL_PREFIX + 'dtr/division/' + divisionId);
+    return this.http.get(this.URL_PREFIX + this.DTR_URL + 'division/' + divisionId);
   }
 
   getDTRByFeederId(feederId){
-    return this.http.get(this.URL_PREFIX + 'dtr/feeder/' + feederId);
+    return this.http.get(this.URL_PREFIX + this.DTR_URL + 'feeder/' + feederId);
   }
 
   deleteDTRById(dtrId, deletedBy){
@@ -29,7 +30,7 @@ export class DtrService {
     let options = {
       params: httpParams
     };
-    return this.http.delete(this.URL_PREFIX + "dtr/" + dtrId, options);
+    return this.http.delete(this.URL_PREFIX + this.DTR_URL + dtrId, options);
   }
 
   updateDTR(dtr, updatedBy){
@@ -38,11 +39,17 @@ export class DtrService {
     let options = {
       params: httpParams
     };
-    return this.http.put(this.URL_PREFIX + "dtr/" + dtr.id, dtr, options);
+    return this.http.put(this.URL_PREFIX + this.DTR_URL + dtr.id, dtr, options);
   }
 
-  getReadingByDTRId(dtrId){
-    return this.http.get(this.URL_PREFIX + 'dtr/reading/dtr/id/' + dtrId);
+  getReadingByDTRId(dtrId, response){
+    // return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/dtr/id/' + dtrId);
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/dtr/id/' + dtrId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/dtr/id/' + dtrId);
+    }
   }
 
   addDTRRead(reading, punchedBy){
@@ -51,7 +58,7 @@ export class DtrService {
     let options = {
       params: httpParams
     };
-    return this.http.post(this.URL_PREFIX + 'dtr/reading/', reading, options);
+    return this.http.post(this.URL_PREFIX + this.DTR_URL + 'reading/', reading, options);
   }
   
 }

@@ -6,6 +6,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import $ from 'jQuery';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-view',
@@ -56,9 +57,9 @@ export class DtrViewComponent implements OnInit {
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
     if(this.user.role === 'admin'){
-			fileUrl = GlobalConstants.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/division/" + this.user.division.id;
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/division/" + this.user.division.id;
 		}else{
-			fileUrl = GlobalConstants.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/zone/" + this.user.zone.id;
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/zone/" + this.user.zone.id;
 		}
     var url = [fileUrl, $.param(params)].join('?');
 		window.open(url);

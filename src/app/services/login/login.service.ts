@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { HttpResponse, HttpClient } from "@angular/common/http";
-import {map} from 'rxjs/operators';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Injectable()
 export class LoginService {
 
+  private URL_PREFIX = GlobalConfiguration.URL_PREFIX;
+  
   constructor(private http: Http) { }
 
-  AUTHENTICATION_URL : string = GlobalConstants.URL_PREFIX + "authentication/login";
+  AUTHENTICATION_URL : string = this.URL_PREFIX + "authentication/login";
   public authenticate(user : any){
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(user.username + ':' + user.password));

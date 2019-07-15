@@ -13,7 +13,7 @@ const settingRoutes: Routes = [
     component: SettingComponent, 
     canActivate: [CanActivateAuthGuard],
     data: {
-      expectedRoles: [GlobalConfiguration.ADMIN]
+      expectedRoles: [GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN]
     },
     children: [
       {

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { GlobalConstants } from 'app/utility/global.constants';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CircleService {
 
-  private URL_PREFIX = GlobalConstants.URL_PREFIX;
+  private URL_PREFIX = GlobalConfiguration.URL_PREFIX;
+  private CIRCLE_URL = "circle/";
 
   constructor(private http : HttpClient) { }
 
@@ -15,9 +16,9 @@ export class CircleService {
     // return this.http.get(this.URL_PREFIX + 'region/');
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.http.get(this.URL_PREFIX + 'circle/region/id/' + regionId,  options);
+      return this.http.get(this.URL_PREFIX + this.CIRCLE_URL + 'region/id/' + regionId,  options);
     }else{
-      return this.http.get(this.URL_PREFIX + 'circle/region/id/' + regionId);
+      return this.http.get(this.URL_PREFIX + this.CIRCLE_URL + 'region/id/' + regionId);
     }
   }
 }
