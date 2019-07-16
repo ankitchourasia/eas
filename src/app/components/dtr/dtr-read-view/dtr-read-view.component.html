@@ -27,8 +27,8 @@
         </div>
       </div>
     </div>
-    <div *ngIf="dtrReadingList && dtrReadingList.length">
-      <button type="button" class="btn btn-primary" (click)="exportClicked()"><span class="fa fa-download"></span> Export</button>
+    <div>
+      <button type="button" class="btn btn-primary" (click)="exportClicked()" [disabled]="month.errors && year.errors"><span class="fa fa-download"></span> Export</button>
     </div>
   </div>
 

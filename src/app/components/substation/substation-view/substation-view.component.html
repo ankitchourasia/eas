@@ -7,7 +7,7 @@
 
 <div *ngIf="substations && !loading">
   <div class="form-group  eas-flex-end">
-    <button class="button btn btn-primary" (click)="exportClicked()">Export</button>
+    <button class="button btn btn-primary" (click)="exportClicked()"><span class="fa fa-download"></span> Export</button>
   </div>
   <fieldset [disabled]="deleteButtonClicked">
     <div class="table-responsive mb-2">
