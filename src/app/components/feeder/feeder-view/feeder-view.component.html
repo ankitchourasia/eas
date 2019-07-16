@@ -10,24 +10,24 @@
     <button class="button btn btn-primary" (click)="exportClicked()"><span class="fa fa-download">&nbsp;Export</span></button>
   </div>
   <fieldset [disabled]="deleteButtonClicked">
-    <div class="table-responsive form-group">
-      <table class="table table-bordered text-center">
+    <div class="table-responsive mb-2">
+      <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
           <tr>
-            <th>SNo</th>
-            <th>Zone</th>
-            <th>Substation</th>
-            <th>Feeder Name</th>
-            <th>Group No.</th>
-            <th>Feeder Incharge</th>
-            <th>STM ID</th>
-            <th>GIS ID</th>
-            <th>Feeder Type</th>
-            <th>Meter No.</th>
-            <th>MF</th>
-            <th>Meter Make</th>
-            <th>Edit</th>
-            <th *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</th>
+            <td>SNo</td>
+            <td>Zone</td>
+            <td>Substation</td>
+            <td>Feeder Name</td>
+            <td>Group No.</td>
+            <td>Feeder Incharge</td>
+            <td>STM ID</td>
+            <td>GIS ID</td>
+            <td>Feeder Type</td>
+            <td>Meter No.</td>
+            <td>MF</td>
+            <td>Meter Make</td>
+            <td>Edit</td>
+            <td *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +54,9 @@
                 <span class="fa fa-trash"></span>
               </a>
             </td>
+          </tr>
+          <tr *ngIf="feeders && feeders.length <= 0">
+            <td colspan="14">No Records Found</td>
           </tr>
         </tbody>
       </table>

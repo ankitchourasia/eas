@@ -27,12 +27,6 @@ export class SubstationViewComponent implements OnInit {
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
     this.getSubstations();
-    this.initializePaginationVariables();
-  }
-
-  initializePaginationVariables(){
-    this.pager = {};
-    this.pageSize = 10;
   }
 
   getSubstations(){
@@ -40,7 +34,7 @@ export class SubstationViewComponent implements OnInit {
     this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(success =>{
       this.loading = false;
       this.substations = success;
-      this.initiatePager(this.substations.length, 1, this.pageSize);
+      this.initializePaginationVariables();
       this.setPage(1);
     }, error =>{
       this.loading = false;
@@ -115,6 +109,12 @@ export class SubstationViewComponent implements OnInit {
 
   initiatePager(totalCount, pageNo, pageSize){
     this.pager = this.paginationService.getPager(totalCount, pageNo, pageSize);
+  }
+
+  
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 10;
   }
 
   setPage(page: number) {

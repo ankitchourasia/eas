@@ -52,13 +52,47 @@ export class DtrService {
     }
   }
 
-  addDTRRead(reading, punchedBy){
+  getReadingByDivisionId(billMonth, divisionId, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/division/id/' + divisionId,  options);
+  }
+
+  getReadingByZoneId(billMonth, zoneId, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/zone/id/' + zoneId,  options);
+  }
+
+  addDTRRead(dtrReading, punchedBy){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("punchedBy", punchedBy);
     let options = {
       params: httpParams
     };
-    return this.http.post(this.URL_PREFIX + this.DTR_URL + 'reading/', reading, options);
+    return this.http.post(this.URL_PREFIX + this.DTR_URL + 'reading/', dtrReading, options);
+  }
+
+  updateDTRRead(dtrReading, nextBillMonth, updatedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("updatedBy", updatedBy);
+    httpParams = httpParams.append("nextBillMonth", nextBillMonth);
+    let options = {
+      params: httpParams
+    };
+    return this.http.put(this.URL_PREFIX + this.DTR_URL + 'reading/'+ dtrReading.id, dtrReading, options);
   }
   
 }

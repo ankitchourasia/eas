@@ -10,28 +10,28 @@
     <button class="button btn btn-primary" (click)="exportClicked()"><span class="fa fa-download">&nbsp;Export</span></button>
   </div>
   <fieldset [disabled]="deleteButtonClicked">
-    <div class="table-responsive form-group">
-      <table class="table table-bordered text-center">
+    <div class="table-responsive mb-2">
+      <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
           <tr>
-            <th>SNo</th>
-            <th>Zone</th>
-            <th>Substation</th>
-            <th>Feeder Name</th>
-            <th>DTR Name</th>
-            <th>RD No.</th>
-            <th>Overall Mf</th>
-            <th>Meter Make</th>
-            <th>Meter No.</th>
-            <th>Capacity</th>
-            <th>Location Code</th>
-            <th>No of Meters</th>
-            <th>Meter Capacity</th>
-            <th>Meter S/R</th>
-            <th>S/R Date</th>
-            <th>LT Feeders</th>
-            <th>Edit</th>
-            <th *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</th>
+            <td>SNo</td>
+            <td>Zone</td>
+            <td>Substation</td>
+            <td>Feeder Name</td>
+            <td>DTR Name</td>
+            <td>RD No.</td>
+            <td>Overall Mf</td>
+            <td>Meter Make</td>
+            <td>Meter No.</td>
+            <td>Capacity</td>
+            <td>Location Code</td>
+            <td>No of Meters</td>
+            <td>Meter Capacity</td>
+            <td>Meter S/R</td>
+            <td>S/R Date</td>
+            <td>LT Feeders</td>
+            <td>Edit</td>
+            <td *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
           </tr>
         </thead>
         <tbody>
@@ -62,6 +62,9 @@
                 <span class="fa fa-trash"></span>
               </a>
             </td>
+          </tr>
+          <tr *ngIf="dtrs && dtrs.length <= 0">
+            <td colspan="18">No Records Found</td>
           </tr>
         </tbody>
       </table>

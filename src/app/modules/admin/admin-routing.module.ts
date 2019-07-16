@@ -52,7 +52,7 @@ const adminRoutes: Routes = [
             path: 'feeder/reading/view',component: AdminFeederReadingViewComponent
           },
           {
-            path: 'feeder/absent/reading/view',component: AdminFeederAbsentReadingViewComponent
+            path: 'feeder/reading/absent/view',component: AdminFeederAbsentReadingViewComponent
           },
           {
             path: 'dtr/add', component: AdminDtrAddComponent

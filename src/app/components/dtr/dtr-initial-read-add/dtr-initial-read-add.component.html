@@ -206,7 +206,7 @@
           class="form-control" [(ngModel)]="dtrInitialReadAdd.assUnit" #dtrAssessmentUnit="ngModel" id="dtrAssessmentUnit"  name="dtrAssessmentUnit" [min]="0" step="0" required (change)="!dtrAssessmentUnit.errors && dtrAssessmentUnitChanged()">
         <div class="invalid-feedback" *ngIf="dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)">
           <div [hidden]="!dtrAssessmentUnit.errors.required">required field</div>
-          <div [hidden]="!dtrAssessmentUnit.errors.min || dtrAssessmentUnit.errors.required">required field</div>
+          <div [hidden]="!dtrAssessmentUnit.errors.min || dtrAssessmentUnit.errors.required">invalid value</div>
         </div>
       </div>
     </div>

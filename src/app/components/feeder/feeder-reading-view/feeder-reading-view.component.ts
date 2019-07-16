@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalResources } from 'app/utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { GlobalConstants } from 'app/utility/global.constants';
 
 @Component({
   selector: 'eas-feeder-reading-view',
@@ -10,11 +11,10 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 })
 export class FeederReadingViewComponent implements OnInit {
 
-  months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
   years : any = [];
   user : any = {};
   billMonth : string;
-  feederReadings : any = [];
+  feederReadings : any;
   pagedFeederReadings : any = [];
   month : string;
   year : string;
@@ -22,11 +22,12 @@ export class FeederReadingViewComponent implements OnInit {
   readingToEdit : any;
   updateButtonClicked : boolean;
 
-  pager: any = {};
-  pageSize: number = 10;
+  pager: any;
+  pageSize: number;
   
   @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
-  constructor(private feederService : FeederService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
+  constructor(private feederService : FeederService, public globalConstants : GlobalConstants,
+    private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -43,12 +44,12 @@ export class FeederReadingViewComponent implements OnInit {
   
   getFeederReadings(){
     this.loading =true;
-    this.billMonth = this.month + '-' + (Number.parseInt(this.year) - 2000);
+    this.billMonth = this.month + '-' + this.year;
     this.feederService.getFeederReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(success =>{
       this.loading = false;
       console.log(success);
       this.feederReadings = success;
-      this.pager = this.paginationService.getPager(this.feederReadings.length, 1, this.pageSize);
+      this.initializePaginationVariables();
       this.setPage(1);
     }, error =>{
       this.loading = false;
@@ -105,6 +106,12 @@ export class FeederReadingViewComponent implements OnInit {
       console.log(error);
       this.globalResources.errorAlert(error.error.errorMessage);
     });
+  }
+
+    
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 10;
   }
 
   setPage(page: number) {

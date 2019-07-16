@@ -34,6 +34,7 @@ export class DtrInitialReadAddComponent implements OnInit {
     this.dtrInitialReadAdd = {};
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
+    this.getCurrentYear();
     this.checkUserRoll(this.user);
   }
 
@@ -43,7 +44,6 @@ export class DtrInitialReadAddComponent implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.getCurrentYear();
     if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
     }else if(user.role === this.globalConstants.ROLE_ADMIN){
@@ -281,8 +281,8 @@ export class DtrInitialReadAddComponent implements OnInit {
   submitClicked(dtrInitialReadAddForm){
     if(this.globalResources.validateForm(dtrInitialReadAddForm)){
       this.submitButtonClicked = true;
-      // this.calculateDifference();
-      // this.makeCurrentReadingDate(this.dtrInitialReadAdd.currReadingDate);
+      this.calculateDifference();
+      this.makeCurrentReadingDate(this.dtrInitialReadAdd.currReadingDate);
       // new flow in which prev reading & its date is same as current reading
       this.dtrInitialReadAdd.dtrId = this.dtrInitialReadAdd.dtr.id;
       this.dtrInitialReadAdd.zoneId = this.dtrInitialReadAdd.zone.id;

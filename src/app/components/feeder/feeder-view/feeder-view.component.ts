@@ -31,12 +31,6 @@ export class FeederViewComponent implements OnInit {
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
     this.getFeeders();
-    this.initializePaginationVariables();
-  }
-
-  initializePaginationVariables(){
-    this.pager = {};
-    this.pageSize = 10;
   }
 
   getFeeders(){
@@ -44,6 +38,7 @@ export class FeederViewComponent implements OnInit {
     this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(successResponese =>{
       this.loading = false;
       this.feeders = successResponese;
+      this.initializePaginationVariables();
       this.setPage(1);
     }, errorResponse =>{
       console.log(errorResponse);
@@ -133,6 +128,11 @@ export class FeederViewComponent implements OnInit {
         });
       })
     }
+  }
+
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 10;
   }
 
   setPage(page: number) {

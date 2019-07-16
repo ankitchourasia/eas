@@ -5,8 +5,8 @@ import { GlobalConstants } from 'app/utility/global.constants';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
-import $ from 'jQuery';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
+import $ from 'jQuery';
 
 @Component({
   selector: 'eas-dtr-view',
@@ -31,13 +31,7 @@ export class DtrViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.initializePaginationVariables();
     this.getDTRs();
-  }
-
-  initializePaginationVariables(){
-    this.pager = {};
-    this.pageSize = 10;
   }
 
   getDTRs(){
@@ -46,6 +40,7 @@ export class DtrViewComponent implements OnInit {
       this.loading = false;
       this.dtrs = successResponese;
       console.log(this.dtrs);
+      this.initializePaginationVariables();
       this.setPage(1);
     }, errorResponse =>{
       this.loading = false;
@@ -157,6 +152,11 @@ export class DtrViewComponent implements OnInit {
         });
       })
     }
+  }
+  
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 10;
   }
 
   setPage(page: number) {
