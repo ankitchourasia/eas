@@ -7,6 +7,7 @@ import { DirectiveModule } from '@eas-directives/directive.module';
 import { PaginationServiceModule } from '@eas-services/pagination/pagination-service.module';
 import { DtrInitialReadAddComponent } from './dtr-initial-read-add/dtr-initial-read-add.component';
 import { DtrReadViewComponent } from './dtr-read-view/dtr-read-view.component';
+import { DtrLossReportComponent } from './dtr-loss-report/dtr-loss-report.component';
 
 @NgModule({
   imports: [
@@ -19,13 +20,15 @@ import { DtrReadViewComponent } from './dtr-read-view/dtr-read-view.component';
     DtrAddComponent,
     DtrViewComponent,
     DtrInitialReadAddComponent,
-    DtrReadViewComponent
+    DtrReadViewComponent,
+    DtrLossReportComponent
   ],
   exports: [
     DtrAddComponent,
     DtrViewComponent,
     DtrInitialReadAddComponent,
-    DtrReadViewComponent
+    DtrReadViewComponent,
+    DtrLossReportComponent
   ],
 })
 export class DtrComponentModule { }

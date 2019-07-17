@@ -28,9 +28,11 @@ export class LoginComponent implements OnInit {
   processLoginForm(){
     this.submitButtonClicked = true;
     this.loginService.authenticate(this.user).subscribe((successResponse) =>{
+      console.log(this.user);
       if(successResponse && successResponse.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
         let user = successResponse.json();
+        console.log(user);
         if(user.role === this.globalConstants.ROLE_ADMIN){
           this.getZones(user);
           this.router.navigate(["/admin"]);
@@ -39,6 +41,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
           console.log("inside super-admin");
+        }
+        else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+          this.router.navigate(["/admin"]);
+          this.submitButtonClicked = false;
+          console.log("inside field-admin");
         }
       }else{
         this.loginError= true;
@@ -63,6 +70,7 @@ export class LoginComponent implements OnInit {
   }
 
   getZones(user){
+    console.log(user);
     this.zoneService.getZonesFromDivisionId(user.division.id).subscribe(successResponse =>{
       user.zoneList = successResponse;
       sessionStorage.setItem('userDetails', JSON.stringify(user));

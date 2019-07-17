@@ -18,6 +18,7 @@ import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component
 import { DtrComponentModule } from '@eas-components/dtr/dtr-component.module';
 import { AdminDtrInitialReadAddComponent } from './admin-dtr-initial-read-add/admin-dtr-initial-read-add.component';
 import { AdminDtrReadingViewComponent } from './admin-dtr-reading-view/admin-dtr-reading-view.component';
+import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-loss-report.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { AdminDtrReadingViewComponent } from './admin-dtr-reading-view/admin-dtr
     AdminDtrAddComponent,
     AdminDtrViewComponent,
     AdminDtrInitialReadAddComponent,
-    AdminDtrReadingViewComponent
+    AdminDtrReadingViewComponent,
+    AdminDtrLossReportComponent
   ]
 })
 export class AdminModule { }

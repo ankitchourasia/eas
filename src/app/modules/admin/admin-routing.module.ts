@@ -16,6 +16,7 @@ import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
 import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
 import { AdminDtrInitialReadAddComponent } from './admin-dtr-initial-read-add/admin-dtr-initial-read-add.component';
 import { AdminDtrReadingViewComponent } from './admin-dtr-reading-view/admin-dtr-reading-view.component';
+import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-loss-report.component';
 
 const adminRoutes: Routes = [
   {
@@ -23,7 +24,7 @@ const adminRoutes: Routes = [
     component: AdminComponent,
     canActivate: [CanActivateAuthGuard],
     data: {
-      expectedRoles: [GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN]
+      expectedRoles: [GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN, GlobalConfiguration.ROLE_FIELD_ADMIN]
     },
     children: [
       {
@@ -65,6 +66,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'dtr/read/view',component: AdminDtrReadingViewComponent
+          },
+          {
+            path: 'dtr/generate/loss/report',component: AdminDtrLossReportComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

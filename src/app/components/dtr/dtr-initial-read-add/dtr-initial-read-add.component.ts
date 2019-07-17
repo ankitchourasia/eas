@@ -7,6 +7,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-dtr-initial-read-add',
@@ -26,9 +27,9 @@ export class DtrInitialReadAddComponent implements OnInit {
   dtrInitialReadAdd: any;
   submitButtonClicked : boolean;
 
-  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService,
-    private regionService: RegionService, private circleService: CircleService, private divisionService: DivisionService) { }
+  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
+    private feederService : FeederService, private substationService: SubstationService, private regionService: RegionService, 
+    private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.dtrInitialReadAdd = {};
@@ -39,7 +40,6 @@ export class DtrInitialReadAddComponent implements OnInit {
   }
 
   checkUserRoll(user){
-    console.log(user);
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
@@ -63,8 +63,8 @@ export class DtrInitialReadAddComponent implements OnInit {
       this.dtrInitialReadAdd.circle = user.circle;
       this.dtrInitialReadAdd.division = user.division;
       this.dtrInitialReadAdd.zone = user.zone;
+      this.getSubstationByZoneId(this.dtrInitialReadAdd.zone.id);
     }
-    console.log(this.regionList, this.circleList, this.divisionList, this.zoneList);
   }
 
   getRegionList(){
@@ -141,6 +141,11 @@ export class DtrInitialReadAddComponent implements OnInit {
 
   getZoneListByDivisionId(divisionId){
     this.zoneList = this.user.zoneList;
+    this.zoneService.getZonseByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
   
   zoneChanged(zone){
@@ -156,8 +161,8 @@ export class DtrInitialReadAddComponent implements OnInit {
   getSubstationByZoneId(zoneId){
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
       this.substationList = successResponese;
-    }, error =>{
-      console.log(error);
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
@@ -172,8 +177,8 @@ export class DtrInitialReadAddComponent implements OnInit {
   getFeederBySubstationId(substationId){
     this.feederService.getFeederBySubstationId(substationId).subscribe(successResponese =>{
       this.feederList = successResponese;
-    },error =>{
-      console.log(error);
+    },errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
