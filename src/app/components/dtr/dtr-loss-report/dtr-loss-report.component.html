@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
     <div class="eas-space-evenly mb-2">
-      <div class="inner-group">
+      <!-- <div class="inner-group">
         <label class="form-text text-muted mb-0">Region</label>
         <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(userDetails.region)">
@@ -25,7 +25,7 @@
         <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
           <div [hidden]="!circle.errors.required">required field</div>
         </div>
-      </div>
+      </div> -->
       <div class="inner-group">
         <label class="form-text text-muted mb-0">Division</label>
         <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
@@ -64,26 +64,113 @@
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(userDetails.feeder)">
           <option disabled selected [ngValue]='undefind'>Select</option>
-          <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
+          <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.groupNo}} : {{feeder.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
           <div [hidden]="!feederName.errors.required">required field</div>
         </div>
       </div>
-      <!-- <div class="inner-group">
+      <div class="inner-group">
         <label class="form-text text-muted mb-0">Bill Month</label>
-        <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="userDetails.division" #division="ngModel" name="division" id="division" required>
-          <option [ngValue]=undefined disabled selected>Select</option>
-          <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name}}</option>
-        </select>
-        <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
-          <div [hidden]="!division.errors.required">required field</div>
+        <!-- <input type="month" [ngClass]="{'is-valid': !billingMonth.errors && (billingMonth.dirty || billingMonth.touched),'is-invalid': billingMonth.errors && (billingMonth.dirty || billingMonth.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="billMonth" #billingMonth="ngModel" id="billingMonth"  name="billingMonth" required>
+        <div class="invalid-feedback" *ngIf="(billingMonth.errors && (billingMonth.dirty || billingMonth.touched))">
+          <div [hidden]="!billingMonth.errors?.required">required bill month</div>
+        </div> -->
+        <div class="input-group">
+          <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
+            <option disabled selected [ngValue]='undefind'>Month<span>&nbsp;&nbsp;</span></option>
+            <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+          </select>
+          <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
+            <option disabled selected [ngValue]='undefind'>Year</option>
+            <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
+          </select>
+          <div class="input-group-append">
+            <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="feederName.errors || month.errors || year.errors || searchButtonClicked">
+              <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+            </button>
+          </div>
+          <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+            <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+          </div>
         </div>
-      </div> -->
+      </div>
       <div class="inner-group">
         <label class="form-text text-muted mb-0">Bill File</label>
-        <button class="btn btn-sm btn-primary">Uploaded</button>
+        <button type="button" class="btn btn-sm btn-success" *ngIf="userDetails?.feeder?.billFileUploaded" disabled>Uploaded</button>
+        <button type="button" class="btn btn-sm btn-danger" *ngIf="!userDetails?.feeder?.billFileUploaded" disabled>Not Uploaded</button>
+      </div>
+    </div>
+    <hr>
+    <div class="eas-space-between mb-2" *ngIf="allDtrReadingInserted && userDetails?.feeder?.billFileUploaded">
+      <div>
+        <button type="button" class="btn btn-sm btn-warning" (click)="generateAllDtrLossReport()" *ngIf="!reportGenerated" [disabled]="generating">Generate Report</button>
+        <button type="button" class="btn btn-sm btn-info mx-sm-1" (click)="viewDtrLossReport()" *ngIf="reportGenerated">View Report</button>
+      </div>
+			<div class="progress" style="width: 50%" *ngIf="generating">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+      </div>
+    </div>
+    <div class="eas-flex-end" *ngIf="showError">
+      <div class="alert alert-danger text-center pb-1 pt-1" role="alert">
+        <strong>DTR Readings for Month {{billMonth}}-{{billMonthYear}} !</strong> not inserted for all dtrs.
+      </div>
+    </div>
+
+    <div *ngIf="dtrList && !searchButtonClicked">
+      <div class="table-responsive mb-2 text-center">
+        <table class="table table-sm table-bordered table-hover" id="dtrs">
+          <thead class="bg-dark text-white">
+            <tr>
+              <td>S.No</td>
+              <td>DTR Name</td>
+              <td>Reading Inserted</td>
+              <td>Generate</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dtr of pagedDtrList; let i = index">
+              <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+              <td>{{dtr?.dtrName}}</td>
+              <td>
+                <span class="text-success" *ngIf="dtr.readingInsertedForBillMonth"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!dtr.readingInsertedForBillMonth"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleDtrLossReport(dtr)" 
+                  *ngIf="userDetails?.feeder?.billFileUploaded && dtr?.readingInsertedForBillMonth"
+                  [hidden]="dtr.singleReportGenerated || reportGenerated" [disabled]="generating || dtr.generatingSingleReport">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.generatingSingleReport"></span> Generate
+                </button>
+                <button type="button" class="btn btn-sm btn-info" (click)="viewDtrLossReport()" *ngIf="dtr.singleReportGenerated || reportGenerated" [disabled]="generating">View</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="pagination" *ngIf="dtrList && dtrList.length > pageSize" class="eas-flex-center">
+        <nav>
+          <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

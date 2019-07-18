@@ -9,6 +9,7 @@ import { DtrServiceModule } from "./dtr-service/dtr-service.module";
 import { RegionServiceModule } from "./region-service/region-service.module";
 import { CircleServiceModule } from "./circle-service/circle-service.module";
 import { DivisionServiceModule } from "./division-service/division-service.module";
+import { BillFileServiceModule } from "./bill-file-service/bill-file-service.module";
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { DivisionServiceModule } from "./division-service/division-service.modul
         DtrServiceModule,
         FeederServiceModule,
         SubstationServiceModule,
+        BillFileServiceModule,
         PaginationServiceModule
     ],
     providers: [

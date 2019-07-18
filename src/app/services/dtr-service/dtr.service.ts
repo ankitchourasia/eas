@@ -52,7 +52,21 @@ export class DtrService {
     }
   }
 
-  getReadingByDivisionId(billMonth, divisionId, response){
+  getReadingByFeederIdAndBillMonth(feederId, billMonth, response){
+    // return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/dtr/id/' + dtrId);
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/feeder/' + feederId,  options);
+    // return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/feeder/id/' + feederId,  options);
+  }
+
+  getReadingByDivisionIdAndBillMonth(divisionId, billMonth, response){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("billMonth", billMonth);
     let options = {
@@ -64,7 +78,7 @@ export class DtrService {
     return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/division/id/' + divisionId,  options);
   }
 
-  getReadingByZoneId(billMonth, zoneId, response){
+  getReadingByZoneIdAndBillMonth(zoneId, billMonth, response){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("billMonth", billMonth);
     let options = {
@@ -93,6 +107,30 @@ export class DtrService {
       params: httpParams
     };
     return this.http.put(this.URL_PREFIX + this.DTR_URL + 'reading/'+ dtrReading.id, dtrReading, options);
+  }
+
+  getAllDTRLossByFeederAndBillMonth(feeder, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.post(this.URL_PREFIX + 'dtrloss', feeder,  options);
+  }
+
+  getDTRLossByDtrAndBillMonth(dtr, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.post(this.URL_PREFIX + 'dtrloss/single', dtr,  options);
   }
   
 }

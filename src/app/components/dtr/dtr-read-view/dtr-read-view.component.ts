@@ -31,27 +31,19 @@ export class DtrReadViewComponent implements OnInit {
     this.getCurrentYear();
   }
 
-  years: any = [];
-  getCurrentYear(){
-    let year = 2016;
-    while(year <= 2050){
-      this.years.push(year++);
-    }
-  }
-
   searchClicked(){
     this.dtrReadingList = null;
+    let billingMonth = this.billMonth + "-" + this.billMonthYear;
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
-    this.getAllDtrReadingByDivisionId(this.user.division.id);
+    this.getAllDtrReadingByDivisionIdAndBillMonth(this.user.division.id, billingMonth);
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
-      this.getAllDtrReadingByZoneId(this.user.zone.id);
+      this.getAllDtrReadingByZoneIdAndBillMonth(this.user.zone.id, billingMonth);
     }
   }
 
-  getAllDtrReadingByDivisionId(divisionId){
+  getAllDtrReadingByDivisionIdAndBillMonth(divisionId,billingMonth){
     this.searchButtonClicked = true;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.getReadingByDivisionId(billingMonth, divisionId, false).subscribe(successResponse =>{
+    this.dtrService.getReadingByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
       this.searchButtonClicked = false;
       this.dtrReadingList = successResponse;
       this.initializePaginationVariables();
@@ -64,10 +56,9 @@ export class DtrReadViewComponent implements OnInit {
     });
   }
 
-  getAllDtrReadingByZoneId(zoneId){
+  getAllDtrReadingByZoneIdAndBillMonth(zoneId,billingMonth){
     this.searchButtonClicked = true;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.getReadingByDivisionId(billingMonth, zoneId, false).subscribe(successResponse =>{
+    this.dtrService.getReadingByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(successResponse =>{
       this.searchButtonClicked = false;
       this.dtrReadingList = successResponse;
       this.initializePaginationVariables();
@@ -231,6 +222,14 @@ export class DtrReadViewComponent implements OnInit {
       break;
     }
     return nextMonth.toUpperCase()+"-"+nextYear;
+  }
+  
+  years: any = [];
+  getCurrentYear(){
+    let year = 2016;
+    while(year <= 2050){
+      this.years.push(year++);
+    }
   }
 
   exportClicked(){
