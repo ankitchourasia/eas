@@ -131,7 +131,6 @@ export class GlobalResources {
     }
 
     getUserDetails(){
-        console.log(JSON.parse(sessionStorage.getItem('userDetails')));
         return JSON.parse(sessionStorage.getItem('userDetails'));
     }
 

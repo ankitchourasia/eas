@@ -175,3 +175,83 @@
     </div>
   </div>
 </div>
+
+
+<div class="table-responsive" style="font-size: 80%" *ngIf="dtrLossReports && dtrLossReports.length">
+  <table class="table table-sm table-bordered" id="feederDtrReport">
+		<tbody class="text-sm text-center">
+			<tr>
+        <td colspan="16"><h3 class="display-5">DTR LOSS REPORT</h3></td>
+			</tr>
+			<tr>
+				<td colspan="1">Region</td>
+				<td colspan="1"><strong>{{dtrLossReports[0].regionName | uppercase}}</strong></td>
+				<td colspan="1">Circle</td>
+				<td colspan="1"><strong>{{dtrLossReports[0].circleName | uppercase}}</strong></td>
+				<td colspan="1">Division</td>
+				<td colspan="3"><strong>{{dtrLossReports[0].divisionName | uppercase}}</strong></td>
+				<td colspan="1">Feeder Incharge</td>
+				<td colspan="3"><strong>{{dtrLossReports[0].feeder.link | uppercase}}</strong></td>
+				<td colspan="1">Zone</td>
+				<td colspan="3"><strong>{{dtrLossReports[0].zoneName | uppercase}}</strong></td>
+			</tr>
+			<tr>
+				<td colspan="1">Month</td>
+				<td colspan="1"><strong>{{dtrLossReports[0].lossMonth | uppercase}}</strong></td>
+				<td colspan="1">Substation</td>
+				<td colspan="4"><strong>{{dtrLossReports[0].substationName | uppercase}}</strong></td>
+				<td colspan="1">Feeder</td>
+				<td colspan="6"><strong>{{dtrLossReports[0].feederName | uppercase}}</strong></td>
+				<td colspan="1">Group No</td>
+				<td colspan="1"><strong>{{dtrLossReports[0].billingGroupNo | uppercase}}</strong></td>
+			</tr>
+			<tr>
+				<td colspan="15"><br></td>
+			</tr>
+			<tr class="font-weight-bold" id="dtrLossTableHeader">
+				<td>S.NO</td>
+				<td>DTR NAME</td>
+				<td>LOC CODE</td>
+				<td>RD NO.</td>
+				<td>CAPACITY</td>
+				<td>METER NO</td>
+				<td>MF</td>
+				<td>PREV RDG</td>
+				<td>PREV RDG DATE</td>
+				<td>CURR RDG</td>
+				<td>CURR RDG DATE</td>
+				<td>ASSESMENT UNIT</td>
+				<td>NET INPUT</td>
+				<td>CONSUMERS CONNECTED</td>
+				<td>TOTAL CONSUMPTION</td>
+				<td>% DTR LOSS</td>
+			</tr>
+			<tr *ngFor="let report of dtrLossReports; let i = index">
+				<td>{{i + 1}}</td>
+				<td>{{report.dtrName}}</td>
+				<td>{{report.zoneLocationCode}}</td>
+				<td>{{report.billingRDNo}}</td>
+				<td>{{report.dtrCapacity}}</td>
+				<td>{{report.dtrMeterNo}}</td>
+				<td>{{report.mf}}</td>
+				<td>{{report.previousReading}}</td>
+				<td>{{report.previousReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+				<td>{{report.currentReading}}</td>
+				<td>{{report.currentReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+				<td>{{report.assessmentUnit}}</td>
+				<td>{{report.netDTRInput}}</td>
+				<td><a href='javascript:void(0);' (click)="exportTotalConsumers(report)">{{report.totalConsumer}}</a></td>
+				<td>{{report.totalSoldUnit}}</td>
+				<td>{{report.dtrLoss}}</td>
+			</tr>
+			<tr>
+				<td colspan="11" class="text-right"><strong>Gross Total&nbsp;</strong></td>
+				<td colspan="1"><strong>{{grossAssessment}}</strong></td>
+				<td colspan="1"><strong>{{grossInput}}</strong></td>
+				<td colspan="1"><strong>{{grossConsumer}}</strong></td>
+				<td colspan="1"><strong>{{grossConsumption}}</strong></td>
+				<td colspan="1"><strong>{{grossLoss}}</strong></td>
+			</tr>
+		</tbody>
+  </table>
+</div>

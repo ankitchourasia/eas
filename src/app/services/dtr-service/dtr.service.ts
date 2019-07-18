@@ -109,7 +109,7 @@ export class DtrService {
     return this.http.put(this.URL_PREFIX + this.DTR_URL + 'reading/'+ dtrReading.id, dtrReading, options);
   }
 
-  getAllDTRLossByFeederAndBillMonth(feeder, billMonth, response){
+  generateAllDTRLossByFeederAndBillMonth(feeder, billMonth, response){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("billMonth", billMonth);
     let options = {
@@ -121,7 +121,7 @@ export class DtrService {
     return this.http.post(this.URL_PREFIX + 'dtrloss', feeder,  options);
   }
 
-  getDTRLossByDtrAndBillMonth(dtr, billMonth, response){
+  generateDTRLossByDtrAndBillMonth(dtr, billMonth, response){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("billMonth", billMonth);
     let options = {
@@ -131,6 +131,18 @@ export class DtrService {
       options['observe'] = "response";
     }
     return this.http.post(this.URL_PREFIX + 'dtrloss/single', dtr,  options);
+  }
+
+  getDTRLossReportByFeederIdAndBillMonth(feederId, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + 'dtrloss/feederId/' + feederId,  options);
   }
   
 }

@@ -10,6 +10,7 @@ import { DivisionService } from '@eas-services/division-service/division.service
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { BillFileService } from '@eas-services/bill-file-service/bill-file.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import $ from 'jQuery';
 
 @Component({
   selector: 'eas-dtr-loss-report',
@@ -287,7 +288,7 @@ export class DtrLossReportComponent implements OnInit {
   generateAllDtrLossReport(){
     this.generating = true;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.getAllDTRLossByFeederAndBillMonth(this.userDetails.feeder, billingMonth, true).subscribe(successResponse =>{
+    this.dtrService.generateAllDTRLossByFeederAndBillMonth(this.userDetails.feeder, billingMonth, true).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       this.generating = false;
       this.reportGenerated = true
@@ -306,7 +307,7 @@ export class DtrLossReportComponent implements OnInit {
   generateSingleDtrLossReport(dtr){
     dtr.generatingSingleReport = true;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.getDTRLossByDtrAndBillMonth(dtr, billingMonth, true).subscribe(successResponse =>{
+    this.dtrService.generateDTRLossByDtrAndBillMonth(dtr, billingMonth, true).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       console.log(generatedReport);
       dtr.generatingSingleReport = false;
@@ -323,9 +324,71 @@ export class DtrLossReportComponent implements OnInit {
     });
   }
 
+  dtrLossReports: any
   viewDtrLossReport(){
+    this.dtrLossReports = null;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    window.location.href = 'report.html#/dtr/view/loss/report/' + this.userDetails.feeder.id + "/" + billingMonth;
+    this.dtrService.getDTRLossReportByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth, false).subscribe(successResponse =>{
+    this.dtrLossReports = <any>successResponse;
+    console.log(this.dtrLossReports);
+    if(this.dtrLossReports && this.dtrLossReports.length){
+      this.dtrLossReports = this.dtrLossReports;
+      this.dtrLossReports.forEach((dtrLossReport,index) => {
+        this.calculateTotal(dtrLossReport, index);
+      });
+      this.calculateGrossLoss();
+      this.roundOffAllValues();
+    }
+    },errorResponse =>{
+      console.log(errorResponse);
+      let alertResponse = this.globalResources.errorAlert("DTR LOSS REPORT does not exists!");
+    });
+  }
+
+  grossInput: number = 0;
+  grossConsumer: number = 0;
+  grossConsumption: number = 0;
+  grossAssessment: number = 0;
+  calculateTotal(report,index){
+    this.grossInput = this.grossInput + parseInt(report.netDTRInput);
+    this.grossConsumer = this.grossConsumer + parseInt(report.totalConsumer);
+    this.grossConsumption = this.grossConsumption + parseInt(report.totalSoldUnit);
+    this.grossAssessment = this.grossAssessment + parseInt(report.assessmentUnit);
+  }
+
+  grossLoss: any = 0;
+  calculateGrossLoss(){
+    if(this.grossInput == 0){
+      this.grossLoss = '###';
+    }else{
+      let loss = this.grossInput - this.grossConsumption;
+      loss = loss / this.grossInput;
+      loss = loss * 100;
+      this.grossLoss = Math.round(loss*100)/100;
+    }
+  }
+
+  roundOffAllValues(){
+    this.grossInput = Math.round(this.grossInput * 100)/100;
+  }
+
+  exportTotalConsumers(report){
+    let user = this.globalResources.getUserDetails();
+    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    console.log('Basic ' + encodedCredentials);
+    console.log("Fetching consumers for report : ",report);
+    let params = {
+      Authorization: "Basic%20c29uYWxfZWFzdDpzb25hbCMxMjM%3D",
+      locationCode: report.zoneLocationCode,
+      billMonth: report.lossMonth,
+      groupNo: report.billingGroupNo,
+      readerNo: report.billingRDNo
+    };
+  
+    let fileUrl = window.location.origin+"/backend/dtrloss/consumers/export";
+    // Add authentication headers in URL
+    let url = [fileUrl, $.param(params)].join('?');
+    window.open(url);
   }
 
   initializePaginationVariables(){
