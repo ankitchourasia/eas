@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalResources } from 'app/utility/global.resources';
+import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
 
 @Component({
   selector: 'eas-header',
@@ -10,7 +11,7 @@ import { GlobalResources } from 'app/utility/global.resources';
 export class HeaderComponent implements OnInit {
 
   user : any;
-  constructor(private router: Router, public globalResources: GlobalResources) { }
+  constructor(private router: Router, public globalResources: GlobalResources, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logoutClicked() {
-    this.router.navigate(['/']);
+    this.router.navigate(['login']);
   }
 
   settingClicked() {

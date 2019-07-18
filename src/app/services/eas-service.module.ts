@@ -10,6 +10,8 @@ import { RegionServiceModule } from "./region-service/region-service.module";
 import { CircleServiceModule } from "./circle-service/circle-service.module";
 import { DivisionServiceModule } from "./division-service/division-service.module";
 import { BillFileServiceModule } from "./bill-file-service/bill-file-service.module";
+import { AuthenticationServiceModule } from "./authentication-service/authentication-service.module";
+import { LogoutServiceModule } from "./logout-service/logout-service.module";
 
 @NgModule({
     imports: [
@@ -23,7 +25,9 @@ import { BillFileServiceModule } from "./bill-file-service/bill-file-service.mod
         FeederServiceModule,
         SubstationServiceModule,
         BillFileServiceModule,
-        PaginationServiceModule
+        PaginationServiceModule,
+        LogoutServiceModule,
+        AuthenticationServiceModule
     ],
     providers: [
         // DOMUtility,
