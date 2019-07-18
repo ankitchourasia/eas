@@ -33,8 +33,11 @@ export class DtrLossReportComponent implements OnInit {
   pager: any;
   pageSize: number;
   pagedDtrList : any;
+  showError: boolean;
   generating: boolean;
   reportGenerated: boolean;
+  searchButtonClicked: boolean;
+  allDtrReadingInserted: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
     private feederService : FeederService, private substationService: SubstationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService,
@@ -49,7 +52,6 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   checkUserRoll(user){
-    console.log(user);
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
@@ -199,7 +201,6 @@ export class DtrLossReportComponent implements OnInit {
   }
 
 
-  searchButtonClicked: boolean;
   searchClicked(){
     this.dtrReadingList = null;
     this.showError = false;
@@ -215,7 +216,6 @@ export class DtrLossReportComponent implements OnInit {
     this.dtrService.getDTRByFeederId(feederId).subscribe(successResponse =>{
       this.searchButtonClicked = false;
       this.dtrList = successResponse;
-      console.log(this.dtrList)
       this.initializePaginationVariables();
       this.setPage(1);
       if(this.dtrList && this.dtrList.length){
@@ -228,12 +228,10 @@ export class DtrLossReportComponent implements OnInit {
     });
   }
 
-  showError: boolean;
   getDTRReadingByFeederIdAndBillMonth(feederId, billMonth){
     this.searchButtonClicked = true;
     this.dtrService.getReadingByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
       this.dtrReadingList = successResponse;
-      console.log(this.dtrReadingList);
       if(this.dtrReadingList){
         this.dtrList.forEach((dtr,index) => {
           this.checkReadingInserted(dtr,index);
@@ -252,10 +250,8 @@ export class DtrLossReportComponent implements OnInit {
     });
   }
 
-  allDtrReadingInserted: boolean;
   checkReadingInserted(dtrToFind,index){
     let matchedDtrReading =  this.dtrReadingList.find(dtrReading => dtrReading.dtrId === dtrToFind.id);
-    console.log( matchedDtrReading, dtrToFind.id, index);
     if(matchedDtrReading && matchedDtrReading.dtrId === dtrToFind.id){
       dtrToFind.readingInsertedForBillMonth = true;
     }else{
@@ -266,14 +262,12 @@ export class DtrLossReportComponent implements OnInit {
     }else{
       this.allDtrReadingInserted = !!(Number(this.allDtrReadingInserted) * Number(dtrToFind.readingInsertedForBillMonth));
     }
-    console.log(this.allDtrReadingInserted);
   }
 
   checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth){
     this.searchButtonClicked = true;
     this.billFileService.checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth, false).subscribe(successResponse =>{
       let billFileRefs = <any>successResponse;
-      console.log(billFileRefs);
       if(billFileRefs && billFileRefs.length && (billFileRefs[0].billMonth === billingMonth || billFileRefs[1].billMonth === billingMonth)){
         this.userDetails.feeder.billFileUploaded = true;
         this.userDetails.feeder.billFileNotUploaded = false;
@@ -282,7 +276,6 @@ export class DtrLossReportComponent implements OnInit {
         this.userDetails.feeder.billFileNotUploaded = true;
       }
       this.searchButtonClicked = false;
-      console.log(this.allDtrReadingInserted, this.userDetails.feeder.billFileUploaded, this.userDetails.feeder.billFileNotUploaded);
     },errorResponse =>{
       console.log(errorResponse);
       this.searchButtonClicked = false;
@@ -296,7 +289,6 @@ export class DtrLossReportComponent implements OnInit {
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.dtrService.getAllDTRLossByFeederAndBillMonth(this.userDetails.feeder, billingMonth, true).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
-      console.log(generatedReport);
       this.generating = false;
       this.reportGenerated = true
       let alertResponse = this.globalResources.successAlert("Report Generated Successfully for Feeder: <br><strong>" + 
@@ -319,8 +311,7 @@ export class DtrLossReportComponent implements OnInit {
       console.log(generatedReport);
       dtr.generatingSingleReport = false;
       dtr.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully for Feeder: <br><strong>" + 
-          this.userDetails.feeder.name + " for Month : " + billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
+      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
     },errorResponse =>{
       console.log(errorResponse);
       dtr.generatingSingleReport = false;
