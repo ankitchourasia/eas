@@ -14,9 +14,10 @@ import { AdminFeederReadingViewComponent } from './admin-feeder-reading-view/adm
 import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
 import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
 import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
-import { AdminDtrInitialReadAddComponent } from './admin-dtr-initial-read-add/admin-dtr-initial-read-add.component';
-import { AdminDtrReadingViewComponent } from './admin-dtr-reading-view/admin-dtr-reading-view.component';
 import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-loss-report.component';
+import { AdminDtrReadViewComponent } from './admin-dtr-read-view/admin-dtr-read-view.component';
+import { AdminDtrReadAddComponent } from './admin-dtr-read-add/admin-dtr-read-add.component';
+import { AdminDtrAddInitialReadComponent } from './admin-dtr-add-initial-read/admin-dtr-add-initial-read.component';
 
 const adminRoutes: Routes = [
   {
@@ -62,10 +63,13 @@ const adminRoutes: Routes = [
             path: 'dtr/view',component: AdminDtrViewComponent
           },
           {
-            path: 'dtr/read/add/initial-read',component: AdminDtrInitialReadAddComponent
+            path: 'dtr/read/add/initial-read',component: AdminDtrAddInitialReadComponent
           },
           {
-            path: 'dtr/read/view',component: AdminDtrReadingViewComponent
+            path: 'dtr/read/add',component: AdminDtrReadAddComponent
+          },
+          {
+            path: 'dtr/read/view',component: AdminDtrReadViewComponent
           },
           {
             path: 'dtr/generate/loss/report',component: AdminDtrLossReportComponent

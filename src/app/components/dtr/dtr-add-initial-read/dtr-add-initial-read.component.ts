@@ -10,11 +10,11 @@ import { DivisionService } from '@eas-services/division-service/division.service
 import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
-  selector: 'eas-dtr-initial-read-add',
-  templateUrl: './dtr-initial-read-add.component.html',
-  styleUrls: ['./dtr-initial-read-add.component.css']
+  selector: 'eas-dtr-add-initial-read',
+  templateUrl: './dtr-add-initial-read.component.html',
+  styleUrls: ['./dtr-add-initial-read.component.css']
 })
-export class DtrInitialReadAddComponent implements OnInit {
+export class DtrAddInitialReadComponent implements OnInit {
 
   user : any;
   zoneList: any;

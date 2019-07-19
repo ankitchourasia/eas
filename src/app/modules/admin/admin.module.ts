@@ -16,9 +16,10 @@ import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-rea
 import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
 import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
 import { DtrComponentModule } from '@eas-components/dtr/dtr-component.module';
-import { AdminDtrInitialReadAddComponent } from './admin-dtr-initial-read-add/admin-dtr-initial-read-add.component';
-import { AdminDtrReadingViewComponent } from './admin-dtr-reading-view/admin-dtr-reading-view.component';
 import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-loss-report.component';
+import { AdminDtrReadAddComponent } from './admin-dtr-read-add/admin-dtr-read-add.component';
+import { AdminDtrReadViewComponent } from './admin-dtr-read-view/admin-dtr-read-view.component';
+import { AdminDtrAddInitialReadComponent } from './admin-dtr-add-initial-read/admin-dtr-add-initial-read.component';
 
 @NgModule({
   imports: [
@@ -41,9 +42,10 @@ import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-l
     AdminFeederAbsentReadingViewComponent,
     AdminDtrAddComponent,
     AdminDtrViewComponent,
-    AdminDtrInitialReadAddComponent,
-    AdminDtrReadingViewComponent,
-    AdminDtrLossReportComponent
+    AdminDtrAddInitialReadComponent,
+    AdminDtrReadViewComponent,
+    AdminDtrLossReportComponent,
+    AdminDtrReadAddComponent
   ]
 })
 export class AdminModule { }
