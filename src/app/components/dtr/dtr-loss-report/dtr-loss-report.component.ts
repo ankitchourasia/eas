@@ -325,14 +325,16 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   dtrLossReports: any
+  display: any = 'none';
   viewDtrLossReport(){
+    this.display= 'none';
     this.dtrLossReports = null;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.dtrService.getDTRLossReportByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth, false).subscribe(successResponse =>{
     this.dtrLossReports = <any>successResponse;
     console.log(this.dtrLossReports);
     if(this.dtrLossReports && this.dtrLossReports.length){
-      this.dtrLossReports = this.dtrLossReports;
+      this.openModal();
       this.dtrLossReports.forEach((dtrLossReport,index) => {
         this.calculateTotal(dtrLossReport, index);
       });
@@ -343,6 +345,14 @@ export class DtrLossReportComponent implements OnInit {
       console.log(errorResponse);
       let alertResponse = this.globalResources.errorAlert("DTR LOSS REPORT does not exists!");
     });
+  }
+
+  openModal(){
+    this.display = 'block';
+  }
+
+  closeModal(){
+    this.display = 'none';
   }
 
   grossInput: number = 0;
