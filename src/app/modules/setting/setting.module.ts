@@ -6,7 +6,7 @@ import { SettingUpdatePasswordComponent } from './setting-update-password/settin
 import { SettingUpdateProfileComponent } from './setting-update-profile/setting-update-profile.component';
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
-import { HeaderModule } from '@eas-components/header/header.module';
+import { HeaderComponentModule } from '@eas-components/header/header-component.module';
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingMenuService } from './setting-menu.service';
 
@@ -19,7 +19,7 @@ import { SettingMenuService } from './setting-menu.service';
   ],
   imports: [
     CommonModule,
-    HeaderModule,
+    HeaderComponentModule,
     FormsModule,
     DirectiveModule,
     SettingRoutingModule

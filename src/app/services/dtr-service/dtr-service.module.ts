@@ -6,7 +6,7 @@ import { DtrService } from './dtr.service';
   imports: [
     CommonModule
   ],
-  declarations: [DtrService],
+  declarations: [],
   providers: [DtrService],
   
 })

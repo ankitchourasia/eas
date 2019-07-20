@@ -7,9 +7,9 @@
       <div class="form-inline align-items-baseline">
         <label class="mx-sm-3">Month</label>
         <div>
-          <select class="form-control" [(ngModel)]="month" id="selectedMonth" name="selectedMonth" #selectedMonth="ngModel" required
+          <select class="form-control form-control-sm" [(ngModel)]="month" id="selectedMonth" name="selectedMonth" #selectedMonth="ngModel" required
           [ngClass]="{'is-valid': !selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched),'is-invalid': selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched)}">
-            <option selected [ngValue]='undefind' disabled>Select</option>
+            <option selected [ngValue]='undefined' disabled>Select</option>
             <option *ngFor="let month of globalConstants.MONTHS">{{month}}</option>
           </select>
           <div class="invalid-feedback" *ngIf="selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched)">
@@ -20,9 +20,9 @@
       <div class="form-inline align-items-baseline">
         <label class="mx-sm-3">Year</label>
         <div>
-          <select class="form-control" id="year" [(ngModel)]="year" name="year" #selectedYear="ngModel" required
+          <select class="form-control form-control-sm" id="year" [(ngModel)]="year" name="year" #selectedYear="ngModel" required
           [ngClass]="{'is-valid': !selectedYear.errors && (selectedYear.dirty || selectedYear.touched),'is-invalid': selectedYear.errors && (selectedYear.dirty || selectedYear.touched)}">
-              <option selected [ngValue]='undefind' disabled>Select</option>
+              <option selected [ngValue]='undefined' disabled>Select</option>
             <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
           </select>
           <div class="invalid-feedback" *ngIf="selectedYear.errors && (selectedYear.dirty || selectedYear.touched)">
@@ -41,13 +41,13 @@
         <label>Select Bill Month</label>
         <div class="input-group mx-sm-2">
           <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
-            class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
-            <option disabled selected [ngValue]='undefind'>Select Month<span>&nbsp;&nbsp;&nbsp;&nbsp;</span></option>
+            class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
+            <option disabled selected [ngValue]='undefined'>Select Month<span>&nbsp;&nbsp;&nbsp;&nbsp;</span></option>
             <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
           </select>
           <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
-            class="form-control" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
-            <option disabled selected [ngValue]='undefind'>Select Year</option>
+            class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
+            <option disabled selected [ngValue]='undefined'>Select Year</option>
             <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
           </select>
           <div class="input-group-append">

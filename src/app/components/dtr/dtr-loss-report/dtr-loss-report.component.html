@@ -8,7 +8,7 @@
         <label class="form-text text-muted mb-0">Region</label>
         <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(userDetails.region)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
@@ -19,7 +19,7 @@
         <label class="form-text text-muted mb-0">Circle</label>
         <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(userDetails.circle)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
@@ -30,7 +30,7 @@
         <label class="form-text text-muted mb-0">Division</label>
         <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(userDetails.division)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
@@ -41,7 +41,7 @@
         <label class="form-text text-muted mb-0">Zone</label>
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(userDetails.zone)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
@@ -52,7 +52,7 @@
         <label class="form-text text-muted mb-0">Substation</label>
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(userDetails.substation)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let substation of substationList" [ngValue]="substation">{{substation.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
@@ -63,7 +63,7 @@
         <label class="form-text text-muted mb-0">Feeder</label>
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(userDetails.feeder)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.groupNo}} : {{feeder.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
@@ -80,12 +80,12 @@
         <div class="input-group">
           <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
             class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
-            <option disabled selected [ngValue]='undefind'>Month<span>&nbsp;&nbsp;</span></option>
+            <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
             <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
           </select>
           <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
             class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
-            <option disabled selected [ngValue]='undefind'>Year</option>
+            <option disabled selected [ngValue]='undefined'>Year</option>
             <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
           </select>
           <div class="input-group-append">

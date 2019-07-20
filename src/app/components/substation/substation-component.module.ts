@@ -14,4 +14,4 @@ import { PaginationServiceModule } from '@eas-services/pagination/pagination-ser
   declarations: [SubstationAddComponent, SubstationViewComponent],
   exports: [SubstationAddComponent, SubstationViewComponent]
 })
-export class SubstationModule { }
+export class SubstationComponentModule { }

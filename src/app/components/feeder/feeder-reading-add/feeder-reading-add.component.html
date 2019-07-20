@@ -9,15 +9,15 @@
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Region</label>
               <div class="col-sm-9">
-                <select class="form-control" id="region" name="region">
-                  <option selected [ngValue]='undefind'>{{user.region.name | uppercase}}</option>
+                <select class="form-control form-control-sm" id="region" name="region">
+                  <option selected>{{user.region.name | uppercase}}</option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Circle</label>
               <div class="col-sm-9">
-                <select class="form-control" id="circle"  name="circle" required>
+                <select class="form-control form-control-sm" id="circle"  name="circle" required>
                   <option selected>{{user.circle.name | uppercase}}</option>
                 </select>
               </div>
@@ -25,7 +25,7 @@
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Division</label>
               <div class="col-sm-9">
-                <select class="form-control" id="division"  name="division" required>
+                <select class="form-control form-control-sm" id="division"  name="division" required>
                   <option selected>{{user.division.name | uppercase}}</option>
                 </select>
               </div>
@@ -34,8 +34,8 @@
               <label class="col-sm-3 col-form-label">Zone</label>
               <div class="col-sm-9">
                 <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-                  class="form-control" [(ngModel)]="feederReading.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederReading.zoneId)" required>
-                  <option disabled selected [ngValue]='undefind'>Select</option>
+                  class="form-control form-control-sm" [(ngModel)]="feederReading.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederReading.zoneId)" required>
+                  <option disabled selected [ngValue]='undefined'>Select</option>
                   <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
                 </select>
                 <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
@@ -47,8 +47,8 @@
               <label class="col-sm-3 col-form-label">Substation</label>
               <div class="col-sm-9">
                 <select [ngClass]="{'is-valid': !substation.errors && (substation.dirty || substation.touched),'is-invalid': substation.errors && (substation.dirty || substation.touched)}"
-                  class="form-control" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
-                  <option disabled selected [ngValue]='undefind'>Select</option>
+                  class="form-control form-control-sm" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
+                  <option disabled selected [ngValue]='undefined'>Select</option>
                   <option *ngFor="let substation of substations" [value]="substation.id">{{substation.name | uppercase}}</option>
                 </select>
                 <div class="invalid-feedback" *ngIf="substation.errors && (substation.dirty || substation.touched)">
@@ -60,8 +60,8 @@
               <label class="col-sm-3 col-form-label">Feeder</label>
               <div class="col-sm-9">
                 <select [ngClass]="{'is-valid': !feederId.errors && (feederId.dirty || feederId.touched),'is-invalid': feederId.errors && (feederId.dirty || feederId.touched)}"
-                  class="form-control" [(ngModel)]="feederReading.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederReading.feeder)" required>
-                  <option disabled selected [ngValue]='undefind'>Select</option>
+                  class="form-control form-control-sm" [(ngModel)]="feederReading.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederReading.feeder)" required>
+                  <option disabled selected [ngValue]='undefined'>Select</option>
                   <option *ngFor="let feeder of feeders" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
                 </select>
                 <div class="invalid-feedback" *ngIf="feederId.errors && (feederId.dirty || feederId.touched)">
@@ -151,8 +151,8 @@
                 <label class="col-sm-3 col-form-label">New Meter Make</label>
                 <div class="col-sm-9">
                   <select [ngClass]="{'is-valid': !meterMake.errors && (meterMake.dirty || meterMake.touched),'is-invalid': meterMake.errors && (meterMake.dirty || meterMake.touched)}"
-                    class="form-control" [(ngModel)]="feederReading.newMeterMake" #meterMake="ngModel" id="meterMake" name="meterMake" required>
-                    <option disabled selected [ngValue]='undefind'>Select</option>
+                    class="form-control form-control-sm" [(ngModel)]="feederReading.newMeterMake" #meterMake="ngModel" id="meterMake" name="meterMake" required>
+                    <option disabled selected [ngValue]='undefined'>Select</option>
                     <option [ngValue]="HPL">HPL</option>
                       <option [ngValue]="GENUS">GENUS</option>
                       <option [ngValue]="SECURE">SECURE</option>

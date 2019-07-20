@@ -33,4 +33,4 @@ import { PaginationServiceModule } from '@eas-services/pagination/pagination-ser
     FeederAbsentReadingViewComponent
   ]
 })
-export class FeederModule { }
+export class FeederComponentModule { }

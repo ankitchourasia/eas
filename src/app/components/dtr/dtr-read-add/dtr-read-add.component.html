@@ -5,7 +5,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(dtrReadAdd.region)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
@@ -18,7 +18,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(dtrReadAdd.circle)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
@@ -31,7 +31,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(dtrReadAdd.division)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
@@ -44,7 +44,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(dtrReadAdd.zone)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
@@ -57,7 +57,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(dtrReadAdd.substation)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let substation of substationList" [ngValue]="substation">{{substation.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
@@ -70,7 +70,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(dtrReadAdd.feeder)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
         </select>
           <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
@@ -93,7 +93,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !dtrName.errors && (dtrName.dirty || dtrName.touched),'is-invalid': dtrName.errors && (dtrName.dirty || dtrName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.dtr" #dtrName="ngModel" id="dtrName"  name="dtrName" required (change)="!dtrName.errors && dtrChanged(dtrReadAdd.dtr)">
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let dtr of dtrList" [ngValue]="dtr">{{dtr.dtrName | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="dtrName.errors && (dtrName.dirty || dtrName.touched)">
@@ -207,7 +207,7 @@
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched),'is-invalid': dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched)}"
           class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.dtrNewMeterMake" #dtrNewMeterMake="ngModel" id="dtrNewMeterMake"  name="dtrNewMeterMake" required>
-          <option disabled selected [ngValue]='undefind'>Select</option>
+          <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let meter of globalConstants.METER_MAKES" [ngValue]="meter.name">{{meter.value}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched)">

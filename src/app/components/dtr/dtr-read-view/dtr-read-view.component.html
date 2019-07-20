@@ -9,12 +9,12 @@
       <div class="input-group mx-sm-2">
         <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
           class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
-          <option disabled selected [ngValue]='undefind'>Select Month<span>&nbsp;&nbsp;&nbsp;&nbsp;</span></option>
+          <option disabled selected [ngValue]='undefined'>Select Month<span>&nbsp;&nbsp;&nbsp;&nbsp;</span></option>
           <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
         </select>
         <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
           class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
-          <option disabled selected [ngValue]='undefind'>Select Year</option>
+          <option disabled selected [ngValue]='undefined'>Select Year</option>
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
