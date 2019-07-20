@@ -8,6 +8,10 @@ export class GlobalResources {
     constructor(){
 
     }
+
+    getUserDetails(){
+        return JSON.parse(sessionStorage.getItem('userDetails'));
+    }
     
     setPristine(element : NgForm){
         if(element){
@@ -117,70 +121,83 @@ export class GlobalResources {
 
     getDateFromDatetimestamp(dateWithTimeStamp){
     // return  dateWithTimeStamp.substring(0, 10);
-    
-        let mm : any; let dd : any;
-        let day = new Date(dateWithTimeStamp).getDate();
-        let month = new Date(dateWithTimeStamp).getMonth() + 1;
-        let year = new Date(dateWithTimeStamp).getFullYear();
-        if(day < 10){ dd ='0'+ day; }
-        else{ dd = day; } 
-        if(month < 10){ mm ='0'+ month; }
-        else{ mm = month; }
-    
-        return (year + "-" + mm + "-" + dd);
-    }
-
-    getUserDetails(){
-        return JSON.parse(sessionStorage.getItem('userDetails'));
-    }
-
-    getNextBillMonth = function(billMonth){
-        let values = billMonth.split('-');
-        let month = values[0];
-        let year = 	parseInt(values[1]);
-        let nextMonth;
-        let nextYear = year;
-        switch (month) {
-        case "DEC":
-            nextMonth = 'JAN';
-            nextYear = nextYear + 1;
-            break;
-        case "JAN":
-            nextMonth = 'FEB';
-            break;
-        case "FEB":
-            nextMonth = 'MAR';
-            break;
-        case "MAR":
-            nextMonth = 'APR';
-            break;
-        case "APR":
-            nextMonth = 'MAY';
-            break;
-        case "MAY":
-            nextMonth = 'JUN';
-            break;
-        case "JUN":
-            nextMonth = 'JUL';
-            break;
-        case "JUL":
-            nextMonth = 'AUG';
-            break;
-        case "AUG":
-            nextMonth = 'SEP';
-            break;
-        case "SEP":
-            nextMonth = 'OCT';
-            break;
-        case "OCT":
-            nextMonth = 'NOV';
-            break;
-        case "NOV":
-            nextMonth = 'DEC';
-            break;
-        default:
-            break;
+        if(dateWithTimeStamp){
+            let mm : any; let dd : any;
+            let day = new Date(dateWithTimeStamp).getDate();
+            let month = new Date(dateWithTimeStamp).getMonth() + 1;
+            let year = new Date(dateWithTimeStamp).getFullYear();
+            if(day < 10){ dd ='0'+ day; }
+            else{ dd = day; } 
+            if(month < 10){ mm ='0'+ month; }
+            else{ mm = month; }
+        
+            return (year + "-" + mm + "-" + dd);
+        }else{
+            return null;
         }
-        return nextMonth.toUpperCase()+"-"+nextYear;
+        
+    }
+
+    getNextBillMonth(billMonth){
+        if(billMonth){
+            let values = billMonth.split('-');
+            let month = values[0];
+            let year = 	parseInt(values[1]);
+            let nextMonth;
+            let nextYear = year;
+            switch (month) {
+            case "DEC":
+                nextMonth = 'JAN';
+                nextYear = nextYear + 1;
+                break;
+            case "JAN":
+                nextMonth = 'FEB';
+                break;
+            case "FEB":
+                nextMonth = 'MAR';
+                break;
+            case "MAR":
+                nextMonth = 'APR';
+                break;
+            case "APR":
+                nextMonth = 'MAY';
+                break;
+            case "MAY":
+                nextMonth = 'JUN';
+                break;
+            case "JUN":
+                nextMonth = 'JUL';
+                break;
+            case "JUL":
+                nextMonth = 'AUG';
+                break;
+            case "AUG":
+                nextMonth = 'SEP';
+                break;
+            case "SEP":
+                nextMonth = 'OCT';
+                break;
+            case "OCT":
+                nextMonth = 'NOV';
+                break;
+            case "NOV":
+                nextMonth = 'DEC';
+                break;
+            default:
+                break;
+            }
+            return nextMonth.toUpperCase()+"-"+nextYear;
+        }else{
+            return null;
+        }
+    }
+
+    getYearList(){
+        let years = [];  
+        let year = 2016;
+        while(year <= 2050){
+           years.push(year++);
+        }
+        return years;
     }
 }

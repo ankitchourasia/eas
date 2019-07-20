@@ -106,7 +106,7 @@
             <select [ngClass]="{'is-valid': !billMonthYear.errors && (billMonthYear.dirty || billMonthYear.touched),'is-invalid': billMonthYear.errors && (billMonthYear.dirty || billMonthYear.touched)}"
               class="form-control" [(ngModel)]="dtrInitialReadAdd.year" #billMonthYear="ngModel" id="billMonthYear"  name="billMonthYear" required (change)="!billMonthYear.errors && billMonthYearChanged()">
               <option disabled selected [ngValue]='undefind'>Select Year</option>
-              <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
+              <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
             </select>
             <div class="invalid-feedback" *ngIf="billMonthYear.errors && (billMonthYear.dirty || billMonthYear.touched)">
               <div [hidden]="!billMonthYear.errors.required">required field</div>

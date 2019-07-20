@@ -49,7 +49,6 @@ export class DtrLossReportComponent implements OnInit {
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
     this.checkUserRoll(this.user);
-    this.getCurrentYear();
   }
 
   checkUserRoll(user){
@@ -412,13 +411,5 @@ export class DtrLossReportComponent implements OnInit {
     }
     this.pager = this.paginationService.getPager(this.dtrList.length, page, this.pageSize);
     this.pagedDtrList = this.dtrList.slice(this.pager.startIndex, this.pager.endIndex + 1);
-  }
-
-  years: any = [];
-  getCurrentYear(){
-    let year = 2016;
-    while(year <= 2050){
-      this.years.push(year++);
-    }
   }
 }

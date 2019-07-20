@@ -28,7 +28,6 @@ export class DtrReadViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.getCurrentYear();
   }
 
   searchClicked(){
@@ -223,15 +222,7 @@ export class DtrReadViewComponent implements OnInit {
     }
     return nextMonth.toUpperCase()+"-"+nextYear;
   }
-  
-  years: any = [];
-  getCurrentYear(){
-    let year = 2016;
-    while(year <= 2050){
-      this.years.push(year++);
-    }
-  }
-
+ 
   exportClicked(){
     var params = {
       Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials'),

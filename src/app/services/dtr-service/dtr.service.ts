@@ -90,6 +90,15 @@ export class DtrService {
     return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/zone/id/' + zoneId,  options);
   }
 
+  getLastInsertedReadingByDtrId(dtrId, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/last-inserted/dtr/id/' + dtrId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + this.DTR_URL + 'reading/last-inserted/dtr/id/' + dtrId);
+    }
+  }
+
   addDTRRead(dtrReading, punchedBy){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("punchedBy", punchedBy);
@@ -97,6 +106,15 @@ export class DtrService {
       params: httpParams
     };
     return this.http.post(this.URL_PREFIX + this.DTR_URL + 'reading/', dtrReading, options);
+  }
+
+  addDtrReadWithMeterReplacement(dtrReading, punchedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", punchedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.post(this.URL_PREFIX + this.DTR_URL + 'meter/replacement/', dtrReading, options);
   }
 
   updateDTRRead(dtrReading, nextBillMonth, updatedBy){

@@ -15,7 +15,7 @@
         <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
           class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
           <option disabled selected [ngValue]='undefind'>Select Year</option>
-          <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
+          <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
           <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">

@@ -32,37 +32,36 @@ export class DtrAddInitialReadComponent implements OnInit {
     private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService) { }
 
   ngOnInit() {
-    this.dtrInitialReadAdd = {};
-    this.substationList = null;
-    this.user = this.globalResources.getUserDetails();
-    this.getCurrentYear();
-    this.checkUserRoll(this.user);
+    this.setPartialData();
   }
 
-  checkUserRoll(user){
+  setPartialData(){
+    this.dtrInitialReadAdd = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    this.substationList = [];
+    this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
-    }else if(user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = (user.zoneList);
-      this.regionList.push(user.region);
-      this.circleList.push(user.circle);
-      this.divisionList.push(user.division);
-      this.dtrInitialReadAdd.region = user.region;
-      this.dtrInitialReadAdd.circle = user.circle;
-      this.dtrInitialReadAdd.division = user.division;
-    }else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
-      this.zoneList.push(user.zone);
-      this.regionList.push(user.region);
-      this.circleList.push(user.circle);
-      this.divisionList.push(user.division);
-      this.dtrInitialReadAdd.region = user.region;
-      this.dtrInitialReadAdd.circle = user.circle;
-      this.dtrInitialReadAdd.division = user.division;
-      this.dtrInitialReadAdd.zone = user.zone;
+    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      this.zoneList = (this.user.zoneList);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.dtrInitialReadAdd.region = this.user.region;
+      this.dtrInitialReadAdd.circle = this.user.circle;
+      this.dtrInitialReadAdd.division = this.user.division;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.dtrInitialReadAdd.region = this.user.region;
+      this.dtrInitialReadAdd.circle = this.user.circle;
+      this.dtrInitialReadAdd.division = this.user.division;
+      this.dtrInitialReadAdd.zone = this.user.zone;
       this.getSubstationByZoneId(this.dtrInitialReadAdd.zone.id);
     }
   }
@@ -268,10 +267,10 @@ export class DtrAddInitialReadComponent implements OnInit {
   }
 
   dtrInitialReadingDateChanged(){
-    this.makeCurrentReadingDate(this.dtrInitialReadAdd.currReadingDate);
+    this.makeCustomReadingDate(this.dtrInitialReadAdd.currReadingDate);
   }
 
-  makeCurrentReadingDate(currReadingDate){
+  makeCustomReadingDate(currReadingDate){
     this.dtrInitialReadAdd.currReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(currReadingDate);
   }
 
@@ -287,7 +286,7 @@ export class DtrAddInitialReadComponent implements OnInit {
     if(this.globalResources.validateForm(dtrInitialReadAddForm)){
       this.submitButtonClicked = true;
       this.calculateDifference();
-      this.makeCurrentReadingDate(this.dtrInitialReadAdd.currReadingDate);
+      this.makeCustomReadingDate(this.dtrInitialReadAdd.currReadingDate);
       // new flow in which prev reading & its date is same as current reading
       this.dtrInitialReadAdd.dtrId = this.dtrInitialReadAdd.dtr.id;
       this.dtrInitialReadAdd.zoneId = this.dtrInitialReadAdd.zone.id;
@@ -340,11 +339,4 @@ export class DtrAddInitialReadComponent implements OnInit {
     this.dtrInitialReadAdd.dtr = undefined;
   }
 
-  years: any = [];
-  getCurrentYear(){
-    let year = 2016;
-    while(year <= 2050){
-      this.years.push(year++);
-    }
-  }
 }
