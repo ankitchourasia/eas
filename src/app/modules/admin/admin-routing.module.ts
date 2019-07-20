@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AdminSubstationAddComponent } from './admin-substation-add/admin-substation-add.component';
-import { AdminSubstationViewComponent } from './admin-substation-view/admin-substation-view.component';
-import { AdminFeederAddComponent } from './admin-feeder-add/admin-feeder-add.component';
-import { AdminFeederViewComponent } from './admin-feeder-view/admin-feeder-view.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
-import { AdminFeederReadingAddComponent } from './admin-feeder-reading-add/admin-feeder-reading-add.component';
-import { AdminFeederReadingViewComponent } from './admin-feeder-reading-view/admin-feeder-reading-view.component';
-import { AdminFeederAbsentReadingViewComponent } from './admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
-import { AdminDtrAddComponent } from './admin-dtr-add/admin-dtr-add.component';
-import { AdminDtrViewComponent } from './admin-dtr-view/admin-dtr-view.component';
-import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-loss-report.component';
-import { AdminDtrReadViewComponent } from './admin-dtr-read-view/admin-dtr-read-view.component';
-import { AdminDtrReadAddComponent } from './admin-dtr-read-add/admin-dtr-read-add.component';
-import { AdminDtrAddInitialReadComponent } from './admin-dtr-add-initial-read/admin-dtr-add-initial-read.component';
+import { AdminSubstationAddComponent } from './admin-substation/admin-substation-add/admin-substation-add.component';
+import { AdminSubstationViewComponent } from './admin-substation/admin-substation-view/admin-substation-view.component';
+import { AdminFeederAddComponent } from './admin-feeder/admin-feeder-add/admin-feeder-add.component';
+import { AdminFeederViewComponent } from './admin-feeder/admin-feeder-view/admin-feeder-view.component';
+import { AdminFeederReadingAddComponent } from './admin-feeder/admin-feeder-reading-add/admin-feeder-reading-add.component';
+import { AdminFeederReadingViewComponent } from './admin-feeder/admin-feeder-reading-view/admin-feeder-reading-view.component';
+import { AdminFeederAbsentReadingViewComponent } from './admin-feeder/admin-feeder-absent-reading-view/admin-feeder-absent-reading-view.component';
+import { AdminDtrAddComponent } from './admin-dtr/admin-dtr-add/admin-dtr-add.component';
+import { AdminDtrViewComponent } from './admin-dtr/admin-dtr-view/admin-dtr-view.component';
+import { AdminDtrAddInitialReadComponent } from './admin-dtr/admin-dtr-add-initial-read/admin-dtr-add-initial-read.component';
+import { AdminDtrReadAddComponent } from './admin-dtr/admin-dtr-read-add/admin-dtr-read-add.component';
+import { AdminDtrReadViewComponent } from './admin-dtr/admin-dtr-read-view/admin-dtr-read-view.component';
+import { AdminDtrLossReportComponent } from './admin-dtr/admin-dtr-loss-report/admin-dtr-loss-report.component';
 
 const adminRoutes: Routes = [
   {
