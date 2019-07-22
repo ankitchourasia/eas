@@ -10,14 +10,13 @@ import { DivisionService } from '@eas-services/division-service/division.service
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { BillFileService } from '@eas-services/bill-file-service/bill-file.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
-import $ from 'jQuery';
 
 @Component({
-  selector: 'eas-dtr-loss-report',
-  templateUrl: './dtr-loss-report.component.html',
-  styleUrls: ['./dtr-loss-report.component.css']
+  selector: 'eas-dtr-pre-billing',
+  templateUrl: './dtr-pre-billing.component.html',
+  styleUrls: ['./dtr-pre-billing.component.css']
 })
-export class DtrLossReportComponent implements OnInit {
+export class DtrPreBillingComponent implements OnInit {
 
   user : any;
   zoneList: any;
@@ -35,50 +34,48 @@ export class DtrLossReportComponent implements OnInit {
   pageSize: number;
   pagedDtrList : any;
   showError: boolean;
-  generating: boolean;
-  reportGenerated: boolean;
   searchButtonClicked: boolean;
   allDtrReadingInserted: boolean;
-
+  
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
     private feederService : FeederService, private substationService: SubstationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService,
     private billFileService: BillFileService, private paginationService : PaginationService) { }
 
-  ngOnInit() {
-    this.checkUserRoll();
-  }
-
-  checkUserRoll(){
-    this.userDetails = {};
-    this.zoneList = [];
-    this.regionList = [];
-    this.circleList = [];
-    this.divisionList = [];
-    this.substationList = null;
-    this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
-      this.getRegionList();
-    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = (this.user.zoneList);
-      this.regionList.push(this.user.region);
-      this.circleList.push(this.user.circle);
-      this.divisionList.push(this.user.division);
-      this.userDetails.region = this.user.region;
-      this.userDetails.circle = this.user.circle;
-      this.userDetails.division = this.user.division;
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
-      this.zoneList.push(this.user.zone);
-      this.regionList.push(this.user.region);
-      this.circleList.push(this.user.circle);
-      this.divisionList.push(this.user.division);
-      this.userDetails.region = this.user.region;
-      this.userDetails.circle = this.user.circle;
-      this.userDetails.division = this.user.division;
-      this.userDetails.zone = this.user.zone;
-      this.getSubstationByZoneId(this.userDetails.zone.id);
+    ngOnInit() {
+      this.checkUserRoll();
     }
-  }
+  
+    checkUserRoll(){
+      this.userDetails = {};
+      this.zoneList = [];
+      this.regionList = [];
+      this.circleList = [];
+      this.divisionList = [];
+      this.substationList = null;
+      this.user = this.globalResources.getUserDetails();
+      if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+        this.getRegionList();
+      }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+        this.zoneList = (this.user.zoneList);
+        this.regionList.push(this.user.region);
+        this.circleList.push(this.user.circle);
+        this.divisionList.push(this.user.division);
+        this.userDetails.region = this.user.region;
+        this.userDetails.circle = this.user.circle;
+        this.userDetails.division = this.user.division;
+      }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+        this.zoneList.push(this.user.zone);
+        this.regionList.push(this.user.region);
+        this.circleList.push(this.user.circle);
+        this.divisionList.push(this.user.division);
+        this.userDetails.region = this.user.region;
+        this.userDetails.circle = this.user.circle;
+        this.userDetails.division = this.user.division;
+        this.userDetails.zone = this.user.zone;
+        this.getSubstationByZoneId(this.userDetails.zone.id);
+      }
+    }
   
   getRegionList(){
     this.regionService.getRegions(false).subscribe(successResponse =>{
@@ -201,13 +198,12 @@ export class DtrLossReportComponent implements OnInit {
     // this.getDTRByFeederId(feeder.id);
   }
 
-
   searchClicked(){
     this.dtrReadingList = null;
     this.showError = false;
     this.allDtrReadingInserted = false;
-    this.reportGenerated = false;
-    this.generating = false;
+    // this.reportGenerated = false;
+    // this.generating = false;
     this.getDTRByFeederId(this.userDetails.feeder.id);
   }
 
@@ -225,6 +221,7 @@ export class DtrLossReportComponent implements OnInit {
     }, errorResponse =>{
       console.log(errorResponse)
       this.searchButtonClicked = false;
+      this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 
@@ -243,10 +240,11 @@ export class DtrLossReportComponent implements OnInit {
         });
       }
       this.searchButtonClicked = false;
-      this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.userDetails.feeder.groupNo, billMonth);
+      this.getDtrPreBillingReportsByFeederIdAndBillMonth(this.userDetails.feeder.id, billMonth);
     },errorResponse =>{
       console.log(errorResponse);
       this.searchButtonClicked = false;
+      this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 
@@ -254,6 +252,7 @@ export class DtrLossReportComponent implements OnInit {
     let matchedDtrReading =  this.dtrReadingList.find(dtrReading => dtrReading.dtrId === dtrToFind.id);
     if(matchedDtrReading && matchedDtrReading.dtrId === dtrToFind.id){
       dtrToFind.readingInsertedForBillMonth = true;
+      dtrToFind.reading = matchedDtrReading;
     }else{
       dtrToFind.readingInsertedForBillMonth = false;
     }
@@ -261,6 +260,52 @@ export class DtrLossReportComponent implements OnInit {
       this.allDtrReadingInserted = dtrToFind.readingInsertedForBillMonth;
     }else{
       this.allDtrReadingInserted = !!(Number(this.allDtrReadingInserted) * Number(dtrToFind.readingInsertedForBillMonth));
+    }
+  }
+
+  dtrPreBillingReports: any;
+  getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth){
+    this.searchButtonClicked = true;
+    this.dtrService.getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
+      this.dtrPreBillingReports = successResponse;
+      if(this.dtrPreBillingReports){
+        this.dtrList.forEach((dtr,index) => {
+          this.checkPreBillingReportSaved(dtr,index);
+        });
+      }
+      this.searchButtonClicked = false;
+      this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.userDetails.feeder.groupNo, billMonth);
+    }, errorResponse =>{
+      console.log(errorResponse);
+      this.searchButtonClicked = false;
+      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+    })
+  }
+
+  allDtrPrebillingInserted: boolean;
+  checkPreBillingReportSaved(dtrToFind,index){
+    let matchedDtrPreBillingReport =  this.dtrPreBillingReports.find(dtrPreBillingReport => dtrPreBillingReport.dtrId === dtrToFind.id);
+    if(matchedDtrPreBillingReport && matchedDtrPreBillingReport.dtrId === dtrToFind.id){
+      dtrToFind.prebillingInsertedForBillMonth = true;
+      dtrToFind.prebilling = matchedDtrPreBillingReport;
+      //Converting database values in float since input type on form is number
+			// database values have string type
+			dtrToFind.prebilling.preConsumption = parseFloat(dtrToFind.prebilling.preConsumption);
+			dtrToFind.prebilling.assUnit = parseFloat(dtrToFind.prebilling.assUnit);
+			dtrToFind.prebilling.assUnitConsumption = parseFloat(dtrToFind.prebilling.assUnitConsumption);
+			dtrToFind.prebilling.theftUnit = parseFloat(dtrToFind.prebilling.theftUnit);
+			dtrToFind.prebilling.theftUnitConsumption = parseFloat(dtrToFind.prebilling.theftUnitConsumption);
+    }else{
+      dtrToFind.prebillingInsertedForBillMonth = false;
+      if(dtrToFind.reading){
+				dtrToFind.prebilling = {};
+				dtrToFind.prebilling.netDTRInput = dtrToFind.reading.totalConsumption;
+      }
+    }
+    if(index === 0){
+      this.allDtrPrebillingInserted = dtrToFind.prebillingInsertedForBillMonth;
+    }else{
+      this.allDtrPrebillingInserted = !!(Number(this.allDtrPrebillingInserted) * Number(dtrToFind.prebillingInsertedForBillMonth));
     }
   }
 
@@ -281,128 +326,86 @@ export class DtrLossReportComponent implements OnInit {
       this.searchButtonClicked = false;
       this.userDetails.feeder.billFileUploaded = false;
       this.userDetails.feeder.billFileNotUploaded = true;
+      this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 
-  generateAllDtrLossReport(){
-    this.generating = true;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.generateAllDTRLossByFeederAndBillMonth(this.userDetails.feeder, billingMonth, true).subscribe(successResponse =>{
-      let generatedReport = <any>successResponse;
-      this.generating = false;
-      this.reportGenerated = true
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully for Feeder: <br><strong>" + 
-          this.userDetails.feeder.name + " for Month : " + billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
-    },errorResponse =>{
-      console.log(errorResponse);
-      this.generating = false;
-      if(errorResponse.status === 417){
-        this.reportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }
-    });
+  preSoldUnitChanged(dtr){
+    dtr.prebilling.preBillingLoss = undefined;
+		dtr.prebilling.newPreConsumption = undefined;
+		dtr.prebilling.assUnitConsumption = undefined;
+		dtr.prebilling.theftUnitConsumption = undefined;
+    dtr.prebilling.newPreBillingLoss = undefined;
+    this.calculatePreBillingLoss(dtr);
   }
 
-  generateSingleDtrLossReport(dtr){
-    dtr.generatingSingleReport = true;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.generateDTRLossByDtrAndBillMonth(dtr, billingMonth, true).subscribe(successResponse =>{
-      let generatedReport = <any>successResponse;
-      console.log(generatedReport);
-      dtr.generatingSingleReport = false;
-      dtr.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
-    },errorResponse =>{
-      console.log(errorResponse);
-      dtr.generatingSingleReport = false;
-      if(errorResponse.status === 417){
-        dtr.generatingSingleReport = false;
-        dtr.singleReportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }
-    });
-  }
-
-  dtrLossReports: any
-  display: any = 'none';
-  viewDtrLossReport(){
-    this.display= 'none';
-    this.dtrLossReports = null;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.getDTRLossReportByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth, false).subscribe(successResponse =>{
-    this.dtrLossReports = <any>successResponse;
-    console.log(this.dtrLossReports);
-    if(this.dtrLossReports && this.dtrLossReports.length){
-      this.openModal();
-      this.dtrLossReports.forEach((dtrLossReport,index) => {
-        this.calculateTotal(dtrLossReport, index);
-      });
-      this.calculateGrossLoss();
-      this.roundOffAllValues();
-    }
-    },errorResponse =>{
-      console.log(errorResponse);
-      let alertResponse = this.globalResources.errorAlert("DTR LOSS REPORT does not exists!");
-    });
-  }
-
-  openModal(){
-    this.display = 'block';
-  }
-
-  closeModal(){
-    this.display = 'none';
-  }
-
-  grossInput: number = 0;
-  grossConsumer: number = 0;
-  grossConsumption: number = 0;
-  grossAssessment: number = 0;
-  calculateTotal(report,index){
-    this.grossInput = this.grossInput + parseInt(report.netDTRInput);
-    this.grossConsumer = this.grossConsumer + parseInt(report.totalConsumer);
-    this.grossConsumption = this.grossConsumption + parseInt(report.totalSoldUnit);
-    this.grossAssessment = this.grossAssessment + parseInt(report.assessmentUnit);
-  }
-
-  grossLoss: any = 0;
-  calculateGrossLoss(){
-    if(this.grossInput == 0){
-      this.grossLoss = '###';
-    }else{
-      let loss = this.grossInput - this.grossConsumption;
-      loss = loss / this.grossInput;
-      loss = loss * 100;
-      this.grossLoss = Math.round(loss*100)/100;
+  calculatePreBillingLoss(dtr){
+    console.log("calculating prebilling loss for dtr: " + dtr);
+    if(dtr.prebilling.netDTRInput !== null && dtr.prebilling.netDTRInput !== undefined){
+      // let preConsumption = dtr.prebilling.preConsumption;
+      if(dtr.prebilling.preConsumption !== null && dtr.prebilling.preConsumption !== undefined){
+				let input = parseFloat(dtr.prebilling.netDTRInput);
+				let soldUnit = parseFloat(dtr.prebilling.preConsumption);
+				let difference = input - soldUnit;
+				let temp = difference/input;
+				let loss = temp * 100;
+				console.log("Actual Loss : " + loss);
+				let precisedLoss = Number(loss.toPrecision(4));
+				precisedLoss = Math.round(precisedLoss * 100) / 100;
+				console.log("Precised Loss : " + precisedLoss);
+				dtr.prebilling.preBillingLoss = precisedLoss;
+			}else{
+				console.log("DTR ccnb consumption is null");
+				dtr.prebilling.preBillingLoss = null;
+			}
+		}else{
+			console.log("DTR Consumption is null");
+			dtr.prebilling.preBillingLoss = null;
     }
   }
 
-  roundOffAllValues(){
-    this.grossInput = Math.round(this.grossInput * 100)/100;
+  newUnitConsumptionChanged(dtr){
+    console.log("New Unit Consumption Changed for dtr " + dtr.dtrName);
+    let temp = parseFloat(dtr.prebilling.preConsumption);
+    if(dtr.prebilling.assUnitConsumption !== null && dtr.prebilling.assUnitConsumption !== undefined){
+      temp = temp + parseFloat(dtr.prebilling.assUnitConsumption);
+    }
+    if(dtr.prebilling.theftUnitConsumption !== null && dtr.prebilling.theftUnitConsumption !== undefined){
+      temp = temp + parseFloat(dtr.prebilling.theftUnitConsumption);
+		}
+		if((dtr.prebilling.assUnitConsumption === null || dtr.prebilling.assUnitConsumption === undefined) &&
+      (dtr.prebilling.theftUnitConsumption === null || dtr.prebilling.theftUnitConsumption === undefined)){
+      dtr.prebilling.newPreConsumption = null;
+      dtr.prebilling.newPreBillingLoss = null;
+		}else{
+      temp = Math.round(temp * 100) / 100;
+      dtr.prebilling.newPreConsumption = temp;
+      this.calculateNewPreBillingLoss(dtr);
+		}
   }
 
-  exportTotalConsumers(report){
-    let user = this.globalResources.getUserDetails();
-    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    console.log('Basic ' + encodedCredentials);
-    console.log("Fetching consumers for report : ",report);
-    let params = {
-      Authorization: "Basic%20c29uYWxfZWFzdDpzb25hbCMxMjM%3D",
-      locationCode: report.zoneLocationCode,
-      billMonth: report.lossMonth,
-      groupNo: report.billingGroupNo,
-      readerNo: report.billingRDNo
-    };
-  
-    let fileUrl = window.location.origin+"/backend/dtrloss/consumers/export";
-    // Add authentication headers in URL
-    let url = [fileUrl, $.param(params)].join('?');
-    window.open(url);
+  calculateNewPreBillingLoss(dtr){
+    console.log("Calculating new pre billing loss for dtr: " + dtr.dtrName);
+    if(dtr.prebilling.newPreConsumption !== null && dtr.prebilling.newPreConsumption !== undefined){
+			let input = parseFloat(dtr.prebilling.netDTRInput);
+			let soldUnit = parseFloat(dtr.prebilling.newPreConsumption);
+			let difference = input - soldUnit;
+			let temp = difference/input;
+      let loss = temp * 100;
+      console.log("New Actual Loss : " + loss);
+			let precisedLoss = Number(loss.toPrecision(4));
+			precisedLoss = Math.round(precisedLoss * 100) / 100
+			console.log("New Precised Loss : " + precisedLoss);
+			dtr.prebilling.newPreBillingLoss = precisedLoss;
+		}else{
+			console.log("New sold unit is null hence setting new pre billing loss as null");
+			dtr.prebilling.newPreBillingLoss = null;
+		}
   }
 
   initializePaginationVariables(){
     this.pager = {};
-    this.pageSize = 10;
+    this.pageSize = 5;
   }
 
   setPage(page: number) {

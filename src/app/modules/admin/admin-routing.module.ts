@@ -17,6 +17,7 @@ import { AdminDtrAddInitialReadComponent } from './admin-dtr/admin-dtr-add-initi
 import { AdminDtrReadAddComponent } from './admin-dtr/admin-dtr-read-add/admin-dtr-read-add.component';
 import { AdminDtrReadViewComponent } from './admin-dtr/admin-dtr-read-view/admin-dtr-read-view.component';
 import { AdminDtrLossReportComponent } from './admin-dtr/admin-dtr-loss-report/admin-dtr-loss-report.component';
+import { AdminDtrPreBillingComponent } from './admin-dtr/admin-dtr-pre-billing/admin-dtr-pre-billing.component';
 
 const adminRoutes: Routes = [
   {
@@ -72,6 +73,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'dtr/generate/loss/report',component: AdminDtrLossReportComponent
+          },
+          {
+            path: 'dtr/pre-billing',component: AdminDtrPreBillingComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'
