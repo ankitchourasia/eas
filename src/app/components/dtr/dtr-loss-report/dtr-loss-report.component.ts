@@ -11,6 +11,7 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 import { BillFileService } from '@eas-services/bill-file-service/bill-file.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import $ from 'jQuery';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-loss-report',
@@ -382,19 +383,17 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   exportTotalConsumers(report){
-    let user = this.globalResources.getUserDetails();
+    // let user = this.globalResources.getUserDetails();
     let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    console.log('Basic ' + encodedCredentials);
-    console.log("Fetching consumers for report : ",report);
     let params = {
-      Authorization: "Basic%20c29uYWxfZWFzdDpzb25hbCMxMjM%3D",
+      Authorization: "Basic " + encodedCredentials,
       locationCode: report.zoneLocationCode,
       billMonth: report.lossMonth,
       groupNo: report.billingGroupNo,
       readerNo: report.billingRDNo
     };
   
-    let fileUrl = window.location.origin+"/backend/dtrloss/consumers/export";
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "dtrloss/consumers/export";
     // Add authentication headers in URL
     let url = [fileUrl, $.param(params)].join('?');
     window.open(url);

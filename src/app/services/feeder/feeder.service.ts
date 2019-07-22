@@ -82,4 +82,13 @@ export class FeederService {
     };
     return this.http.put(this.URL_PREFIX + this.FEEDER_URL + 'reading/' + reading.id, reading, options);
   }
+
+  getFeederAbsentReadingsByDivisionId(divisionId, billMonth){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'absent/reading/' + divisionId, options);
+  }
 }
