@@ -31,7 +31,7 @@
                             <div [hidden]="!password.errors.required">required field</div>
                         </div>
                     </div>
-                    <div class="eas-space-between">
+                    <div class="eas-space-evenly">
                         <button type="button" class="btn btn-success" (click)="loginClicked(loginForm)" [disabled]="submitButtonClicked">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span> login
                         </button>

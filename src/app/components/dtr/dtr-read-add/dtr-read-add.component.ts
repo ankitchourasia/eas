@@ -268,7 +268,7 @@ export class DtrReadAddComponent implements OnInit {
     this.dtrReadAdd.meterReplacementDate = undefined;
     this.dtrReadAdd.finalRead = undefined;
     this.dtrReadAdd.newDTRMeterNo = undefined;
-    this.dtrReadAdd.dtrNewMeterMake = undefined;
+    this.dtrReadAdd.newMeterMake = undefined;
     this.dtrReadAdd.newMeterMf = undefined;
     this.dtrReadAdd.newMeterCapacity = undefined;
     this.dtrReadAdd.newMeterStartRead = undefined;
@@ -279,6 +279,7 @@ export class DtrReadAddComponent implements OnInit {
 
   dtrMeterReplacementDateChanged(){
     this.calculateDifference();
+    this.dtrReadAdd.currReadingDate = undefined;
     this.dtrReadAdd.meterReplacementDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.dtrReadAdd.meterReplacementDate);
   }
   
