@@ -206,7 +206,7 @@
       <label class="col-sm-3">New Meter Make</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched),'is-invalid': dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.dtrNewMeterMake" #dtrNewMeterMake="ngModel" id="dtrNewMeterMake"  name="dtrNewMeterMake" required>
+          class="form-control form-control-sm" [(ngModel)]="dtrReadAdd.newMeterMake" #dtrNewMeterMake="ngModel" id="dtrNewMeterMake"  name="dtrNewMeterMake" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let meter of globalConstants.METER_MAKES" [ngValue]="meter.name">{{meter.value}}</option>
         </select>
