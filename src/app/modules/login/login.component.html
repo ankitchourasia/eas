@@ -31,11 +31,11 @@
                             <div [hidden]="!password.errors.required">required field</div>
                         </div>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-success mx-sm-3" (click)="loginClicked(loginForm)" [disabled]="submitButtonClicked">
+                    <div class="eas-space-between">
+                        <button type="button" class="btn btn-success" (click)="loginClicked(loginForm)" [disabled]="submitButtonClicked">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span> login
                         </button>
-                        <button type="reset" class="btn btn-danger mx-sm-3">clear</button>
+                        <button type="reset" class="btn btn-danger">clear</button>
                     </div>
                 </form>
             </div>

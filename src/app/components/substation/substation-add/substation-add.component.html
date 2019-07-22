@@ -58,12 +58,12 @@
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-5 offset-3">
-        <button type="submit" class="btn btn-success form-control" (click)=submitClicked(substationAddForm) [disabled]="submitButtonClicked">
+      <div class="col-4 offset-3">
+        <button type="button" class="btn btn-success form-control" (click)=submitClicked(substationAddForm) [disabled]="submitButtonClicked">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span> Submit
         </button>
       </div>
-      <div class="col-4">
+      <div class="col-4 offset-1">
         <button type="reset" class="btn btn-danger form-control">Reset</button>
       </div>
     </div>
