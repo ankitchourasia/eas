@@ -20,6 +20,7 @@ import { AdminDtrLossReportComponent } from './admin-dtr/admin-dtr-loss-report/a
 import { AdminFeederTndLossReportComponent } from './admin-feeder/admin-feeder-tnd-loss-report/admin-feeder-tnd-loss-report.component';
 import { AdminFeederTndLossReportWithoutHtComponent } from './admin-feeder/admin-feeder-tnd-loss-report-without-ht/admin-feeder-tnd-loss-report-without-ht.component';
 import { AdminFeederAtncLossReportComponent } from './admin-feeder/admin-feeder-atnc-loss-report/admin-feeder-atnc-loss-report.component';
+import { AdminDtrPreBillingComponent } from './admin-dtr/admin-dtr-pre-billing/admin-dtr-pre-billing.component';
 
 const adminRoutes: Routes = [
   {
@@ -84,6 +85,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'dtr/generate/loss/report',component: AdminDtrLossReportComponent
+          },
+          {
+            path: 'dtr/pre-billing',component: AdminDtrPreBillingComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

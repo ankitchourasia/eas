@@ -1,0 +1,13 @@
+.form-text{
+    min-width: 150px;
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid{
+    background-image: none;
+    padding-right: calc(0.75rem);
+}
+
+.was-validated .form-control:valid, .form-control.is-valid{
+    background-image: none;
+    padding-right: calc(0.75rem);
+}

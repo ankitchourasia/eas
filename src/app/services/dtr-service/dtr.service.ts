@@ -162,5 +162,29 @@ export class DtrService {
     }
     return this.http.get(this.URL_PREFIX + 'dtrloss/feederId/' + feederId,  options);
   }
+
+  getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + this.DTR_URL +  'prebilling/report/feeder/id/' + feederId,  options);
+  }
+
+  savePreBillingReport(dtrPrebilling, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.post(this.URL_PREFIX + this.DTR_URL + 'prebilling/report', dtrPrebilling,  options);
+  }
   
 }

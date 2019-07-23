@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header bg-dark text-center text-white">
-    FEEDER T&D Loss Report
+    DTR PRE-BILLING ACTIVITY
   </div>
   <div class="card-body">
     <div class="eas-space-evenly mb-2">
@@ -59,7 +59,7 @@
           <div [hidden]="!substationName.errors.required">required field</div>
         </div>
       </div>
-      <!-- <div class="inner-group">
+      <div class="inner-group">
         <label class="form-text text-muted mb-0">Feeder</label>
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(userDetails.feeder)">
@@ -69,7 +69,7 @@
         <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
           <div [hidden]="!feederName.errors.required">required field</div>
         </div>
-      </div> -->
+      </div>
       <div class="inner-group">
         <label class="form-text text-muted mb-0">Bill Month</label>
         <!-- <input type="month" [ngClass]="{'is-valid': !billingMonth.errors && (billingMonth.dirty || billingMonth.touched),'is-invalid': billingMonth.errors && (billingMonth.dirty || billingMonth.touched)}"
@@ -89,7 +89,7 @@
             <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
           </select>
           <div class="input-group-append">
-            <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
+            <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="feederName.errors || month.errors || year.errors || searchButtonClicked">
               <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
             </button>
           </div>
@@ -98,12 +98,17 @@
           </div>
         </div>
       </div>
+      <div class="inner-group">
+        <label class="form-text text-muted mb-0">Bill File</label>
+        <button type="button" class="btn btn-sm btn-success" *ngIf="userDetails?.feeder?.billFileUploaded" disabled>Uploaded</button>
+        <button type="button" class="btn btn-sm btn-danger" *ngIf="!userDetails?.feeder?.billFileUploaded" disabled>Not Uploaded</button>
+      </div>
     </div>
     <hr>
-    <!-- <div class="eas-space-between mb-2" *ngIf="allFeederReadingInserted && feeder?.billFileUploaded">
+    <!-- <div class="eas-space-between mb-2" *ngIf="allDtrReadingInserted && userDetails?.feeder?.billFileUploaded">
       <div>
-        <button type="button" class="btn btn-sm btn-warning" (click)="generateAllFeederLossReport()" *ngIf="!reportGenerated" [disabled]="generating">Generate Report</button>
-        <button type="button" class="btn btn-sm btn-info mx-sm-1" (click)="viewFeederLossReport()" *ngIf="reportGenerated">View Report</button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="generateAllDtrLossReport()" *ngIf="!reportGenerated" [disabled]="generating">Generate Report</button>
+        <button type="button" class="btn btn-sm btn-info mx-sm-1" (click)="viewDtrLossReport()" *ngIf="reportGenerated">View Report</button>
       </div>
       <div class="progress" style="width: 50%" *ngIf="generating">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
@@ -111,62 +116,85 @@
     </div> -->
     <div class="eas-flex-end" *ngIf="showError">
       <div class="alert alert-danger text-center pb-1 pt-1" role="alert">
-        <strong>Feeder Readings for Month {{billMonth}}-{{billMonthYear}} !</strong> not inserted for all feeders.
+        <strong>DTR Readings for Month {{billMonth}}-{{billMonthYear}} !</strong> not inserted for all dtrs.
       </div>
     </div>
 
-    <div *ngIf="feederList && !searchButtonClicked">
+    <div *ngIf="dtrList && !searchButtonClicked">
       <div class="table-responsive mb-2 text-center">
-        <table class="table table-sm table-bordered table-hover" id="feeders">
+        <table class="table table-sm table-bordered table-hover" id="dtrs">
           <thead class="bg-dark text-white">
             <tr>
-              <td>S.No</td>
-              <td>Feeder Name</td>
-              <td>Feeder Type</td>
-              <td>Group No</td>
-              <td>HT Reading</td>
-              <td>Bill File</td>
-              <td>11KV Reading</td>
-              <td>Export Reading</td>
-              <td>Generate</td>
+              <td class="align-middle">S.NO</td>
+              <td class="align-middle">DTR NAME</td>
+              <td class="align-middle">RD NO</td>
+              <td class="align-middle">READING</td>
+              <td class="align-middle">DTR INPUT</td>
+              <td class="align-middle">CCnB CONSUMPTION</td>
+              <td class="align-middle">%T&D LOSS</td>
+              <td class="align-middle">ASS NO/UNIT</td>
+              <td class="align-middle">THEFT NO/UNIT</td>
+              <td class="align-middle">NEW CONSUMPTION</td>
+              <td class="align-middle">PROJECTED %T&D LOSS</td>
+              <td class="align-middle">REMARK</td>
+              <td class="align-middle">ACTION</td>
+              <td class="align-middle">AFTER BILLING %T&D LOSS</td>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let feeder of pagedFeederList; let i = index">
-              <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-              <td>{{feeder?.feeder?.name}}</td>
-              <td>{{feeder?.feeder?.type}}</td>
-              <td>{{feeder?.feeder?.groupNo}}</td>
-              <td>
-                <span class="text-success" *ngIf="feeder.htReadingInserted"><span class="fa fa-check"></span></span> 
-                <span class="text-danger" *ngIf="!feeder.htReadingInserted"><span class="fa fa-times"></span></span>
+            <tr *ngFor="let dtr of pagedDtrList; let i = index" valign="middle">
+              <td hidden><form id="dtrForm{{i}}"></form></td>
+              <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+              <td class="align-middle">{{dtr?.dtrName}}</td>
+              <td class="align-middle">{{dtr.billingRDNo}}</td> 
+              <td class="align-middle">
+                <span class="text-success" *ngIf="dtr.readingInsertedForBillMonth"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!dtr.readingInsertedForBillMonth"><span class="fa fa-times"></span></span>
               </td>
-              <td>
-                <span class="text-success" *ngIf="feeder.billFileUploaded"><span class="fa fa-check"></span></span> 
-                <span class="text-danger" *ngIf="!feeder.billFileUploaded"><span class="fa fa-times"></span></span>
+              <td class="align-middle">{{dtr.prebilling?.netDTRInput}}</td>
+              <td class="align-middle">
+                <form id="dtrForm{{i}}"></form>
+                <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !preConsumption.errors && (preConsumption.dirty || preConsumption.touched),'is-invalid': preConsumption.errors && (preConsumption.dirty || preConsumption.touched)}"
+                 class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.preConsumption" #preConsumption="ngModel" name="preConsumption{{i}}" id="preConsumption{{i}}" placeholder="CCnB Consumption" (change)="preSoldUnitChanged(dtr)" 
+                 [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required form="dtrForm">
               </td>
-              <td>
-                <span class="text-success" *ngIf="feeder.feederReadingInserted"><span class="fa fa-check"></span></span> 
-                <span class="text-danger" *ngIf="!feeder.feederReadingInserted"><span class="fa fa-times"></span></span>
+              <td class="align-middle">{{dtr.prebilling?.preBillingLoss}}</td>
+              <td class="align-middle">
+                <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !assUnit.errors && (assUnit.dirty || assUnit.touched),'is-invalid': assUnit.errors && (assUnit.dirty || assUnit.touched)}"
+                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.assUnit" #assUnit="ngModel" name="assUnit{{i}}" id="assUnit{{i}}" placeholder="Ass No." 
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !assUnitConsumption.errors && (assUnitConsumption.dirty || assUnitConsumption.touched),'is-invalid': assUnitConsumption.errors && (assUnitConsumption.dirty || assUnitConsumption.touched)}"
+                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.assUnitConsumption" #assUnitConsumption="ngModel" name="assUnitConsumption{{i}}" id="assUnitConsumption{{i}}" placeholder="Ass Consumption" (change)="newUnitConsumptionChanged(dtr)" 
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
               </td>
-              <td>
-                <span class="text-success" *ngIf="feeder.exportReadingInserted"><span class="fa fa-check"></span></span> 
-                <span class="text-danger" *ngIf="!feeder.exportReadingInserted"><span class="fa fa-times"></span></span>
+              <td class="align-middle">
+                <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !theftUnit.errors && (theftUnit.dirty || theftUnit.touched),'is-invalid': theftUnit.errors && (theftUnit.dirty || theftUnit.touched)}"
+                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.theftUnit" #theftUnit="ngModel" name="theftUnit{{i}}" id="theftUnit{{i}}" placeholder="Theft No" (change)="calculatePreBillingLoss(dtr)" 
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                <input type="number" *ngIf="dtr.readingInsertedForBillMonth"  [ngClass]="{'is-valid': !theftUnitConsumption.errors && (theftUnitConsumption.dirty || theftUnitConsumption.touched),'is-invalid': theftUnitConsumption.errors && (theftUnitConsumption.dirty || theftUnitConsumption.touched)}"
+                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.theftUnitConsumption" #theftUnitConsumption="ngModel" name="theftUnitConsumption{{i}}" id="theftUnitConsumption{{i}}" placeholder="Billed Theft Consumption" (change)="newUnitConsumptionChanged(dtr)" 
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
               </td>
-              <td>
-                <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleFeederLossReport(feeder.feeder)" 
-                  *ngIf="feeder?.billFileUploaded && feeder?.htReadingInserted && feeder?.feederReadingInserted && feeder?.exportReadingInserted"
-                  [hidden]="feeder.feeder.singleReportGenerated || reportGenerated" [disabled]="generating || feeder.feeder.generatingSingleReport">
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="feeder.generatingSingleReport"></span> Generate
+              <td class="align-middle">{{dtr.prebilling?.newPreConsumption}}</td>
+              <td class="align-middle"><strong>{{dtr.prebilling?.newPreBillingLoss}}</strong></td>
+              <td class="align-middle">
+                <input type="text" *ngIf="dtr.readingInsertedForBillMonth"
+                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.remark" name="remark{{i}}" id="remark{{i}}" 
+                  placeholder="Remark" [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved">
+              </td>
+              <td class="align-middle">
+                <button type="button" class="btn btn-sm btn-warning" (click)="saveClicked(dtr)" [disabled]="generating || dtr.prebilling?.savingSingleReport"
+                  *ngIf="dtr?.readingInsertedForBillMonth" [hidden]="!dtr.readingInsertedForBillMonth || dtr.prebilling?.singleReportSaved || dtr.prebilling?.id">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.prebilling?.savingSingleReport"></span> Save
                 </button>
-                <button type="button" class="btn btn-sm btn-info" (click)="viewFeederLossReport()" *ngIf="feeder.feeder.singleReportGenerated || reportGenerated" 
-                [disabled]="generating">View</button>
+                <span *ngIf="dtr.prebilling?.singleReportSaved || dtr.prebilling?.id"><strong>SAVED</strong></span>
               </td>
+              <td class="align-middle"><strong>{{dtr.prebilling?.tdLoss?.dtrLoss}}</strong></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
+      <div id="pagination" *ngIf="dtrList && dtrList.length > pageSize" class="eas-flex-center">
         <nav>
           <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
@@ -188,27 +216,6 @@
         </nav>
       </div>
     </div>
+
   </div>
 </div>
-
-
-<div class="backdrop" [ngStyle]="{'display':display}"></div>
-<div class="modal"  id="feederTnDLossReportModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full" role="document">
-    <div class="modal-content">
-      <!-- <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title">FEEDER LOSS REPORT</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div> -->
-      <div class="modal-body">
-          <eas-feeder-view-tnd-loss-report [feederLossReportView]="feederLossReportView"></eas-feeder-view-tnd-loss-report>
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-

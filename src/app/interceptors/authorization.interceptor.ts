@@ -9,7 +9,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("inside interceptor");
     let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     request = request.clone({
       setHeaders: {

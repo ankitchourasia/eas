@@ -40,42 +40,43 @@ export class DtrLossReportComponent implements OnInit {
   reportGenerated: boolean;
   searchButtonClicked: boolean;
   allDtrReadingInserted: boolean;
+
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
     private feederService : FeederService, private substationService: SubstationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService,
     private billFileService: BillFileService, private paginationService : PaginationService) { }
 
   ngOnInit() {
-    this.userDetails = {};
-    this.substationList = null;
-    this.user = this.globalResources.getUserDetails();
-    this.checkUserRoll(this.user);
+    this.checkUserRoll();
   }
 
-  checkUserRoll(user){
+  checkUserRoll(){
+    this.userDetails = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    this.substationList = null;
+    this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
-    }else if(user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = (user.zoneList);
-      this.regionList.push(user.region);
-      this.circleList.push(user.circle);
-      this.divisionList.push(user.division);
-      this.userDetails.region = user.region;
-      this.userDetails.circle = user.circle;
-      this.userDetails.division = user.division;
-    }else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
-      this.zoneList.push(user.zone);
-      this.regionList.push(user.region);
-      this.circleList.push(user.circle);
-      this.divisionList.push(user.division);
-      this.userDetails.region = user.region;
-      this.userDetails.circle = user.circle;
-      this.userDetails.division = user.division;
-      this.userDetails.zone = user.zone;
+    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      this.zoneList = (this.user.zoneList);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.userDetails.region = this.user.region;
+      this.userDetails.circle = this.user.circle;
+      this.userDetails.division = this.user.division;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.userDetails.region = this.user.region;
+      this.userDetails.circle = this.user.circle;
+      this.userDetails.division = this.user.division;
+      this.userDetails.zone = this.user.zone;
       this.getSubstationByZoneId(this.userDetails.zone.id);
     }
   }
@@ -209,7 +210,6 @@ export class DtrLossReportComponent implements OnInit {
     this.reportGenerated = false;
     this.generating = false;
     this.getDTRByFeederId(this.userDetails.feeder.id);
-
   }
 
   getDTRByFeederId(feederId){
