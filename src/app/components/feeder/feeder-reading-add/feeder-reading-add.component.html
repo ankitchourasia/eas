@@ -168,8 +168,7 @@
                 <label class="col-sm-3 col-form-label">start Reading</label>
                 <div class="col-sm-9">
                   <input type="number" [ngClass]="{'is-valid': !startReading.errors && (startReading.dirty || startReading.touched),'is-invalid': startReading.errors && (startReading.dirty || startReading.touched)}"
-                    class="form-control" [(ngModel)]="feederReading.newMeterStartRead" #startReading="ngModel" id="startReading"  name="startReading" [min]="0"
-                    (change)="startReadChanged()" required>
+                    class="form-control" [(ngModel)]="feederReading.newMeterStartRead" #startReading="ngModel" id="startReading"  name="startReading" [min]="0" (change)="!startReading.errors && startReadChanged()" required>
                   <div class="invalid-feedback" *ngIf="startReading.errors && (startReading.dirty || startReading.touched)">
                     <div *ngIf="startReading.errors.required">required field</div>
                     <div [hidden]="!startReading.errors.min || startReading.errors.required">Start Read can not be less than 0.</div>
@@ -193,8 +192,7 @@
               <label class="col-sm-3 col-form-label">Current Reading</label>
               <div class="col-sm-9">
                 <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
-                  class="form-control" [(ngModel)]="feederReading.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="feederMeterReplacement ? feederReading.newMeterStartRead : feederReading.prevReading"
-                  (change)="calculateConsumption()" required>
+                  class="form-control" [(ngModel)]="feederReading.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="feederMeterReplacement ? feederReading.newMeterStartRead : feederReading.prevReading" (change)="!currentReading.errors && calculateConsumption()" required>
                 <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
                   <div *ngIf="currentReading.errors.required">required field</div>
                   <div [hidden]="!currentReading.errors.min || currentReading.errors.required">Current Read is less than previous read / final read.</div>
@@ -229,7 +227,7 @@
               <label class="col-sm-3 col-form-label">Assessment</label>
               <div class="col-sm-9">
                 <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
-                  class="form-control" [(ngModel)]="feederReading.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="assessmentChanged()" required>
+                  class="form-control" [(ngModel)]="feederReading.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
                 <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
                   <div *ngIf="assessment.errors.required">required field</div>
                   <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div>
