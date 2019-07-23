@@ -143,6 +143,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let dtr of pagedDtrList; let i = index" valign="middle">
+              <td hidden><form id="dtrForm{{i}}"></form></td>
               <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
               <td class="align-middle">{{dtr?.dtrName}}</td>
               <td class="align-middle">{{dtr.billingRDNo}}</td> 
@@ -152,9 +153,10 @@
               </td>
               <td class="align-middle">{{dtr.prebilling?.netDTRInput}}</td>
               <td class="align-middle">
+                <form id="dtrForm{{i}}"></form>
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !preConsumption.errors && (preConsumption.dirty || preConsumption.touched),'is-invalid': preConsumption.errors && (preConsumption.dirty || preConsumption.touched)}"
                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.preConsumption" #preConsumption="ngModel" name="preConsumption{{i}}" id="preConsumption{{i}}" placeholder="CCnB Consumption" (change)="preSoldUnitChanged(dtr)" 
-                 [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                 [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required form="dtrForm">
               </td>
               <td class="align-middle">{{dtr.prebilling?.preBillingLoss}}</td>
               <td class="align-middle">
@@ -163,7 +165,7 @@
                   [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !assUnitConsumption.errors && (assUnitConsumption.dirty || assUnitConsumption.touched),'is-invalid': assUnitConsumption.errors && (assUnitConsumption.dirty || assUnitConsumption.touched)}"
                   class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.assUnitConsumption" #assUnitConsumption="ngModel" name="assUnitConsumption{{i}}" id="assUnitConsumption{{i}}" placeholder="Ass Consumption" (change)="newUnitConsumptionChanged(dtr)" 
-                  [readonly]="dtr.prebilling.id || dtr.prebilling.savingSingleReport || dtr.prebilling.singleReportSaved" required>
+                  [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
               </td>
               <td class="align-middle">
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !theftUnit.errors && (theftUnit.dirty || theftUnit.touched),'is-invalid': theftUnit.errors && (theftUnit.dirty || theftUnit.touched)}"
@@ -181,7 +183,7 @@
                   placeholder="Remark" [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved">
               </td>
               <td class="align-middle">
-                <button type="button" class="btn btn-sm btn-warning" (click)="savePreBillingReport(dtr)" [disabled]="generating || dtr.prebilling.savingSingleReport"
+                <button type="button" class="btn btn-sm btn-warning" (click)="saveClicked(dtr)" [disabled]="generating || dtr.prebilling?.savingSingleReport"
                   *ngIf="dtr?.readingInsertedForBillMonth" [hidden]="!dtr.readingInsertedForBillMonth || dtr.prebilling?.singleReportSaved || dtr.prebilling?.id">
                   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.prebilling?.savingSingleReport"></span> Save
                 </button>

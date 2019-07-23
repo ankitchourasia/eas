@@ -403,6 +403,49 @@ export class DtrPreBillingComponent implements OnInit {
 		}
   }
 
+  saveClicked(dtr){
+    let alertResponse = this.globalResources.confirmAlert("Are you sure to save this Pre Billing Activity. Activity once saved cannot be modified?");
+    alertResponse.then((result) => {
+      if(result.value) {
+        if(dtr.prebilling){
+          dtr.prebilling.savingSingleReport = true;
+          dtr.prebilling.dtrId = dtr.id;
+          dtr.prebilling.dtrReadingId = dtr.reading.id;
+          dtr.prebilling.groupNo = dtr.feeder.groupNo;
+          dtr.prebilling.readerNo = dtr.billingRDNo;
+          dtr.prebilling.lossMonth = this.billMonth + "-" + this.billMonthYear;
+          dtr.prebilling.savedBy = this.user.username;
+          console.log("Saving Pre billing data for dtr as: ");
+          console.log(dtr.prebilling);
+          this.savePreBillingReport(dtr);
+        }else{
+          console.log("DTR Prebilling data is null cannot save.");
+          console.log(dtr);
+        }
+      }
+    });
+  }
+
+  savePreBillingReport(dtr){
+    let billMonth = this.billMonth + "-" + this.billMonthYear;
+    this.dtrService.savePreBillingReport(dtr.prebilling, billMonth, true).subscribe(successResponse =>{
+      dtr.prebilling.savingSingleReport = false;
+      dtr.prebilling.singleReportSaved = true;
+    },errorResponse =>{
+      console.log(errorResponse);
+      dtr.prebilling.savingSingleReport = false;
+      if(errorResponse && errorResponse.status === 417){
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Error while saving single dtr pre billing report");
+      }
+    });
+  }
+
+
+
+
+
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 5;
