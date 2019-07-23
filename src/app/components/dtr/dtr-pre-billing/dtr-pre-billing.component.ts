@@ -320,6 +320,7 @@ export class DtrPreBillingComponent implements OnInit {
         this.userDetails.feeder.billFileUploaded = false;
         this.userDetails.feeder.billFileNotUploaded = true;
       }
+      console.log(this.dtrList);
       this.searchButtonClicked = false;
     },errorResponse =>{
       console.log(errorResponse);
@@ -441,10 +442,6 @@ export class DtrPreBillingComponent implements OnInit {
       }
     });
   }
-
-
-
-
 
   initializePaginationVariables(){
     this.pager = {};

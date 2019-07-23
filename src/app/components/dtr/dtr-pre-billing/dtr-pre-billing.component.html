@@ -156,31 +156,31 @@
                 <form id="dtrForm{{i}}"></form>
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !preConsumption.errors && (preConsumption.dirty || preConsumption.touched),'is-invalid': preConsumption.errors && (preConsumption.dirty || preConsumption.touched)}"
                  class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.preConsumption" #preConsumption="ngModel" name="preConsumption{{i}}" id="preConsumption{{i}}" placeholder="CCnB Consumption" (change)="preSoldUnitChanged(dtr)" 
-                 [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required form="dtrForm">
+                 [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required form="dtrForm">
               </td>
               <td class="align-middle">{{dtr.prebilling?.preBillingLoss}}</td>
               <td class="align-middle">
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !assUnit.errors && (assUnit.dirty || assUnit.touched),'is-invalid': assUnit.errors && (assUnit.dirty || assUnit.touched)}"
                   class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.assUnit" #assUnit="ngModel" name="assUnit{{i}}" id="assUnit{{i}}" placeholder="Ass No." 
-                  [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !assUnitConsumption.errors && (assUnitConsumption.dirty || assUnitConsumption.touched),'is-invalid': assUnitConsumption.errors && (assUnitConsumption.dirty || assUnitConsumption.touched)}"
                   class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.assUnitConsumption" #assUnitConsumption="ngModel" name="assUnitConsumption{{i}}" id="assUnitConsumption{{i}}" placeholder="Ass Consumption" (change)="newUnitConsumptionChanged(dtr)" 
-                  [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
               </td>
               <td class="align-middle">
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth" [ngClass]="{'is-valid': !theftUnit.errors && (theftUnit.dirty || theftUnit.touched),'is-invalid': theftUnit.errors && (theftUnit.dirty || theftUnit.touched)}"
                   class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.theftUnit" #theftUnit="ngModel" name="theftUnit{{i}}" id="theftUnit{{i}}" placeholder="Theft No" (change)="calculatePreBillingLoss(dtr)" 
-                  [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
                 <input type="number" *ngIf="dtr.readingInsertedForBillMonth"  [ngClass]="{'is-valid': !theftUnitConsumption.errors && (theftUnitConsumption.dirty || theftUnitConsumption.touched),'is-invalid': theftUnitConsumption.errors && (theftUnitConsumption.dirty || theftUnitConsumption.touched)}"
                   class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.theftUnitConsumption" #theftUnitConsumption="ngModel" name="theftUnitConsumption{{i}}" id="theftUnitConsumption{{i}}" placeholder="Billed Theft Consumption" (change)="newUnitConsumptionChanged(dtr)" 
-                  [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
+                  [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved" required>
               </td>
               <td class="align-middle">{{dtr.prebilling?.newPreConsumption}}</td>
               <td class="align-middle"><strong>{{dtr.prebilling?.newPreBillingLoss}}</strong></td>
               <td class="align-middle">
                 <input type="text" *ngIf="dtr.readingInsertedForBillMonth"
                   class="form-control form-control-sm" [(ngModel)]="dtr.prebilling.remark" name="remark{{i}}" id="remark{{i}}" 
-                  placeholder="Remark" [readonly]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved">
+                  placeholder="Remark" [disabled]="dtr.prebilling?.id || dtr.prebilling?.savingSingleReport || dtr.prebilling?.singleReportSaved">
               </td>
               <td class="align-middle">
                 <button type="button" class="btn btn-sm btn-warning" (click)="saveClicked(dtr)" [disabled]="generating || dtr.prebilling?.savingSingleReport"
