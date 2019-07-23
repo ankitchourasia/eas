@@ -18,6 +18,9 @@ import { AdminDtrReadAddComponent } from './admin-dtr/admin-dtr-read-add/admin-d
 import { AdminDtrReadViewComponent } from './admin-dtr/admin-dtr-read-view/admin-dtr-read-view.component';
 import { AdminDtrLossReportComponent } from './admin-dtr/admin-dtr-loss-report/admin-dtr-loss-report.component';
 import { AdminDtrPreBillingComponent } from './admin-dtr/admin-dtr-pre-billing/admin-dtr-pre-billing.component';
+import { AdminHtConsumerViewComponent } from './admin-ht-consumer/admin-ht-consumer-view/admin-ht-consumer-view.component';
+import { AdminHtConsumerViewConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-consumption/admin-ht-consumer-view-consumption.component';
+import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-absent-consumption/admin-ht-consumer-view-absent-consumption.component';
 
 const adminRoutes: Routes = [
   {
@@ -76,6 +79,15 @@ const adminRoutes: Routes = [
           },
           {
             path: 'dtr/pre-billing',component: AdminDtrPreBillingComponent
+          },
+          {
+            path: 'ht/consumer/view',component: AdminHtConsumerViewComponent
+          },
+          {
+            path: 'ht/consumer/view/consumption',component: AdminHtConsumerViewConsumptionComponent
+          },
+          {
+            path: 'ht/consumer/view/absent-consumption',component: AdminHtConsumerViewAbsentConsumptionComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'
