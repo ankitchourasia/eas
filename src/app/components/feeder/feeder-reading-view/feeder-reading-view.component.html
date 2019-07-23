@@ -201,7 +201,7 @@
                       <label class="col-sm-3 col-form-label">Current Reading</label>
                       <div class="col-sm-9">
                         <input type="number" [ngClass]="{'is-valid': !currentRead.errors && (currentRead.dirty || currentRead.touched),'is-invalid': currentRead.errors && (currentRead.dirty || currentRead.touched)}"
-                          class="form-control" [(ngModel)]="readingToEdit.currReading" #currentRead="ngModel" id="currentRead"  name="currentRead" [min]="readingToEdit.prevReading" (change)="readingChanged()" required>
+                          class="form-control" [(ngModel)]="readingToEdit.currReading" #currentRead="ngModel" id="currentRead"  name="currentRead" [min]="readingToEdit.prevReading" (change)="!currentRead.errors && readingChanged()" required>
                         <div class="invalid-feedback" *ngIf="currentRead.errors && (currentRead.dirty || currentRead.touched)">
                           <div *ngIf="currentRead.errors.required">required field</div>
                           <div [hidden]="!currentRead.errors.min || currentRead.errors.required">Current Read is less than previous read.</div>
@@ -236,7 +236,7 @@
                       <label class="col-sm-3 col-form-label">Assessment</label>
                       <div class="col-sm-9">
                         <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
-                          class="form-control" [(ngModel)]="readingToEdit.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="assessmentChanged()" required>
+                          class="form-control" [(ngModel)]="readingToEdit.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
                         <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
                           <div *ngIf="assessment.errors.required">required field</div>
                           <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div>

@@ -46,6 +46,20 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+
+.backdrop{
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100%;
+    height: 100vh;
+}
+
+.modal-dialog.modal-full{
+    min-width: 95%;
+}
+
 #content{
     display: flex;
 }
