@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header bg-dark text-center text-white">
-    DTR Loss Report
+    FEEDER T&D Loss Report
   </div>
   <div class="card-body">
     <div class="eas-space-evenly mb-2">
@@ -59,7 +59,7 @@
           <div [hidden]="!substationName.errors.required">required field</div>
         </div>
       </div>
-      <div class="inner-group">
+      <!-- <div class="inner-group">
         <label class="form-text text-muted mb-0">Feeder</label>
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control form-control-sm" [(ngModel)]="userDetails.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(userDetails.feeder)">
@@ -69,7 +69,7 @@
         <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
           <div [hidden]="!feederName.errors.required">required field</div>
         </div>
-      </div>
+      </div> -->
       <div class="inner-group">
         <label class="form-text text-muted mb-0">Bill Month</label>
         <!-- <input type="month" [ngClass]="{'is-valid': !billingMonth.errors && (billingMonth.dirty || billingMonth.touched),'is-invalid': billingMonth.errors && (billingMonth.dirty || billingMonth.touched)}"
@@ -89,7 +89,7 @@
             <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
           </select>
           <div class="input-group-append">
-            <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="feederName.errors || month.errors || year.errors || searchButtonClicked">
+            <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
               <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
             </button>
           </div>
@@ -98,60 +98,75 @@
           </div>
         </div>
       </div>
-      <div class="inner-group">
-        <label class="form-text text-muted mb-0">Bill File</label>
-        <button type="button" class="btn btn-sm btn-success" *ngIf="userDetails?.feeder?.billFileUploaded" disabled>Uploaded</button>
-        <button type="button" class="btn btn-sm btn-danger" *ngIf="!userDetails?.feeder?.billFileUploaded" disabled>Not Uploaded</button>
-      </div>
     </div>
     <hr>
-    <div class="eas-space-between mb-2" *ngIf="allDtrReadingInserted && userDetails?.feeder?.billFileUploaded">
+    <!-- <div class="eas-space-between mb-2" *ngIf="allFeederReadingInserted && feeder?.billFileUploaded">
       <div>
-        <button type="button" class="btn btn-sm btn-warning" (click)="generateAllDtrLossReport()" *ngIf="!reportGenerated" [disabled]="generating">Generate Report</button>
-        <button type="button" class="btn btn-sm btn-info mx-sm-1" (click)="viewDtrLossReport()" *ngIf="reportGenerated">View Report</button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="generateAllFeederLossReport()" *ngIf="!reportGenerated" [disabled]="generating">Generate Report</button>
+        <button type="button" class="btn btn-sm btn-info mx-sm-1" (click)="viewFeederLossReport()" *ngIf="reportGenerated">View Report</button>
       </div>
-			<div class="progress" style="width: 50%" *ngIf="generating">
+      <div class="progress" style="width: 50%" *ngIf="generating">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
       </div>
-    </div>
+    </div> -->
     <div class="eas-flex-end" *ngIf="showError">
       <div class="alert alert-danger text-center pb-1 pt-1" role="alert">
-        <strong>DTR Readings for Month {{billMonth}}-{{billMonthYear}} !</strong> not inserted for all dtrs.
+        <strong>Feeder Readings for Month {{billMonth}}-{{billMonthYear}} !</strong> not inserted for all feeders.
       </div>
     </div>
 
-    <div *ngIf="dtrList && !searchButtonClicked">
+    <div *ngIf="feederList && !searchButtonClicked">
       <div class="table-responsive mb-2 text-center">
-        <table class="table table-sm table-bordered table-hover" id="dtrs">
+        <table class="table table-sm table-bordered table-hover" id="feeders">
           <thead class="bg-dark text-white">
             <tr>
               <td>S.No</td>
-              <td>DTR Name</td>
-              <td>Reading Inserted</td>
+              <td>Feeder Name</td>
+              <td>Feeder Type</td>
+              <td>Group No</td>
+              <td>HT Reading</td>
+              <td>Bill File</td>
+              <td>11KV Reading</td>
+              <td>Export Reading</td>
               <td>Generate</td>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let dtr of pagedDtrList; let i = index">
+            <tr *ngFor="let feeder of pagedFeederList; let i = index">
               <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-              <td>{{dtr?.dtrName}}</td>
+              <td>{{feeder?.feeder?.name}}</td>
+              <td>{{feeder?.feeder?.type}}</td>
+              <td>{{feeder?.feeder?.groupNo}}</td>
               <td>
-                <span class="text-success" *ngIf="dtr.readingInsertedForBillMonth"><span class="fa fa-check"></span></span> 
-                <span class="text-danger" *ngIf="!dtr.readingInsertedForBillMonth"><span class="fa fa-times"></span></span>
+                <span class="text-success" *ngIf="feeder.htReadingInserted"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.htReadingInserted"><span class="fa fa-times"></span></span>
               </td>
               <td>
-                <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleDtrLossReport(dtr)" 
-                  *ngIf="userDetails?.feeder?.billFileUploaded && dtr?.readingInsertedForBillMonth"
-                  [hidden]="dtr.singleReportGenerated || reportGenerated" [disabled]="generating || dtr.generatingSingleReport">
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.generatingSingleReport"></span> Generate
+                <span class="text-success" *ngIf="feeder.billFileUploaded"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.billFileUploaded"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <span class="text-success" *ngIf="feeder.feederReadingInserted"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.feederReadingInserted"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <span class="text-success" *ngIf="feeder.exportReadingInserted"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.exportReadingInserted"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleFeederLossReport(feeder.feeder)" 
+                  *ngIf="feeder?.billFileUploaded && feeder?.htReadingInserted && feeder?.feederReadingInserted && feeder?.exportReadingInserted"
+                  [hidden]="feeder.feeder.singleReportGenerated || reportGenerated" [disabled]="generating || feeder.feeder.generatingSingleReport">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="feeder.generatingSingleReport"></span> Generate
                 </button>
-                <button type="button" class="btn btn-sm btn-info" (click)="viewDtrLossReport()" *ngIf="dtr.singleReportGenerated || reportGenerated" [disabled]="generating">View</button>
+                <button type="button" class="btn btn-sm btn-info" (click)="viewFeederLossReport()" *ngIf="feeder.feeder.singleReportGenerated || reportGenerated" 
+                [disabled]="generating">View</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div id="pagination" *ngIf="dtrList && dtrList.length > pageSize" class="eas-flex-center">
+      <div id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
         <nav>
           <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
@@ -178,94 +193,17 @@
 
 
 <div class="overlay" [ngStyle]="{'display':display}"></div>
-<div class="modal"  id="dtrLossReportModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+<div class="modal"  id="feederTnDLossReportModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
-      <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title">DTR LOSS REPORT</h5>
+      <!-- <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">FEEDER LOSS REPORT</h5>
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+      </div> -->
       <div class="modal-body">
-          <div class="table-responsive pt-1" style="font-size: 80%" *ngIf="dtrLossReports && dtrLossReports.length">
-            <table class="table table-sm table-bordered" id="feederDtrReport">
-              <tbody class="text-sm text-center">
-                <tr>
-                  <td colspan="16"><h3 class="display-5">DTR LOSS REPORT</h3></td>
-                </tr>
-                <tr>
-                  <td colspan="1">Region</td>
-                  <td colspan="1"><strong>{{dtrLossReports[0].regionName | uppercase}}</strong></td>
-                  <td colspan="1">Circle</td>
-                  <td colspan="1"><strong>{{dtrLossReports[0].circleName | uppercase}}</strong></td>
-                  <td colspan="1">Division</td>
-                  <td colspan="3"><strong>{{dtrLossReports[0].divisionName | uppercase}}</strong></td>
-                  <td colspan="1">Feeder Incharge</td>
-                  <td colspan="3"><strong>{{dtrLossReports[0].feeder.link | uppercase}}</strong></td>
-                  <td colspan="1">Zone</td>
-                  <td colspan="3"><strong>{{dtrLossReports[0].zoneName | uppercase}}</strong></td>
-                </tr>
-                <tr>
-                  <td colspan="1">Month</td>
-                  <td colspan="1"><strong>{{dtrLossReports[0].lossMonth | uppercase}}</strong></td>
-                  <td colspan="1">Substation</td>
-                  <td colspan="4"><strong>{{dtrLossReports[0].substationName | uppercase}}</strong></td>
-                  <td colspan="1">Feeder</td>
-                  <td colspan="6"><strong>{{dtrLossReports[0].feederName | uppercase}}</strong></td>
-                  <td colspan="1">Group No</td>
-                  <td colspan="1"><strong>{{dtrLossReports[0].billingGroupNo | uppercase}}</strong></td>
-                </tr>
-                <tr>
-                  <td colspan="15"><br></td>
-                </tr>
-                <tr class="font-weight-bold" id="dtrLossTableHeader">
-                  <td>S.NO</td>
-                  <td>DTR NAME</td>
-                  <td>LOC CODE</td>
-                  <td>RD NO.</td>
-                  <td>CAPACITY</td>
-                  <td>METER NO</td>
-                  <td>MF</td>
-                  <td>PREV RDG</td>
-                  <td>PREV RDG DATE</td>
-                  <td>CURR RDG</td>
-                  <td>CURR RDG DATE</td>
-                  <td>ASSESMENT UNIT</td>
-                  <td>NET INPUT</td>
-                  <td>CONSUMERS CONNECTED</td>
-                  <td>TOTAL CONSUMPTION</td>
-                  <td>% DTR LOSS</td>
-                </tr>
-                <tr *ngFor="let report of dtrLossReports; let i = index">
-                  <td>{{i + 1}}</td>
-                  <td>{{report.dtrName}}</td>
-                  <td>{{report.zoneLocationCode}}</td>
-                  <td>{{report.billingRDNo}}</td>
-                  <td>{{report.dtrCapacity}}</td>
-                  <td>{{report.dtrMeterNo}}</td>
-                  <td>{{report.mf}}</td>
-                  <td>{{report.previousReading}}</td>
-                  <td>{{report.previousReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-                  <td>{{report.currentReading}}</td>
-                  <td>{{report.currentReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-                  <td>{{report.assessmentUnit}}</td>
-                  <td>{{report.netDTRInput}}</td>
-                  <td><a href='javascript:void(0);' (click)="exportTotalConsumers(report)">{{report.totalConsumer}}</a></td>
-                  <td>{{report.totalSoldUnit}}</td>
-                  <td>{{report.dtrLoss}}</td>
-                </tr>
-                <tr>
-                  <td colspan="11" class="text-right"><strong>Gross Total&nbsp;</strong></td>
-                  <td colspan="1"><strong>{{grossAssessment}}</strong></td>
-                  <td colspan="1"><strong>{{grossInput}}</strong></td>
-                  <td colspan="1"><strong>{{grossConsumer}}</strong></td>
-                  <td colspan="1"><strong>{{grossConsumption}}</strong></td>
-                  <td colspan="1"><strong>{{grossLoss}}</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <eas-feeder-view-tnd-loss-report [feederLossReportView]="feederLossReportView"></eas-feeder-view-tnd-loss-report>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
@@ -273,3 +211,4 @@
     </div>
   </div>
 </div>
+

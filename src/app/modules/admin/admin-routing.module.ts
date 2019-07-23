@@ -17,6 +17,9 @@ import { AdminDtrAddInitialReadComponent } from './admin-dtr/admin-dtr-add-initi
 import { AdminDtrReadAddComponent } from './admin-dtr/admin-dtr-read-add/admin-dtr-read-add.component';
 import { AdminDtrReadViewComponent } from './admin-dtr/admin-dtr-read-view/admin-dtr-read-view.component';
 import { AdminDtrLossReportComponent } from './admin-dtr/admin-dtr-loss-report/admin-dtr-loss-report.component';
+import { AdminFeederTndLossReportComponent } from './admin-feeder/admin-feeder-tnd-loss-report/admin-feeder-tnd-loss-report.component';
+import { AdminFeederTndLossReportWithoutHtComponent } from './admin-feeder/admin-feeder-tnd-loss-report-without-ht/admin-feeder-tnd-loss-report-without-ht.component';
+import { AdminFeederAtncLossReportComponent } from './admin-feeder/admin-feeder-atnc-loss-report/admin-feeder-atnc-loss-report.component';
 
 const adminRoutes: Routes = [
   {
@@ -54,6 +57,15 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/reading/absent/view',component: AdminFeederAbsentReadingViewComponent
+          },
+          {
+            path: 'feeder/tnd/loss/report',component: AdminFeederTndLossReportComponent
+          },
+          {
+            path: 'feeder/tnd/loss/report/without-ht',component: AdminFeederTndLossReportWithoutHtComponent
+          },
+          {
+            path: 'feeder/atnc/loss/report',component: AdminFeederAtncLossReportComponent
           },
           {
             path: 'dtr/add', component: AdminDtrAddComponent
