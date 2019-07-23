@@ -17,10 +17,10 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/add']">Add Reading</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/view']">View Reading</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/absent/view']">View Absent Reading</a>
-                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">T&D Loss Report</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">T&D Loss Report (Without HT)</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">AT&C Loss Report</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Other Report</a> -->
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report']">T&D Loss Report</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report/without-ht']">T&D Loss Report (Without HT)</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/atnc/loss/report']">AT&C Loss Report</a>
+                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Other Report</a> -->
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
             <div class="collapse" id="htConsumerCollapseMenu" data-parent="#menubar">

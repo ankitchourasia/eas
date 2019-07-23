@@ -9,6 +9,10 @@ import { FeederReadingViewComponent } from './feeder-reading-view/feeder-reading
 import { FeederAbsentReadingViewComponent } from './feeder-absent-reading-view/feeder-absent-reading-view.component';
 import { ZoneServiceModule } from '@eas-services/zone/zone-service.module';
 import { PaginationServiceModule } from '@eas-services/pagination/pagination-service.module';
+import { FeederTndLossReportComponent } from './feeder-tnd-loss-report/feeder-tnd-loss-report.component';
+import { FeederTndLossReportWithoutHtComponent } from './feeder-tnd-loss-report-without-ht/feeder-tnd-loss-report-without-ht.component';
+import { FeederAtncLossReportComponent } from './feeder-atnc-loss-report/feeder-atnc-loss-report.component';
+import { FeederViewTndLossReportComponent } from './feeder-view-tnd-loss-report/feeder-view-tnd-loss-report.component';
 
 @NgModule({
   imports: [
@@ -23,14 +27,22 @@ import { PaginationServiceModule } from '@eas-services/pagination/pagination-ser
     FeederViewComponent, 
     FeederReadingAddComponent, 
     FeederReadingViewComponent, 
-    FeederAbsentReadingViewComponent
+    FeederAbsentReadingViewComponent, 
+    FeederTndLossReportComponent, 
+    FeederTndLossReportWithoutHtComponent, 
+    FeederAtncLossReportComponent, 
+    FeederViewTndLossReportComponent
   ],
   exports:[
     FeederAddComponent, 
     FeederViewComponent,
     FeederReadingAddComponent, 
     FeederReadingViewComponent, 
-    FeederAbsentReadingViewComponent
+    FeederAbsentReadingViewComponent,
+    FeederTndLossReportComponent, 
+    FeederTndLossReportWithoutHtComponent, 
+    FeederAtncLossReportComponent,
+    FeederViewTndLossReportComponent
   ]
 })
 export class FeederComponentModule { }
