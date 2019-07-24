@@ -11,7 +11,6 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 })
 export class FeederAbsentReadingViewComponent implements OnInit {
 
-  years : any = [];
   user : any = {};
   billMonth : string;
   feederAbsentReadings : any;
@@ -31,15 +30,6 @@ export class FeederAbsentReadingViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.fetchCurrentYear();
-  }
-
-  fetchCurrentYear(){
-		var year = 2016;
-		this.years = [];
-		while(year <= 2026){
-			this.years.push(year++);
-		}
   }
 
   getFeederAbsentReadings(){
