@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class GlobalConfiguration {
   
     public static readonly ROLE_ADMIN = "admin";
+    public static readonly ROLE_HTM_ADMIN = "htm_admin";
     public static readonly ROLE_SUPER_ADMIN = "super_admin";
     public static readonly ROLE_FIELD_ADMIN = "field_admin";
     public static readonly URL_PREFIX = "/ROOT/backend/";

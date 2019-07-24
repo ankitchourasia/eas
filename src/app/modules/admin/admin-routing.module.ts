@@ -21,6 +21,9 @@ import { AdminFeederTndLossReportComponent } from './admin-feeder/admin-feeder-t
 import { AdminFeederTndLossReportWithoutHtComponent } from './admin-feeder/admin-feeder-tnd-loss-report-without-ht/admin-feeder-tnd-loss-report-without-ht.component';
 import { AdminFeederAtncLossReportComponent } from './admin-feeder/admin-feeder-atnc-loss-report/admin-feeder-atnc-loss-report.component';
 import { AdminDtrPreBillingComponent } from './admin-dtr/admin-dtr-pre-billing/admin-dtr-pre-billing.component';
+import { AdminHtConsumerViewComponent } from './admin-ht-consumer/admin-ht-consumer-view/admin-ht-consumer-view.component';
+import { AdminHtConsumerViewConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-consumption/admin-ht-consumer-view-consumption.component';
+import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-absent-consumption/admin-ht-consumer-view-absent-consumption.component';
 
 const adminRoutes: Routes = [
   {
@@ -88,6 +91,15 @@ const adminRoutes: Routes = [
           },
           {
             path: 'dtr/pre-billing',component: AdminDtrPreBillingComponent
+          },
+          {
+            path: 'ht/consumer/view',component: AdminHtConsumerViewComponent
+          },
+          {
+            path: 'ht/consumer/view/consumption',component: AdminHtConsumerViewConsumptionComponent
+          },
+          {
+            path: 'ht/consumer/view/absent-consumption',component: AdminHtConsumerViewAbsentConsumptionComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

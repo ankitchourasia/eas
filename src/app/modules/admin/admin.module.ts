@@ -7,6 +7,7 @@ import { HeaderComponentModule } from '@eas-components/header/header-component.m
 import { AdminSubstationModule } from './admin-substation/admin-substation.module';
 import { AdminFeederModule } from './admin-feeder/admin-feeder.module';
 import { AdminDtrModule } from './admin-dtr/admin-dtr.module';
+import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { AdminDtrModule } from './admin-dtr/admin-dtr.module';
     AdminSubstationModule,
     AdminFeederModule,
     AdminDtrModule,
+    AdminHtConsumerModule,
     AdminRoutingModule,
   ],
   declarations: [
