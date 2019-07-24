@@ -11,7 +11,6 @@ import { GlobalConstants } from 'app/utility/global.constants';
 })
 export class FeederReadingViewComponent implements OnInit {
 
-  years : any = [];
   user : any = {};
   billMonth : string;
   feederReadings : any;
@@ -31,16 +30,9 @@ export class FeederReadingViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.fetchCurrentYear();
   }
 
-  fetchCurrentYear(){
-		var year = 2016;
-		this.years = [];
-		while(year <= 2026){
-			this.years.push(year++);
-		}
-  }
+  
   
   getFeederReadings(){
     this.loading =true;

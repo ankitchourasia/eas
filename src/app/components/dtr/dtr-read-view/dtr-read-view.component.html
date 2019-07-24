@@ -1,247 +1,241 @@
-<div class="card">
-  <div class="card-header bg-dark text-center text-white">
-    View DTR Reading
+<div class="eas-space-between mb-2">
+  <div class="form-inline align-items-baseline">
+    <label>Select Bill Month</label>
+    <div class="input-group mx-sm-2">
+      <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
+        <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+        <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+      </select>
+      <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
+        <option disabled selected [ngValue]='undefined'>Year</option>
+        <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+      </select>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+        </button>
+      </div>
+      <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+        <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-  <div class="eas-space-between mb-2">
-    <div class="form-inline align-items-baseline">
-      <label>Select Bill Month</label>
-      <div class="input-group mx-sm-2">
-        <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
-          <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
-          <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
-        </select>
-        <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
-          <option disabled selected [ngValue]='undefined'>Year</option>
-          <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
-        </select>
-        <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+  <div>
+    <button type="button" class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="month.errors && year.errors"><span class="fa fa-download"></span> Export</button>
+  </div>
+</div>
+
+<div *ngIf="dtrReadingList && !searchButtonClicked">
+  <fieldset>
+    <div class="table-responsive mb-2">
+      <table class="table table-sm table-bordered text-center">
+        <thead class="bg-dark text-white">
+          <tr class="text-center">
+            <td>S.No</td>
+            <td>Zone</td>
+            <td>Feeder Name</td>
+            <td>DTR Name</td>
+            <td>Group No.</td>
+            <td>RD No.</td>
+            <td>Meter No.</td>
+            <td>MF</td>
+            <td>Billing Month</td>
+            <td>Previous Reading</td>
+            <td>Previous Reading Date</td>
+            <td>Current Reading</td>
+            <td>Current Reading Date</td>
+            <td>Reading Difference</td>
+            <td>Meter Consumption</td>
+            <td>Assessment Unit</td>
+            <td>Total Consumption</td>
+            <td>Edit</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dtrReading of pagedDtrReadingList; let i = index">
+            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td>{{dtrReading?.zone?.name | uppercase}}</td>
+            <td>{{dtrReading?.feeder?.name}}</td>
+            <td>{{dtrReading?.dtr?.dtrName}}</td>
+            <td>{{dtrReading?.groupNo1}}</td>
+            <td>{{dtrReading?.dtr?.billingRDNo}}</td>
+            <td>{{dtrReading?.meterNo}}</td>
+            <td>{{dtrReading?.mf}}</td>
+            <td>{{dtrReading?.billMonth}}</td>
+            <td>{{dtrReading?.prevReading}}</td>
+            <td>{{dtrReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+            <td>{{dtrReading?.currReading}}</td>
+            <td>{{dtrReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+            <td>{{dtrReading?.readingDiff}}</td>
+            <td>{{dtrReading?.meterConsumption}}</td>
+            <td>{{dtrReading?.assUnit}}</td>
+            <td>{{dtrReading?.totalConsumption}}</td>
+            <td>
+              <a href="javascript:void(0)" (click)="editClicked(dtrReading)" data-toggle="modal" data-target="#updateDtrReadingModal">
+                <span class="fa fa-pencil"></span>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="dtrReadingList && dtrReadingList.length <= 0">
+            <td colspan="18">No Records Found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+  <div id="pagination" *ngIf="dtrReadingList && dtrReadingList.length > pageSize" class="eas-flex-center">
+    <nav>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDtrReadingModal" tabindex="-1" role="dialog" *ngIf="editButtonClicked">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">Edit DTR Reading</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="dtrUpdateModalCancel(dtrReadingUpdateForm)">
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
-          <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <button type="button" class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="month.errors && year.errors"><span class="fa fa-download"></span> Export</button>
-    </div>
-  </div>
-
-  <div *ngIf="dtrReadingList && !searchButtonClicked">
-    <fieldset>
-      <div class="table-responsive mb-2">
-        <table class="table table-sm table-bordered text-center">
-          <thead class="bg-dark text-white">
-            <tr class="text-center">
-              <td>S.No</td>
-              <td>Zone</td>
-              <td>Feeder Name</td>
-              <td>DTR Name</td>
-              <td>Group No.</td>
-              <td>RD No.</td>
-              <td>Meter No.</td>
-              <td>MF</td>
-              <td>Billing Month</td>
-              <td>Previous Reading</td>
-              <td>Previous Reading Date</td>
-              <td>Current Reading</td>
-              <td>Current Reading Date</td>
-              <td>Reading Difference</td>
-              <td>Meter Consumption</td>
-              <td>Assessment Unit</td>
-              <td>Total Consumption</td>
-              <td>Edit</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let dtrReading of pagedDtrReadingList; let i = index">
-              <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-              <td>{{dtrReading?.zone?.name | uppercase}}</td>
-              <td>{{dtrReading?.feeder?.name}}</td>
-              <td>{{dtrReading?.dtr?.dtrName}}</td>
-              <td>{{dtrReading?.groupNo1}}</td>
-              <td>{{dtrReading?.dtr?.billingRDNo}}</td>
-              <td>{{dtrReading?.meterNo}}</td>
-              <td>{{dtrReading?.mf}}</td>
-              <td>{{dtrReading?.billMonth}}</td>
-              <td>{{dtrReading?.prevReading}}</td>
-              <td>{{dtrReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-              <td>{{dtrReading?.currReading}}</td>
-              <td>{{dtrReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-              <td>{{dtrReading?.readingDiff}}</td>
-              <td>{{dtrReading?.meterConsumption}}</td>
-              <td>{{dtrReading?.assUnit}}</td>
-              <td>{{dtrReading?.totalConsumption}}</td>
-              <td>
-                <a href="javascript:void(0)" (click)="editClicked(dtrReading)" data-toggle="modal" data-target="#updateDtrReadingModal">
-                  <span class="fa fa-pencil"></span>
-                </a>
-              </td>
-            </tr>
-            <tr *ngIf="dtrReadingList && dtrReadingList.length <= 0">
-              <td colspan="18">No Records Found</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </fieldset>
-    <div id="pagination" *ngIf="dtrReadingList && dtrReadingList.length > pageSize" class="eas-flex-center">
-      <nav>
-        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-          <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-            <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-          </li>
-          <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-            <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-          </li>
-          <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-            <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
-          </li>
-          <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-          </li>
-          <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-            <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDtrReadingModal" tabindex="-1" role="dialog" *ngIf="editButtonClicked">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-dark text-white">
-            <h5 class="modal-title">Edit DTR Reading</h5>
-            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="dtrUpdateModalCancel(dtrReadingUpdateForm)">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <fieldset [disabled]="updateButtonClicked">
-              <form #dtrReadingUpdateForm="ngForm" autocomplete="off">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Zone</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="(dtrReadingToEdit?.zone?.name | uppercase)" disabled>
+        <div class="modal-body">
+          <fieldset [disabled]="updateButtonClicked">
+            <form #dtrReadingUpdateForm="ngForm" autocomplete="off">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Zone</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="(dtrReadingToEdit?.zone?.name | uppercase)" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Feeder</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.feeder?.name" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">DTR Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.dtr?.dtrName" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Group No</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.groupNo1" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Billing RD No</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.dtr?.billingRDNo" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Meter No.</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.meterNo" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">MF</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.mf" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Bill Month</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.billMonth" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Previous Reading</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.prevReading" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Previous Reading Date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="(dtrReadingToEdit?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Current Reading</label>
+                <div class="col-sm-9">
+                  <input type="number" [ngClass]="{'is-valid': !dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched),'is-invalid': dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched)}"
+                    class="form-control" [(ngModel)]="dtrReadingToEdit.currReading" #dtrCurrentReading="ngModel" id="dtrCurrentReading"  name="dtrCurrentReading" [min]="(dtrReadingToEdit.prevReading)" step="0.001" required (change)="!dtrCurrentReading.errors && dtrCurrentReadingChanged()">
+                  <div class="invalid-feedback" *ngIf="dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched)">
+                    <div [hidden]="!dtrCurrentReading.errors.required">required field</div>
+                    <div [hidden]="!dtrCurrentReading.errors.min || dtrCurrentReading.errors.required">can not be less than {{dtrReadingToEdit.prevReading}}</div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Feeder</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.feeder?.name" disabled>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Current Reading Date</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="(dtrReadingToEdit?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Reading Difference</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.readingDiff" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Metered Consumption</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.meterConsumption" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Assessment Units</label>
+                <div class="col-sm-9">
+                  <input type="number" [ngClass]="{'is-valid': !dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched),'is-invalid': dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)}"
+                    class="form-control" [(ngModel)]="dtrReadingToEdit.assUnit" #dtrAssessmentUnit="ngModel" id="dtrAssessmentUnit"  name="dtrAssessmentUnit" [min]="0" step="0" required (change)="!dtrAssessmentUnit.errors && dtrAssessmentUnitChanged()">
+                  <div class="invalid-feedback" *ngIf="dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)">
+                    <div [hidden]="!dtrAssessmentUnit.errors.required">required field</div>
+                    <div [hidden]="!dtrAssessmentUnit.errors.min || dtrAssessmentUnit.errors.required">invalid value</div>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">DTR Name</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.dtr?.dtrName" disabled>
-                  </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Total Consumption</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" [value]="dtrReadingToEdit?.totalConsumption" disabled>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Group No</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.groupNo1" disabled>
-                  </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-4 offset-3">
+                  <button type="button" class="btn btn-success form-control" (click)=updateClicked(dtrReadingUpdateForm)>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span> Update
+                  </button>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Billing RD No</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.dtr?.billingRDNo" disabled>
-                  </div>
+                <div class="col-4 offset-1">
+                    <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="dtrUpdateModalCancel(dtrReadingUpdateForm)">Cancel</button>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Meter No.</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.meterNo" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">MF</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.mf" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Bill Month</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.billMonth" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Previous Reading</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.prevReading" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Previous Reading Date</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="(dtrReadingToEdit?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Current Reading</label>
-                  <div class="col-sm-9">
-                    <input type="number" [ngClass]="{'is-valid': !dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched),'is-invalid': dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched)}"
-                      class="form-control" [(ngModel)]="dtrReadingToEdit.currReading" #dtrCurrentReading="ngModel" id="dtrCurrentReading"  name="dtrCurrentReading" [min]="(dtrReadingToEdit.prevReading)" step="0.001" required (change)="!dtrCurrentReading.errors && dtrCurrentReadingChanged()">
-                    <div class="invalid-feedback" *ngIf="dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched)">
-                      <div [hidden]="!dtrCurrentReading.errors.required">required field</div>
-                      <div [hidden]="!dtrCurrentReading.errors.min || dtrCurrentReading.errors.required">can not be less than {{dtrReadingToEdit.prevReading}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Current Reading Date</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="(dtrReadingToEdit?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Reading Difference</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.readingDiff" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Metered Consumption</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.meterConsumption" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Assessment Units</label>
-                  <div class="col-sm-9">
-                    <input type="number" [ngClass]="{'is-valid': !dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched),'is-invalid': dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)}"
-                      class="form-control" [(ngModel)]="dtrReadingToEdit.assUnit" #dtrAssessmentUnit="ngModel" id="dtrAssessmentUnit"  name="dtrAssessmentUnit" [min]="0" step="0" required (change)="!dtrAssessmentUnit.errors && dtrAssessmentUnitChanged()">
-                    <div class="invalid-feedback" *ngIf="dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)">
-                      <div [hidden]="!dtrAssessmentUnit.errors.required">required field</div>
-                      <div [hidden]="!dtrAssessmentUnit.errors.min || dtrAssessmentUnit.errors.required">invalid value</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Total Consumption</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" [value]="dtrReadingToEdit?.totalConsumption" disabled>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-4 offset-3">
-                    <button type="button" class="btn btn-success form-control" (click)=updateClicked(dtrReadingUpdateForm)>
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span> Update
-                    </button>
-                  </div>
-                  <div class="col-4 offset-1">
-                      <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="dtrUpdateModalCancel(dtrReadingUpdateForm)">Cancel</button>
-                  </div>
-                </div>
-              </form>
-            </fieldset>
-          </div>
+              </div>
+            </form>
+          </fieldset>
         </div>
       </div>
     </div>
