@@ -1,3 +1,191 @@
-<p>
-  feeder-tnd-loss-report-without-ht works!
-</p>
+<div class="card">
+  <div class="card-header bg-dark text-center text-white">
+    FEEDER T&D LOSS REPORT (Without HT)
+  </div>
+  <div class="card-body">
+    <div class="eas-space-evenly mb-2">
+      <div class="inner-group">
+        <label class="form-text text-muted mb-0">Division</label>
+        <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="userDetails.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(userDetails.division)">
+          <option disabled selected [ngValue]='undefined'>Select</option>
+          <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
+          <div [hidden]="!division.errors.required">required field</div>
+        </div>
+      </div>
+      <div class="inner-group">
+        <label class="form-text text-muted mb-0">Zone</label>
+        <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="userDetails.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(userDetails.zone)">
+          <option disabled selected [ngValue]='undefined'>Select</option>
+          <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+          <div [hidden]="!zone.errors.required">required field</div>
+        </div>
+      </div>
+      <div class="inner-group">
+        <label class="form-text text-muted mb-0">Substation</label>
+        <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="userDetails.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(userDetails.substation)">
+          <option disabled selected [ngValue]='undefined'>Select</option>
+          <option *ngFor="let substation of substationList" [ngValue]="substation">{{substation.name | uppercase}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
+          <div [hidden]="!substationName.errors.required">required field</div>
+        </div>
+      </div>
+      <!-- <div class="inner-group">
+        <label class="form-text text-muted mb-0">Feeder</label>
+        <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="userDetails.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(userDetails.feeder)">
+          <option disabled selected [ngValue]='undefined'>Select</option>
+          <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.groupNo}} : {{feeder.name | uppercase}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
+          <div [hidden]="!feederName.errors.required">required field</div>
+        </div>
+      </div> -->
+      <div class="inner-group">
+        <label class="form-text text-muted mb-0">Bill Month</label>
+        <!-- <input type="month" [ngClass]="{'is-valid': !billingMonth.errors && (billingMonth.dirty || billingMonth.touched),'is-invalid': billingMonth.errors && (billingMonth.dirty || billingMonth.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="billMonth" #billingMonth="ngModel" id="billingMonth"  name="billingMonth" required>
+        <div class="invalid-feedback" *ngIf="(billingMonth.errors && (billingMonth.dirty || billingMonth.touched))">
+          <div [hidden]="!billingMonth.errors?.required">required bill month</div>
+        </div> -->
+        <div class="input-group">
+          <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
+            <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+            <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+          </select>
+          <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
+            <option disabled selected [ngValue]='undefined'>Year</option>
+            <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+          </select>
+          <div class="input-group-append">
+            <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
+              <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+            </button>
+          </div>
+          <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+            <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- <div class="eas-space-between mb-2" *ngIf="allFeederReadingInserted && feeder?.billFileUploaded">
+      <div>
+        <button type="button" class="btn btn-sm btn-warning" (click)="generateAllFeederLossReport()" *ngIf="!reportGenerated" [disabled]="generating">Generate Report</button>
+        <button type="button" class="btn btn-sm btn-info mx-sm-1" (click)="viewFeederLossReport()" *ngIf="reportGenerated">View Report</button>
+      </div>
+      <div class="progress" style="width: 50%" *ngIf="generating">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+      </div>
+    </div> -->
+    <div class="eas-flex-end" *ngIf="showError">
+      <div class="alert alert-danger text-center pb-1 pt-1" role="alert">
+        <strong>Feeder Readings for Month {{billMonth}}-{{billMonthYear}} !</strong> not inserted for all feeders.
+      </div>
+    </div>
+
+    <div *ngIf="feederList && !searchButtonClicked">
+      <div class="table-responsive mb-2 text-center">
+        <table class="table table-sm table-bordered table-hover" id="feeders">
+          <thead class="bg-dark text-white">
+            <tr>
+              <td>S.No</td>
+              <td>Feeder Name</td>
+              <td>Feeder Type</td>
+              <td>Group No</td>
+              <td>HT Reading</td>
+              <td>Bill File</td>
+              <td>11KV Reading</td>
+              <td>Export Reading</td>
+              <td>Generate</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let feeder of pagedFeederList; let i = index">
+              <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+              <td>{{feeder?.feeder?.name}}</td>
+              <td>{{feeder?.feeder?.type}}</td>
+              <td>{{feeder?.feeder?.groupNo}}</td>
+              <td>
+                <span class="text-success" *ngIf="feeder.htReadingInserted"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.htReadingInserted"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <span class="text-success" *ngIf="feeder.billFileUploaded"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.billFileUploaded"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <span class="text-success" *ngIf="feeder.feederReadingInserted"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.feederReadingInserted"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <span class="text-success" *ngIf="feeder.exportReadingInserted"><span class="fa fa-check"></span></span> 
+                <span class="text-danger" *ngIf="!feeder.exportReadingInserted"><span class="fa fa-times"></span></span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleFeederLossReport(feeder.feeder)" 
+                  *ngIf="feeder?.billFileUploaded && feeder?.htReadingInserted && feeder?.feederReadingInserted && feeder?.exportReadingInserted"
+                  [hidden]="feeder.feeder.singleReportGenerated || reportGenerated" [disabled]="generating || feeder.feeder.generatingSingleReport">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="feeder.feeder.generatingSingleReport"></span> Generate
+                </button>
+                <button type="button" class="btn btn-sm btn-info" (click)="viewFeederLossReport()" *ngIf="feeder.feeder.singleReportGenerated || reportGenerated" 
+                [disabled]="generating">View</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
+        <nav>
+          <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal"  id="feederTnDLossReportModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">FEEDER LOSS REPORT</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <eas-feeder-view-tnd-loss-report-without-ht [feederLossReportView]="feederLossReportView"></eas-feeder-view-tnd-loss-report-without-ht>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

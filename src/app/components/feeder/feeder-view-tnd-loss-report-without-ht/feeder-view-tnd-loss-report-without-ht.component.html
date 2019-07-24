@@ -1,0 +1,136 @@
+<div class="table-responsive pt-1" style="font-size: 80%" *ngIf="feederLossReportView.feederLossReports && feederLossReportView.feederLossReports.length">
+  <table class="table table-sm table-bordered" id="feederLossReport">
+    <tbody class="text-sm text-center">
+      <tr>
+        <td colspan="19"><h3 class="display-5">FEEDER LOSS REPORT (Without - HT)</h3></td>
+      </tr>
+      <tr>
+        <td colspan="2">Region</td>
+        <td colspan="2"><strong>{{feederLossReportView.feederLossReports[0].regionName | uppercase}}</strong></td>
+        <td colspan="1">Circle</td>
+        <td colspan="4"><strong>{{feederLossReportView.feederLossReports[0].circleName | uppercase}}</strong></td>
+        <td colspan="1">Division</td>
+        <td colspan="4"><strong>{{feederLossReportView.feederLossReports[0].divisionName | uppercase}}</strong></td>
+        <!-- <td colspan="1">Feeder Incharge</td>
+        <td colspan="3"><strong>{{feederLossReportView.feederLossReports[0].feeder.link | uppercase}}</strong></td> -->
+        <td colspan="1">Zone</td>
+        <td colspan="4"><strong>{{feederLossReportView.feederLossReports[0].zoneName | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="3">Bill Month</td>
+        <td colspan="6"><strong>{{feederLossReportView.feederLossReports[0].lossMonth | uppercase}}</strong></td>
+        <td colspan="4">Substation</td>
+        <td colspan="6"><strong>{{feederLossReportView.feederLossReports[0].substationName | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="19"><br></td>
+      </tr>
+      <tr class="font-weight-bold" id="feederLossTableHeader">
+        <td>S.NO</td>
+        <td>FEEDER NAME</td>
+        <td>TYPE</td>
+        <td>INCHARGE</td>
+        <td>GROUP NO</td>
+        <td>METER NO</td>
+        <td>MF</td>
+        <td>PREV RDG 
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          RDG DATE
+        </td>
+        <td>CURR RDG
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          RDG DATE
+        </td>
+        <td>ASSESMENT UNIT</td>
+        <td>NET INPUT</td>
+        <td>NET INPUT WITHOUT HT</td>
+        <td>
+          HT CONSUMER 
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          HT UNITS
+        </td>
+        <td>3% of HT SOLD</td>
+        <td>LT CONSUMER
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          LT UNITS
+        </td>
+        <td>EXPORT POINTS
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          EXPORT UNIT
+        </td>
+        <td>TOTAL CONSUMPTION</td>
+        <td>% T&D LOSS</td>
+        <td>% BILLING EFFICIENCY</td>
+      </tr>
+      <tr *ngFor="let report of feederLossReportView.feederLossReports; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{report.feederName}}</td>
+        <td>{{report.feeder.type}}</td>
+        <td *ngIf="report.feeder.type === 'PARENTAL'">
+          {{report.feeder.link}}
+        </td>
+        <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
+          <span ng-repeat="mapping in report.feeder.mappings">
+            {{mapping.feeder.link}}
+          </span>
+        </td>
+        <td *ngIf="report.feeder.type === 'PARENTAL'">
+          <strong>{{report.billingGroupNo}}</strong>
+        </td>
+        <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
+          <span ng-repeat="mapping in report.feeder.mappings">
+            <strong>{{mapping.feeder.groupNo}}</strong>
+          </span>
+        </td>
+        <td>{{report.feederMeterNo}}</td>
+        <td>{{report.mf}}</td>
+        <td>{{report.previousReading}}
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          {{report.previousReadingDateInString}}
+        </td>
+        <td>{{report.currentReading}}
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          {{report.currentReadingDateInString}}
+        </td>
+        <td>{{report.assessmentUnit}}</td>
+        <td>{{report.netFeederInput}}</td>
+        <td><strong>{{report.netInputWithoutHT}}</strong></td>
+        <td>
+          <a href='javascript:void(0);' (click)="exportTotalHTConsumers(report)">{{report.totalHTConsumer}}</a>
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          {{report.netHTConsumption}}
+        </td>
+        <td>{{report.htLineLoss}}</td>
+        <td>
+          <a href='javascript:void(0);' (click)="exportTotalConsumers(report)">{{report.totalConsumer}}</a>
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          {{report.totalSoldUnit}}
+        </td>
+        <td>{{report.exportPoint}}
+          <hr style="border-top: 1px solid #000000; margin:0;">
+          {{report.exportConsumption}}
+        </td>
+        <td>
+          <strong>{{report.totalConsumption}}</strong>
+        </td>
+        <td><strong>{{report.feederLoss}}</strong></td>
+        <td><strong>{{report.billingEfficiency}}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="9" class="text-right"><strong>Gross Total&nbsp;</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossAssessment}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossInput}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossInputWithoutHT}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossHTConsumer}} <hr style="border-top: 1px solid #000000; margin:0;"> {{feederLossReportView.grossHTConsumption}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossHTLineLoss}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossConsumer}} <hr style="border-top: 1px solid #000000; margin:0;"> {{feederLossReportView.grossLTConsumption}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossExportPoints}}<hr style="border-top: 1px solid #000000; margin:0;">{{feederLossReportView.grossExportUnits}}</strong></td>
+        <td colspan="1"><strong>{{feederLossReportView.grossConsumption}}</strong></td>
+        <!-- <td colspan="1"><strong>{{feederLossReportView.grossLoss}}</strong></td> -->
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  

@@ -119,4 +119,23 @@ export class FeederService {
     };
     return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'loss/substation/id/' + substationId, options);
   }
+
+  generateFeedertndLossWithoutHTReport(feeder, billMonth, generatedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("generatedBy", generatedBy)
+    .append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'loss/without-ht/single', feeder, options);
+  }
+
+  getFeederTnDLossWithoutHTBySubstationId(substationId, billMonth){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'loss/without-ht/substation/id/' + substationId, options);
+  }
 }
