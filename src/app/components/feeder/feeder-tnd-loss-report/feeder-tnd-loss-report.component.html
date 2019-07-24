@@ -157,7 +157,7 @@
                 <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleFeederLossReport(feeder.feeder)" 
                   *ngIf="feeder?.billFileUploaded && feeder?.htReadingInserted && feeder?.feederReadingInserted && feeder?.exportReadingInserted"
                   [hidden]="feeder.feeder.singleReportGenerated || reportGenerated" [disabled]="generating || feeder.feeder.generatingSingleReport">
-                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="feeder.generatingSingleReport"></span> Generate
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="feeder.feeder.generatingSingleReport"></span> Generate
                 </button>
                 <button type="button" class="btn btn-sm btn-info" (click)="viewFeederLossReport()" *ngIf="feeder.feeder.singleReportGenerated || reportGenerated" 
                 [disabled]="generating">View</button>
