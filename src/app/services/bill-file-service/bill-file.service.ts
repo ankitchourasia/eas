@@ -73,11 +73,11 @@ export class BillFileService {
     return this.http.get(this.URL_PREFIX + this.BILL_FILE_REF_URL + 'missing/division/id/' + divisionId,  options);
   }
 
-  uploadBillFile(file, updatedBy, response){
+  uploadBillFile(file, uploadedBy, response){
     let formData: FormData = new FormData();
     formData.append('file', file, file.name);
     let httpParams = new HttpParams();
-    httpParams = httpParams.append("updatedBy", updatedBy);
+    httpParams = httpParams.append("uploadedBy", uploadedBy);
     let options = {
       params: httpParams
     };

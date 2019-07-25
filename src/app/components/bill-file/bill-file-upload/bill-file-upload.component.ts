@@ -45,7 +45,6 @@ export class BillFileUploadComponent implements OnInit {
   }
 
   uploadClicked(){
-    console.log(this.fileName);
     this.uploadButtonClicked = true;
     this.billFileService.uploadBillFile(this.file, this.user.username, true).subscribe(successResponse =>{
       this.uploadButtonClicked = false;
@@ -54,6 +53,12 @@ export class BillFileUploadComponent implements OnInit {
     },errorResponse =>{
       console.log(errorResponse);
       this.uploadButtonClicked = false;
+      let data = errorResponse.error.message;
+      if(errorResponse.status === 417){
+				this.globalResources.errorAlert("BillFile Already uploaded for month : " + data.billMonth);
+			}else{
+        this.globalResources.errorAlert("Some error occured while uploading bill file.Try Again !");
+      }
     });
   }
 
