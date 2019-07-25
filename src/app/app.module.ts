@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+// import { AppRoutingModule } from './app-routing.module';
+import { appRoutingModule } from './app-routing.module';
 import { LoginModule } from './modules/login/login.module';
 import { GlobalResources } from './utility/global.resources';
 import { GlobalConstants } from './utility/global.constants';
@@ -20,7 +21,8 @@ import { AuthorizationInterceptor } from './interceptors/authorization.intercept
     HttpModule,
     HttpClientModule,
     LoginModule,
-    AppRoutingModule
+    appRoutingModule
+    // AppRoutingModule
   ],
   providers: [ 
     GlobalResources,

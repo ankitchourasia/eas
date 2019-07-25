@@ -8,6 +8,7 @@ import { AdminSubstationModule } from './admin-substation/admin-substation.modul
 import { AdminFeederModule } from './admin-feeder/admin-feeder.module';
 import { AdminDtrModule } from './admin-dtr/admin-dtr.module';
 import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.module';
+import { AdminBillFileModule } from './admin-bill-file/admin-bill-file.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.mod
     AdminFeederModule,
     AdminDtrModule,
     AdminHtConsumerModule,
+    AdminBillFileModule,
     AdminRoutingModule,
   ],
   declarations: [

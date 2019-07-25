@@ -32,12 +32,14 @@ export class GlobalResources {
     }
 
     resetValidateForm(ngForm:NgForm){
+        console.log("inside resetValidateForm", ngForm);
         this.setPristine(ngForm);
         this.setUntouched(ngForm);
         this.updateValueAndValidity(ngForm);
     }
 
     validateForm(ngForm: NgForm): boolean{
+        console.log("inside validateForm", ngForm);
         if(ngForm){
             if(ngForm.invalid){
                 Object.keys(ngForm.controls).forEach(control => {
