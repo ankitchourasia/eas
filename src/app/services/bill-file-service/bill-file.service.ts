@@ -72,4 +72,18 @@ export class BillFileService {
     }
     return this.http.get(this.URL_PREFIX + this.BILL_FILE_REF_URL + 'missing/division/id/' + divisionId,  options);
   }
+
+  uploadBillFile(file, updatedBy, response){
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("updatedBy", updatedBy);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.post(this.URL_PREFIX + 'billfile/fast-upload/', formData,  options);
+  }
 }

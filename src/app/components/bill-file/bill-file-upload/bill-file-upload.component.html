@@ -1,16 +1,19 @@
 <div class="eas-flex-center">
   <div class="flex-column">
-    <div class="form-inline">
-      <div>
+    <div class="form-inline eas-flex-center">
+      <!-- <div>
         <div class="custom-file">
           <input type="file" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
-            class="custom-file-input" [(ngModel)]="fileName" #fileInput="ngModel" name="fileInput" id="fileInput" required>
-          <span class="custom-file-label text-muted text-left" for="fileInput">Choose bill file</span>
+            class="custom-file-input" [(ngModel)]="fileName" #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged()">
+          <small class="custom-file-label text-muted text-left" for="fileInput">{{fileName}}</small>
         </div>
-      </div>
-      <button class="btn btn-primary mx-auto" type="button" id="upload" name="upload">UPLOAD</button>
+      </div> -->
+      <input type="file" accept=".csv,.txt" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
+        ngModel #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged($event)">
+      <button class="btn btn-primary btn-sm mx-auto" type="button" id="upload" name="upload" [disabled]="fileInput.errors || uploadButtonClicked" (click)=uploadClicked()>
+        <span class="spinner-border spinner-border-sm" *ngIf="uploadButtonClicked"></span> UPLOAD</button>
     </div>
-    <small class="form-text text-muted">Select the bill file to be uploaded from your computer & click upload.</small>
+    <small class="form-text text-muted text-center">Select the bill file to be uploaded from your computer & click upload.</small>
   </div>
 </div>
 <hr>

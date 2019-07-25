@@ -11,6 +11,7 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 })
 export class BillFileUploadComponent implements OnInit {
 
+  file: any;
   fileName: any;
   billMonth: any;
   billMonthYear: any;
@@ -23,12 +24,39 @@ export class BillFileUploadComponent implements OnInit {
   missingBillFileRefFeederList: any;
   pagedMissingBillFileRefFeederList: any;
   searchButtonClicked: boolean;
+  uploadButtonClicked: boolean;
+
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private billFileService: BillFileService, public paginationService: PaginationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
   }
+
+  fileChanged(event) {
+    // this.fileName = this.fileName.split("\\").pop();
+    this.file = null;
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      this.file = fileList[0];
+      this.fileName = this.file.name;
+      console.log(this.file);
+    }
+  }
+
+  uploadClicked(){
+    console.log(this.fileName);
+    this.uploadButtonClicked = true;
+    this.billFileService.uploadBillFile(this.file, this.user.username, true).subscribe(successResponse =>{
+      this.uploadButtonClicked = false;
+      let result = <any>successResponse;
+      console.log(result.body);
+    },errorResponse =>{
+      console.log(errorResponse);
+      this.uploadButtonClicked = false;
+    });
+  }
+
 
   searchClicked(){
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
