@@ -10,7 +10,7 @@
       </div> -->
       <input type="file" accept=".csv,.txt" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
         ngModel #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged($event)">
-      <button class="btn btn-primary btn-sm mx-auto" type="button" id="upload" name="upload" [disabled]="fileInput.errors || uploadButtonClicked" (click)=uploadClicked()>
+      <button class="btn btn-primary btn-sm mx-auto" type="button" id="upload" name="upload" [disabled]="fileInput.errors || uploadButtonClicked" (click)=uploadClicked(fileUploadResultTemplate)>
         <span class="spinner-border spinner-border-sm" *ngIf="uploadButtonClicked"></span> UPLOAD</button>
     </div>
     <small class="form-text text-muted text-center">Select the bill file to be uploaded from your computer & click upload.</small>
@@ -98,4 +98,47 @@
       </ul>
     </nav>
   </div>
+</div>
+
+<div #fileUploadResultTemplate id="fileUploadResult" hidden>
+  <table class="table table-sm table-borderless pt-auto pb-auto">
+    <tr>
+      <td>DIVISION NAME</td>
+      <td><strong>{{file?.upload?.divisionName | uppercase}}</strong></td>
+      <td>LOCATION CODE</td>
+      <td><strong>{{file?.upload?.locationCode | uppercase}}</strong></td>
+      <td>BILL MONTH</td>
+      <td><strong>{{file?.upload?.billMonth | uppercase}}</strong></td>
+      <td>GROUP NO</td>
+      <td><strong>{{file?.upload?.groupNo | uppercase}}</strong></td>
+      <td>TOTAL FILE RECORDS</td>
+      <td><strong>{{file?.upload?.totalRecords}}</strong></td>
+      <td>TOTAL INSERTED RECORDS</td>
+      <td><strong>{{file?.upload?.totalInsertedRecords}}</strong></td>
+    </tr>
+    <!-- <tr>
+      <td>LOCATION CODE</td>
+      <td><strong>{{file?.upload?.locationCode | uppercase}}</strong></td>
+    </tr> -->
+    <!-- <tr>
+      <td>ZONE</td>
+      <td><strong>{{file?.upload?.zone?.name | uppercase}}</strong></td>
+    </tr> -->
+    <!-- <tr>
+      <td>BILL MONTH</td>
+      <td><strong>{{file?.upload?.billMonth | uppercase}}</strong></td>
+    </tr>
+    <tr>
+      <td>GROUP NO</td>
+      <td><strong>{{file?.upload?.groupNo | uppercase}}</strong></td>
+    </tr>
+    <tr>
+      <td>TOTAL FILE RECORDS</td>
+      <td><strong>{{file?.upload?.totalRecords}}</strong></td>
+    </tr>
+    <tr>
+      <td>TOTAL INSERTED RECORDS</td>
+      <td><strong>{{file?.upload?.totalInsertedRecords}}</strong></td>
+    </tr> -->
+  </table>
 </div>

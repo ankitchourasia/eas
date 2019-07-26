@@ -58,7 +58,7 @@ export class GlobalResources {
 
     errorAlert( message:string){
         return alert.fire({
-            html: message,
+            html: "<strong>" + message + "<strong>",
             animation: true,
             allowOutsideClick: true,
             allowEscapeKey: true,
@@ -73,7 +73,7 @@ export class GlobalResources {
 
     successAlert(message:string){
         return alert.fire({
-            html: message,
+            html: "<strong>" + message + "<strong>",
             animation: true,
             allowOutsideClick: true,
             allowEscapeKey: true,
@@ -88,7 +88,7 @@ export class GlobalResources {
 
     confirmAlert(message:string){
         return alert.fire({
-            html: message,
+            html: "<strong>" + message + "<strong>",
             animation: true,
             showCancelButton: true,
             allowOutsideClick: true,
@@ -102,6 +102,25 @@ export class GlobalResources {
             // cancelButtonColor: '#d33',
             confirmButtonText: 'YES ',
             cancelButtonText: 'NO ',
+        });
+      }
+
+      templateAlert(templateRef, templateTitle: string = null){
+          console.log(templateRef);
+        return alert.fire({
+            title: templateTitle,
+            html: "<hr>" + templateRef.innerHTML + "<hr>",
+            animation: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            focusConfirm: true,
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'OK',
+            customClass:{
+                content: "text-align-left"
+            }
         });
       }
 

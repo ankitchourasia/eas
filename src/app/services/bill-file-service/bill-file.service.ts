@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpEventType } from '@angular/common/http';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -86,4 +87,29 @@ export class BillFileService {
     }
     return this.http.post(this.URL_PREFIX + 'billfile/fast-upload/', formData,  options);
   }
+
+  // uploadBillFile(file, uploadedBy) {
+  //   let formData: FormData = new FormData();
+  //   formData.append('file', file, file.name);
+  //   let httpParams = new HttpParams();
+  //   httpParams = httpParams.append("uploadedBy", uploadedBy);
+  //   let options = {
+  //     params: httpParams,
+  //     reportProgress: true,
+  //   };
+  //   options['observe'] = "events";
+  //   return this.http.post<any>(this.URL_PREFIX + 'billfile/fast-upload/', formData, options)
+  //   .pipe(map((event) => {
+  //       switch (event.type) {
+  //         case HttpEventType.UploadProgress:
+  //           const progress = Math.round(100 * event.loaded / event.total);
+  //           return { status: 'progress', message: progress };
+  //         case HttpEventType.Response:
+  //           return event.body;
+  //         default:
+  //           return `Unhandled event: ${event.type}`;
+  //       }
+  //     })
+  //   );
+  // }
 }

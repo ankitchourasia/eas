@@ -44,22 +44,32 @@ export class BillFileUploadComponent implements OnInit {
     }
   }
 
-  uploadClicked(){
+  uploadClicked(fileUploadResultTemplate){
+    console.log(fileUploadResultTemplate);
     this.uploadButtonClicked = true;
-    this.billFileService.uploadBillFile(this.file, this.user.username, true).subscribe(successResponse =>{
-      this.uploadButtonClicked = false;
-      let result = <any>successResponse;
-      console.log(result.body);
-    },errorResponse =>{
-      console.log(errorResponse);
-      this.uploadButtonClicked = false;
-      let data = errorResponse.error.message;
-      if(errorResponse.status === 417){
-				this.globalResources.errorAlert("BillFile Already uploaded for month : " + data.billMonth);
-			}else{
-        this.globalResources.errorAlert("Some error occured while uploading bill file.Try Again !");
+    this.billFileService.uploadBillFile(this.file, this.user.username, true).subscribe(
+      successResponse =>{
+        let result = <any>successResponse;
+        this.file.upload = result.body;
+        this.uploadButtonClicked = false;
+        console.log(this.file.upload);
+        setTimeout(() => {
+          this.globalResources.templateAlert(fileUploadResultTemplate, "Bill File Uploaded Successfully !");
+          // this.globalResources.templateAlert(document.getElementById('fileUploadResult'), "Bill File Uploaded Successfully !");
+        }, 10);
+      },
+      errorResponse =>{
+        console.log(errorResponse);
+        this.uploadButtonClicked = false;
+        if(errorResponse.status === 417){
+          let data = errorResponse.error;
+          this.globalResources.errorAlert("BillFile Already uploaded for bill month : " + data.billMonth);
+        }else{
+          let errorMessage = errorResponse.error.message;
+          this.globalResources.errorAlert("Some error occured while uploading bill file.Try Again !<br>"+ errorMessage);
+        }
       }
-    });
+    );
   }
 
 
