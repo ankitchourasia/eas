@@ -1,0 +1,92 @@
+<div class="table-responsive pt-1" style="font-size: 80%" *ngIf="feederLossReportView.feederLossReports && feederLossReportView.feederLossReports.length">
+  <table class="table table-sm table-bordered" id="feederLossReport">
+    <tbody class="text-sm text-center">
+      <tr>
+        <td colspan="17"><h3 class="display-5">FEEDER LOSS REPORT</h3></td>
+      </tr>
+      <tr>
+        <td colspan="1">Region</td>
+        <td colspan="1"><strong>{{feederLossReportView.feederLossReports[0].regionName | uppercase}}</strong></td>
+        <td colspan="1">Circle</td>
+        <td colspan="2"><strong>{{feederLossReportView.feederLossReports[0].circleName | uppercase}}</strong></td>
+        <td colspan="1">Division</td>
+        <td colspan="3"><strong>{{feederLossReportView.feederLossReports[0].divisionName | uppercase}}</strong></td>
+        <!-- <td colspan="1">Feeder Incharge</td>
+        <td colspan="3"><strong>{{feederLossReportView.feederLossReports[0].feeder.link | uppercase}}</strong></td> -->
+        <td colspan="1">Zone</td>
+        <td colspan="3"><strong>{{feederLossReportView.feederLossReports[0].zoneName | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2">Bill Month</td>
+        <td colspan="4"><strong>{{feederLossReportView.feederLossReports[0].lossMonth | uppercase}}</strong></td>
+        <td colspan="2">Substation</td>
+        <td colspan="5"><strong>{{feederLossReportView.feederLossReports[0].substationName | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="13"><br></td>
+      </tr>
+      <tr class="font-weight-bold" id="feederLossTableHeader">
+        <td>S.NO</td>
+        <td>FEEDER NAME</td>
+        <td>TYPE</td>
+        <td>INCHARGE</td>
+        <td>GROUP NO</td>
+        <td>NET INPUT</td>
+        <td>TOTAL SOLD UNIT</td>
+        <td>TOTAL CURRENT DEMAND</td>
+        <td>TOTAL COLLECTION</td>
+        <td>% T&D LOSS</td>
+        <td>% BILLING EFFICIENCY</td>
+        <td>% COLLECTION EFFICIENCY</td>
+        <td>% AT&C LOSS</td>
+      </tr>
+      <tr *ngFor="let report of feederLossReportView.feederLossReports; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{report.feederName}}</td>
+        <td>{{report.feeder.type}}</td>
+        <td *ngIf="report.feeder.type === 'PARENTAL'">
+          {{report.feeder.link}}
+        </td>
+        <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
+          <span ng-repeat="mapping in report.feeder.mappings">
+            {{mapping.feeder.link}}
+          </span>
+        </td>
+        <td *ngIf="report.feeder.type === 'PARENTAL'">
+          <strong>{{report.billingGroupNo}}</strong>
+        </td>
+        <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
+          <span ng-repeat="mapping in report.feeder.mappings">
+            <strong>{{mapping.feeder.groupNo}}</strong>
+          </span>
+        </td>
+        <td><strong>{{report.netFeederInput}}</strong></td>
+				<td>
+					<strong>{{report.totalSoldUnit}}</strong>
+				</td>
+        <td>
+          <a href='javascript:void(0);' (click)="exportTotalContractDemandConsumers(report)"><strong>{{report.totalCurrentDemand}}</strong></a>
+        </td>
+        <td>
+          <a href='javascript:void(0);' (click)="exportTotalCollectionConsumers(report)"><strong>{{report.totalCollection}}</strong></a>
+        </td>
+        <td><strong>{{report.tdLoss}}</strong></td>
+        <td><strong>{{report.billingEfficiency}}</strong></td>
+        <td><strong>{{report.collectionEfficiency}}</strong></td>
+        <td><strong>{{report.atcLoss}}</strong></td>
+      </tr>
+      <tr>
+        <td colspan="5" class="text-xs-right"><strong>GROSS TOTAL&nbsp;</strong></td>
+        <td><strong>{{feederLossReportView.grossInput}}</strong></td>
+        <td><strong>{{feederLossReportView.grossSoldUnit}}</strong></td>
+        <td><strong>{{feederLossReportView.grossCurrentDemand}}</strong></td>
+        <td><strong>{{feederLossReportView.grossCollection}}</strong></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  
