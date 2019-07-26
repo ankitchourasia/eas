@@ -106,7 +106,6 @@ export class GlobalResources {
       }
 
       templateAlert(templateRef, templateTitle: string = null){
-          console.log(templateRef);
         return alert.fire({
             title: templateTitle,
             html: "<hr>" + templateRef.innerHTML + "<hr>",

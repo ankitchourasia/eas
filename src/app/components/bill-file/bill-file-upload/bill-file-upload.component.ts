@@ -45,17 +45,18 @@ export class BillFileUploadComponent implements OnInit {
   }
 
   uploadClicked(fileUploadResultTemplate){
-    console.log(fileUploadResultTemplate);
     this.uploadButtonClicked = true;
     this.billFileService.uploadBillFile(this.file, this.user.username, true).subscribe(
       successResponse =>{
         let result = <any>successResponse;
         this.file.upload = result.body;
         this.uploadButtonClicked = false;
-        console.log(this.file.upload);
         setTimeout(() => {
-          this.globalResources.templateAlert(fileUploadResultTemplate, "Bill File Uploaded Successfully !");
+          let alertResponse = this.globalResources.templateAlert(fileUploadResultTemplate, "Bill File Uploaded Successfully !");
           // this.globalResources.templateAlert(document.getElementById('fileUploadResult'), "Bill File Uploaded Successfully !");
+          alertResponse.then((result) => {
+            this.getUploadedBillFileList();
+          });
         }, 10);
       },
       errorResponse =>{
@@ -72,6 +73,34 @@ export class BillFileUploadComponent implements OnInit {
     );
   }
 
+  getUploadedBillFileList(){
+    let billingMonth = this.billMonth + "-" + this.billMonthYear;
+    if(this.selectedZone && this.selectedZone.id){
+      this.getUploadedBillFileListByZoneIdAndBillMonth(this.selectedZone.id, billingMonth);
+    }else{
+      this.getUploadedBillFileListByDivisionNameAndBillMonth(this.user.division.name, billingMonth);
+    }
+  }
+
+  getUploadedBillFileListByZoneIdAndBillMonth(zoneId, billingMonth){
+    this.billFileRefs = null;
+    this.billFileService.getUploadedBillFileListByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(successResponse =>{
+      this.billFileRefs = successResponse;
+      console.log(successResponse);
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
+  }
+
+  getUploadedBillFileListByDivisionNameAndBillMonth(divisionName, billingMonth){
+    this.billFileRefs = null;
+    this.billFileService.getUploadedBillFileListByDivisionNameAndBillMonth(divisionName, billingMonth, false).subscribe(successResponse =>{
+      this.billFileRefs = successResponse;
+      console.log(successResponse);
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
+  }
 
   searchClicked(){
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
