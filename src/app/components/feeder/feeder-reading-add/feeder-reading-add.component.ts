@@ -65,7 +65,7 @@ export class FeederReadingAddComponent implements OnInit {
       this.feederReading.prevReadingDate = this.previousReading.currReadingDate;
       this.feederReading.prevReadingDateInString = this.previousReading.currReadingDateInString;
       this.feederReading.prevBillMonth = this.previousReading.billMonth;
-      this.feederReading.billMonth = this.getNextBillMonth(this.previousReading.billMonth);
+      this.feederReading.billMonth = this.globalResources.getNextBillMonth(this.previousReading.billMonth);
     }, error =>{
       console.log(error);
       this.globalResources.errorAlert(error.error.errorMessage);
@@ -175,54 +175,4 @@ export class FeederReadingAddComponent implements OnInit {
       this.globalResources.errorAlert(error.error.errorMessage);
     });
   }
-
-  getNextBillMonth(billMonth) : string {
-		let values = billMonth.split('-');
-		let month = values[0];
-		let year = 	parseInt(values[1]);
-		let nextMonth;
-		let nextYear = year;
-		switch (month) {
-		case "JAN":
-			nextMonth = 'FEB';
-			break;
-		case "FEB":
-			nextMonth = 'MAR';
-			break;
-		case "MAR":
-			nextMonth = 'APR';
-			break;
-		case "APR":
-			nextMonth = 'MAY';
-			break;
-		case "MAY":
-			nextMonth = 'JUN';
-			break;
-		case "JUN":
-			nextMonth = 'JUL';
-			break;
-		case "JUL":
-			nextMonth = 'AUG';
-			break;
-		case "AUG":
-			nextMonth = 'SEP';
-			break;
-		case "SEP":
-			nextMonth = 'OCT';
-			break;
-		case "OCT":
-			nextMonth = 'NOV';
-			break;
-		case "NOV":
-			nextMonth = 'DEC';
-			break;
-		case "DEC":
-			nextMonth = 'JAN';
-			nextYear = nextYear + 1;
-			break;
-		default:
-			break;
-		}
-		return nextMonth.toUpperCase()+"-"+nextYear;
-	}
 }

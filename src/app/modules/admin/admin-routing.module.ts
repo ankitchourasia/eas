@@ -24,6 +24,7 @@ import { AdminDtrPreBillingComponent } from './admin-dtr/admin-dtr-pre-billing/a
 import { AdminHtConsumerViewComponent } from './admin-ht-consumer/admin-ht-consumer-view/admin-ht-consumer-view.component';
 import { AdminHtConsumerViewConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-consumption/admin-ht-consumer-view-consumption.component';
 import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-absent-consumption/admin-ht-consumer-view-absent-consumption.component';
+import { AdminBillFileUploadComponent } from './admin-bill-file/admin-bill-file-upload/admin-bill-file-upload.component';
 
 const adminRoutes: Routes = [
   {
@@ -100,6 +101,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'ht/consumer/view/absent-consumption',component: AdminHtConsumerViewAbsentConsumptionComponent
+          },
+          {
+            path: 'bill-file/upload',component: AdminBillFileUploadComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'
