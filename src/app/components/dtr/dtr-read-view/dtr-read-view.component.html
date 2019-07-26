@@ -14,7 +14,7 @@
       </select>
       <div class="input-group-append">
         <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+          Search <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="searchButtonClicked"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -227,7 +227,7 @@
               <div class="form-group row">
                 <div class="col-4 offset-3">
                   <button type="button" class="btn btn-success form-control" (click)=updateClicked(dtrReadingUpdateForm)>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span> Update
+                    Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span>
                   </button>
                 </div>
                 <div class="col-4 offset-1">

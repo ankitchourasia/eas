@@ -85,7 +85,7 @@
       </select>
       <div class="input-group-append">
         <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="feederName.errors || month.errors || year.errors || searchButtonClicked">
-          <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+          Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -137,7 +137,7 @@
             <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleDtrLossReport(dtr)" 
               *ngIf="userDetails?.feeder?.billFileUploaded && dtr?.readingInsertedForBillMonth"
               [hidden]="dtr.singleReportGenerated || reportGenerated" [disabled]="generating || dtr.generatingSingleReport">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.generatingSingleReport"></span> Generate
+              Generate <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.generatingSingleReport"></span>
             </button>
             <button type="button" class="btn btn-sm btn-info" (click)="viewDtrLossReport()" *ngIf="dtr.singleReportGenerated || reportGenerated" [disabled]="generating">View</button>
           </td>

@@ -85,7 +85,7 @@
       </select>
       <div class="input-group-append">
         <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="feederName.errors || month.errors || year.errors || searchButtonClicked">
-          <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span> Search
+          Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -180,7 +180,7 @@
           <td class="align-middle">
             <button type="button" class="btn btn-sm btn-warning" (click)="saveClicked(dtr)" [disabled]="generating || dtr.prebilling?.savingSingleReport"
               *ngIf="dtr?.readingInsertedForBillMonth" [hidden]="!dtr.readingInsertedForBillMonth || dtr.prebilling?.singleReportSaved || dtr.prebilling?.id">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.prebilling?.savingSingleReport"></span> Save
+              Save <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.prebilling?.savingSingleReport"></span>
             </button>
             <span *ngIf="dtr.prebilling?.singleReportSaved || dtr.prebilling?.id"><strong>SAVED</strong></span>
           </td>

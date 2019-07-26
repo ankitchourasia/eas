@@ -27,7 +27,8 @@
   </div>
   <div>
     <button class="btn btn-primary mx-sm-3" (click)="getFeederReadings()" [disabled]="loading || !year || !month" >
-      <span class="spinner-border spinner-border-sm" [hidden]="!loading"></span>Fetch Readings</button>
+      Fetch Readings <span class="spinner-border spinner-border-sm" [hidden]="!loading"></span>
+    </button>
   </div>
 </div> -->
 
@@ -47,7 +48,7 @@
       </select>
       <div class="input-group-append">
         <button type="button" class="btn btn-sm btn-primary" (click)=getFeederAbsentReadings() [disabled]="billmonth.errors || billMonthyear.errors || loading">
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Search
+          Search <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(billmonth.errors && (billmonth.dirty || billmonth.touched)) || (billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched))">

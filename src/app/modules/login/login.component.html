@@ -33,7 +33,7 @@
                     </div>
                     <div class="eas-space-evenly">
                         <button type="submit" class="btn btn-success" (click)="loginClicked(loginForm)" [disabled]="submitButtonClicked">
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span> login
+                            login <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span>
                         </button>
                         <button type="reset" class="btn btn-danger">clear</button>
                     </div>

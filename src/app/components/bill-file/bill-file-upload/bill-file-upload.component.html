@@ -11,7 +11,7 @@
       <input type="file" accept=".csv,.txt" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
         ngModel #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged($event)">
       <button class="btn btn-primary btn-sm mx-auto" type="button" id="upload" name="upload" [disabled]="fileInput.errors || uploadButtonClicked" (click)=uploadClicked(fileUploadResultTemplate)>
-        <span class="spinner-border spinner-border-sm" *ngIf="uploadButtonClicked"></span> UPLOAD</button>
+        UPLOAD <span class="spinner-border spinner-border-sm" *ngIf="uploadButtonClicked"></span></button>
     </div>
     <small class="form-text text-muted text-center">Select the bill file to be uploaded from your computer & click upload.</small>
   </div>
@@ -46,7 +46,7 @@
     </div>
     <div class="mx-5">
       <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="zone.errors || month.errors || year.errors || searchButtonClicked">
-        <span class="spinner-border spinner-border-sm" *ngIf="searchButtonClicked"></span> Search
+        Search <span class="spinner-border spinner-border-sm" *ngIf="searchButtonClicked"></span>
       </button>
     </div>
   </div>
