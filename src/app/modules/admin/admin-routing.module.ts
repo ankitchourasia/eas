@@ -25,6 +25,8 @@ import { AdminHtConsumerViewComponent } from './admin-ht-consumer/admin-ht-consu
 import { AdminHtConsumerViewConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-consumption/admin-ht-consumer-view-consumption.component';
 import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-absent-consumption/admin-ht-consumer-view-absent-consumption.component';
 import { AdminBillFileUploadComponent } from './admin-bill-file/admin-bill-file-upload/admin-bill-file-upload.component';
+import { AdminFeederInitialReadAddComponent } from './admin-feeder/admin-feeder-initial-read-add/admin-feeder-initial-read-add.component';
+import { AdminFeederMappingAddComponent } from './admin-feeder/admin-feeder-mapping-add/admin-feeder-mapping-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -53,6 +55,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/view',component: AdminFeederViewComponent
+          },
+          {
+            path: 'feeder/initial/reading/add', component: AdminFeederInitialReadAddComponent
+          },
+          {
+            path: 'feeder/mapping/add', component: AdminFeederMappingAddComponent
           },
           {
             path: 'feeder/reading/add', component: AdminFeederReadingAddComponent
