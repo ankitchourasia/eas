@@ -1,3 +1,32 @@
-<p>
-  export-point-reading-view works!
-</p>
+<div class="eas-space-between mb-2">
+  <div class="inner-group">
+    <label class="form-text text-muted mb-0">Zone</label>
+    <div class="input-group">
+      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="selectedZone" #zone="ngModel" id="zone"  name="zone" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="inner-group">
+    <label class="form-text text-muted mb-0">Bill Month</label>
+    <div class="input-group">
+      <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
+        <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;&nbsp;</span></option>
+        <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+      </select>
+      <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required>
+        <option disabled selected [ngValue]='undefined'>Year</option>
+        <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+      </select>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="zone.errors || month.errors || year.errors || _searchClicked">
+          Search <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_searchClicked"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,18 @@ export class ExportService {
     }
   }
 
+  getAll11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.httpClient.get(this.URL_PREFIX + this.EXPORT_URL + 'reading/zone/' + zoneId,  options);
+  }
+
   statusChanged(exportPoint, response){
     if(response){
       let options : any = {'observe' : 'response'};

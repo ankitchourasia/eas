@@ -1,0 +1,8 @@
+.inner-group{
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+.form-text{
+    min-width: 150px;
+}

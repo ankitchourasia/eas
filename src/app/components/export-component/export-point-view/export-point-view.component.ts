@@ -24,10 +24,10 @@ export class ExportPointViewComponent implements OnInit {
     private exportService: ExportService, public paginationService: PaginationService) { }
 
   ngOnInit() {
-    this.checkUserRoll();
+    this.setPartialData();
   }
 
-  checkUserRoll(){
+  setPartialData(){
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     console.log(this.user);
