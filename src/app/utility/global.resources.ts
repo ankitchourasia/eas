@@ -105,9 +105,9 @@ export class GlobalResources {
         });
       }
 
-      templateAlert(templateRef, templateTitle: string = null){
+      templateAlert(templateRef, options){
         return alert.fire({
-            title: templateTitle,
+            title: options.title,
             html: "<hr>" + templateRef.innerHTML + "<hr>",
             animation: true,
             allowOutsideClick: true,
@@ -118,8 +118,9 @@ export class GlobalResources {
             confirmButtonClass: 'btn btn-success',
             confirmButtonText: 'OK',
             customClass:{
-                content: "text-align-left"
-            }
+                // content: "text-left"
+            },
+            width: options.width
         });
       }
 

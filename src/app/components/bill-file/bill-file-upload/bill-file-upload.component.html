@@ -101,34 +101,36 @@
 </div>
 
 <div #fileUploadResultTemplate id="fileUploadResult" hidden>
-  <table class="table table-sm table-borderless pt-auto pb-auto">
-    <tr>
-      <td>DIVISION NAME</td>
-      <td><strong>{{file?.upload?.divisionName | uppercase}}</strong></td>
-    </tr>
-    <tr>
-      <td>LOCATION CODE</td>
-      <td><strong>{{file?.upload?.locationCode | uppercase}}</strong></td>
-    </tr>
-    <!-- <tr>
-      <td>ZONE</td>
-      <td><strong>{{file?.upload?.zone?.name | uppercase}}</strong></td>
-    </tr> -->
-    <tr>
-      <td>BILL MONTH</td>
-      <td><strong>{{file?.upload?.billMonth | uppercase}}</strong></td>
-    </tr>
-    <tr>
-      <td>GROUP NO</td>
-      <td><strong>{{file?.upload?.groupNo | uppercase}}</strong></td>
-    </tr>
-    <tr>
-      <td>TOTAL FILE RECORDS</td>
-      <td><strong>{{file?.upload?.totalRecords}}</strong></td>
-    </tr>
-    <tr>
-      <td>TOTAL INSERTED RECORDS</td>
-      <td><strong>{{file?.upload?.totalInsertedRecords}}</strong></td>
-    </tr>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-sm table-borderless pt-auto pb-auto text-left">
+      <tr>
+        <td>DIVISION NAME</td>
+        <td><strong>{{file?.upload?.divisionName | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td>LOCATION CODE</td>
+        <td><strong>{{file?.upload?.locationCode | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td>ZONE</td>
+        <td><strong>{{file?.upload?.zone?.name ? (file?.upload?.zone?.name | uppercase ) : "NA"}}</strong></td>
+      </tr>
+      <tr>
+        <td>BILL MONTH</td>
+        <td><strong>{{file?.upload?.billMonth | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td>GROUP NO</td>
+        <td><strong>{{file?.upload?.groupNo | uppercase}}</strong></td>
+      </tr>
+      <tr>
+        <td>TOTAL FILE RECORDS</td>
+        <td><strong>{{file?.upload?.totalRecords}}</strong></td>
+      </tr>
+      <tr>
+        <td>TOTAL INSERTED RECORDS</td>
+        <td><strong>{{file?.upload?.totalInsertedRecords}}</strong></td>
+      </tr>
+    </table>
+  </div>
 </div>

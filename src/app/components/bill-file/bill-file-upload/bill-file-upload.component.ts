@@ -52,7 +52,7 @@ export class BillFileUploadComponent implements OnInit {
         this.file.upload = result.body;
         this.uploadButtonClicked = false;
         setTimeout(() => {
-          let alertResponse = this.globalResources.templateAlert(fileUploadResultTemplate, "Bill File Uploaded Successfully !");
+          let alertResponse = this.globalResources.templateAlert(fileUploadResultTemplate, {title:"Bill File Uploaded Successfully !"});
           // this.globalResources.templateAlert(document.getElementById('fileUploadResult'), "Bill File Uploaded Successfully !");
           alertResponse.then((result) => {
             this.getUploadedBillFileList();
