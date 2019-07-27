@@ -62,8 +62,8 @@
             <td class="align-middle">{{exportPoint?.overallMf }}</td>
             <td class="align-middle">{{exportPoint?.misc1 | uppercase}}</td>
 						<td class="align-middle">
-              <button class="btn btn-danger btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_ACTIVE"  (click)="statusChanged(exportPoint)">INACTIVE</button>
-              <button class="btn btn-success btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_INACTIVE"  (click)="statusChanged(exportPoint)">ACTIVE</button>
+              <button type="button" class="btn btn-danger btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_ACTIVE"  (click)="statusChanged(exportPoint)">INACTIVE</button>
+              <button type="button" class="btn btn-success btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_INACTIVE"  (click)="statusChanged(exportPoint)">ACTIVE</button>
             </td>
           </tr>
           <tr *ngIf="exportPointList && exportPointList.length <= 0">

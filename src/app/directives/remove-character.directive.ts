@@ -8,10 +8,10 @@ export class RemoveCharacterDirective {
 
   constructor() {}
 
-  @HostListener('change', ['$event']) onInputChange(e: KeyboardEvent) {
-    let inputValue = (<HTMLSelectElement>e.target).value;
-    let trimValue = inputValue.replace(/[\r?\n|\r/"]/g,'');
-    console.log(trimValue);
-    this.ngModelChange.emit(trimValue);
-  }
+  // @HostListener('change', ['$event']) onInputChange(e: KeyboardEvent) {
+  //   let inputValue = (<HTMLSelectElement>e.target).value;
+  //   let trimValue = inputValue.replace(/[\r?\n|\r/"]/g,'');
+  //   console.log(trimValue);
+  //   this.ngModelChange.emit(trimValue);
+  // }
 }
