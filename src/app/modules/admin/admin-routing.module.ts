@@ -25,6 +25,9 @@ import { AdminHtConsumerViewComponent } from './admin-ht-consumer/admin-ht-consu
 import { AdminHtConsumerViewConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-consumption/admin-ht-consumer-view-consumption.component';
 import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-absent-consumption/admin-ht-consumer-view-absent-consumption.component';
 import { AdminBillFileUploadComponent } from './admin-bill-file/admin-bill-file-upload/admin-bill-file-upload.component';
+import { AdminExportPointViewComponent } from './admin-export/admin-export-point-view/admin-export-point-view.component';
+import { AdminExportPointReadingViewComponent } from './admin-export/admin-export-point-reading-view/admin-export-point-reading-view.component';
+import { AdminExportPointAddComponent } from './admin-export/admin-export-point-add/admin-export-point-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -32,7 +35,7 @@ const adminRoutes: Routes = [
     component: AdminComponent,
     canActivate: [CanActivateAuthGuard],
     data: {
-      expectedRoles: [GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN, GlobalConfiguration.ROLE_FIELD_ADMIN]
+      expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN]
     },
     children: [
       {
@@ -71,6 +74,15 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/atnc/loss/report',component: AdminFeederAtncLossReportComponent
+          },
+          {
+            path: 'export-point/add',component: AdminExportPointAddComponent
+          },
+          {
+            path: 'export-point/view',component: AdminExportPointViewComponent
+          },
+          {
+            path: 'export-point/read/view',component: AdminExportPointReadingViewComponent
           },
           {
             path: 'dtr/add', component: AdminDtrAddComponent

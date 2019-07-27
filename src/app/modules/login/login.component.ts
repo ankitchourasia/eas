@@ -38,11 +38,13 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
         }else if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+          sessionStorage.setItem('userDetails', JSON.stringify(user));
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
           console.log("inside super-admin");
         }
         else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+          sessionStorage.setItem('userDetails', JSON.stringify(user));
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
           console.log("inside field-admin");

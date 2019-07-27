@@ -9,6 +9,7 @@ import { AdminFeederModule } from './admin-feeder/admin-feeder.module';
 import { AdminDtrModule } from './admin-dtr/admin-dtr.module';
 import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.module';
 import { AdminBillFileModule } from './admin-bill-file/admin-bill-file.module';
+import { AdminExportModule } from './admin-export/admin-export.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { AdminBillFileModule } from './admin-bill-file/admin-bill-file.module';
     AdminDtrModule,
     AdminHtConsumerModule,
     AdminBillFileModule,
+    AdminExportModule,
     AdminRoutingModule,
   ],
   declarations: [

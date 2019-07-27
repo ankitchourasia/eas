@@ -13,6 +13,7 @@ import { BillFileServiceModule } from "./bill-file-service/bill-file-service.mod
 import { AuthenticationServiceModule } from "./authentication-service/authentication-service.module";
 import { LogoutServiceModule } from "./logout-service/logout-service.module";
 import { HTConsumerServiceModule } from "./ht-consumer-service/ht-consumer-service.module";
+import { ExportServiceModule } from "./export-service/export-service.module";
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { HTConsumerServiceModule } from "./ht-consumer-service/ht-consumer-servi
         SubstationServiceModule,
         BillFileServiceModule,
         HTConsumerServiceModule,
+        ExportServiceModule,
         PaginationServiceModule,
         LogoutServiceModule,
         AuthenticationServiceModule
