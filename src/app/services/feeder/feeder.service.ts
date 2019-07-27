@@ -166,4 +166,17 @@ export class FeederService {
     };
     return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'atc-loss/substation/id/' + substationId, options);
   }
+
+  getFeederReadingsByFeederId(feederId, meterNo, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("feederId", feederId)
+    .append("meterNo", meterNo);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'reading', options);
+  }
 }

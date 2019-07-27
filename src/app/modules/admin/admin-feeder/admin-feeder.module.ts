@@ -9,6 +9,8 @@ import { FeederComponentModule } from '@eas-components/feeder/feeder-component.m
 import { AdminFeederTndLossReportComponent } from './admin-feeder-tnd-loss-report/admin-feeder-tnd-loss-report.component';
 import { AdminFeederAtncLossReportComponent } from './admin-feeder-atnc-loss-report/admin-feeder-atnc-loss-report.component';
 import { AdminFeederTndLossReportWithoutHtComponent } from './admin-feeder-tnd-loss-report-without-ht/admin-feeder-tnd-loss-report-without-ht.component';
+import { AdminFeederInitialReadAddComponent } from './admin-feeder-initial-read-add/admin-feeder-initial-read-add.component';
+import { AdminFeederMappingAddComponent } from './admin-feeder-mapping-add/admin-feeder-mapping-add.component';
 
 @NgModule({
   imports: [
@@ -24,6 +26,8 @@ import { AdminFeederTndLossReportWithoutHtComponent } from './admin-feeder-tnd-l
     AdminFeederTndLossReportComponent,
     AdminFeederAtncLossReportComponent,
     AdminFeederTndLossReportWithoutHtComponent,
+    AdminFeederInitialReadAddComponent,
+    AdminFeederMappingAddComponent,
   ]
 })
 export class AdminFeederModule { }

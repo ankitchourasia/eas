@@ -15,6 +15,8 @@ import { FeederAtncLossReportComponent } from './feeder-atnc-loss-report/feeder-
 import { FeederViewTndLossReportComponent } from './feeder-view-tnd-loss-report/feeder-view-tnd-loss-report.component';
 import { FeederViewTndLossReportWithoutHtComponent } from './feeder-view-tnd-loss-report-without-ht/feeder-view-tnd-loss-report-without-ht.component';
 import { FeederViewAtncLossReportComponent } from './feeder-view-atnc-loss-report/feeder-view-atnc-loss-report.component';
+import { FeederMappingAddComponent } from './feeder-mapping-add/feeder-mapping-add.component';
+import { FeederInitialReadAddComponent } from './feeder-initial-read-add/feeder-initial-read-add.component';
 
 @NgModule({
   imports: [
@@ -33,7 +35,11 @@ import { FeederViewAtncLossReportComponent } from './feeder-view-atnc-loss-repor
     FeederTndLossReportComponent, 
     FeederTndLossReportWithoutHtComponent, 
     FeederAtncLossReportComponent, 
-    FeederViewTndLossReportComponent, FeederViewTndLossReportWithoutHtComponent, FeederViewAtncLossReportComponent
+    FeederViewTndLossReportComponent, 
+    FeederViewTndLossReportWithoutHtComponent, 
+    FeederViewAtncLossReportComponent, 
+    FeederMappingAddComponent, 
+    FeederInitialReadAddComponent
   ],
   exports:[
     FeederAddComponent, 
@@ -44,7 +50,9 @@ import { FeederViewAtncLossReportComponent } from './feeder-view-atnc-loss-repor
     FeederTndLossReportComponent, 
     FeederTndLossReportWithoutHtComponent, 
     FeederAtncLossReportComponent,
-    FeederViewTndLossReportComponent
+    FeederViewTndLossReportComponent,
+    FeederMappingAddComponent, 
+    FeederInitialReadAddComponent
   ]
 })
 export class FeederComponentModule { }

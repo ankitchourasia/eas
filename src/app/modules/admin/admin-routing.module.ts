@@ -28,6 +28,8 @@ import { AdminBillFileUploadComponent } from './admin-bill-file/admin-bill-file-
 import { AdminExportPointViewComponent } from './admin-export/admin-export-point-view/admin-export-point-view.component';
 import { AdminExportPointReadingViewComponent } from './admin-export/admin-export-point-reading-view/admin-export-point-reading-view.component';
 import { AdminExportPointAddComponent } from './admin-export/admin-export-point-add/admin-export-point-add.component';
+import { AdminFeederInitialReadAddComponent } from './admin-feeder/admin-feeder-initial-read-add/admin-feeder-initial-read-add.component';
+import { AdminFeederMappingAddComponent } from './admin-feeder/admin-feeder-mapping-add/admin-feeder-mapping-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -56,6 +58,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/view',component: AdminFeederViewComponent
+          },
+          {
+            path: 'feeder/initial/reading/add', component: AdminFeederInitialReadAddComponent
+          },
+          {
+            path: 'feeder/mapping/add', component: AdminFeederMappingAddComponent
           },
           {
             path: 'feeder/reading/add', component: AdminFeederReadingAddComponent
