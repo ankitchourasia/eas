@@ -55,7 +55,7 @@ export class ExportService {
     if(response){
       options['observe'] = "response";
     }
-    return this.httpClient.put(this.URL_PREFIX + this.EXPORT_URL + 'reading/zone/' + exportPointReading.id, exportPointReading, options);
+    return this.httpClient.put(this.URL_PREFIX + this.EXPORT_URL + 'reading/' + exportPointReading.id, exportPointReading, options);
   }
 
   statusChanged(exportPoint, response){

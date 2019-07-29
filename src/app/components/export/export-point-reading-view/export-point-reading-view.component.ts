@@ -69,6 +69,7 @@ export class ExportPointReadingViewComponent implements OnInit {
 
   editClicked(exportPointReading){
     this.updateFormData  = Object.assign({}, exportPointReading);
+    this.updateFormData.prevReadingDate = this.globalResources.getDateFromDatetimestamp(this.updateFormData.prevReadingDate);
     this.updateFormData.currReadingDate = this.globalResources.getDateFromDatetimestamp(this.updateFormData.currReadingDate);
     this.updateFormData.mf =  Number.parseFloat(this.updateFormData.mf);
     this.updateFormData.assUnit = Number.parseFloat(this.updateFormData.assUnit);
@@ -130,18 +131,23 @@ export class ExportPointReadingViewComponent implements OnInit {
     this.exportService.update11KVExportPointReading(this.updateFormData, nextBillMonth, this.user.username, false).subscribe(
       successResponse =>{
         console.log(successResponse);
+        this._updateClicked = false;
+        this.updateFormData = {};
+        this.closeModal();
         let alertResponse = this.globalResources.successAlert("11kv Export Reading updated Successfully!");
         alertResponse.then(result =>{
-          this.updateFormData = {};
+          this.searchClicked();
         });
       },errorResponse =>{
         console.log(errorResponse);
+        this._updateClicked = false;
         this.globalResources.errorAlert("Error while updating Reading.");
       }
     );  
   }
 
-  cancelClicked(){
+  cancelClicked(exportPointReadingUpdateForm){
+    this.globalResources.resetValidateForm(exportPointReadingUpdateForm);
     this.updateFormData = {};
     this.closeModal();
   }
