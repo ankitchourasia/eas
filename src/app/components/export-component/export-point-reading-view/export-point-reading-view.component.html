@@ -30,3 +30,195 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="exportPointReadingList && !searchButtonClicked">
+  <div class="table-responsive mb-2 text-center">
+    <table class="table table-sm table-bordered table-hover" id="dtrs">
+      <thead class="bg-dark text-white">
+        <tr>
+          <td class="align-middle">S.No</td>
+          <td class="align-middle">Zone</td>
+          <td class="align-middle">Location Name</td>
+          <td class="align-middle">Meter No</td>
+          <td class="align-middle">MF</td>
+          <td class="align-middle">Previous Reading</td>
+          <td class="align-middle">Previous Reading Date</td>
+          <td class="align-middle">Current Reading</td>
+          <td class="align-middle">Current Reading Date</td>
+          <td class="align-middle">Reading Difference</td>
+          <td class="align-middle">Assessment Unit</td>
+          <td class="align-middle">Metered Consumption</td>
+          <td class="align-middle">Total Consumption</td>
+          <td class="align-middle">Bill Month</td>
+          <td class="align-middle">Edit</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exportPointReading of pagedExportPointReadingList; let i = index">
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td>{{exportPointReading?.zone?.name | uppercase}}</td>
+						<td>{{exportPointReading?.feeder?.locationName | uppercase}}</td>
+						<td>{{exportPointReading?.meterNo | uppercase}}</td>
+						<td>{{exportPointReading?.mf}}</td>
+						<td>{{exportPointReading?.prevReading}}</td>
+						<td>{{exportPointReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+						<td>{{exportPointReading?.currReading}}</td>
+						<td>{{exportPointReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+						<td>{{exportPointReading?.readingDiff}}</td>
+						<td>{{exportPointReading?.assUnit}}</td>
+						<td>{{exportPointReading?.meterConsumption}}</td>
+						<td>{{exportPointReading?.totalConsumption}}</td>
+						<td>{{exportPointReading?.billMonth | uppercase}}</td>
+            <td class="align-middle">
+                <a href="javascript:void(0);" (click)="editClicked(exportPointReading)"><span class="fa fa-pencil"></span></a>
+            </td>
+          </tr>
+          <tr *ngIf="exportPointReadingList && exportPointReadingList.length <= 0">
+            <td class="align-middle" colspan="15">No Records found</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="pagination" *ngIf="exportPointReadingList && exportPointReadingList.length > pageSize" class="eas-flex-center">
+    <nav>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal"  id="exportPointReadingModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Update 11KV Export Point Readings</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="cancelClicked()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #exportPointReadingUpdateForm="ngForm" autocomplete="off">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Zone</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="(updateFormData?.zone?.name | uppercase)" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Location Name</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="(updateFormData?.feeder?.locationName | uppercase)" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Meter No</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="(updateFormData?.meterNo | uppercase)" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Meter MF</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="updateFormData?.mf" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Bill Month</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="(updateFormData?.billMonth | uppercase)" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Previous Reading</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="updateFormData?.prevReading" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Previous Reading Date</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="(updateFormData?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Current Reading</label>
+            <div class="col-sm-8">
+              <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
+                class="form-control" [(ngModel)]="updateFormData.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="(updateFormData?.prevReading)" step="0.001" required (change)="!currentReading.errors && currentReadingChanged()">
+              <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
+                <div [hidden]="!currentReading.errors.required">required field</div>
+                <div [hidden]="!currentReading.errors.min || currentReading.errors.required">can not be less than {{updateFormData.prevReading}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Current Reading Date</label>
+            <div class="col-sm-8">
+              <input type="date" [ngClass]="{'is-valid': !currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched),'is-invalid': currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)}"
+                class="form-control" [(ngModel)]="updateFormData.currReadingDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate" [min]="(updateFormData?.prevReadingDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
+              <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
+                <div [hidden]="!currentReadingDate.errors.required">required field</div>
+                <div [hidden]="!currentReadingDate.errors.min || currentReadingDate.errors.required">can not be less than {{updateFormData.prevReadingDate}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Reading Difference</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="updateFormData?.readingDiff" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Metered Consumption</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="updateFormData?.meterConsumption" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Assessment Units</label>
+            <div class="col-sm-8">
+              <input type="number" [ngClass]="{'is-valid': !assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched),'is-invalid': assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)}"
+                class="form-control" [(ngModel)]="updateFormData.assUnit" #assessmentUnit="ngModel" id="assessmentUnit"  name="assessmentUnit" [min]="0" step="0" required (change)="!assessmentUnit.errors && assessmentUnitChanged()">
+              <div class="invalid-feedback" *ngIf="assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)">
+                <div [hidden]="!assessmentUnit.errors.required">required field</div>
+                <div [hidden]="!assessmentUnit.errors.min || assessmentUnit.errors.required">can not be less than 0</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Total Consumption</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="updateFormData?.totalConsumption" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-4 offset-4">
+              <button type="button" class="btn btn-success form-control" (click)=updateClicked(exportPointReadingUpdateForm)>
+                Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
+              </button>
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="cancelClicked()">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

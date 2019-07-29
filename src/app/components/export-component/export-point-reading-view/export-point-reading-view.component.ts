@@ -3,6 +3,7 @@ import { GlobalConstants } from 'app/utility/global.constants';
 import { GlobalResources } from 'app/utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ExportService } from '@eas-services/export-service/export.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'eas-export-point-reading-view',
@@ -21,6 +22,9 @@ export class ExportPointReadingViewComponent implements OnInit {
   pageSize: number;
   pagedExportPointReadingList : any;
   exportPointReadingList: any;
+  updateFormData: any = {};
+  _updateClicked: boolean;
+  display: any = "none";
   constructor(public globalResources: GlobalResources, public globalConstants : GlobalConstants,
      public paginationService :PaginationService, private exportService: ExportService) { }
 
@@ -47,15 +51,107 @@ export class ExportPointReadingViewComponent implements OnInit {
 
   get11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billingMonth){
     this._searchClicked = true;
+    this.exportPointReadingList = null;
     this.exportService.getAll11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(
       successResponse =>{
-        this._searchClicked = false;
         console.log(successResponse);
-      }, errorResponse =>{
         this._searchClicked = false;
+        this.exportPointReadingList = successResponse;
+        this.initializePaginationVariables();
+        this.setPage(1);
+      }, errorResponse =>{
         console.log(errorResponse);
+        this._searchClicked = false;
+        this.globalResources.errorAlert("Error while fetching all the feeders export point reading.");
       }
     );
+  }
+
+  editClicked(exportPointReading){
+    this.updateFormData  = Object.assign({}, exportPointReading);
+    this.updateFormData.currReadingDate = this.globalResources.getDateFromDatetimestamp(this.updateFormData.currReadingDate);
+    this.updateFormData.mf =  Number.parseFloat(this.updateFormData.mf);
+    this.updateFormData.assUnit = Number.parseFloat(this.updateFormData.assUnit);
+    this.updateFormData.prevReading = Number.parseFloat(this.updateFormData.prevReading);
+    this.updateFormData.currReading = Number.parseFloat(this.updateFormData.currReading);
+    this.updateFormData.meterConsumption = Number.parseFloat(this.updateFormData.meterConsumption);
+    this.updateFormData.readingDiff = Number.parseFloat(this.updateFormData.readingDiff);
+    this.updateFormData.totalConsumption = Number.parseFloat(this.updateFormData.totalConsumption);
+    console.log(this.updateFormData);
+    this.openModal();
+  }
+
+  currentReadingDateChanged(){
+    this.updateFormData.currReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.updateFormData.currReadingDate);
+  }
+
+  currentReadingChanged(){
+    this.calculateDifference();
+  }
+
+  assessmentUnitChanged(){
+    if(this.updateFormData.assUnit){
+      this.updateFormData.totalConsumption = this.updateFormData.meterConsumption + this.updateFormData.assUnit;
+    }else{
+      this.updateFormData.totalConsumption = this.updateFormData.meterConsumption;
+    }
+  }
+
+  calculateDifference(){
+    console.log("inside calculate difference");
+    let currentReading = Number.parseFloat(this.updateFormData.currReading);
+    let previousReading = Number.parseFloat(this.updateFormData.prevReading);
+    if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
+      let difference = currentReading - previousReading;
+      this.updateFormData.readingDiff = difference;
+      this.updateFormData.readingDiff = Math.round(this.updateFormData.readingDiff * 100) / 100;
+      this.updateFormData.meterConsumption = difference * this.updateFormData.mf;
+      console.log("feeder consumption before rounding: "+this.updateFormData.meterConsumption);
+      this.updateFormData.meterConsumption = Math.round(this.updateFormData.meterConsumption * 100) / 100;
+      console.log("feeder consumption after rounding: "+this.updateFormData.meterConsumption);
+      if(this.updateFormData.assUnit){
+        this.updateFormData.totalConsumption = this.updateFormData.meterConsumption + this.updateFormData.assUnit;
+      }else{
+        this.updateFormData.totalConsumption = this.updateFormData.meterConsumption;
+      }
+    }
+  }
+
+  updateClicked(exportPointReadingUpdateForm: NgForm){
+    if(this.globalResources.validateForm(exportPointReadingUpdateForm)){
+      this.calculateDifference();
+      this.updateExportPointReading();
+    }
+  }
+
+  updateExportPointReading(){
+    this._updateClicked = true;
+    let nextBillMonth = this.globalResources.getNextBillMonth(this.updateFormData.billMonth);
+    this.exportService.update11KVExportPointReading(this.updateFormData, nextBillMonth, this.user.username, false).subscribe(
+      successResponse =>{
+        console.log(successResponse);
+        let alertResponse = this.globalResources.successAlert("11kv Export Reading updated Successfully!");
+        alertResponse.then(result =>{
+          this.updateFormData = {};
+        });
+      },errorResponse =>{
+        console.log(errorResponse);
+        this.globalResources.errorAlert("Error while updating Reading.");
+      }
+    );  
+  }
+
+  cancelClicked(){
+    this.updateFormData = {};
+    this.closeModal();
+  }
+
+  openModal(){
+    this.display = 'block';
+  }
+
+  closeModal(){
+    this.display = 'none';
   }
 
   initializePaginationVariables(){

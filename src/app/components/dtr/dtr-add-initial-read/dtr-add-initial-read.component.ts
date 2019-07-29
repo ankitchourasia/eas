@@ -246,10 +246,10 @@ export class DtrAddInitialReadComponent implements OnInit {
 
   errorInReading: boolean;
   calculateDifference(){
-    let currentReading = this.dtrInitialReadAdd.currReading;
+    let currentReading = Number.parseFloat(this.dtrInitialReadAdd.currReading);
 		this.dtrInitialReadAdd.prevReading = currentReading;
-    let previousReading = this.dtrInitialReadAdd.prevReading;
-    if(currentReading  && previousReading && currentReading >= previousReading){
+    let previousReading = Number.parseFloat(this.dtrInitialReadAdd.prevReading);
+    if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
 			this.errorInReading = false;
 			let difference = currentReading - previousReading;
 			this.dtrInitialReadAdd.readingDiff = difference;
