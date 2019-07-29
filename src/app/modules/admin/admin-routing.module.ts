@@ -32,6 +32,7 @@ import { AdminFeederInitialReadAddComponent } from './admin-feeder/admin-feeder-
 import { AdminFeederMappingAddComponent } from './admin-feeder/admin-feeder-mapping-add/admin-feeder-mapping-add.component';
 import { AdminHtConsumerAddComponent } from './admin-ht-consumer/admin-ht-consumer-add/admin-ht-consumer-add.component';
 import { AdminHtConsumerReadingAddComponent } from './admin-ht-consumer/admin-ht-consumer-reading-add/admin-ht-consumer-reading-add.component';
+import { AdminExportPointReadingAddComponent } from './admin-export/admin-export-point-reading-add/admin-export-point-reading-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -90,6 +91,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'export-point/view',component: AdminExportPointViewComponent
+          },
+          {
+            path: 'export-point/read/add',component: AdminExportPointReadingAddComponent
           },
           {
             path: 'export-point/read/view',component: AdminExportPointReadingViewComponent

@@ -42,6 +42,7 @@ export class DtrReadAddComponent implements OnInit {
     this.circleList = [];
     this.divisionList = [];
     this.substationList = [];
+    this.meterReplacementButtonClicked = false;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -426,6 +427,10 @@ export class DtrReadAddComponent implements OnInit {
       this.submitButtonClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
+  }
+
+  resetClicked(){
+    this.setPartialData();
   }
 
   clearPartialData(){
