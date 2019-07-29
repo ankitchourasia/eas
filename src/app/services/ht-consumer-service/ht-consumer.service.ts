@@ -44,4 +44,31 @@ export class HtConsumerService {
     }
     return this.http.get(this.URL_PREFIX + this.HT_CONSUMER_URL + 'remaining/consumption/' + divisionId,  options);
   }
+
+  addHTConsumer(htConsumer, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.post(this.URL_PREFIX + this.HT_CONSUMER_URL, htConsumer, options);
+    } else {
+      return this.http.post(this.URL_PREFIX + this.HT_CONSUMER_URL, htConsumer);
+    }
+  }
+
+  getHTConsumerByServiceNo(serviceNo, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.get(this.URL_PREFIX + this.HT_CONSUMER_URL + "servicenumber/" + serviceNo, options);
+    } else {
+      return this.http.get(this.URL_PREFIX + this.HT_CONSUMER_URL + "servicenumber/" + serviceNo);
+    }
+  }
+
+  addHTConsumerReading(reading, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.post(this.URL_PREFIX + 'htreading', reading, options);
+    } else {
+      return this.http.post(this.URL_PREFIX + 'htreading', reading);
+    }
+  }
 }
