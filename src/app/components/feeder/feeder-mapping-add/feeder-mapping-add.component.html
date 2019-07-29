@@ -95,13 +95,13 @@
         </div>
       </div>
     </div>
-    <div class="form-group row">
-      <div class="col-4 offset-3">
-        <button type="button" class="btn btn-success form-control" (click)=submitButtonClicked() [disabled]="loading">Submit</button>
-      </div>
-      <div class="col-4 offset-1">
-        <button type="reset" class="btn btn-danger form-control">Reset</button>
-      </div>
-    </div>
   </fieldset>
+  <div class="form-group row">
+    <div class="col-4 offset-3">
+      <button type="button" class="btn btn-success form-control" (click)=submitButtonClicked() [disabled]="!feederMappingAddForm.valid || feederMapping.feeder?.type === globalConstants.FEEDER_TYPE_PARENTAL || loading">Submit</button>
+    </div>
+    <div class="col-4 offset-1">
+      <button type="reset" class="btn btn-danger form-control">Reset</button>
+    </div>
+  </div>
 </form>
