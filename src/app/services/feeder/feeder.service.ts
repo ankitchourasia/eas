@@ -182,7 +182,7 @@ export class FeederService {
 
   addFeederMapping(feederMapping, response){
     if(response){
-      let options = {
+      let options : any = {
         observe : "response"
       };
       return this.http.post(this.URL_PREFIX + 'interDivision/feeder', feederMapping, options);
