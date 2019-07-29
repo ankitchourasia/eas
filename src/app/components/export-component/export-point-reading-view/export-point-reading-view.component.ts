@@ -13,17 +13,17 @@ import { NgForm } from '@angular/forms';
 export class ExportPointReadingViewComponent implements OnInit {
 
   user: any;
+  zoneList: any;
   billMonth: any;
   billMonthYear: any;
-  zoneList: any;
   selectedZone: any;
-  _searchClicked: boolean;
   pager: any;
   pageSize: number;
   pagedExportPointReadingList : any;
   exportPointReadingList: any;
   updateFormData: any = {};
   _updateClicked: boolean;
+  _searchClicked: boolean;
   display: any = "none";
   constructor(public globalResources: GlobalResources, public globalConstants : GlobalConstants,
      public paginationService :PaginationService, private exportService: ExportService) { }
@@ -35,7 +35,6 @@ export class ExportPointReadingViewComponent implements OnInit {
   setPartialData(){
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
-    console.log(this.user);
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
       this.zoneList = this.user.zoneList;
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
@@ -54,7 +53,6 @@ export class ExportPointReadingViewComponent implements OnInit {
     this.exportPointReadingList = null;
     this.exportService.getAll11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(
       successResponse =>{
-        console.log(successResponse);
         this._searchClicked = false;
         this.exportPointReadingList = successResponse;
         this.initializePaginationVariables();
@@ -78,7 +76,6 @@ export class ExportPointReadingViewComponent implements OnInit {
     this.updateFormData.meterConsumption = Number.parseFloat(this.updateFormData.meterConsumption);
     this.updateFormData.readingDiff = Number.parseFloat(this.updateFormData.readingDiff);
     this.updateFormData.totalConsumption = Number.parseFloat(this.updateFormData.totalConsumption);
-    console.log(this.updateFormData);
     this.openModal();
   }
 
@@ -130,7 +127,6 @@ export class ExportPointReadingViewComponent implements OnInit {
     let nextBillMonth = this.globalResources.getNextBillMonth(this.updateFormData.billMonth);
     this.exportService.update11KVExportPointReading(this.updateFormData, nextBillMonth, this.user.username, false).subscribe(
       successResponse =>{
-        console.log(successResponse);
         this._updateClicked = false;
         this.updateFormData = {};
         this.closeModal();
