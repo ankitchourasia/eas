@@ -174,7 +174,7 @@
                 class="form-control" [(ngModel)]="updateFormData.currReadingDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate" [min]="(updateFormData?.prevReadingDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
               <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
                 <div [hidden]="!currentReadingDate.errors.required">required field</div>
-                <div [hidden]="!currentReadingDate.errors.min || currentReadingDate.errors.required">can not be less than {{updateFormData.prevReadingDate}}</div>
+                <div [hidden]="!currentReadingDate.errors.min || currentReadingDate.errors.required">can not be less than {{updateFormData.prevReadingDate | date: globalConstants.DATE_FORMAT | uppercase}}</div>
               </div>
             </div>
           </div>
@@ -214,7 +214,7 @@
               </button>
             </div>
             <div class="col-4">
-                <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="cancelClicked()">Cancel</button>
+                <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="cancelClicked(exportPointReadingUpdateForm)">Cancel</button>
             </div>
           </div>
         </form>
