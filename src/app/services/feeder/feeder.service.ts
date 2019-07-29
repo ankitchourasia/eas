@@ -179,4 +179,15 @@ export class FeederService {
     }
     return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'reading', options);
   }
+
+  addFeederMapping(feederMapping, response){
+    if(response){
+      let options = {
+        observe : "response"
+      };
+      return this.http.post(this.URL_PREFIX + 'interDivision/feeder', feederMapping, options);
+    } else{
+      return this.http.post(this.URL_PREFIX + 'interDivision/feeder', feederMapping);
+    }
+  }
 }
