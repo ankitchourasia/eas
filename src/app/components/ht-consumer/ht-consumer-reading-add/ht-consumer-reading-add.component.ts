@@ -27,11 +27,13 @@ export class HtConsumerReadingAddComponent implements OnInit {
   }
 
   getConsumerDetails(){
-    console.log("inside get Consumer details");
+    this.loading = true;
     this.htConsumerService.getHTConsumerByServiceNo(this.reading.serviceNumber, false).subscribe(success =>{
+      this.loading = false;
       this.consumer = success;
       this.reading.consumerId = this.consumer.id;
     }, error =>{
+      this.loading = false;
       console.log(error);
     });
   }
@@ -64,6 +66,10 @@ export class HtConsumerReadingAddComponent implements OnInit {
       console.log(error);
       this.globalResources.errorAlert(error.error.errorMessage);
     });
+  }
+
+  resetClicked(){
+    this.consumer = undefined;
   }
 
 }
