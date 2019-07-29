@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Injectable({
@@ -12,13 +12,16 @@ export class ExportService {
 
   constructor(private httpClient: HttpClient) { }
 
-  add11KVExportPoint(exportPoint, response){
+  add11KVExportPoint(exportPoint, punchBy, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchBy", punchBy);
+    let options = {
+      params: httpParams
+    };
     if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.EXPORT_URL, exportPoint,  options);
-    }else{
-      return this.httpClient.post(this.URL_PREFIX + this.EXPORT_URL, exportPoint);
+      options['observe'] = "response";
     }
+    return this.httpClient.post(this.URL_PREFIX + this.EXPORT_URL, exportPoint,  options);
   }
 
   getAll11KVExportPointsByZoneId(zoneId, response){
@@ -28,6 +31,18 @@ export class ExportService {
     }else{
       return this.httpClient.get(this.URL_PREFIX + this.EXPORT_URL + 'zone/' + zoneId);
     }
+  }
+
+  getAll11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.httpClient.get(this.URL_PREFIX + this.EXPORT_URL + 'reading/zone/' + zoneId,  options);
   }
 
   statusChanged(exportPoint, response){

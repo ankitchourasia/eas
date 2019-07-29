@@ -24,10 +24,10 @@ export class ExportPointViewComponent implements OnInit {
     private exportService: ExportService, public paginationService: PaginationService) { }
 
   ngOnInit() {
-    this.checkUserRoll();
+    this.setPartialData();
   }
 
-  checkUserRoll(){
+  setPartialData(){
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     console.log(this.user);
@@ -70,8 +70,12 @@ export class ExportPointViewComponent implements OnInit {
         console.log(successResponse);
         this.statusChangedButtonClicked = false;  
         if(successResponse){
-          // exportPoint = successResponse;
-          this.getAll11KVExportPointsByZoneId(this.selectedZone.id);
+          let resultResponse = <any>successResponse;
+          let alertResponse = this.globalResources.successAlert("Export point status changed successfully !");
+          alertResponse.then(result =>{
+            exportPoint.misc1 = resultResponse.misc1;
+          // this.getAll11KVExportPointsByZoneId(this.selectedZone.id);
+          });
         }
       },errorResponse =>{
         console.log(errorResponse);

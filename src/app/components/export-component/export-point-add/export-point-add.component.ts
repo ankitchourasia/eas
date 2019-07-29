@@ -90,7 +90,7 @@ export class ExportPointAddComponent implements OnInit {
   }
 
   srDateChanged(){
-    
+    this.formData.readingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.readingDate);
   }
 
   submitClicked(exportPointAddForm){
@@ -102,6 +102,7 @@ export class ExportPointAddComponent implements OnInit {
       this.formData.zoneId = this.formData.zone.id;
       this.formData.substationId = this.formData.substation.id;
       this.formData.feederId = this.formData.feeder.id;
+      this.formData.billMonth = this.formData.month + "-" +  this.formData.year;
       this.submitButtonClicked = false;
       this.addExportPoint(exportPointAddForm);
     }
@@ -109,7 +110,7 @@ export class ExportPointAddComponent implements OnInit {
 
   addExportPoint(exportPointAddForm){
     this.submitButtonClicked = true;
-    this.exportService.add11KVExportPoint(this.formData,true).subscribe(
+    this.exportService.add11KVExportPoint(this.formData,this.user.username, false).subscribe(
       successResponse =>{
         this.submitButtonClicked = false;
         console.log(successResponse);
@@ -123,6 +124,7 @@ export class ExportPointAddComponent implements OnInit {
       },errorResponse =>{
         this.submitButtonClicked = false;
         console.log(errorResponse);
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     );
   }
