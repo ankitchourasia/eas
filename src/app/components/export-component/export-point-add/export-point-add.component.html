@@ -3,7 +3,7 @@
     <label class="col-sm-3">Region</label>
     <div class="col-sm-9">
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(formData.region)">
+        class="form-control form-control-sm" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
         <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
       </select>
@@ -16,7 +16,7 @@
     <label class="col-sm-3">Circle</label>
     <div class="col-sm-9">
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(formData.circle)">
+        class="form-control form-control-sm" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
         <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
       </select>
@@ -29,7 +29,7 @@
     <label class="col-sm-3">Division</label>
     <div class="col-sm-9">
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(formData.division)">
+        class="form-control form-control-sm" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
         <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
       </select>

@@ -45,6 +45,19 @@ export class ExportService {
     return this.httpClient.get(this.URL_PREFIX + this.EXPORT_URL + 'reading/zone/' + zoneId,  options);
   }
 
+  update11KVExportPointReading(exportPointReading, nextBillMonth, username, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("nextBillMonth", nextBillMonth);
+    httpParams = httpParams.append("updatedBy", username);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.httpClient.put(this.URL_PREFIX + this.EXPORT_URL + 'reading/zone/' + exportPointReading.id, exportPointReading, options);
+  }
+
   statusChanged(exportPoint, response){
     if(response){
       let options : any = {'observe' : 'response'};

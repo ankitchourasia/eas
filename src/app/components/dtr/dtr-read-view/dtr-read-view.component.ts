@@ -96,9 +96,9 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   calculateDifference(){
-    let currentReading = this.dtrReadingToEdit.currReading;
-		let previousReading = this.dtrReadingToEdit.prevReading;
-    if(currentReading  && previousReading && currentReading >= previousReading){
+    let currentReading = Number.parseFloat(this.dtrReadingToEdit.currReading);
+		let previousReading = Number.parseFloat(this.dtrReadingToEdit.prevReading);
+    if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
 			this.dtrReadingToEdit.readingDiff = currentReading - previousReading;
 			this.dtrReadingToEdit.readingDiff = Math.round(this.dtrReadingToEdit.readingDiff * 100) / 100;
 			this.dtrReadingToEdit.meterConsumption = this.dtrReadingToEdit.readingDiff * this.dtrReadingToEdit.mf;

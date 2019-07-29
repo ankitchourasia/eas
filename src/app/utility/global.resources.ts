@@ -154,7 +154,7 @@ export class GlobalResources {
         
             return (year + "-" + mm + "-" + dd);
         }else{
-            return null;
+            return dateWithTimeStamp;
         }
         
     }
