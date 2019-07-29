@@ -6,17 +6,23 @@ import { HtConsumerViewConsumptionComponent } from './ht-consumer-view-consumpti
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
 import { PaginationServiceModule } from '@eas-services/pagination/pagination-service.module';
+import { HtConsumerReadingAddComponent } from './ht-consumer-reading-add/ht-consumer-reading-add.component';
+import { HtConsumerAddComponent } from './ht-consumer-add/ht-consumer-add.component';
 
 @NgModule({
   declarations: [
     HtConsumerViewComponent, 
     HtConsumerViewConsumptionComponent,
-    HtConsumerViewAbsentConsumptionComponent
+    HtConsumerViewAbsentConsumptionComponent,
+    HtConsumerReadingAddComponent,
+    HtConsumerAddComponent
   ],
   exports: [
     HtConsumerViewComponent, 
     HtConsumerViewConsumptionComponent,
-    HtConsumerViewAbsentConsumptionComponent
+    HtConsumerViewAbsentConsumptionComponent,
+    HtConsumerReadingAddComponent,
+    HtConsumerAddComponent
   ],
   imports: [
     CommonModule,
