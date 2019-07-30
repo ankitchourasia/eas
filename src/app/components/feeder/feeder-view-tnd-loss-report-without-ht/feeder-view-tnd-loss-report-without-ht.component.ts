@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
-import $ from 'jQuery';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-feeder-view-tnd-loss-report-without-ht',
@@ -17,7 +17,7 @@ export class FeederViewTndLossReportWithoutHtComponent implements OnInit {
     console.log(feederLossReportView);
     this.feederLossReportView = feederLossReportView;
   }
-  constructor(public globalConstants : GlobalConstants) { 
+  constructor(public globalConstants : GlobalConstants, public globalResources : GlobalResources) { 
     console.log("inside FeederViewTndLossReportComponent");
   }
 
@@ -33,11 +33,8 @@ export class FeederViewTndLossReportWithoutHtComponent implements OnInit {
       billMonth: report.lossMonth,
       groupNo: report.billingGroupNo
     };
-  
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "feeder/loss/consumers/export";
-    // Add authentication headers in URL
-    let url = [fileUrl, $.param(params)].join('?');
-    window.open(url);
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
   exportTotalHTConsumers(report){
@@ -47,11 +44,8 @@ export class FeederViewTndLossReportWithoutHtComponent implements OnInit {
       feederId: report.feederId,
       billMonth: report.lossMonth
     };
-  
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "feeder/loss/htconsumers/export";
-    // Add authentication headers in URL
-    let url = [fileUrl, $.param(params)].join('?');
-    window.open(url);
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
 }

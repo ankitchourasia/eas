@@ -10,7 +10,6 @@ import { DivisionService } from '@eas-services/division-service/division.service
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { BillFileService } from '@eas-services/bill-file-service/bill-file.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
-import $ from 'jQuery';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
@@ -395,8 +394,7 @@ export class DtrLossReportComponent implements OnInit {
   
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "dtrloss/consumers/export";
     // Add authentication headers in URL
-    let url = [fileUrl, $.param(params)].join('?');
-    window.open(url);
+    this.globalResources.downloadFile(fileUrl,params);
   }
 
   initializePaginationVariables(){

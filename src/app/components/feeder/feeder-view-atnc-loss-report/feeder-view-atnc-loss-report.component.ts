@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
-import $ from 'jQuery';
+import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-feeder-view-atnc-loss-report',
@@ -18,7 +18,7 @@ export class FeederViewAtncLossReportComponent implements OnInit {
     this.feederLossReportView = feederLossReportView;
   }
 
-  constructor(public globalConstants : GlobalConstants) { 
+  constructor(public globalConstants : GlobalConstants, public globalResources : GlobalResources) { 
   }
 
   ngOnInit() {
@@ -35,9 +35,7 @@ export class FeederViewAtncLossReportComponent implements OnInit {
     };
   
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "feeder/atc-loss/contract-demand/consumers/export";
-    // Add authentication headers in URL
-    let url = [fileUrl, $.param(params)].join('?');
-    window.open(url);
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
   exportTotalCollectionConsumers(report){
@@ -49,9 +47,7 @@ export class FeederViewAtncLossReportComponent implements OnInit {
     };
   
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "feeder/atc-loss/collection/consumers/export";
-    // Add authentication headers in URL
-    let url = [fileUrl, $.param(params)].join('?');
-    window.open(url);
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
 }

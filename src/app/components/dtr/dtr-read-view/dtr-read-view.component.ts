@@ -4,7 +4,6 @@ import { GlobalResources } from 'app/utility/global.resources';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
-import $ from 'jQuery';
 
 @Component({
   selector: 'eas-dtr-read-view',
@@ -184,8 +183,7 @@ export class DtrReadViewComponent implements OnInit {
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/reading/zone/" + this.user.zone.id;
 		}
-    var url = [fileUrl, $.param(params)].join('?');
-		window.open(url);
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
 }

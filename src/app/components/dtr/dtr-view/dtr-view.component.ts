@@ -6,7 +6,6 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
-import $ from 'jQuery';
 
 @Component({
   selector: 'eas-dtr-view',
@@ -56,8 +55,7 @@ export class DtrViewComponent implements OnInit {
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/zone/" + this.user.zone.id;
 		}
-    var url = [fileUrl, $.param(params)].join('?');
-		window.open(url);
+    this.globalResources.downloadFile(fileUrl,params)
   }
 
   deleteButtonClicked: boolean;

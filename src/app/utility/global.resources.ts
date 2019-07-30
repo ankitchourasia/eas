@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import alert from "sweetalert2";
+import $ from 'jQuery';
 
 @Injectable()
 export class GlobalResources {
@@ -225,5 +226,12 @@ export class GlobalResources {
            years.push(year++);
         }
         return years;
+    }
+    
+    downloadFile(fileUrl, params){
+        // Add authentication headers in URL
+        var url = [fileUrl, $.param(params)].join('?');
+        window.location.href = url;
+		// window.open(url);
     }
 }

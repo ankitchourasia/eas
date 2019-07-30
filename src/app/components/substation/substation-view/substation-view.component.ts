@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalResources } from 'app/utility/global.resources';
-import $ from 'jQuery';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
@@ -49,9 +48,8 @@ export class SubstationViewComponent implements OnInit {
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/division/" + this.user.division.id;
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/zone/" + this.user.zone.id;
-		}
-    var url = [fileUrl, $.param(params)].join('?');
-		window.open(url);
+    }
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
   editClicked(substation){

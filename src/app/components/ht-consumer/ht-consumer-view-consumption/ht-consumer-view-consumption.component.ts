@@ -4,7 +4,6 @@ import { GlobalConstants } from 'app/utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
-import $ from 'jQuery';
 
 @Component({
   selector: 'eas-ht-consumer-view-consumption',
@@ -77,9 +76,7 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
     if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN || this.user.role === this.globalConstants.ROLE_FIELD_ADMIN || this.globalConstants.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/htconsumption/division/id/" + this.user.division.id;
 		}
-		//Add authentication headers in URL
-		let url = [fileUrl, $.param(params)].join('?');
-		window.open(url);
+		this.globalResources.downloadFile(fileUrl, params)
 	};
 
 }
