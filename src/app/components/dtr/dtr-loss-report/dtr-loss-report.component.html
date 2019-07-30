@@ -142,6 +142,9 @@
             <button type="button" class="btn btn-sm btn-info" (click)="viewDtrLossReport()" *ngIf="dtr.singleReportGenerated || reportGenerated" [disabled]="generating">View</button>
           </td>
         </tr>
+        <tr *ngIf="dtrList && !dtrList.length">
+          <td colspan="4">No Records found</td>
+        </tr>
       </tbody>
     </table>
   </div>

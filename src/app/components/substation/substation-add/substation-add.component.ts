@@ -11,8 +11,9 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 })
 export class SubstationAddComponent implements OnInit {
 
-  substation : any = {};
+  substation : any;
   user : any;
+  zoneList: any;
   submitButtonClicked : boolean;
   constructor(public globalResources: GlobalResources, private globalConstants : GlobalConstants,
     private zoneService : ZoneService, private substationService : SubstationService) { 
@@ -20,7 +21,24 @@ export class SubstationAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setPartialData();
+  }
+
+  setPartialData(){
+    this.substation = {};
+    this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      this.zoneList = this.user.zoneList;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.substation.zone = this.user.zone;
+      this.substation.zoneId = this.substation.zone.id;
+    }
+  }
+
+  zoneChanged(){
+    this.substation.zoneId = this.substation.zone.id;
   }
 
   submitClicked(substationAddForm){
@@ -30,7 +48,7 @@ export class SubstationAddComponent implements OnInit {
         this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation added successfully");
         alertResponse.then(result =>{
-          this.substation = {};
+          this.setPartialData();
           this.globalResources.resetValidateForm(substationAddForm);
         });
       }, error =>{
@@ -38,6 +56,11 @@ export class SubstationAddComponent implements OnInit {
         console.log(error);
       })
     }
+  }
+
+  resetClicked(substationAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(substationAddForm);
   }
 
   // getZones(){

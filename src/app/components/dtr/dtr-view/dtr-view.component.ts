@@ -31,12 +31,12 @@ export class DtrViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.getDTRs();
+    this.getDTRByDivisionId(this.user.division.id);
   }
 
-  getDTRs(){
+  getDTRByDivisionId(divisionId){
     this.loading = true;
-    this.dtrService.getDTRByDivisionId(this.user.division.id).subscribe(successResponese =>{
+    this.dtrService.getDTRByDivisionId(divisionId).subscribe(successResponese =>{
       this.loading = false;
       this.dtrs = successResponese;
       console.log(this.dtrs);
@@ -78,7 +78,7 @@ export class DtrViewComponent implements OnInit {
       this.deleteButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("dtr deleted successfully");
       alertResponse.then(result =>{
-        this.getDTRs();
+        this.getDTRByDivisionId(this.user.division.id);
       });
     }, errorResponse =>{
       console.log(errorResponse);
@@ -140,7 +140,7 @@ export class DtrViewComponent implements OnInit {
           console.log("alert result", result);
           this.closeModal(this.modalCloseButtonRef);
           this.editButtonClicked = false;
-          this.getDTRs();
+          this.getDTRByDivisionId(this.user.division.id);
           this.dtrToEdit = null;
         });
       }, errorResponse =>{

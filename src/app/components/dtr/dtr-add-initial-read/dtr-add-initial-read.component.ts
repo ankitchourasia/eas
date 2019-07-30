@@ -321,6 +321,12 @@ export class DtrAddInitialReadComponent implements OnInit {
     });
   }
 
+  
+  resetClicked(dtrInitialReadAddForm){
+    this.globalResources.resetValidateForm(dtrInitialReadAddForm);
+    this.clearPartialData()
+  }
+
   clearPartialData(){
     this.errorInReading = false;
     this.dtrInitialReadAdd.prevReading = undefined;
@@ -328,7 +334,7 @@ export class DtrAddInitialReadComponent implements OnInit {
     this.dtrInitialReadAdd.currReading = undefined;
     this.dtrInitialReadAdd.currReadingDate = undefined;
 		this.dtrInitialReadAdd.currReadingDateInString = undefined;
-    this.dtrInitialReadAdd.assUnit = 0;
+    this.dtrInitialReadAdd.assUnit = undefined;
 		this.dtrInitialReadAdd.mf = undefined;
 		this.dtrInitialReadAdd.meterNo = undefined;
 		this.dtrInitialReadAdd.readingDiff = undefined;

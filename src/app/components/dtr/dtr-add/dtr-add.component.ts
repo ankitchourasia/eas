@@ -14,6 +14,7 @@ export class DtrAddComponent implements OnInit {
 
   user : any;
   dtr:any;
+  zoneList: any;
   feederList: any;
   substationList: any;
   submitButtonClicked : boolean;
@@ -21,24 +22,39 @@ export class DtrAddComponent implements OnInit {
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService) { }
 
+
   ngOnInit() {
+    this.setPartialData();
+  }
+
+  setPartialData(){
     this.dtr = {};
-    this.substationList = null;
+    this.zoneList = [];
+    this.substationList = [];
     this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      this.zoneList = this.user.zoneList;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.dtr.zone = this.user.zone;
+      this.dtr.zoneId = this.dtr.zone.id;
+      this.getSubstationByZoneId(this.dtr.zoneId);
+    }
   }
   
   zoneChanged(){
     this.substationList = null;
     this.dtr.feederId = undefined;
     this.dtr.substationId = undefined;
+    this.dtr.zoneId = this.dtr.zone.id;
     this.getSubstationByZoneId(this.dtr.zoneId);
   }
 
   getSubstationByZoneId(zoneId){
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
       this.substationList = successResponese;
-    }, error =>{
-      console.log(error);
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
@@ -51,8 +67,8 @@ export class DtrAddComponent implements OnInit {
   getFeederBySubstationId(substationId){
     this.feederService.getFeederBySubstationId(substationId).subscribe(successResponese =>{
       this.feederList = successResponese;
-    },error =>{
-      console.log(error);
+    },errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
@@ -73,8 +89,8 @@ export class DtrAddComponent implements OnInit {
       this.submitButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR added successfully");
       alertResponse.then(result =>{
-        this.dtr = {};
         this.globalResources.resetValidateForm(dtrAddForm);
+        this.setPartialData();
       });
     }, errorResponse =>{
       console.log(errorResponse);
@@ -84,5 +100,10 @@ export class DtrAddComponent implements OnInit {
         console.log("alert result", result);
       });
     });
+  }
+
+  resetClicked(dtrAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(dtrAddForm);
   }
 }

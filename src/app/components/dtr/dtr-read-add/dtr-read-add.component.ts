@@ -403,7 +403,7 @@ export class DtrReadAddComponent implements OnInit {
       this.submitButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read added successfully");
       alertResponse.then(result =>{
-        this.clearPartialData();
+        this.setPartialData();
         this.globalResources.resetValidateForm(dtrReadAddForm);
       });
     }, errorResponse =>{
@@ -419,7 +419,7 @@ export class DtrReadAddComponent implements OnInit {
       this.submitButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read added successfully");
       alertResponse.then(result =>{
-        this.clearPartialData();
+        this.setPartialData();
         this.globalResources.resetValidateForm(dtrReadAddForm);
       });
     }, errorResponse =>{
@@ -429,12 +429,8 @@ export class DtrReadAddComponent implements OnInit {
     });
   }
 
-  resetClicked(){
+  resetClicked(dtrReadAddForm){
     this.setPartialData();
+    this.globalResources.resetValidateForm(dtrReadAddForm);
   }
-
-  clearPartialData(){
-    this.setPartialData();
-  }
-
 }
