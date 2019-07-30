@@ -57,7 +57,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .modal-dialog.modal-full{
-    min-width: 95%;
+    min-width: 98%;
 }
 
 #content{

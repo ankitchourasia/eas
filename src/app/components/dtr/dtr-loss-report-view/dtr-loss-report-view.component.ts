@@ -34,7 +34,6 @@ export class DtrLossReportViewComponent implements OnInit {
 
   @Input("feeder")
   set setFeeder(feeder : any){
-    console.log(feeder);
     this.formData.selectedFeeder = feeder;
     this.formData.feeder = this.formData.selectedFeeder;
     this.searchClicked();
@@ -44,14 +43,12 @@ export class DtrLossReportViewComponent implements OnInit {
   set setBillMonth(billMonth : any){
     this.formData.selectedBillMonth = billMonth;
     this.formData.billMonth = this.formData.selectedBillMonth;
-    console.log(this.formData.billMonth);
     this.searchClicked();
   }
   @Input("billMonthYear")
   set setBillMonthYear(billMonthYear : any){
     this.formData.selectedBillMonthYear = billMonthYear;
     this.formData.billMonthYear = this.formData.selectedBillMonthYear;
-    console.log(this.formData.billMonthYear);
     this.searchClicked();
   }
 
@@ -205,7 +202,6 @@ export class DtrLossReportViewComponent implements OnInit {
 
   _searchClicked: boolean;
   searchClicked(){
-    console.log(this.formData, this.formData.feeder ,  this.formData.billMonth, this.formData.billMonthYear);
     if(this.formData.feeder && this.formData.feeder.id &&  this.formData.billMonth && this.formData.billMonthYear){
       this.formData.billingMonth = this.formData.billMonth + "-" + this.formData.billMonthYear;
       this.viewDtrLossReportByFeederIdAndBillMonth(this.formData.feeder.id, this.formData.billingMonth);

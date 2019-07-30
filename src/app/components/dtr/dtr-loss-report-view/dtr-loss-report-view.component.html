@@ -109,76 +109,76 @@
   <table class="table table-sm table-bordered">
     <tbody class="text-sm text-center">
       <tr>
-        <td colspan="16"><h3 class="display-5">DTR LOSS REPORT</h3></td>
+        <td class="align-middle" colspan="16"><h3 class="display-5">DTR LOSS REPORT</h3></td>
       </tr>
       <tr>
-        <td colspan="1">Region</td>
-        <td colspan="1"><strong>{{dtrLossReports[0].regionName | uppercase}}</strong></td>
-        <td colspan="1">Circle</td>
-        <td colspan="1"><strong>{{dtrLossReports[0].circleName | uppercase}}</strong></td>
-        <td colspan="1">Division</td>
-        <td colspan="3"><strong>{{dtrLossReports[0].divisionName | uppercase}}</strong></td>
-        <td colspan="1">Feeder Incharge</td>
-        <td colspan="3"><strong>{{dtrLossReports[0].feeder.link | uppercase}}</strong></td>
-        <td colspan="1">Zone</td>
-        <td colspan="3"><strong>{{dtrLossReports[0].zoneName | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Region</td>
+        <td class="align-middle" colspan="1"><strong>{{dtrLossReports[0].regionName | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Circle</td>
+        <td class="align-middle" colspan="1"><strong>{{dtrLossReports[0].circleName | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Division</td>
+        <td class="align-middle" colspan="3"><strong>{{dtrLossReports[0].divisionName | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Feeder Incharge</td>
+        <td class="align-middle" colspan="3"><strong>{{dtrLossReports[0].feeder.link | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Zone</td>
+        <td class="align-middle" colspan="3"><strong>{{dtrLossReports[0].zoneName | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td colspan="1">Month</td>
-        <td colspan="1"><strong>{{dtrLossReports[0].lossMonth | uppercase}}</strong></td>
-        <td colspan="1">Substation</td>
-        <td colspan="4"><strong>{{dtrLossReports[0].substationName | uppercase}}</strong></td>
-        <td colspan="1">Feeder</td>
-        <td colspan="6"><strong>{{dtrLossReports[0].feederName | uppercase}}</strong></td>
-        <td colspan="1">Group No</td>
-        <td colspan="1"><strong>{{dtrLossReports[0].billingGroupNo | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Month</td>
+        <td class="align-middle" colspan="1"><strong>{{dtrLossReports[0].lossMonth | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Substation</td>
+        <td class="align-middle" colspan="4"><strong>{{dtrLossReports[0].substationName | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Feeder</td>
+        <td class="align-middle" colspan="6"><strong>{{dtrLossReports[0].feederName | uppercase}}</strong></td>
+        <td class="align-middle" colspan="1">Group No</td>
+        <td class="align-middle" colspan="1"><strong>{{dtrLossReports[0].billingGroupNo | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td colspan="15"><br></td>
+        <td class="align-middle" colspan="15"><br></td>
       </tr>
       <tr class="font-weight-bold" id="dtrLossTableHeader">
-        <td>S.NO</td>
-        <td>DTR NAME</td>
-        <td>LOC CODE</td>
-        <td>RD NO.</td>
-        <td>CAPACITY</td>
-        <td>METER NO</td>
-        <td>MF</td>
-        <td>PREV RDG</td>
-        <td>PREV RDG DATE</td>
-        <td>CURR RDG</td>
-        <td>CURR RDG DATE</td>
-        <td>ASSESMENT UNIT</td>
-        <td>NET INPUT</td>
-        <td>CONSUMERS CONNECTED</td>
-        <td>TOTAL CONSUMPTION</td>
-        <td>% DTR LOSS</td>
+        <td class="align-middle">S.NO</td>
+        <td class="align-middle">DTR NAME</td>
+        <td class="align-middle">LOC CODE</td>
+        <td class="align-middle">RD NO.</td>
+        <td class="align-middle">CAPACITY</td>
+        <td class="align-middle">METER NO</td>
+        <td class="align-middle">MF</td>
+        <td class="align-middle">PREV RDG</td>
+        <td class="align-middle">PREV RDG DATE</td>
+        <td class="align-middle">CURR RDG</td>
+        <td class="align-middle">CURR RDG DATE</td>
+        <td class="align-middle">ASSESMENT UNIT</td>
+        <td class="align-middle">NET INPUT</td>
+        <td class="align-middle">CONSUMERS CONNECTED</td>
+        <td class="align-middle">TOTAL CONSUMPTION</td>
+        <td class="align-middle">% DTR LOSS</td>
       </tr>
       <tr *ngFor="let report of dtrLossReports; let i = index">
-        <td>{{i + 1}}</td>
-        <td>{{report.dtrName}}</td>
-        <td>{{report.zoneLocationCode}}</td>
-        <td>{{report.billingRDNo}}</td>
-        <td>{{report.dtrCapacity}}</td>
-        <td>{{report.dtrMeterNo}}</td>
-        <td>{{report.mf}}</td>
-        <td>{{report.previousReading}}</td>
-        <td>{{report.previousReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-        <td>{{report.currentReading}}</td>
-        <td>{{report.currentReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-        <td>{{report.assessmentUnit}}</td>
-        <td>{{report.netDTRInput}}</td>
-        <td><a href='javascript:void(0);' (click)="exportTotalConsumers(report)">{{report.totalConsumer}}</a></td>
-        <td>{{report.totalSoldUnit}}</td>
-        <td>{{report.dtrLoss}}</td>
+        <td class="align-middle">{{i + 1}}</td>
+        <td class="align-middle">{{report.dtrName}}</td>
+        <td class="align-middle">{{report.zoneLocationCode}}</td>
+        <td class="align-middle">{{report.billingRDNo}}</td>
+        <td class="align-middle">{{report.dtrCapacity}}</td>
+        <td class="align-middle">{{report.dtrMeterNo}}</td>
+        <td class="align-middle">{{report.mf}}</td>
+        <td class="align-middle">{{report.previousReading}}</td>
+        <td class="align-middle">{{report.previousReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+        <td class="align-middle">{{report.currentReading}}</td>
+        <td class="align-middle">{{report.currentReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+        <td class="align-middle">{{report.assessmentUnit}}</td>
+        <td class="align-middle">{{report.netDTRInput}}</td>
+        <td class="align-middle"><a href='javascript:void(0);' (click)="exportTotalConsumers(report)">{{report.totalConsumer}}</a></td>
+        <td class="align-middle">{{report.totalSoldUnit}}</td>
+        <td class="align-middle">{{report.dtrLoss}}</td>
       </tr>
       <tr>
-        <td colspan="11" class="text-right"><strong>Gross Total&nbsp;</strong></td>
-        <td colspan="1"><strong>{{grossAssessment}}</strong></td>
-        <td colspan="1"><strong>{{grossInput}}</strong></td>
-        <td colspan="1"><strong>{{grossConsumer}}</strong></td>
-        <td colspan="1"><strong>{{grossConsumption}}</strong></td>
-        <td colspan="1"><strong>{{grossLoss}}</strong></td>
+        <td class="align-middle text-right" colspan="11"><strong>Gross Total&nbsp;</strong></td>
+        <td class="align-middle" colspan="1"><strong>{{grossAssessment}}</strong></td>
+        <td class="align-middle" colspan="1"><strong>{{grossInput}}</strong></td>
+        <td class="align-middle" colspan="1"><strong>{{grossConsumer}}</strong></td>
+        <td class="align-middle" colspan="1"><strong>{{grossConsumption}}</strong></td>
+        <td class="align-middle" colspan="1"><strong>{{grossLoss}}</strong></td>
       </tr>
     </tbody>
   </table>
