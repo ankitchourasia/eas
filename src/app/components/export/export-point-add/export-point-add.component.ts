@@ -35,8 +35,8 @@ export class ExportPointAddComponent implements OnInit {
     this.circleList = [];
     this.divisionList = [];
     this.zoneList = [];
-    this.feederList = [];
-    this.substationList = [];
+    this.feederList = null;
+    this.substationList = null;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
       this.regionList.push(this.user.region);
@@ -60,7 +60,7 @@ export class ExportPointAddComponent implements OnInit {
   }
 
   zoneChanged(zone){
-    this.substationList = [];
+    this.substationList = null;
     this.formData.substation = undefined;
     this.feederList = null;
     this.formData.feeder = undefined;

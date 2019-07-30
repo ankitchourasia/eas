@@ -30,7 +30,7 @@ export class DtrAddComponent implements OnInit {
   setPartialData(){
     this.dtr = {};
     this.zoneList = [];
-    this.substationList = [];
+    this.substationList = null;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
       this.zoneList = this.user.zoneList;

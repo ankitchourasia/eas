@@ -104,15 +104,15 @@ export class DtrLossReportViewComponent implements OnInit {
 
   regionChanged(region){
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
-      this.circleList = [];
+      this.circleList = null;
       this.formData.circle = undefined;
-      this.divisionList = [];
+      this.divisionList = null;
       this.formData.division = undefined;
-      this.zoneList = [];
+      this.zoneList = null;
       this.formData.zone = undefined;
-      this.substationList = [];
+      this.substationList = null;
       this.formData.substation = undefined;
-      this.feederList = [];
+      this.feederList = null;
       this.formData.feeder = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -128,13 +128,13 @@ export class DtrLossReportViewComponent implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
-      this.divisionList = [];
+      this.divisionList = null;
       this.formData.division = undefined;
-      this.zoneList = [];
+      this.zoneList = null;
       this.formData.zone = undefined;
-      this.substationList = [];
+      this.substationList = null;
       this.formData.substation = undefined;
-      this.feederList = [];
+      this.feederList = null;
       this.formData.feeder = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -150,11 +150,11 @@ export class DtrLossReportViewComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
-      this.zoneList = [];
+      this.zoneList = null;
       this.formData.zone = undefined;
-      this.substationList = [];
+      this.substationList = null;
       this.formData.substation = undefined;
-      this.feederList = [];
+      this.feederList = null;
       this.formData.feeder = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -170,9 +170,9 @@ export class DtrLossReportViewComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = [];
+    this.substationList = null;
     this.formData.substation = undefined;
-    this.feederList = [];
+    this.feederList = null;
     this.formData.feeder = undefined;
     this.getSubstationByZoneId(zone.id);
   }
@@ -186,7 +186,7 @@ export class DtrLossReportViewComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = [];
+    this.feederList = null;
     this.formData.feeder = undefined;
     this.getFeederBySubstationId(substation.id);  
   }

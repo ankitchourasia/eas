@@ -41,7 +41,7 @@ export class DtrAddInitialReadComponent implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.substationList = [];
+    this.substationList = null;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();

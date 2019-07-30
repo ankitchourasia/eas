@@ -37,10 +37,10 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.circleList = [];
     this.divisionList = [];
     this.zoneList = [];
-    this.exportPointFeederList = [];
-    this.substationList = [];
-    this.exportPointLocationList = [];
-    this.exportPointPreviousReading = [];
+    this.exportPointFeederList = null;
+    this.substationList = null;
+    this.exportPointLocationList = null;
+    this.exportPointPreviousReading = null;
     this._meterReplacementClicked = false;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
@@ -65,13 +65,13 @@ export class ExportPointReadingAddComponent implements OnInit {
   }
 
   zoneChanged(zone){
-    this.substationList = [];
+    this.substationList = null;
     this.formData.substation = undefined;
-    this.exportPointFeederList = [];
+    this.exportPointFeederList = null;
     this.formData.exportPointFeeder = undefined;
-    this.exportPointLocationList = [];
+    this.exportPointLocationList = null;
     this.formData.exportPointLocation = undefined;
-    this.exportPointPreviousReading = [];
+    this.exportPointPreviousReading = null;
     this.setPreviousReadingData(this.exportPointPreviousReading);
     this.cancleMeterReplacementClicked();
     this.getSubstationByZoneId(zone.id);
@@ -86,11 +86,11 @@ export class ExportPointReadingAddComponent implements OnInit {
   }
   
   substationChanged(substation){
-    this.exportPointFeederList = [];
+    this.exportPointFeederList = null;
     this.formData.exportPointFeeder = undefined;
-    this.exportPointLocationList = [];
+    this.exportPointLocationList = null;
     this.formData.exportPointLocation = undefined;
-    this.exportPointPreviousReading = [];
+    this.exportPointPreviousReading = null;
     this.setPreviousReadingData(this.exportPointPreviousReading);
     this.cancleMeterReplacementClicked();
     this.getExportPointFeedersBySubstationId(substation.id);  
@@ -106,9 +106,9 @@ export class ExportPointReadingAddComponent implements OnInit {
   }
 
   feederChanged(feeder){
-    this.exportPointLocationList = [];
+    this.exportPointLocationList = null;
     this.formData.exportPointLocation = undefined;
-    this.exportPointPreviousReading = [];
+    this.exportPointPreviousReading = null;
     this.setPreviousReadingData(this.exportPointPreviousReading);
     this.cancleMeterReplacementClicked();
     this.getExportPointsByFeederId(feeder.id);
@@ -129,7 +129,7 @@ export class ExportPointReadingAddComponent implements OnInit {
   }
 
   getLastInsertedReadingByExportLocationNameIdAndMeterNo(exportLocationNameId, meterNo){
-    this.exportPointPreviousReading = [];
+    this.exportPointPreviousReading = null;
     this.setPreviousReadingData(this.exportPointPreviousReading);
     this.exportService.getLastInsertedReadingByExportLocationNameIdAndMeterNo(exportLocationNameId, meterNo, true).subscribe(successResponse =>{
       let result = <any>successResponse;
