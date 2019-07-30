@@ -3,9 +3,7 @@
     <div class="input-group mx-sm-2">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control form-control-sm" [(ngModel)]="selectedZone" #zone="ngModel" id="zone"  name="zone" required>
-        <option disabled selected [ngValue]='undefined'>Select Zone
-          <!-- <span>&nbsp;&nbsp;</span> -->
-        </option>
+        <option disabled selected [ngValue]='undefined'>Select Zone</option>
         <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
       </select>
       <div class="input-group-append">

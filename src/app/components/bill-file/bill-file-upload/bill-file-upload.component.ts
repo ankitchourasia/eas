@@ -30,7 +30,18 @@ export class BillFileUploadComponent implements OnInit {
     private billFileService: BillFileService, public paginationService: PaginationService) { }
 
   ngOnInit() {
+    this.setPartialData();
+  }
+
+  setPartialData(){
+    this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      this.zoneList = this.user.zoneList;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.selectedZone = this.user.zone;
+    }
   }
 
   fileChanged(event) {

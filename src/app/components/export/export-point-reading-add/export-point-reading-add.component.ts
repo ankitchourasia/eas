@@ -73,7 +73,7 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.formData.exportPointLocation = undefined;
     this.exportPointPreviousReading = [];
     this.setPreviousReadingData(this.exportPointPreviousReading);
-    // this.cancleMeterReplacementClicked();
+    this.cancleMeterReplacementClicked();
     this.getSubstationByZoneId(zone.id);
   }
 
@@ -92,7 +92,7 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.formData.exportPointLocation = undefined;
     this.exportPointPreviousReading = [];
     this.setPreviousReadingData(this.exportPointPreviousReading);
-    // this.cancleMeterReplacementClicked();
+    this.cancleMeterReplacementClicked();
     this.getExportPointFeedersBySubstationId(substation.id);  
   }
 
@@ -110,7 +110,7 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.formData.exportPointLocation = undefined;
     this.exportPointPreviousReading = [];
     this.setPreviousReadingData(this.exportPointPreviousReading);
-    // this.cancleMeterReplacementClicked();
+    this.cancleMeterReplacementClicked();
     this.getExportPointsByFeederId(feeder.id);
   }
 
@@ -124,7 +124,7 @@ export class ExportPointReadingAddComponent implements OnInit {
   }
 
   exportLocationNameChanged(exportLocationName){
-    // this.cancleMeterReplacementClicked();
+    this.cancleMeterReplacementClicked();
     this.getLastInsertedReadingByExportLocationNameIdAndMeterNo(exportLocationName.id, exportLocationName.meterNo);
   }
 
@@ -170,16 +170,21 @@ export class ExportPointReadingAddComponent implements OnInit {
 
   cancleMeterReplacementClicked(){
     this._meterReplacementClicked = false;
-    this.formData.meterReplacementDate = undefined;
-    this.formData.finalRead = undefined;
-    this.formData.newMeterNo = undefined;
-    this.formData.newMeterMake = undefined;
-    this.formData.newMf = undefined;
-    this.formData.newMeterCapacity = undefined;
-    this.formData.newMeterStartRead = undefined;
     this.formData.currReading = undefined;
     this.formData.currReadingDate = undefined;
+    this.clearOldAndNewMeterDetails();
     this.setDefaultReadingCalculation();
+  }
+
+  clearOldAndNewMeterDetails(){
+    this.formData.meterReplacementDate = undefined;
+    this.formData.finalRead = undefined;
+    this.formData.newMf = undefined;
+    this.formData.newMeterNo = undefined;
+    this.formData.newMeterMake = undefined;
+    this.formData.newMeterCapacity = undefined;
+    this.formData.newMeterStartRead = undefined;
+    
   }
 
   meterReplacementDateChanged(){

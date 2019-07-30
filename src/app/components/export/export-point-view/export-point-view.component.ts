@@ -30,7 +30,6 @@ export class ExportPointViewComponent implements OnInit {
   setPartialData(){
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
-    console.log(this.user);
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
       this.zoneList = this.user.zoneList;
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
