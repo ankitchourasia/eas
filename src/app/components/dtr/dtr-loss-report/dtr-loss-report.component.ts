@@ -28,7 +28,7 @@ export class DtrLossReportComponent implements OnInit {
   feederList: any;
   substationList: any;
   dtrReadingList: any;
-  userDetails: any;
+  searchDataForm: any;
   billMonth: any;
   billMonthYear: any;
   pager: any;
@@ -50,7 +50,7 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   checkUserRoll(){
-    this.userDetails = {};
+    this.searchDataForm = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
@@ -64,19 +64,19 @@ export class DtrLossReportComponent implements OnInit {
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
-      this.userDetails.region = this.user.region;
-      this.userDetails.circle = this.user.circle;
-      this.userDetails.division = this.user.division;
+      this.searchDataForm.region = this.user.region;
+      this.searchDataForm.circle = this.user.circle;
+      this.searchDataForm.division = this.user.division;
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
-      this.userDetails.region = this.user.region;
-      this.userDetails.circle = this.user.circle;
-      this.userDetails.division = this.user.division;
-      this.userDetails.zone = this.user.zone;
-      this.getSubstationByZoneId(this.userDetails.zone.id);
+      this.searchDataForm.region = this.user.region;
+      this.searchDataForm.circle = this.user.circle;
+      this.searchDataForm.division = this.user.division;
+      this.searchDataForm.zone = this.user.zone;
+      this.getSubstationByZoneId(this.searchDataForm.zone.id);
     }
   }
   
@@ -91,17 +91,17 @@ export class DtrLossReportComponent implements OnInit {
   regionChanged(region){
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.circleList = null;
-      this.userDetails.circle = undefined;
+      this.searchDataForm.circle = undefined;
       this.divisionList = null;
-      this.userDetails.division = undefined;
+      this.searchDataForm.division = undefined;
       this.zoneList = null;
-      this.userDetails.zone = undefined;
+      this.searchDataForm.zone = undefined;
       this.substationList = null;
-      this.userDetails.substation = undefined;
+      this.searchDataForm.substation = undefined;
       this.feederList = null;
-      this.userDetails.feeder = undefined;
+      this.searchDataForm.feeder = undefined;
       this.dtrList = null;
-      this.userDetails.dtr = undefined;
+      this.searchDataForm.dtr = undefined;
       this.getCircleListByRegionId(region.id);
     }
   }
@@ -117,15 +117,15 @@ export class DtrLossReportComponent implements OnInit {
   circleChanged(circle){
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.divisionList = null;
-      this.userDetails.division = undefined;
+      this.searchDataForm.division = undefined;
       this.zoneList = null;
-      this.userDetails.zone = undefined;
+      this.searchDataForm.zone = undefined;
       this.substationList = null;
-      this.userDetails.substation = undefined;
+      this.searchDataForm.substation = undefined;
       this.feederList = null;
-      this.userDetails.feeder = undefined;
+      this.searchDataForm.feeder = undefined;
       this.dtrList = null;
-      this.userDetails.dtr = undefined;
+      this.searchDataForm.dtr = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
   }
@@ -141,13 +141,13 @@ export class DtrLossReportComponent implements OnInit {
   divisionChanged(division){
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.zoneList = null;
-      this.userDetails.zone = undefined;
+      this.searchDataForm.zone = undefined;
       this.substationList = null;
-      this.userDetails.substation = undefined;
+      this.searchDataForm.substation = undefined;
       this.feederList = null;
-      this.userDetails.feeder = undefined;
+      this.searchDataForm.feeder = undefined;
       this.dtrList = null;
-      this.userDetails.dtr = undefined;
+      this.searchDataForm.dtr = undefined;
       this.getZoneListByDivisionId(division.id);
     }
   }
@@ -163,11 +163,11 @@ export class DtrLossReportComponent implements OnInit {
   
   zoneChanged(zone){
     this.substationList = null;
-    this.userDetails.substation = undefined;
+    this.searchDataForm.substation = undefined;
     this.feederList = null;
-    this.userDetails.feeder = undefined;
+    this.searchDataForm.feeder = undefined;
     this.dtrList = null;
-    this.userDetails.dtr = undefined;
+    this.searchDataForm.dtr = undefined;
     this.getSubstationByZoneId(zone.id);
   }
 
@@ -181,9 +181,9 @@ export class DtrLossReportComponent implements OnInit {
 
   substationChanged(substation){
     this.feederList = null;
-    this.userDetails.feeder = undefined;
+    this.searchDataForm.feeder = undefined;
     this.dtrList = null;
-    this.userDetails.dtr = undefined;
+    this.searchDataForm.dtr = undefined;
     this.getFeederBySubstationId(substation.id);  
   }
 
@@ -197,7 +197,7 @@ export class DtrLossReportComponent implements OnInit {
 
   feederChanged(feeder){
     this.dtrList = null;
-    this.userDetails.dtr = undefined;
+    this.searchDataForm.dtr = undefined;
     // this.getDTRByFeederId(feeder.id);
   }
 
@@ -208,7 +208,8 @@ export class DtrLossReportComponent implements OnInit {
     this.allDtrReadingInserted = false;
     this.reportGenerated = false;
     this.generating = false;
-    this.getDTRByFeederId(this.userDetails.feeder.id);
+    this.searchDataForm.billingMonth = this.billMonth + "-" + this.billMonthYear;
+    this.getDTRByFeederId(this.searchDataForm.feeder.id);
   }
 
   getDTRByFeederId(feederId){
@@ -219,8 +220,8 @@ export class DtrLossReportComponent implements OnInit {
       this.initializePaginationVariables();
       this.setPage(1);
       if(this.dtrList && this.dtrList.length){
-        let billingMonth = this.billMonth + "-" + this.billMonthYear;
-        this.getDTRReadingByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth);
+        // let billingMonth = this.billMonth + "-" + this.billMonthYear;
+        this.getDTRReadingByFeederIdAndBillMonth(this.searchDataForm.feeder.id, this.searchDataForm.billingMonth);
       }
     }, errorResponse =>{
       console.log(errorResponse)
@@ -243,7 +244,7 @@ export class DtrLossReportComponent implements OnInit {
         });
       }
       this.searchButtonClicked = false;
-      this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.userDetails.feeder.groupNo, billMonth);
+      this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.searchDataForm.feeder.groupNo, billMonth);
     },errorResponse =>{
       console.log(errorResponse);
       this.searchButtonClicked = false;
@@ -269,30 +270,30 @@ export class DtrLossReportComponent implements OnInit {
     this.billFileService.checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth, false).subscribe(successResponse =>{
       let billFileRefs = <any>successResponse;
       if(billFileRefs && billFileRefs.length && (billFileRefs[0].billMonth === billingMonth || billFileRefs[1].billMonth === billingMonth)){
-        this.userDetails.feeder.billFileUploaded = true;
-        this.userDetails.feeder.billFileNotUploaded = false;
+        this.searchDataForm.feeder.billFileUploaded = true;
+        this.searchDataForm.feeder.billFileNotUploaded = false;
       }else{
-        this.userDetails.feeder.billFileUploaded = false;
-        this.userDetails.feeder.billFileNotUploaded = true;
+        this.searchDataForm.feeder.billFileUploaded = false;
+        this.searchDataForm.feeder.billFileNotUploaded = true;
       }
       this.searchButtonClicked = false;
     },errorResponse =>{
       console.log(errorResponse);
       this.searchButtonClicked = false;
-      this.userDetails.feeder.billFileUploaded = false;
-      this.userDetails.feeder.billFileNotUploaded = true;
+      this.searchDataForm.feeder.billFileUploaded = false;
+      this.searchDataForm.feeder.billFileNotUploaded = true;
     });
   }
 
   generateAllDtrLossReport(){
     this.generating = true;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.generateAllDTRLossByFeederAndBillMonth(this.userDetails.feeder, billingMonth, true).subscribe(successResponse =>{
+    // let billingMonth = this.billMonth + "-" + this.billMonthYear;
+    this.dtrService.generateAllDTRLossByFeederAndBillMonth(this.searchDataForm.feeder, this.searchDataForm.billingMonth, true).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       this.generating = false;
       this.reportGenerated = true
       let alertResponse = this.globalResources.successAlert("Report Generated Successfully for Feeder: <br><strong>" + 
-          this.userDetails.feeder.name + " for Month : " + billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
+          this.searchDataForm.feeder.name + " for Month : " + this.searchDataForm.billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
     },errorResponse =>{
       console.log(errorResponse);
       this.generating = false;
@@ -305,8 +306,8 @@ export class DtrLossReportComponent implements OnInit {
 
   generateSingleDtrLossReport(dtr){
     dtr.generatingSingleReport = true;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.generateDTRLossByDtrAndBillMonth(dtr, billingMonth, true).subscribe(successResponse =>{
+    // let billingMonth = this.billMonth + "-" + this.billMonthYear;
+    this.dtrService.generateDTRLossByDtrAndBillMonth(dtr, this.searchDataForm.billingMonth, true).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       console.log(generatedReport);
       dtr.generatingSingleReport = false;
@@ -323,27 +324,9 @@ export class DtrLossReportComponent implements OnInit {
     });
   }
 
-  dtrLossReports: any
   display: any = 'none';
   viewDtrLossReport(){
-    this.display= 'none';
-    this.dtrLossReports = null;
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.dtrService.getDTRLossReportByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth, false).subscribe(successResponse =>{
-    this.dtrLossReports = <any>successResponse;
-    console.log(this.dtrLossReports);
-    if(this.dtrLossReports && this.dtrLossReports.length){
-      this.openModal();
-      this.dtrLossReports.forEach((dtrLossReport,index) => {
-        this.calculateTotal(dtrLossReport, index);
-      });
-      this.calculateGrossLoss();
-      this.roundOffAllValues();
-    }
-    },errorResponse =>{
-      console.log(errorResponse);
-      let alertResponse = this.globalResources.errorAlert("DTR LOSS REPORT does not exists!");
-    });
+    this.openModal();
   }
 
   openModal(){
@@ -352,49 +335,6 @@ export class DtrLossReportComponent implements OnInit {
 
   closeModal(){
     this.display = 'none';
-  }
-
-  grossInput: number = 0;
-  grossConsumer: number = 0;
-  grossConsumption: number = 0;
-  grossAssessment: number = 0;
-  calculateTotal(report,index){
-    this.grossInput = this.grossInput + parseInt(report.netDTRInput);
-    this.grossConsumer = this.grossConsumer + parseInt(report.totalConsumer);
-    this.grossConsumption = this.grossConsumption + parseInt(report.totalSoldUnit);
-    this.grossAssessment = this.grossAssessment + parseInt(report.assessmentUnit);
-  }
-
-  grossLoss: any = 0;
-  calculateGrossLoss(){
-    if(this.grossInput == 0){
-      this.grossLoss = '###';
-    }else{
-      let loss = this.grossInput - this.grossConsumption;
-      loss = loss / this.grossInput;
-      loss = loss * 100;
-      this.grossLoss = Math.round(loss*100)/100;
-    }
-  }
-
-  roundOffAllValues(){
-    this.grossInput = Math.round(this.grossInput * 100)/100;
-  }
-
-  exportTotalConsumers(report){
-    // let user = this.globalResources.getUserDetails();
-    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    let params = {
-      Authorization: "Basic " + encodedCredentials,
-      locationCode: report.zoneLocationCode,
-      billMonth: report.lossMonth,
-      groupNo: report.billingGroupNo,
-      readerNo: report.billingRDNo
-    };
-  
-    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "dtrloss/consumers/export";
-    // Add authentication headers in URL
-    this.globalResources.downloadFile(fileUrl,params);
   }
 
   initializePaginationVariables(){

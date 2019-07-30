@@ -10,6 +10,7 @@ import { DtrLossReportComponent } from './dtr-loss-report/dtr-loss-report.compon
 import { DtrReadAddComponent } from './dtr-read-add/dtr-read-add.component';
 import { DtrAddInitialReadComponent } from './dtr-add-initial-read/dtr-add-initial-read.component';
 import { DtrPreBillingComponent } from './dtr-pre-billing/dtr-pre-billing.component';
+import { DtrLossReportViewComponent } from './dtr-loss-report-view/dtr-loss-report-view.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { DtrPreBillingComponent } from './dtr-pre-billing/dtr-pre-billing.compon
     DtrReadViewComponent,
     DtrLossReportComponent,
     DtrPreBillingComponent,
+    DtrLossReportViewComponent,
   ],
   exports: [
     DtrAddComponent,
@@ -34,7 +36,8 @@ import { DtrPreBillingComponent } from './dtr-pre-billing/dtr-pre-billing.compon
     DtrReadAddComponent,
     DtrReadViewComponent,
     DtrLossReportComponent,
-    DtrPreBillingComponent
+    DtrPreBillingComponent,
+    DtrLossReportViewComponent
   ],
 })
 export class DtrComponentModule { }
