@@ -26,6 +26,7 @@ export class ReportD1Component implements OnInit {
   searchResultList: any;
   pagedSearchResultList: any;
   _searchClicked: boolean;
+  _generateClicked: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService: PaginationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService,
@@ -182,6 +183,26 @@ export class ReportD1Component implements OnInit {
         this.setPage(1);
       },errorResponse =>{
         this._searchClicked = false;
+        console.log(errorResponse);
+      }
+    );
+  }
+
+  generateClicked(){
+    this._generateClicked = true;
+    let d1: any = {};
+    d1.regionId = this.searchFormData.region.id;
+    d1.circleId = this.searchFormData.circle.id;
+    d1.divisionId = this.searchFormData.division.id;
+    d1.zoneId = this.searchFormData.zone.id;
+    d1.zoneName = this.searchFormData.zone.name;
+    d1.billMonth = this.searchFormData.billingMonth;
+    this.reportService.generateD1Report(d1, true).subscribe(
+      successResponse =>{
+        this._generateClicked = false;
+        console.log(successResponse);
+      },errorResponse =>{
+        this._generateClicked = false;
         console.log(errorResponse);
       }
     );
