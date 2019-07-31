@@ -146,6 +146,7 @@ export class ReportD1Component implements OnInit {
 
   searchClicked(){
     this._searchClicked = true;
+    this.reportGenerated = false;
     console.log(this.searchFormData);
     if(this.searchFormData.zone === "ALL"){
       this.getByDivisionIdAndBillMonth();
@@ -157,55 +158,109 @@ export class ReportD1Component implements OnInit {
   getByZoneIdAndBillMonth(){
     this.searchResultList = null;
     this._searchClicked = true;
-    this.reportService.getFeederWiseLossGenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(
-      successResponse =>{
-        this._searchClicked = false;
-        console.log(successResponse);
-        this.searchResultList = successResponse
-        this.initializePaginationVariables();
-        this.setPage(1);
-      },errorResponse =>{
-        this._searchClicked = false;
-        console.log(errorResponse);
-      }
-    );
+    this.reportService.getFeederWiseLossGenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      console.log(successResponse);
+      this.searchResultList = successResponse
+      this.initializePaginationVariables();
+      this.setPage(1);
+    },errorResponse =>{
+      this._searchClicked = false;
+      console.log(errorResponse);
+    });
   }
 
   getByDivisionIdAndBillMonth(){
     this.searchResultList = null;
     this._searchClicked = true;
-    this.reportService.getFeederWiseLossGenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(
-      successResponse =>{
-        this._searchClicked = false;
-        console.log(successResponse);
-        this.searchResultList = successResponse
-        this.initializePaginationVariables();
-        this.setPage(1);
-      },errorResponse =>{
-        this._searchClicked = false;
-        console.log(errorResponse);
-      }
-    );
+    this.reportService.getFeederWiseLossGenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      console.log(successResponse);
+      this.searchResultList = successResponse
+      this.initializePaginationVariables();
+      this.setPage(1);
+    },errorResponse =>{
+      this._searchClicked = false;
+      console.log(errorResponse);
+    });
   }
 
+  reportGenerated: boolean;
   generateClicked(){
     this._generateClicked = true;
+    this.reportGenerated = false
     let d1: any = {};
     d1.regionId = this.searchFormData.region.id;
     d1.circleId = this.searchFormData.circle.id;
     d1.divisionId = this.searchFormData.division.id;
-    d1.zoneId = this.searchFormData.zone.id;
-    d1.zoneName = this.searchFormData.zone.name;
     d1.billMonth = this.searchFormData.billingMonth;
-    this.reportService.generateD1Report(d1, true).subscribe(
-      successResponse =>{
-        this._generateClicked = false;
-        console.log(successResponse);
-      },errorResponse =>{
-        this._generateClicked = false;
-        console.log(errorResponse);
+    if(this.searchFormData.zone === "ALL"){
+      this.generateD1ReportForDivision(d1);
+    }else{
+      d1.zoneId = this.searchFormData.zone.id;
+      d1.zoneName = this.searchFormData.zone.name;
+      this.generateD1ReportForZone(d1);
+    }
+    this._generateClicked = false;
+  }
+
+  generateD1ReportForDivision(d1Object){
+    this._generateClicked = true;
+    this.reportService.generateD1ReportForZone(d1Object, true).subscribe(successResponse =>{
+      this._generateClicked = false;
+      let result = <any>successResponse;
+      if(result && result.status === 201){
+        this.reportGenerated = true
+        let alertResponse = this.globalResources.successAlert("Report generated successfully for Month :<strong>" + result.body.billingMonth + "</strong>");
+      }else{
+        console.log("success with invalid result");
       }
-    );
+    },errorResponse =>{
+      console.log(errorResponse);
+      this._generateClicked = false;
+      if(errorResponse.status === 417){
+        this.reportGenerated = true;
+        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Some error occured while generating report !!!");
+      }
+    });
+  }
+
+  generateD1ReportForZone(d1Object){
+    this._generateClicked = true;
+    this.reportService.generateD1ReportForZone(d1Object, true).subscribe(successResponse =>{
+      this._generateClicked = false;
+      let result = <any>successResponse;
+      if(result && result.status === 201){
+        this.reportGenerated = true
+        let alertResponse = this.globalResources.successAlert("Report generated successfully for Month :<strong>" + result.body.billingMonth + "</strong>");
+      }else{
+        console.log("success with invalid result");
+      }
+    },errorResponse =>{
+      console.log(errorResponse);
+      this._generateClicked = false;
+      if(errorResponse.status === 417){
+        this.reportGenerated = true;
+        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Some error occured while generating report !!!");
+      }
+    });
+  }
+
+  display: any = 'none';
+  viewReport(){
+    this.openModal();
+  }
+
+  openModal(){
+    this.display = 'block';
+  }
+
+  closeModal(){
+    this.display = 'none';
   }
   
   initializePaginationVariables(){

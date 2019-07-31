@@ -30,12 +30,21 @@ export class ReportService {
     }
   }
 
-  generateD1Report(d1Report, response){
+  generateD1ReportForZone(d1Report, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/',  d1Report,  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/',  d1Report,  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/', d1Report);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/', d1Report);
+    }
+  }
+
+  generateD1ReportForDivision(d1Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/',  d1Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/', d1Report);
     }
   }
 
