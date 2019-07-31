@@ -133,6 +133,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* settings to hide folowing elements by getting printed in page */
+/* @media screen {
+    #printSection {
+        display: none;
+    }
+} */
 @media print {
     body *{
         visibility: hidden;
@@ -141,8 +146,8 @@ input[type=number]::-webkit-outer-spin-button {
     .eas-print-block, .eas-print-block *{
         visibility: visible;
     }
-}
-@page { 
-    size: A4 landscape;
-    margin: 1mm 1mm 1mm 1mm;
+    @page { 
+        size: A4 landscape;
+        margin: 1mm 1mm 1mm 1mm;
+    }
 }

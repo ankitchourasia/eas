@@ -194,6 +194,7 @@ export class ReportD1Component implements OnInit {
     d1.circleId = this.searchFormData.circle.id;
     d1.divisionId = this.searchFormData.division.id;
     d1.billMonth = this.searchFormData.billingMonth;
+    this._generateClicked = false;
     if(this.searchFormData.zone === "ALL"){
       this.generateD1ReportForDivision(d1);
     }else{
@@ -201,17 +202,16 @@ export class ReportD1Component implements OnInit {
       d1.zoneName = this.searchFormData.zone.name;
       this.generateD1ReportForZone(d1);
     }
-    this._generateClicked = false;
   }
 
   generateD1ReportForDivision(d1Object){
     this._generateClicked = true;
-    this.reportService.generateD1ReportForZone(d1Object, true).subscribe(successResponse =>{
+    this.reportService.generateD1ReportForDivision(d1Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true
-        let alertResponse = this.globalResources.successAlert("Report generated successfully for Month :<strong>" + result.body.billingMonth + "</strong>");
+        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -234,7 +234,7 @@ export class ReportD1Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true
-        let alertResponse = this.globalResources.successAlert("Report generated successfully for Month :<strong>" + result.body.billingMonth + "</strong>");
+        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
