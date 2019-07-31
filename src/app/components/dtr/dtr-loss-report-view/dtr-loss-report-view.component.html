@@ -74,12 +74,12 @@
     </div> -->
     <div class="input-group">
       <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.billMonth" #month="ngModel" id="month"  name="month" required>
+        class="form-control form-control-sm" [(ngModel)]="formData.billMonth" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
         <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
         <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
       </select>
       <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.billMonthYear" #year="ngModel" id="year"  name="year" required>
+        class="form-control form-control-sm" [(ngModel)]="formData.billMonthYear" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthYearChanged()">
         <option disabled selected [ngValue]='undefined'>Year</option>
         <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
       </select>

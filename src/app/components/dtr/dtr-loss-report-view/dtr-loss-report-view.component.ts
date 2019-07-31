@@ -39,19 +39,12 @@ export class DtrLossReportViewComponent implements OnInit {
     this.searchClicked();
   }
 
-  @Input("billMonth")
-  set setBillMonth(billMonth : any){
-    this.formData.selectedBillMonth = billMonth;
-    this.formData.billMonth = this.formData.selectedBillMonth;
+  @Input("billingMonth")
+  set setBillingMonth(billingMonth : any){
+    this.formData.selectedBillingMonth = billingMonth;
+    this.formData.billingMonth = this.formData.selectedBillingMonth;
     this.searchClicked();
   }
-  @Input("billMonthYear")
-  set setBillMonthYear(billMonthYear : any){
-    this.formData.selectedBillMonthYear = billMonthYear;
-    this.formData.billMonthYear = this.formData.selectedBillMonthYear;
-    this.searchClicked();
-  }
-
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService,
     private regionService: RegionService, private circleService: CircleService, private divisionService: DivisionService, 
@@ -200,11 +193,24 @@ export class DtrLossReportViewComponent implements OnInit {
     console.log(feeder);
   }
 
+  billMonthChanged(){
+    if(this.formData.billMonth && this.formData.billMonthYear){
+      this.formData.billingMonth = this.formData.billMonth + "-" + this.formData.billMonthYear;
+    }
+  }
+
+  billMonthYearChanged(){
+    if(this.formData.billMonth && this.formData.billMonthYear){
+      this.formData.billingMonth = this.formData.billMonth + "-" + this.formData.billMonthYear;
+    }
+  }
+
   _searchClicked: boolean;
   searchClicked(){
-    if(this.formData.feeder && this.formData.feeder.id &&  this.formData.billMonth && this.formData.billMonthYear){
-      this.formData.billingMonth = this.formData.billMonth + "-" + this.formData.billMonthYear;
+    if(this.formData.feeder && this.formData.feeder.id && this.formData.billingMonth){
       this.viewDtrLossReportByFeederIdAndBillMonth(this.formData.feeder.id, this.formData.billingMonth);
+    }else{
+      console.log("feeder/billingMonth missing");
     }
   }
 
