@@ -10,7 +10,7 @@ import { PaginationServiceModule } from '@eas-services/pagination/pagination-ser
     CommonModule,
     FormsModule,
     DirectiveModule,
-    PaginationServiceModule
+    // PaginationServiceModule
   ],
   declarations: [BillFileUploadComponent],
   exports: [BillFileUploadComponent],

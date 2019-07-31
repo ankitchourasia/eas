@@ -17,7 +17,7 @@ import { DtrLossReportViewComponent } from './dtr-loss-report-view/dtr-loss-repo
     CommonModule,
     FormsModule,
     DirectiveModule,
-    PaginationServiceModule
+    // PaginationServiceModule
   ],
   declarations: [
     DtrAddComponent,

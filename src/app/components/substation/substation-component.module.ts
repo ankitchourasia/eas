@@ -9,7 +9,7 @@ import { PaginationServiceModule } from '@eas-services/pagination/pagination-ser
   imports: [
     CommonModule,
     FormsModule,
-    PaginationServiceModule
+    // PaginationServiceModule
   ],
   declarations: [SubstationAddComponent, SubstationViewComponent],
   exports: [SubstationAddComponent, SubstationViewComponent]

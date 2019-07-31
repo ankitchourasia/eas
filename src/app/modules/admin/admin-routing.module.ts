@@ -33,6 +33,13 @@ import { AdminFeederMappingAddComponent } from './admin-feeder/admin-feeder-mapp
 import { AdminHtConsumerAddComponent } from './admin-ht-consumer/admin-ht-consumer-add/admin-ht-consumer-add.component';
 import { AdminHtConsumerReadingAddComponent } from './admin-ht-consumer/admin-ht-consumer-reading-add/admin-ht-consumer-reading-add.component';
 import { AdminExportPointReadingAddComponent } from './admin-export/admin-export-point-reading-add/admin-export-point-reading-add.component';
+import { AdminReportD1Component } from './admin-report/admin-report-d1/admin-report-d1.component';
+import { AdminReportD2Component } from './admin-report/admin-report-d2/admin-report-d2.component';
+import { AdminReportD3Component } from './admin-report/admin-report-d3/admin-report-d3.component';
+import { AdminReportD4Component } from './admin-report/admin-report-d4/admin-report-d4.component';
+import { AdminReportD5Component } from './admin-report/admin-report-d5/admin-report-d5.component';
+import { AdminReportD6Component } from './admin-report/admin-report-d6/admin-report-d6.component';
+import { AdminReportD7Component } from './admin-report/admin-report-d7/admin-report-d7.component';
 
 const adminRoutes: Routes = [
   {
@@ -133,6 +140,27 @@ const adminRoutes: Routes = [
           },
           {
             path: 'ht/consumer/view/absent-consumption',component: AdminHtConsumerViewAbsentConsumptionComponent
+          },
+          {
+            path: 'report/d1',component: AdminReportD1Component
+          },
+          {
+            path: 'report/d2',component: AdminReportD2Component
+          },
+          {
+            path: 'report/d3',component: AdminReportD3Component
+          },
+          {
+            path: 'report/d4',component: AdminReportD4Component
+          },
+          {
+            path: 'report/d5',component: AdminReportD5Component
+          },
+          {
+            path: 'report/d6',component: AdminReportD6Component
+          },
+          {
+            path: 'report/d7',component: AdminReportD7Component
           },
           {
             path: 'bill-file/upload',component: AdminBillFileUploadComponent

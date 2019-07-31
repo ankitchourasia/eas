@@ -14,6 +14,7 @@ import { AuthenticationServiceModule } from "./authentication-service/authentica
 import { LogoutServiceModule } from "./logout-service/logout-service.module";
 import { HTConsumerServiceModule } from "./ht-consumer-service/ht-consumer-service.module";
 import { ExportServiceModule } from "./export-service/export-service.module";
+import { ReportServiceModule } from "./report-service/report-service.module";
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import { ExportServiceModule } from "./export-service/export-service.module";
         ExportServiceModule,
         PaginationServiceModule,
         LogoutServiceModule,
+        ReportServiceModule,
         AuthenticationServiceModule
     ],
     providers: [

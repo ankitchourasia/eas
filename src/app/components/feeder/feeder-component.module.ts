@@ -24,7 +24,7 @@ import { FeederInitialReadAddComponent } from './feeder-initial-read-add/feeder-
     FormsModule,
     DirectiveModule,
     ZoneServiceModule,
-    PaginationServiceModule
+    // PaginationServiceModule
   ],
   declarations: [
     FeederAddComponent, 

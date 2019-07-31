@@ -13,7 +13,7 @@ import { ExportPointReadingAddComponent } from './export-point-reading-add/expor
     CommonModule,
     FormsModule,
     DirectiveModule,
-    PaginationServiceModule
+    // PaginationServiceModule
   ],
   declarations: [ExportPointViewComponent, ExportPointReadingViewComponent, ExportPointAddComponent, ExportPointReadingAddComponent],
   exports: [ExportPointViewComponent, ExportPointReadingViewComponent, ExportPointAddComponent, ExportPointReadingAddComponent],

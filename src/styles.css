@@ -132,4 +132,17 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-box-align: baseline !important;
 }
 
-
+/* settings to hide folowing elements by getting printed in page */
+@media print {
+    @page { 
+		size: A4 landscape;
+		margin: 1mm 1mm 1mm 1mm;
+    }
+	body *{
+        visibility: hidden;
+        /* display: none; */
+    }
+    .print-content, .print-content *{
+        visibility: visible;
+    }
+}

@@ -28,7 +28,7 @@ import { HtConsumerAddComponent } from './ht-consumer-add/ht-consumer-add.compon
     CommonModule,
     FormsModule,
     DirectiveModule,
-    PaginationServiceModule
+    // PaginationServiceModule
   ]
 })
-export class HTConsumerModule { }
+export class HTConsumerComponentModule { }

@@ -10,17 +10,19 @@ import { AdminDtrModule } from './admin-dtr/admin-dtr.module';
 import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.module';
 import { AdminBillFileModule } from './admin-bill-file/admin-bill-file.module';
 import { AdminExportModule } from './admin-export/admin-export.module';
+import { AdminReportModule } from './admin-report/admin-report.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HeaderComponentModule,
-    AdminSubstationModule,
-    AdminFeederModule,
-    AdminDtrModule,
-    AdminHtConsumerModule,
     AdminBillFileModule,
+    AdminDtrModule,
     AdminExportModule,
+    AdminFeederModule,
+    AdminHtConsumerModule,
+    AdminReportModule,
+    AdminSubstationModule,
     AdminRoutingModule,
   ],
   declarations: [
