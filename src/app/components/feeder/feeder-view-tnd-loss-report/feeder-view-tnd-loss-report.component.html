@@ -58,20 +58,20 @@
         <td>{{i + 1}}</td>
         <td>{{report.feederName}}</td>
         <td>{{report.feeder.type}}</td>
-        <td *ngIf="report.feeder.type === 'PARENTAL'">
+        <td *ngIf="report.feeder?.type === 'PARENTAL'">
           {{report.feeder.link}}
         </td>
-        <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
-          <span ng-repeat="mapping in report.feeder.mappings">
-            {{mapping.feeder.link}}
+        <td *ngIf="report.feeder?.type === 'INTER_ZONE' || report.feeder?.type === 'INTER_DIVISION'" >
+          <span *ngFor="let mapping of report?.feeder?.mappings">
+            {{mapping?.feeder?.link}}
           </span>
         </td>
-        <td *ngIf="report.feeder.type === 'PARENTAL'">
+        <td *ngIf="report.feeder?.type === 'PARENTAL'">
           <strong>{{report.billingGroupNo}}</strong>
         </td>
-        <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
-          <span ng-repeat="mapping in report.feeder.mappings">
-            <strong>{{mapping.feeder.groupNo}}</strong>
+        <td *ngIf="report.feeder?.type === 'INTER_ZONE' || report.feeder?.type === 'INTER_DIVISION'" >
+          <span *ngFor="let mapping of report.feeder?.mappings">
+            <strong>{{mapping.feeder?.groupNo}}</strong>
           </span>
         </td>
         <td>{{report.feederMeterNo}}</td>

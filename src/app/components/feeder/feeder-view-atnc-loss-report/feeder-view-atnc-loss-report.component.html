@@ -48,7 +48,7 @@
           {{report.feeder.link}}
         </td>
         <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
-          <span ng-repeat="mapping in report.feeder.mappings">
+          <span *ngFor="let mapping of report.feeder?.mappings">
             {{mapping.feeder.link}}
           </span>
         </td>
@@ -56,7 +56,7 @@
           <strong>{{report.billingGroupNo}}</strong>
         </td>
         <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
-          <span ng-repeat="mapping in report.feeder.mappings">
+          <span *ngFor="let mapping of report.feeder?.mappings">
             <strong>{{mapping.feeder.groupNo}}</strong>
           </span>
         </td>
