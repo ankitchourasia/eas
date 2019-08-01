@@ -281,6 +281,7 @@ export class DtrLossReportViewComponent implements OnInit {
     // w.document.write(content);
     // w.print();
     // w.close();
+    //------------
     window.print();
   }
 }
