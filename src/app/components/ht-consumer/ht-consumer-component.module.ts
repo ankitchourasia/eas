@@ -5,7 +5,6 @@ import { HtConsumerViewAbsentConsumptionComponent } from './ht-consumer-view-abs
 import { HtConsumerViewConsumptionComponent } from './ht-consumer-view-consumption/ht-consumer-view-consumption.component';
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
-import { PaginationServiceModule } from '@eas-services/pagination/pagination-service.module';
 import { HtConsumerReadingAddComponent } from './ht-consumer-reading-add/ht-consumer-reading-add.component';
 import { HtConsumerAddComponent } from './ht-consumer-add/ht-consumer-add.component';
 
@@ -28,7 +27,6 @@ import { HtConsumerAddComponent } from './ht-consumer-add/ht-consumer-add.compon
     CommonModule,
     FormsModule,
     DirectiveModule,
-    // PaginationServiceModule
   ]
 })
 export class HTConsumerComponentModule { }

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ZoneService {
 
   constructor(private http: HttpClient) { }

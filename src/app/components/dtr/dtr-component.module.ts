@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { DtrAddComponent } from './dtr-add/dtr-add.component';
 import { DtrViewComponent } from './dtr-view/dtr-view.component';
 import { DirectiveModule } from '@eas-directives/directive.module';
-import { PaginationServiceModule } from '@eas-services/pagination/pagination-service.module';
 import { DtrReadViewComponent } from './dtr-read-view/dtr-read-view.component';
 import { DtrLossReportComponent } from './dtr-loss-report/dtr-loss-report.component';
 import { DtrReadAddComponent } from './dtr-read-add/dtr-read-add.component';
@@ -17,7 +16,6 @@ import { DtrLossReportViewComponent } from './dtr-loss-report-view/dtr-loss-repo
     CommonModule,
     FormsModule,
     DirectiveModule,
-    // PaginationServiceModule
   ],
   declarations: [
     DtrAddComponent,

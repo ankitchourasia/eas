@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-// import { AppRoutingModule } from './app-routing.module';
 import { appRoutingModule } from './app-routing.module';
 import { LoginModule } from './modules/login/login.module';
 import { GlobalResources } from './utility/global.resources';
@@ -11,7 +10,10 @@ import { CanActivateAuthGuard } from './guards/can-activate.authguard';
 import { GlobalConfiguration } from './utility/global-configuration';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthorizationInterceptor } from './interceptors/authorization.interceptor';
-import { EasServicesModule } from '@eas-services/eas-service.module';
+import { FormsModule } from '@angular/forms';
+import { DirectiveModule } from '@eas-directives/directive.module';
+// import { AppRoutingModule } from './app-routing.module';
+// import { EasServicesModule } from '@eas-services/eas-service.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +21,12 @@ import { EasServicesModule } from '@eas-services/eas-service.module';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     HttpClientModule,
     LoginModule,
-    EasServicesModule,
+    DirectiveModule,
+    // EasServicesModule,
     appRoutingModule
     // AppRoutingModule
   ],

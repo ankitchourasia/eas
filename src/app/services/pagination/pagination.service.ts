@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PaginationService {
 
   getPager(totalItems: number, currentPage: number = 1, pageSize: number = 10, pageNumberOption: number = 5) {

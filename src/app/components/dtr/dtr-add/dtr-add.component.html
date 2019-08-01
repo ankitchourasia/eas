@@ -146,7 +146,7 @@
           class="form-control" [(ngModel)]="dtr.dtrMeterSR" #meterSR="ngModel" id="meterSR"  name="meterSR" [min]="0" required>
         <div class="invalid-feedback" *ngIf="meterSR.errors && (meterSR.dirty || meterSR.touched)">
           <div [hidden]="!meterSR.errors.required">required field</div>
-          <div [hidden]="!meterSR.errors.min || meterSR.errors.required">invalid value</div>
+          <div [hidden]="!meterSR.errors.min || meterSR.errors.required">can not be less than 0</div>
         </div>
       </div>
     </div>
@@ -179,7 +179,7 @@
           class="form-control" [(ngModel)]="dtr.ltFeeders" #ltFeeders="ngModel" id="ltFeeders"  name="ltFeeders" [min]="1" required>
         <div class="invalid-feedback" *ngIf="ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched)">
           <div [hidden]="!ltFeeders.errors.required">required field</div>
-          <div [hidden]="!ltFeeders.errors.min || ltFeeders.errors.required">invalid value</div>
+          <div [hidden]="!ltFeeders.errors.min || ltFeeders.errors.required">can not be less than 1</div>
         </div>
       </div>
     </div>

@@ -7,8 +7,6 @@ import { DirectiveModule } from '@eas-directives/directive.module';
 import { FeederReadingAddComponent } from './feeder-reading-add/feeder-reading-add.component';
 import { FeederReadingViewComponent } from './feeder-reading-view/feeder-reading-view.component';
 import { FeederAbsentReadingViewComponent } from './feeder-absent-reading-view/feeder-absent-reading-view.component';
-import { ZoneServiceModule } from '@eas-services/zone/zone-service.module';
-import { PaginationServiceModule } from '@eas-services/pagination/pagination-service.module';
 import { FeederTndLossReportComponent } from './feeder-tnd-loss-report/feeder-tnd-loss-report.component';
 import { FeederTndLossReportWithoutHtComponent } from './feeder-tnd-loss-report-without-ht/feeder-tnd-loss-report-without-ht.component';
 import { FeederAtncLossReportComponent } from './feeder-atnc-loss-report/feeder-atnc-loss-report.component';
@@ -23,8 +21,6 @@ import { FeederInitialReadAddComponent } from './feeder-initial-read-add/feeder-
     CommonModule,
     FormsModule,
     DirectiveModule,
-    ZoneServiceModule,
-    // PaginationServiceModule
   ],
   declarations: [
     FeederAddComponent, 

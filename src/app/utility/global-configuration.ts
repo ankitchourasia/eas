@@ -9,7 +9,7 @@ export class GlobalConfiguration {
     public static readonly ROLE_FIELD_ADMIN = "field_admin";
     public static readonly URL_PREFIX = "/ROOT/backend/";
     // public static readonly URL_PREFIX_FOR_FILE_EXPORT = "http://10.98.4.118:8080/ROOT/backend/";
-    public static readonly URL_PREFIX_FOR_FILE_EXPORT = "http://localhost:8080/ROOT/backend/";
+    public static readonly URL_PREFIX_FOR_FILE_EXPORT = "http://10.98.4.114:8080/ROOT/backend/";
     
     constructor () {}
 

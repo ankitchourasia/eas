@@ -7,6 +7,7 @@ import { DivisionService } from '@eas-services/division-service/division.service
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { ReportService } from '@eas-services/report-service/report.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
   selector: 'eas-report-d1',
@@ -252,7 +253,17 @@ export class ReportD1Component implements OnInit {
 
   display: any = 'none';
   viewReport(){
-    this.openModal();
+    // this.openModal();
+  }
+
+  exportClicked(){
+    // let user = this.globalResources.getUserDetails();
+    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    let params = {
+      Authorization: "Basic " + encodedCredentials,
+    };
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d1-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
+    this.globalResources.downloadFile(fileUrl,params);
   }
 
   openModal(){
