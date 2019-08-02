@@ -101,8 +101,8 @@
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <!-- <button type="button" class="btn btn-sm btn-info" (click)="viewReport()" *ngIf="reportGenerated">View Report</button> -->
-    <a class="btn btn-sm btn-primary rounded-circle" href='javascript:void(0);' (click)="exportClicked()" *ngIf="reportGenerated">
-      <i class="fa fa-download" aria-hidden="true"></i>
+    <a class="btn btn-sm btn-primary" href='javascript:void(0);' (click)="exportClicked()" *ngIf="reportGenerated">
+      <i class="fa fa-download" aria-hidden="true"></i> Export
     </a>
   </div>
   <div class="table-responsive mb-2 text-center">

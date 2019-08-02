@@ -282,6 +282,7 @@ export class DtrLossReportViewComponent implements OnInit {
     // w.print();
     // w.close();
     //------------
-    window.print();
+    // window.print();
+    this.globalResources.printByElementId('dtrLossReport');
   }
 }

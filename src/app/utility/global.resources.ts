@@ -234,4 +234,21 @@ export class GlobalResources {
         window.location.href = url;
 		// window.open(url);
     }
+
+    printByElementId(elementId){
+        this.printElement(document.getElementById(elementId));
+    }
+
+    printElement(element) {
+        let domClone = element.cloneNode(true);
+        let printSection = document.getElementById("printSection");
+        if (!printSection) {
+            printSection = document.createElement("div");
+            printSection.id = "printSection";
+            document.body.appendChild(printSection);
+        }
+        printSection.innerHTML = "";
+        printSection.appendChild(domClone);
+        window.print();
+    }
 }
