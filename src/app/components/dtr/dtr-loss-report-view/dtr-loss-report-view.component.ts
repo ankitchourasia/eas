@@ -276,13 +276,12 @@ export class DtrLossReportViewComponent implements OnInit {
   }
 
   printClicked(){
-    // let w =window.open();
-    // let content = document.getElementById("dtrLossReport").innerHTML;
-    // w.document.write(content);
-    // w.print();
-    // w.close();
-    //------------
+    let w =window.open();
+    let content = document.getElementById("dtrLossReport").outerHTML;
+    w.document.write(content);
+    w.print();
+    w.close();
     // window.print();
-    this.globalResources.printByElementId('dtrLossReport');
+    // this.globalResources.printByElementId('dtrLossReport');
   }
 }
