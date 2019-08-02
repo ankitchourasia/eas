@@ -235,12 +235,8 @@ export class GlobalResources {
 		// window.open(url);
     }
 
-    printByElementId(elementId){
-        this.printElement(document.getElementById(elementId));
-    }
-
-    printElement(element) {
-        let domClone = element.cloneNode(true);
+    printByElementId(elementId) {
+        let domClone = document.getElementById(elementId).cloneNode(true);
         let printSection = document.getElementById("printSection");
         if (!printSection) {
             printSection = document.createElement("div");
