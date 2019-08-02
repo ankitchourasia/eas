@@ -1,4 +1,4 @@
-/* @media screen {
+@media screen {
     #printSection {
         display: none;
     }
@@ -17,7 +17,7 @@
       top:0;
     }
     @page { 
-        size: A4 landscape !important;
-        margin: 1mm 1mm 1mm 1mm;
+      size: A4 landscape !important;
+      margin: 2mm 2mm 2mm 2mm;
     }
-  }   */
+  }  

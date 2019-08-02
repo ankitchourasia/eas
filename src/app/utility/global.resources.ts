@@ -234,6 +234,14 @@ export class GlobalResources {
         window.location.href = url;
 		// window.open(url);
     }
+    
+    printElementById(elementId){
+        let w =window.open();
+        let content = document.getElementById(elementId).outerHTML;
+        w.document.write(content);
+        w.print();
+        w.close();
+    }
 
     printByElementId(elementId) {
         let domClone = document.getElementById(elementId).cloneNode(true);
