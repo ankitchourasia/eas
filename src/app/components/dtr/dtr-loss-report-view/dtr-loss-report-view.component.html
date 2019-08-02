@@ -112,7 +112,7 @@
 </div>
 <div class="table-responsive pt-1" *ngIf="dtrLossReports && dtrLossReports.length && !_searchClicked">
   <table border="1" style="border-collapse:collapse; font-size:70%; text-align:center; font-family: Arial" class="table table-sm table-bordered" id="dtrLossReport">
-    <tbody class="text-sm text-center">
+    <thead class="text-sm text-center">
       <tr>
         <td class="align-middle" colspan="16"><h3 class="display-5">DTR LOSS REPORT</h3></td>
       </tr>
@@ -141,6 +141,8 @@
       <tr>
         <td class="align-middle" colspan="16"><br></td>
       </tr>
+    </thead>
+    <tbody class="text-sm text-center">
       <tr class="font-weight-bold" id="dtrLossTableHeader">
         <td class="align-middle">S.NO</td>
         <td class="align-middle">DTR NAME</td>
