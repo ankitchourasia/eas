@@ -265,21 +265,27 @@ export class GlobalResources {
     }
 
     exportTableToExcel(tableID, filename?){
-        let downloadLink;
-        let dataType = 'application/vnd.ms-excel';
+        let AnchorElement;
+        let dataType = 'data:application/vnd.ms-excel';
         filename = filename ? filename + '.xls' : 'file.xls';
         let tableSelect = document.getElementById(tableID);
         let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-        downloadLink = document.createElement("a");
-        document.body.appendChild(downloadLink);
+        AnchorElement = document.createElement("a");
+        document.body.appendChild(AnchorElement);
         if(navigator.msSaveOrOpenBlob){
-            console.log("inside navigator");
-            let blob = new Blob(['\ufeff', tableHTML], {type: dataType});
-            navigator.msSaveOrOpenBlob( blob, filename);
+            let file = new Blob(['\ufeff', tableHTML], {type: dataType});
+            
+            navigator.msSaveOrOpenBlob( file, filename);
+            //-----------------OR-----------------------
+            // AnchorElement.href = window.URL.createObjectURL(file);
+            // AnchorElement.download = filename;
+            // AnchorElement.click();
+            // document.body.removeChild(AnchorElement);
         }else{
-            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-            downloadLink.download = filename;
-            downloadLink.click();
+            AnchorElement.href = 'data:' + dataType + ', ' + tableHTML;
+            AnchorElement.download = filename;
+            AnchorElement.click();
+            document.body.removeChild(AnchorElement);
         }
     }
 }
