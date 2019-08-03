@@ -276,7 +276,8 @@ export class DtrLossReportViewComponent implements OnInit {
   }
 
   printClicked(){
-    this.globalResources.printElementById('dtrLossReport');
+    this.globalResources.printElementById('dtrLossReport',{fontSize:"60%", textAlign:"center"});
     // this.globalResources.printByElementId('dtrLossReport');
+    // this.globalResources.exportTableToExcel('dtrLossReport');
   }
 }

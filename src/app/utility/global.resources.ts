@@ -227,17 +227,18 @@ export class GlobalResources {
         }
         return years;
     }
-    
-    downloadFile(fileUrl, params){
-        // Add authentication headers in URL
-        var url = [fileUrl, $.param(params)].join('?');
-        window.location.href = url;
-		// window.open(url);
-    }
-    
-    printElementById(elementId){
-        let w =window.open();
+
+    printElementById(elementId, options?:any){
+        if(options){
+            if(options.fontSize){
+                document.getElementById(elementId).style.fontSize = options.fontSize;
+            }
+            if(options.textAlign){
+                document.getElementById(elementId).style.textAlign = options.textAlign;
+            }
+        }
         let content = document.getElementById(elementId).outerHTML;
+        let w =window.open("","print-screen");
         w.document.write(content);
         w.print();
         w.close();
@@ -254,5 +255,31 @@ export class GlobalResources {
         printSection.innerHTML = "";
         printSection.appendChild(domClone);
         window.print();
+    }
+        
+    downloadFile(fileUrl, params){
+        // Add authentication headers in URL
+        let url = [fileUrl, $.param(params)].join('?');
+        window.location.href = url;
+		// window.open(url);
+    }
+
+    exportTableToExcel(tableID, filename?){
+        let downloadLink;
+        let dataType = 'application/vnd.ms-excel';
+        filename = filename ? filename + '.xls' : 'file.xls';
+        let tableSelect = document.getElementById(tableID);
+        let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+        downloadLink = document.createElement("a");
+        document.body.appendChild(downloadLink);
+        if(navigator.msSaveOrOpenBlob){
+            console.log("inside navigator");
+            let blob = new Blob(['\ufeff', tableHTML], {type: dataType});
+            navigator.msSaveOrOpenBlob( blob, filename);
+        }else{
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+            downloadLink.download = filename;
+            downloadLink.click();
+        }
     }
 }

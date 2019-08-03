@@ -22,6 +22,9 @@
     tfoot {
       display: table-footer-group;
     }
+    a[href]:after {
+      content: none !important;
+    }
     @page { 
       size: A4 landscape !important;
       margin: 2mm 2mm 2mm 2mm;
