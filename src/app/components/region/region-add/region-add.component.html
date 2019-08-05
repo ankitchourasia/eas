@@ -1,3 +1,13 @@
-<p>
-  region-add works!
-</p>
+<div class="form-group row">
+  <label class="col-sm-2 col-form-label">Region</label>
+  <div class="col-sm-6">
+    <input type="text" [ngClass]="{'is-valid': !regionName.errors && (regionName.dirty || regionName.touched),'is-invalid': regionName.errors && (regionName.dirty || regionName.touched)}"
+      class="form-control" [(ngModel)]="region.name" #regionName="ngModel" id="regionName"  name="regionName" required>
+    <div class="invalid-feedback" *ngIf="regionName.errors && (regionName.dirty || regionName.touched)">
+      <div [hidden]="!regionName.errors.required">required field</div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success form-control col-sm-3" [disabled]="regionName.errors || _submitClicked" (click)="submitClicked()">
+    Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
+  </button>
+</div>

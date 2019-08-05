@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ZoneAddComponent } from './zone-add/zone-add.component';
+import { ZoneViewComponent } from './zone-view/zone-view.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [],
+  declarations: [ZoneAddComponent, ZoneViewComponent],
+  exports: [ZoneAddComponent, ZoneViewComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class ZoneComponentModule { }

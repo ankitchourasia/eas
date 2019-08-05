@@ -21,4 +21,24 @@ export class RegionService {
       return this.http.get(this.URL_PREFIX + this.REGION_URL);
     }
   }
+
+  addRegion(region, response){
+    // return this.http.get(this.URL_PREFIX + 'region/');
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.post(this.URL_PREFIX + this.REGION_URL, region, options);
+    }else{
+      return this.http.post(this.URL_PREFIX + this.REGION_URL, region);
+    }
+  }
+
+  updateRegion(region, response){
+    // return this.http.get(this.URL_PREFIX + 'region/');
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.put(this.URL_PREFIX + this.REGION_URL, region, options);
+    }else{
+      return this.http.put(this.URL_PREFIX + this.REGION_URL, region);
+    }
+  }
 }
