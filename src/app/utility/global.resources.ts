@@ -264,28 +264,33 @@ export class GlobalResources {
 		// window.open(url);
     }
 
-    exportTableToExcel(tableID, filename?){
-        let AnchorElement;
+    exportTableToExcel(tableID, fileName?){
         let dataType = 'data:application/vnd.ms-excel';
-        filename = filename ? filename + '.xls' : 'file.xls';
-        let tableSelect = document.getElementById(tableID);
-        let tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-        AnchorElement = document.createElement("a");
-        document.body.appendChild(AnchorElement);
-        if(navigator.msSaveOrOpenBlob){
-            let file = new Blob(['\ufeff', tableHTML], {type: dataType});
-            
-            navigator.msSaveOrOpenBlob( file, filename);
-            //-----------------OR-----------------------
-            // AnchorElement.href = window.URL.createObjectURL(file);
-            // AnchorElement.download = filename;
-            // AnchorElement.click();
-            // document.body.removeChild(AnchorElement);
-        }else{
-            AnchorElement.href = 'data:' + dataType + ', ' + tableHTML;
-            AnchorElement.download = filename;
-            AnchorElement.click();
-            document.body.removeChild(AnchorElement);
-        }
+        fileName = fileName ? fileName : 'file';
+        let htmltable = document.getElementById(tableID);
+        let tableHTML = htmltable.outerHTML;
+        // this.downloadHTML(tableHTML, dataType, fileName, 'xls');
+        this.downloadByBlob(tableHTML, dataType, fileName, 'xls');
+    }
+
+    downloadHTML(htmlContent, dataType, fileName, extention){
+        // let downloadContent = dataType + encodeURIComponent(htmlContent);
+        let downloadContent = 'data:' + dataType + ', ' + htmlContent;
+        let anchorElement = document.createElement("a");
+        document.body.appendChild(anchorElement);
+        anchorElement.download = fileName + "." + extention;
+        anchorElement.href = downloadContent;
+        console.log(anchorElement);
+        anchorElement.click();
+        anchorElement.remove();
+    }
+
+    downloadByBlob(content, dataType, fileName, extention){
+        let file = new Blob(['\ufeff', content], {type: dataType});
+        let anchorElement = document.createElement("a");
+        anchorElement.href = window.URL.createObjectURL(file);
+        anchorElement.download = fileName + "." + extention;
+        anchorElement.click();
+        anchorElement.remove();
     }
 }
