@@ -1,3 +1,120 @@
-<p>
-  circle-view works!
-</p>
+<div class="text-center" *ngIf="loading">
+  <div class='form-group'>
+    <span class="spinner-border mx-sm-3" role="status" aria-hidden="true"></span>
+    <label class="font-weight-bold">Loading...</label>
+  </div>
+</div>
+
+<div *ngIf="circleList && !loading">
+  <fieldset>
+    <div class="table-responsive mb-2">
+      <table class="table table-sm table-bordered text-center">
+        <thead class="bg-dark text-white">
+          <tr>
+            <td>SNo</td>
+            <td>Region Name</td>
+            <!-- <td>Id</td> -->
+            <td>Circle Name</td>
+            <td>Edit</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let circle of pagedCircleList; let i = index">
+            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td>{{circle.region?.name | uppercase}}</td>
+            <!-- <td>{{circle.id}}</td> -->
+            <td>{{circle.name | uppercase}}</td>
+            <td>
+              <a href="javascript:void(0)" (click)="editClicked(circle)" data-toggle="modal" data-target="#updateCircleModal">
+                <span class="fa fa-pencil"></span>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="circleList && circleList.length <= 0">
+            <td colspan="4">No Records Found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+  <div id="pagination" *ngIf="circleList && circleList.length > pageSize" class="eas-flex-center">
+    <nav>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<div class="modal fade"  id="updateCircleModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Edit Circle</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" [disabled]="_updateClicked">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #circleEditForm = "ngForm" id="circleEditForm">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Region Name</label>
+            <div class="col-sm-9">
+              <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+                class="form-control" [(ngModel)]="circleToEdit.region" #region="ngModel" id="region"  name="region" required disabled (change)="!region.errors && regionChanged(circleToEdit.region)">
+                <option disabled selected [ngValue]='undefined'>Select</option>
+                <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+                <div [hidden]="!region.errors.required">required field</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Old Circle Name</label>
+            <div class="col-sm-9">
+              <input type="text" [ngClass]="{'is-valid': !oldcircle.errors && (oldcircle.dirty || oldcircle.touched),'is-invalid': oldcircle.errors && (oldcircle.dirty || oldcircle.touched)}"
+                class="form-control" [(ngModel)]="circleToEdit.oldName" #oldcircle="ngModel" id="oldcircle"  name="oldcircle" required disabled>
+              <div class="invalid-feedback" *ngIf="oldcircle.errors && (oldcircle.dirty || oldcircle.touched)">
+                <div [hidden]="!oldcircle.errors.required">required field</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">New Circle Name</label>
+            <div class="col-sm-9">
+              <input type="text" [ngClass]="{'is-valid': !newCircle.errors && (newCircle.dirty || newCircle.touched),'is-invalid': newCircle.errors && (newCircle.dirty || newCircle.touched)}"
+                class="form-control" [(ngModel)]="circleToEdit.name" #newCircle="ngModel" id="newCircle"  name="newCircle" required>
+              <div class="invalid-feedback" *ngIf="newCircle.errors && (newCircle.dirty || newCircle.touched)">
+                <div [hidden]="!newCircle.errors.required">required field</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-4 offset-3">
+              <button type="button" class="btn btn-success form-control" (click)=updateClicked(updateCircleModal) [disabled]="!circleEditForm.form.valid || _updateClicked">
+                Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
+              </button>
+            </div>
+            <div class="col-4 offset-1">
+              <button type="reset" class="btn btn-danger form-control" data-dismiss="modal" [disabled]="_updateClicked">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

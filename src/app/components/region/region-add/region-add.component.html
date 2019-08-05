@@ -2,7 +2,7 @@
   <label class="col-sm-2 col-form-label">Region</label>
   <div class="col-sm-6">
     <input type="text" [ngClass]="{'is-valid': !regionName.errors && (regionName.dirty || regionName.touched),'is-invalid': regionName.errors && (regionName.dirty || regionName.touched)}"
-      class="form-control" [(ngModel)]="region.name" #regionName="ngModel" id="regionName"  name="regionName" required>
+      class="form-control" [(ngModel)]="formData.name" #regionName="ngModel" id="regionName"  name="regionName" required>
     <div class="invalid-feedback" *ngIf="regionName.errors && (regionName.dirty || regionName.touched)">
       <div [hidden]="!regionName.errors.required">required field</div>
     </div>

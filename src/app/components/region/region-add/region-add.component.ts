@@ -9,18 +9,19 @@ import { GlobalResources } from 'app/utility/global.resources';
 })
 export class RegionAddComponent implements OnInit {
 
-  region: any;
+  formData: any;
   _submitClicked: boolean;
   constructor(private regionService: RegionService, public globalResources: GlobalResources) { }
 
   ngOnInit() {
-    this.region = {};
+    this.formData = {};
   }
 
   submitClicked(){
     this._submitClicked = true;
-    this.regionService.addRegion(this.region, true).subscribe(
+    this.regionService.addRegion(this.formData, true).subscribe(
       successResponse =>{
+        this.formData = {};
         this._submitClicked = false;
         console.log(successResponse);
         this.globalResources.successAlert("Region add successfully !!!");

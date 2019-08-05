@@ -1,3 +1,35 @@
-<p>
-  circle-add works!
-</p>
+<form #circleAddForm = "ngForm" id="circleAddForm">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Region Name</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+        class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(formData.region)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+        <div [hidden]="!region.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Circle Name</label>
+    <div class="col-sm-9">
+      <input type="text" [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
+        class="form-control" [(ngModel)]="formData.name" #circle="ngModel" id="circle"  name="circle" required>
+      <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
+        <div [hidden]="!circle.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-4 offset-3">
+      <button type="button" class="btn btn-success form-control" (click)=submitClicked(circleAddForm) [disabled]="!circleAddForm.form.valid || _submitClicked">
+        Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
+      </button>
+    </div>
+    <div class="col-4 offset-1">
+      <button type="button" class="btn btn-danger form-control" (click)="resetClicked(circleAddForm)" [disabled]="_submitClicked">Reset</button>
+    </div>
+  </div>
+</form>

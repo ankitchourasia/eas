@@ -99,46 +99,4 @@
     </div>
   </div>
 </div>
-<!-- <div class="modal" id="updateRegionModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title">Edit Region</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form #updateRegionForm="ngForm" autocomplete="off">
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Old Name</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" [value]="regionToEdit.oldName" id="oldRegionName"  name="oldRegionName" disabled>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">New Name</label>
-            <div class="col-sm-9">
-              <input type="text" [ngClass]="{'is-valid': !newRegionName.errors && (newRegionName.dirty || newRegionName.touched),'is-invalid': newRegionName.errors && (newRegionName.dirty || newRegionName.touched)}"
-                class="form-control" [(ngModel)]="regionToEdit.name" #newRegionName="ngModel" id="newRegionName"  name="newRegionName" required>
-              <div class="invalid-feedback" *ngIf="newRegionName.errors && (newRegionName.dirty || newRegionName.touched)">
-                <div *ngIf="newRegionName.errors.required">required field</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-4 offset-3">
-              <button type="button" class="btn btn-success form-control" (click)=updateregion(updateRegionForm)>
-                Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
-              </button>
-            </div>
-            <div class="col-4 offset-1">
-              <button type="button" class="btn btn-danger form-control" data-dismiss="modal" (click)="closeModal()">Cancel</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="backdrop" [ngStyle]="{'display':display}"></div>

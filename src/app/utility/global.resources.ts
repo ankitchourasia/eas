@@ -228,6 +228,15 @@ export class GlobalResources {
         return years;
     }
 
+    closeModal(modalId){
+        let modal = '#'+modalId;
+        $(modal).modal('hide');
+    }
+
+    opanModal(modalId){
+        $('#'+ modalId).modal('show');
+    }
+    
     printElementById(elementId, options?:any){
         if(options){
             if(options.fontSize){

@@ -49,7 +49,7 @@ export class RegionViewComponent implements OnInit {
   updateregion(updateregionForm){
     if(this.globalResources.validateForm(updateregionForm)){
       this._updateClicked = true;
-      this.regionService.updateRegion(this.regionToEdit, this.user.username).subscribe(successResposne =>{
+      this.regionService.updateRegion(this.regionToEdit, false).subscribe(successResposne =>{
         this._updateClicked = false;
         this.closeModal();
         let alertResponse = this.globalResources.successAlert("region updated successfully");
