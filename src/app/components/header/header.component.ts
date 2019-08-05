@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    console.log(this.user);
   }
 
   titleClicked(){

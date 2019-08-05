@@ -14,6 +14,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'super_admin',
+    loadChildren: 'app/modules/super-admin/super-admin.module#SuperAdminModule'
+  },
+  {
     path: 'admin',
     loadChildren: 'app/modules/admin/admin.module#AdminModule'
   },
