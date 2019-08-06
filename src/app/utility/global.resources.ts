@@ -251,6 +251,24 @@ export class GlobalResources {
         w.document.write(content);
         w.print();
         w.close();
+        // let content = document.getElementById(elementId);
+        // let doc = document.implementation.createHTMLDocument("New Document");
+        // let element = doc.createElement("table");
+        // element.id = elementId;
+        // element.innerHTML = content.outerHTML;
+        // doc.body.appendChild(element);
+        // if(options){
+        //     if(options.fontSize){
+        //         doc.getElementById(elementId).style.fontSize = options.fontSize;
+        //     }
+        //     if(options.textAlign){
+        //         doc.getElementById(elementId).style.textAlign = options.textAlign;
+        //     }
+        // }
+        // let w =window.open("","print-screen");
+        // w.document.write(element.outerHTML);
+        // w.print();
+        // w.close();
     }
 
     printByElementId(elementId) {
