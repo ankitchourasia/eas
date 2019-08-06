@@ -73,24 +73,13 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Region Name</label>
             <div class="col-sm-9">
-              <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
-                class="form-control" [(ngModel)]="circleToEdit.region" #region="ngModel" id="region"  name="region" required disabled (change)="!region.errors && regionChanged(circleToEdit.region)">
-                <option disabled selected [ngValue]='undefined'>Select</option>
-                <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
-              </select>
-              <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
-                <div [hidden]="!region.errors.required">required field</div>
-              </div>
+              <input class="form-control" [value]="circleToEdit.region?.name | uppercase"  id="region"  name="region" required disabled>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Old Circle Name</label>
             <div class="col-sm-9">
-              <input type="text" [ngClass]="{'is-valid': !oldcircle.errors && (oldcircle.dirty || oldcircle.touched),'is-invalid': oldcircle.errors && (oldcircle.dirty || oldcircle.touched)}"
-                class="form-control" [(ngModel)]="circleToEdit.oldName" #oldcircle="ngModel" id="oldcircle"  name="oldcircle" required disabled>
-              <div class="invalid-feedback" *ngIf="oldcircle.errors && (oldcircle.dirty || oldcircle.touched)">
-                <div [hidden]="!oldcircle.errors.required">required field</div>
-              </div>
+              <input type="text" class="form-control" [value]="circleToEdit.oldName | uppercase" id="oldcircle"  name="oldcircle" required disabled>
             </div>
           </div>
           <div class="form-group row">

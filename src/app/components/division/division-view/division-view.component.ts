@@ -21,7 +21,7 @@ export class DivisionViewComponent implements OnInit {
   divisionToEdit: any = {};
   pagedDivisionList: any;
   constructor(private globalResources : GlobalResources, private paginationService : PaginationService,
-    private regionService : RegionService, private circleService: CircleService, private divisionService: DivisionService) { }
+    private divisionService: DivisionService) { }
 
   ngOnInit() {
     this.getPartialData();
@@ -49,26 +49,16 @@ export class DivisionViewComponent implements OnInit {
     this.divisionToEdit = Object.assign({}, circle);
     console.log(this.divisionToEdit);
     this.divisionToEdit.oldName = circle.name;
-    this.getRegionList();
-  }
-
-  getRegionList(){
-    this.regionService.getRegions(false).subscribe(successResponse =>{
-      this.regionList = successResponse;
-      this.divisionToEdit.region = this.regionList.find(region => region.id === this.divisionToEdit.regionId);
-    }, errorResponse =>{
-      console.log(errorResponse);
-    });
   }
 
   _updateClicked: boolean;
-  updateClicked(updateCircleModalId){
+  updateClicked(updateDivisionModal){
     this._updateClicked = true;
-    this.circleService.updateCircle(this.divisionToEdit, false).subscribe(successResposne =>{
+    this.divisionService.updateDivision(this.divisionToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       console.log(successResposne);
-      // this.globalResources.closeModal(updateCircleModalId);
-      let alertResponse = this.globalResources.successAlert("Circle updated successfully");
+      // this.globalResources.closeModal(updateDivisionModal);
+      let alertResponse = this.globalResources.successAlert("Division updated successfully");
       alertResponse.then(result =>{
         console.log("alert result", result);
         this.getDivisionList();

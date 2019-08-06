@@ -71,7 +71,7 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Old Name</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [value]="regionToEdit.oldName" id="oldRegionName"  name="oldRegionName" disabled>
+              <input type="text" class="form-control" [value]="regionToEdit.oldName | uppercase" id="oldRegionName"  name="oldRegionName" disabled>
             </div>
           </div>
           <div class="form-group row">

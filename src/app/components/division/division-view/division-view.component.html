@@ -25,7 +25,7 @@
             <td>{{division.circle?.name | uppercase}}</td>
             <td>{{division.name | uppercase}}</td>
             <td>
-              <a href="javascript:void(0)" (click)="editClicked(division)" data-toggle="modal" data-target="#updateCircleModal">
+              <a href="javascript:void(0)" (click)="editClicked(division)" data-toggle="modal" data-target="#updateDivisionModal">
                 <span class="fa fa-pencil"></span>
               </a>
             </td>
@@ -59,53 +59,48 @@
     </nav>
   </div>
 </div>
-<div class="modal fade"  id="updateCircleModal" tabindex="-1" role="dialog">
+<div class="modal fade"  id="updateDivisionModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header bg-dark text-white">
-        <h5 class="modal-title">Edit Circle</h5>
+        <h5 class="modal-title">Edit Division</h5>
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" [disabled]="_updateClicked">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #circleEditForm = "ngForm" id="circleEditForm">
+        <form #divisionEditForm = "ngForm" id="divisionEditForm">
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Region Name</label>
             <div class="col-sm-9">
-              <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
-                class="form-control" [(ngModel)]="divisionToEdit.region" #region="ngModel" id="region"  name="region" required disabled (change)="!region.errors && regionChanged(divisionToEdit.region)">
-                <option disabled selected [ngValue]='undefined'>Select</option>
-                <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
-              </select>
-              <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
-                <div [hidden]="!region.errors.required">required field</div>
-              </div>
+              <input type="text" class="form-control" [value]="divisionToEdit.circle?.region?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Old Circle Name</label>
+            <label class="col-sm-3 col-form-label">Circle Name</label>
             <div class="col-sm-9">
-              <input type="text" [ngClass]="{'is-valid': !oldcircle.errors && (oldcircle.dirty || oldcircle.touched),'is-invalid': oldcircle.errors && (oldcircle.dirty || oldcircle.touched)}"
-                class="form-control" [(ngModel)]="divisionToEdit.oldName" #oldcircle="ngModel" id="oldcircle"  name="oldcircle" required disabled>
-              <div class="invalid-feedback" *ngIf="oldcircle.errors && (oldcircle.dirty || oldcircle.touched)">
-                <div [hidden]="!oldcircle.errors.required">required field</div>
-              </div>
+              <input type="text" class="form-control" [value]="divisionToEdit.circle?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">New Circle Name</label>
+            <label class="col-sm-3 col-form-label">Old Division Name</label>
             <div class="col-sm-9">
-              <input type="text" [ngClass]="{'is-valid': !newCircle.errors && (newCircle.dirty || newCircle.touched),'is-invalid': newCircle.errors && (newCircle.dirty || newCircle.touched)}"
-                class="form-control" [(ngModel)]="divisionToEdit.name" #newCircle="ngModel" id="newCircle"  name="newCircle" required>
-              <div class="invalid-feedback" *ngIf="newCircle.errors && (newCircle.dirty || newCircle.touched)">
-                <div [hidden]="!newCircle.errors.required">required field</div>
+              <input type="text" class="form-control" [value]="divisionToEdit.oldName | uppercase" id="oldDivision"  name="oldDivision" required disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">New Division Name</label>
+            <div class="col-sm-9">
+              <input type="text" [ngClass]="{'is-valid': !newDivision.errors && (newDivision.dirty || newDivision.touched),'is-invalid': newDivision.errors && (newDivision.dirty || newDivision.touched)}"
+                class="form-control" [(ngModel)]="divisionToEdit.name" #newDivision="ngModel" id="newDivision"  name="newDivision" required>
+              <div class="invalid-feedback" *ngIf="newDivision.errors && (newDivision.dirty || newDivision.touched)">
+                <div [hidden]="!newDivision.errors.required">required field</div>
               </div>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-4 offset-3">
-              <button type="button" class="btn btn-success form-control" (click)=updateClicked(updateCircleModal) [disabled]="!circleEditForm.form.valid || _updateClicked">
+              <button type="button" class="btn btn-success form-control" (click)=updateClicked(updateDivisionModal) [disabled]="!divisionEditForm.form.valid || _updateClicked">
                 Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
               </button>
             </div>

@@ -20,7 +20,7 @@ export class CircleViewComponent implements OnInit {
   circleToEdit: any = {};
   pagedCircleList: any;
   constructor(private globalResources : GlobalResources, private paginationService : PaginationService,
-    private regionService : RegionService, private circleService: CircleService) { }
+    private circleService: CircleService) { }
 
   ngOnInit() {
     this.getPartialData();
@@ -49,16 +49,6 @@ export class CircleViewComponent implements OnInit {
     this.circleToEdit = Object.assign({}, circle);
     console.log(this.circleToEdit);
     this.circleToEdit.oldName = circle.name;
-    this.getRegionList();
-  }
-
-  getRegionList(){
-    this.regionService.getRegions(false).subscribe(successResponse =>{
-      this.regionList = successResponse;
-      this.circleToEdit.region = this.regionList.find(region => region.id === this.circleToEdit.regionId);
-    }, errorResponse =>{
-      console.log(errorResponse);
-    });
   }
 
   _updateClicked: boolean;

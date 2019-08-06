@@ -26,4 +26,31 @@ export class ZoneService {
     }
   }
 
+  getZones(response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + this.ZONE_URL,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + this.ZONE_URL);
+    }
+  }
+
+  addZone(zone, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.post(this.URL_PREFIX + this.ZONE_URL, zone,  options);
+    }else{
+      return this.http.post(this.URL_PREFIX + this.ZONE_URL, zone);
+    }
+  }
+
+  updateZone(zone, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.put(this.URL_PREFIX + this.ZONE_URL, zone,  options);
+    }else{
+      return this.http.put(this.URL_PREFIX + this.ZONE_URL, zone);
+    }
+  }
+
 }
