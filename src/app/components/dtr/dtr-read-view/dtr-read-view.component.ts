@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { GlobalResources } from 'app/utility/global.resources';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
@@ -21,7 +21,6 @@ export class DtrReadViewComponent implements OnInit {
   pager: any;
   pageSize: number;
   pagedDtrReadingList : any;
-  @ViewChild('modalCloseButtonRef') modalCloseButtonRef: ElementRef;
   constructor(public globalConstants: GlobalConstants, public globalResources: GlobalResources,
     private dtrService : DtrService, private paginationService : PaginationService) { }
 
@@ -129,33 +128,31 @@ export class DtrReadViewComponent implements OnInit {
     dtrReadingToEdit.totalConsumption = Number.parseFloat(this.dtrReadingToEdit.totalConsumption);
   }
 
-  updateButtonClicked: boolean;
-  updateClicked(dtrReadingUpdateForm){
+  _updateClicked: boolean;
+  updateClicked(dtrReadingUpdateForm, modalCloseButtonRef){
     if(this.globalResources.validateForm(dtrReadingUpdateForm)){
-      this.updateButtonClicked = true;
+      this._updateClicked = true;
       this.readingConvertStringToNumber(this.dtrReadingToEdit);
       this.calculateDifference();
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       console.log(this.dtrReadingToEdit);
-      this.updateDTRRead(dtrReadingUpdateForm);
+      this.updateDTRRead(dtrReadingUpdateForm, modalCloseButtonRef);
     }
   }
 
-  updateDTRRead(dtrReadingUpdateForm){
-    this.updateButtonClicked = true;
+  updateDTRRead(dtrReadingUpdateForm, modalCloseButtonRef){
+    this._updateClicked = true;
     let nextBillMonth = this.globalResources.getNextBillMonth(this.dtrReadingToEdit.billMonth);
-    console.log(this.dtrReadingToEdit, nextBillMonth, this.user.username);
-    this.updateButtonClicked = false;
     this.dtrService.updateDTRRead(this.dtrReadingToEdit, nextBillMonth, this.user.username).subscribe(successResponese =>{
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read updated successfully");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(dtrReadingUpdateForm);
-        this.closeModal(this.modalCloseButtonRef);
+        this.closeModal(modalCloseButtonRef);
       });
     }, errorResponse =>{
       console.log(errorResponse);
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       alertResponse.then(result =>{
         console.log("alert result", result);
@@ -163,8 +160,8 @@ export class DtrReadViewComponent implements OnInit {
     });
   }
   
-  closeModal(modalCloseButtonRef: ElementRef){
-    modalCloseButtonRef.nativeElement.click();
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 
   dtrUpdateModalCancel(dtrUpdateForm){

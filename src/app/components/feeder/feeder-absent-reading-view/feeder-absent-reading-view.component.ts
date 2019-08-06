@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { GlobalResources } from 'app/utility/global.resources';
@@ -24,7 +24,6 @@ export class FeederAbsentReadingViewComponent implements OnInit {
   pager: any;
   pageSize: number;
   
-  @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private feederService : FeederService, public globalConstants : GlobalConstants,
     private globalResources : GlobalResources, private paginationService : PaginationService) { }
 

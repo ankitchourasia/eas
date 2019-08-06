@@ -17,8 +17,8 @@ export class RegionViewComponent implements OnInit {
   regionList: any;
   regionToEdit: any = {};
   pagedRegionList: any;
-  display: any = 'none';
-  constructor(private regionService : RegionService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
+  constructor(private regionService : RegionService, private globalResources : GlobalResources,
+    private paginationService : PaginationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -42,19 +42,16 @@ export class RegionViewComponent implements OnInit {
   editClicked(region){
     this.regionToEdit = Object.assign({}, region);
     this.regionToEdit.oldName = region.name;
-    this.openModal();
   }
 
   _updateClicked: boolean;
-  updateregion(updateregionForm){
-    if(this.globalResources.validateForm(updateregionForm)){
-      this._updateClicked = true;
+  updateClicked(modalCloseButtonRef){
+    this._updateClicked = true;
       this.regionService.updateRegion(this.regionToEdit, false).subscribe(successResposne =>{
         this._updateClicked = false;
-        this.closeModal();
         let alertResponse = this.globalResources.successAlert("region updated successfully");
         alertResponse.then(result =>{
-          console.log("alert result", result);
+          this.closeModal(modalCloseButtonRef);
           this.getRegionList();
         });
       }, errorResponse =>{
@@ -65,7 +62,6 @@ export class RegionViewComponent implements OnInit {
           console.log("alert result", result);
         });
       })
-    }
   }
 
   initializePaginationVariables(){
@@ -80,13 +76,8 @@ export class RegionViewComponent implements OnInit {
     this.pager = this.paginationService.getPager(this.regionList.length, page, this.pageSize);
     this.pagedRegionList = this.regionList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-  
 
-  openModal(){
-    this.display = 'block';
-  }
-
-  closeModal(){
-    this.display = 'none';
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 }

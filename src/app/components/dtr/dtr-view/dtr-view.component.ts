@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalResources } from 'app/utility/global.resources';
 import { GlobalConstants } from 'app/utility/global.constants';
@@ -23,7 +23,6 @@ export class DtrViewComponent implements OnInit {
   pageSize: number;
   pagedDTRs : any;
   loading : boolean;
-  @ViewChild('modalCloseButtonRef') modalCloseButtonRef: ElementRef;
   
   constructor(private dtrService : DtrService, private feederService : FeederService,  private substationService : SubstationService, 
     public globalConstants : GlobalConstants, private globalResources : GlobalResources, private paginationService : PaginationService) { }
@@ -85,13 +84,13 @@ export class DtrViewComponent implements OnInit {
     });
   }
 
-  editButtonClicked: boolean;
+  _editClicked: boolean;
   editClicked(dtr){
     this.dtrToEdit = Object.assign({}, dtr);
     this.dtrToEdit.srDate = this.globalResources.getDateFromDatetimestamp(this.dtrToEdit.srDate);
     this.getSubstationByZoneId(this.dtrToEdit.zoneId);
     this.getFeederBySubstationId(this.dtrToEdit.substationId);
-    this.editButtonClicked = true;
+    this._editClicked = true;
   }
 
   zoneChanged(){
@@ -127,23 +126,23 @@ export class DtrViewComponent implements OnInit {
     this.dtrToEdit.srDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.dtrToEdit.srDate);
   }
   
-  updateButtonClicked: boolean;
-  updateDTR(updateDTRForm){
+  _updateClicked: boolean;
+  updateClicked(updateDTRForm, modalCloseButtonRef){
     if(this.globalResources.validateForm(updateDTRForm)){
-      this.updateButtonClicked = true;
+      this._updateClicked = true;
       this.dtrService.updateDTR(this.dtrToEdit, this.user.username).subscribe(successResponese =>{
-        this.updateButtonClicked = false;
+        this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("DTR updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
-          this.closeModal(this.modalCloseButtonRef);
-          this.editButtonClicked = false;
+          this.closeModal(modalCloseButtonRef);
+          this._editClicked = false;
           this.getDTRByDivisionId(this.user.division.id);
           this.dtrToEdit = null;
         });
       }, errorResponse =>{
         console.log(errorResponse);
-        this.updateButtonClicked = false;
+        this._updateClicked = false;
         let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -165,12 +164,12 @@ export class DtrViewComponent implements OnInit {
     this.pagedDTRs = this.dtrs.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef: ElementRef){
-    modalCloseButtonRef.nativeElement.click();
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 
   dtrUpdateModalCancel(dtrUpdateForm){
-    this.editButtonClicked = false;
+    this._editClicked = false;
     this.globalResources.resetValidateForm(dtrUpdateForm);
   }
 

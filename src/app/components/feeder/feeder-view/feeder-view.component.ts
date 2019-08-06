@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
@@ -22,7 +21,6 @@ export class FeederViewComponent implements OnInit {
   pageSize: number;
   pagedFeeders : any;
   loading : boolean;
-  @ViewChild('modalCloseButtonRef') modalCloseButtonRef: ElementRef;
   
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
     private dtrService : DtrService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
@@ -104,22 +102,22 @@ export class FeederViewComponent implements OnInit {
     });
   }
   
-  updateButtonClicked: boolean;
-  updateFeeder(updateFeederForm){
+  _updateClicked: boolean;
+  updateClicked(updateFeederForm, modalCloseButtonRef){
     if(this.globalResources.validateForm(updateFeederForm)){
-      this.updateButtonClicked = true;
+      this._updateClicked = true;
       this.feederService.updateFeeder(this.feederToEdit, this.user.username).subscribe(successResponese =>{
-        this.updateButtonClicked = false;
+        this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
-          this.closeModal(this.modalCloseButtonRef);
+          this.closeModal(modalCloseButtonRef);
           this.getFeeders();
           this.feederToEdit = null;
         });
       }, errorResponse =>{
         console.log(errorResponse);
-        this.updateButtonClicked = false;
+        this._updateClicked = false;
         let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -141,7 +139,7 @@ export class FeederViewComponent implements OnInit {
     this.pagedFeeders = this.feeders.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef: ElementRef){
-    modalCloseButtonRef.nativeElement.click();
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 }

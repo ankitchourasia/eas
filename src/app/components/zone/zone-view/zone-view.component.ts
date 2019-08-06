@@ -51,15 +51,14 @@ export class ZoneViewComponent implements OnInit {
   }
 
   _updateClicked: boolean;
-  updateClicked(updateZoneModal){
+  updateClicked(modalCloseButtonRef){
     this._updateClicked = true;
     this.zoneService.updateZone(this.zoneToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       console.log(successResposne);
-      // this.globalResources.closeModal(updateZoneModal);
       let alertResponse = this.globalResources.successAlert("Zone updated successfully");
       alertResponse.then(result =>{
-        console.log("alert result", result);
+        this.closeModal(modalCloseButtonRef);
         this.getZoneList();
       });
     }, errorResponse =>{
@@ -84,13 +83,8 @@ export class ZoneViewComponent implements OnInit {
     this.pager = this.paginationService.getPager(this.zoneList.length, page, this.pageSize);
     this.pagedZoneList = this.zoneList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-  
 
-  openModal(){
-    // this.display = 'block';
-  }
-
-  closeModal(){
-    // this.display = 'none';
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 }

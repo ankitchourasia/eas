@@ -95,7 +95,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <fieldset [disabled]="updateButtonClicked">
+          <fieldset [disabled]="_updateClicked">
             <form #feederUpdateForm="ngForm" autocomplete="off">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Region</label>
@@ -263,8 +263,8 @@
               </div>
               <div class="form-group row">
                 <div class="col-4 offset-3">
-                  <button type="button" class="btn btn-success form-control" (click)=updateFeeder(feederUpdateForm)>
-                    Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span>
+                  <button type="button" class="btn btn-success form-control" (click)="updateClicked(feederUpdateForm, modalCloseButtonRef)">
+                    Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
                   </button>
                 </div>
                 <div class="col-4 offset-1">

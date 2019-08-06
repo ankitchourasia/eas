@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
 
@@ -20,7 +19,6 @@ export class SubstationViewComponent implements OnInit {
   pager: any ;
   pageSize: number;
   loading : boolean;
-  @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private substationService : SubstationService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
 
   ngOnInit() {
@@ -83,7 +81,7 @@ export class SubstationViewComponent implements OnInit {
   }
 
   updateButtonClicked: boolean;
-  updateSubstation(updateSubstationForm){
+  updateSubstation(updateSubstationForm, modalCloseButtonRef){
     if(this.globalResources.validateForm(updateSubstationForm)){
       this.updateButtonClicked = true;
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
@@ -91,7 +89,7 @@ export class SubstationViewComponent implements OnInit {
         let alertResponse = this.globalResources.successAlert("Substation updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
-          this.closeModal(this.closeButtonRef);
+          this.closeModal(modalCloseButtonRef);
           this.getSubstations();
         });
       }, error =>{
@@ -123,8 +121,8 @@ export class SubstationViewComponent implements OnInit {
     this.pagedSubstations = this.substations.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(closeButtonRef: ElementRef){
-    closeButtonRef.nativeElement.click();
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 
 }

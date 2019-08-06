@@ -91,7 +91,7 @@
       </ul>
     </nav>
   </div>
-  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDTRModal" tabindex="-1" role="dialog" *ngIf="editButtonClicked">
+  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDTRModal" tabindex="-1" role="dialog" *ngIf="_editClicked">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-dark text-white">
@@ -101,7 +101,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <fieldset [disabled]="updateButtonClicked">
+          <fieldset [disabled]="_updateClicked">
             <form #dtrUpdateForm="ngForm" autocomplete="off">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Region</label>
@@ -299,8 +299,8 @@
               </div>
               <div class="form-group row">
                 <div class="col-4 offset-3">
-                  <button type="button" class="btn btn-success form-control" (click)=updateDTR(dtrUpdateForm)>
-                    Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span>
+                  <button type="button" class="btn btn-success form-control" (click)="updateClicked(dtrUpdateForm, modalCloseButtonRef)">
+                    Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
                   </button>
                 </div>
                 <div class="col-4 offset-1">

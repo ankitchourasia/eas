@@ -57,12 +57,12 @@
     </nav>
   </div>
 </div>
-<div class="modal"  id="updateRegionModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+<div class="modal"  id="updateRegionModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header bg-dark text-white">
         <h5 class="modal-title">Edit Region</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -86,12 +86,12 @@
           </div>
           <div class="form-group row">
             <div class="col-4 offset-3">
-              <button type="button" class="btn btn-success form-control" (click)=updateregion(updateRegionForm)>
+              <button type="button" class="btn btn-success form-control" (click)=updateClicked(modalCloseButtonRef) [disabled]="!updateRegionForm.form.valid || _updateClicked">
                 Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
               </button>
             </div>
             <div class="col-4 offset-1">
-              <button type="button" class="btn btn-danger form-control" data-dismiss="modal" (click)="closeModal()">Cancel</button>
+              <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef [disabled]="_updateClicked">Cancel</button>
             </div>
           </div>
         </form>
@@ -99,4 +99,3 @@
     </div>
   </div>
 </div>
-<div class="backdrop" [ngStyle]="{'display':display}"></div>

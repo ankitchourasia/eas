@@ -52,15 +52,14 @@ export class DivisionViewComponent implements OnInit {
   }
 
   _updateClicked: boolean;
-  updateClicked(updateDivisionModal){
+  updateClicked(modalCloseButtonRef){
     this._updateClicked = true;
     this.divisionService.updateDivision(this.divisionToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       console.log(successResposne);
-      // this.globalResources.closeModal(updateDivisionModal);
       let alertResponse = this.globalResources.successAlert("Division updated successfully");
       alertResponse.then(result =>{
-        console.log("alert result", result);
+        this.closeModal(modalCloseButtonRef);
         this.getDivisionList();
       });
     }, errorResponse =>{
@@ -86,12 +85,7 @@ export class DivisionViewComponent implements OnInit {
     this.pagedDivisionList = this.divisionList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-
-  openModal(){
-    // this.display = 'block';
-  }
-
-  closeModal(){
-    // this.display = 'none';
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 }
