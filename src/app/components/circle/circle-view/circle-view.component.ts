@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { RegionService } from '@eas-services/region-service/region.service';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
+import $ from 'jQuery';
 
 @Component({
   selector: 'eas-circle-view',
@@ -52,15 +52,14 @@ export class CircleViewComponent implements OnInit {
   }
 
   _updateClicked: boolean;
-  updateClicked(updateCircleModalId){
+  updateClicked(modalCloseButtonRef){
     this._updateClicked = true;
     this.circleService.updateCircle(this.circleToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       console.log(successResposne);
-      // this.globalResources.closeModal(updateCircleModalId);
       let alertResponse = this.globalResources.successAlert("Circle updated successfully");
       alertResponse.then(result =>{
-        console.log("alert result", result);
+        this.closeModal(modalCloseButtonRef);
         this.getCircleList();
       });
     }, errorResponse =>{
@@ -85,13 +84,8 @@ export class CircleViewComponent implements OnInit {
     this.pager = this.paginationService.getPager(this.circleList.length, page, this.pageSize);
     this.pagedCircleList = this.circleList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-  
 
-  openModal(){
-    // this.display = 'block';
-  }
-
-  closeModal(){
-    // this.display = 'none';
+  closeModal(modalCloseButtonRef){
+    modalCloseButtonRef.click();
   }
 }
