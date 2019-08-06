@@ -40,6 +40,7 @@ import { AdminReportD4Component } from './admin-report/admin-report-d4/admin-rep
 import { AdminReportD5Component } from './admin-report/admin-report-d5/admin-report-d5.component';
 import { AdminReportD6Component } from './admin-report/admin-report-d6/admin-report-d6.component';
 import { AdminReportD7Component } from './admin-report/admin-report-d7/admin-report-d7.component';
+import { AdminFeederInterruptionAddComponent } from './admin-feeder/admin-feeder-interruption-add/admin-feeder-interruption-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -92,6 +93,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/atnc/loss/report',component: AdminFeederAtncLossReportComponent
+          },
+          {
+            path: 'feeder/interruption/add',component: AdminFeederInterruptionAddComponent
           },
           {
             path: 'export-point/add',component: AdminExportPointAddComponent

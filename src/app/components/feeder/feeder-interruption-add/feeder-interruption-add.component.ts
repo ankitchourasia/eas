@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { DtrService } from '@eas-services/dtr-service/dtr.service';
+import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
 import { GlobalConstants } from 'app/utility/global.constants';
 import { FeederService } from '@eas-services/feeder/feeder.service';
@@ -8,22 +7,14 @@ import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
-  selector: 'eas-dtr-loss-report-view',
-  templateUrl: './dtr-loss-report-view.component.html',
-  styleUrls: ['./dtr-loss-report-view.component.css']
+  selector: 'eas-feeder-interruption-add',
+  templateUrl: './feeder-interruption-add.component.html',
+  styleUrls: ['./feeder-interruption-add.component.css']
 })
-export class DtrLossReportViewComponent implements OnInit {
+export class FeederInterruptionAddComponent implements OnInit {
 
-  formData: any = {};
-  dtrLossReports: any;
-  grossLoss: any = 0;
-  grossInput: number = 0;
-  grossConsumer: number = 0;
-  grossConsumption: number = 0;
-  grossAssessment: number = 0;
   regionList: any;
   circleList: any;
   divisionList: any;
@@ -31,31 +22,18 @@ export class DtrLossReportViewComponent implements OnInit {
   substationList: any;
   feederList: any;
   user: any;
-
-  @Input("feeder")
-  set setFeeder(feeder : any){
-    this.formData.selectedFeeder = feeder;
-    this.formData.feeder = this.formData.selectedFeeder;
-    this.searchClicked();
-  }
-
-  @Input("billingMonth")
-  set setBillingMonth(billingMonth : any){
-    this.formData.selectedBillingMonth = billingMonth;
-    this.formData.billingMonth = this.formData.selectedBillingMonth;
-    this.searchClicked();
-  }
-  
+  formData: any;
+  _submitClicked: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService,
-    private regionService: RegionService, private circleService: CircleService, private divisionService: DivisionService, 
-    private zoneService: ZoneService) { }
+    private zoneService: ZoneService,private feederService : FeederService, private substationService: SubstationService,
+    private regionService: RegionService, private circleService: CircleService, private divisionService: DivisionService) { }
 
   ngOnInit() {
     this.setPartialData();
   }
 
   setPartialData(){
+    this.formData = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
@@ -195,90 +173,52 @@ export class DtrLossReportViewComponent implements OnInit {
   }
 
   billMonthChanged(){
-    if(this.formData.billMonth && this.formData.billMonthYear){
-      this.formData.billingMonth = this.formData.billMonth + "-" + this.formData.billMonthYear;
+    if(this.formData.month && this.formData.year){
+      this.formData.billMonth = this.formData.month + "-" + this.formData.year;
     }
   }
 
   billMonthYearChanged(){
-    if(this.formData.billMonth && this.formData.billMonthYear){
-      this.formData.billingMonth = this.formData.billMonth + "-" + this.formData.billMonthYear;
+    if(this.formData.month && this.formData.year){
+      this.formData.billMonth = this.formData.month + "-" + this.formData.year;
     }
   }
 
-  _searchClicked: boolean;
-  searchClicked(){
-    if(this.formData.feeder && this.formData.feeder.id && this.formData.billingMonth){
-      this.viewDtrLossReportByFeederIdAndBillMonth(this.formData.feeder.id, this.formData.billingMonth);
-    }else{
-      console.log("feeder/billingMonth missing");
+  minutesChanged(){
+    if(this.formData.minutes !== null && this.formData.minutes !== undefined && this.formData.seconds !== null && this.formData.seconds !== undefined){
+      this.formData.interruptionDuration = (this.formData.minutes * 60) + this.formData.seconds;
     }
   }
 
-  errorMessage :string;
-  viewDtrLossReportByFeederIdAndBillMonth(feederId, billingMonth){
-    this._searchClicked = true;
-    this.dtrLossReports = null;
-    this.errorMessage = null;
-    this.dtrService.getDTRLossReportByFeederIdAndBillMonth(feederId, billingMonth, false).subscribe(
-    successResponse =>{
-      this._searchClicked = false;
-      this.dtrLossReports = <any>successResponse;
-      if(this.dtrLossReports && this.dtrLossReports.length){
-        this.dtrLossReports.forEach((dtrLossReport,index) => {
-          this.calculateTotal(dtrLossReport, index);
-        });
-        this.calculateGrossLoss();
-        this.roundOffAllValues();
-      }
-      },errorResponse =>{
-        this._searchClicked = false;
-        console.log(errorResponse);
-        this.errorMessage = "DTR loss report does not exists!";
-        // let alertResponse = this.globalResources.errorAlert("DTR LOSS REPORT does not exists!");
-      }
-    );
-  }
-
-  calculateTotal(report,index){
-    this.grossInput = this.grossInput + parseInt(report.netDTRInput);
-    this.grossConsumer = this.grossConsumer + parseInt(report.totalConsumer);
-    this.grossConsumption = this.grossConsumption + parseInt(report.totalSoldUnit);
-    this.grossAssessment = this.grossAssessment + parseInt(report.assessmentUnit);
-  }
-
-  calculateGrossLoss(){
-    if(this.grossInput == 0){
-      this.grossLoss = '###';
-    }else{
-      let loss = this.grossInput - this.grossConsumption;
-      loss = loss / this.grossInput;
-      loss = loss * 100;
-      this.grossLoss = Math.round(loss*100)/100;
+  secondsChanged(){
+    if(this.formData.minutes !== null && this.formData.minutes !== undefined && this.formData.seconds !== null && this.formData.seconds !== undefined){
+      this.formData.interruptionDuration = (this.formData.minutes * 60) + this.formData.seconds;
     }
   }
 
-  roundOffAllValues(){
-    this.grossInput = Math.round(this.grossInput * 100)/100;
+  resetClicked(interruptionAddForm){
+    this.globalResources.resetValidateForm(interruptionAddForm);
+    this.setPartialData();
   }
 
-  exportTotalConsumers(report){
-    // let user = this.globalResources.getUserDetails();
-    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    let params = {
-      Authorization: "Basic " + encodedCredentials,
-      locationCode: report.zoneLocationCode,
-      billMonth: report.lossMonth,
-      groupNo: report.billingGroupNo,
-      readerNo: report.billingRDNo
-    };
-    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "dtrloss/consumers/export";
-    this.globalResources.downloadFile(fileUrl,params);
-  }
-
-  printClicked(){
-    this.globalResources.printElementById('dtrLossReport',{fontSize:"60%", textAlign:"center"});
-    // this.globalResources.printByElementId('dtrLossReport');
-    // this.globalResources.exportTableToExcel('dtrLossReport');
+  submitClicked(interruptionAddForm){
+    this._submitClicked = true;
+    this.formData.feederId = this.formData.feeder.id;
+    this.formData.groupNo = this.formData.feeder.groupNo;
+    this.formData.feederCode = "DUMMY";
+    this._submitClicked = false;
+    this.feederService.addFeederInterruption(this.formData, false).subscribe(successResponse =>{
+      this._submitClicked = false;
+      console.log(successResponse);
+      let alertResponse =this.globalResources.successAlert("Feeder interruption saved successfull !!!");
+      alertResponse.then(result =>{
+        this.globalResources.resetValidateForm(interruptionAddForm);
+        this.setPartialData();
+      });
+    },errorResponse =>{
+      this._submitClicked = false;
+      console.log(errorResponse);
+      this.globalResources.errorAlert("Some error accourd. Please try again...");
+    });
   }
 }

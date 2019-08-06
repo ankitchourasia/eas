@@ -15,6 +15,7 @@ import { FeederViewTndLossReportWithoutHtComponent } from './feeder-view-tnd-los
 import { FeederViewAtncLossReportComponent } from './feeder-view-atnc-loss-report/feeder-view-atnc-loss-report.component';
 import { FeederMappingAddComponent } from './feeder-mapping-add/feeder-mapping-add.component';
 import { FeederInitialReadAddComponent } from './feeder-initial-read-add/feeder-initial-read-add.component';
+import { FeederInterruptionAddComponent } from './feeder-interruption-add/feeder-interruption-add.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { FeederInitialReadAddComponent } from './feeder-initial-read-add/feeder-
     FeederViewTndLossReportWithoutHtComponent, 
     FeederViewAtncLossReportComponent, 
     FeederMappingAddComponent, 
-    FeederInitialReadAddComponent
+    FeederInitialReadAddComponent, 
+    FeederInterruptionAddComponent
   ],
   exports:[
     FeederAddComponent, 
@@ -48,7 +50,8 @@ import { FeederInitialReadAddComponent } from './feeder-initial-read-add/feeder-
     FeederAtncLossReportComponent,
     FeederViewTndLossReportComponent,
     FeederMappingAddComponent, 
-    FeederInitialReadAddComponent
+    FeederInitialReadAddComponent,
+    FeederInterruptionAddComponent
   ]
 })
 export class FeederComponentModule { }

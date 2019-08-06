@@ -190,4 +190,15 @@ export class FeederService {
       return this.http.post(this.URL_PREFIX + 'interDivision/feeder', feederMapping);
     }
   }
+
+  addFeederInterruption(feederInterruption, response){
+    if(response){
+      let options : any = {
+        observe : "response"
+      };
+      return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'interruption', feederInterruption, options);
+    } else{
+      return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'interruption', feederInterruption);
+    }
+  }
 }

@@ -1,3 +1,6 @@
 #dtrLossReport{
     font-size: 80%;
 }
+.form-text{
+    min-width: 150px;
+}
