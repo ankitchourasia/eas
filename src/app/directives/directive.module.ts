@@ -7,6 +7,7 @@ import { ScrollIntoViewDirective } from './scroll-into-view.directive';
 import { RemoveCharacterDirective } from './remove-character.directive';
 import { CompareValidatorDirective } from './compare-validator.directive';
 import { EqualValidatorDirective } from './equal-validator.directive';
+import { NumberDirective } from './number.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { EqualValidatorDirective } from './equal-validator.directive';
     RemoveCharacterDirective,
     CompareValidatorDirective,
     EqualValidatorDirective,
+    NumberDirective,
   ],
   exports:[
     LowercaseDirective,
@@ -27,7 +29,8 @@ import { EqualValidatorDirective } from './equal-validator.directive';
     ScrollIntoViewDirective,
     RemoveCharacterDirective,
     CompareValidatorDirective,
-    EqualValidatorDirective
+    EqualValidatorDirective,
+    NumberDirective
   ],
 })
 export class DirectiveModule { }
