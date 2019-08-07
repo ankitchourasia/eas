@@ -108,10 +108,11 @@
     <label class="col-sm-3 col-form-label">Total No of Consumers</label>
     <div class="col-sm-9">
       <input type="number" [ngClass]="{'is-valid': !totalConsumers.errors && (totalConsumers.dirty || totalConsumers.touched),'is-invalid': totalConsumers.errors && (totalConsumers.dirty || totalConsumers.touched)}"
-        class="form-control" [(ngModel)]="formData.totalConsumer" #totalConsumers="ngModel" id="totalConsumers"  name="totalConsumers" [min]="0" required>
+        class="form-control" [(ngModel)]="formData.totalConsumer" #totalConsumers="ngModel" id="totalConsumers"  name="totalConsumers" pattern="\d{1,9}" [min]="0" required>
       <div class="invalid-feedback" *ngIf="totalConsumers.errors && (totalConsumers.dirty || totalConsumers.touched)">
         <div [hidden]="!totalConsumers.errors.required">required field</div>
         <div [hidden]="!totalConsumers.errors.min || totalConsumers.errors.required">can not be less than 0</div>
+        <div [hidden]="!totalConsumers.errors.pattern || totalConsumers.errors.min || totalConsumers.errors.required">decimal value not allowed</div>
       </div>
     </div>
   </div> -->
@@ -119,10 +120,11 @@
     <label class="col-sm-3 col-form-label">Total No of Interruptions</label>
     <div class="col-sm-9">
       <input type="number" [ngClass]="{'is-valid': !totalInterruptions.errors && (totalInterruptions.dirty || totalInterruptions.touched),'is-invalid': totalInterruptions.errors && (totalInterruptions.dirty || totalInterruptions.touched)}"
-        class="form-control" [(ngModel)]="formData.totalInterruption" #totalInterruptions="ngModel" id="totalInterruptions"  name="totalInterruptions" [min]="0" required>
+        class="form-control" [(ngModel)]="formData.totalInterruption" #totalInterruptions="ngModel" id="totalInterruptions"  name="totalInterruptions" pattern="\d{1,9}" [min]="0" required>
       <div class="invalid-feedback" *ngIf="totalInterruptions.errors && (totalInterruptions.dirty || totalInterruptions.touched)">
         <div [hidden]="!totalInterruptions.errors.required">required field</div>
         <div [hidden]="!totalInterruptions.errors.min || totalInterruptions.errors.required">can not be less than 0</div>
+        <div [hidden]="!totalInterruptions.errors.pattern || totalInterruptions.errors.min || totalInterruptions.errors.required">decimal value not allowed</div>
       </div>
     </div>
   </div>
@@ -137,7 +139,7 @@
           <div class="invalid-feedback" *ngIf="minutes.errors && (minutes.dirty || minutes.touched)">
             <div [hidden]="!minutes.errors.required">required field</div>
             <div [hidden]="!minutes.errors.min || minutes.errors.required">can not be less than 0</div>
-            <div [hidden]="!minutes.errors.pattern || minutes.errors.min || minutes.errors.required">invalid value</div>
+            <div [hidden]="!minutes.errors.pattern || minutes.errors.min || minutes.errors.required">decimal value not allowed</div>
           </div>
         </div>
         <div class="col-6">
@@ -148,7 +150,7 @@
             <div [hidden]="!seconds.errors.required">required field</div>
             <div [hidden]="!seconds.errors.min || seconds.errors.required">can not be less than 0</div>
             <div [hidden]="!seconds.errors.max || seconds.errors.required">can not be greater than 60</div>
-            <div [hidden]="!seconds.errors.pattern || seconds.errors.min || seconds.errors.max || seconds.errors.required">invalid value</div>
+            <div [hidden]="!seconds.errors.pattern || seconds.errors.min || seconds.errors.max || seconds.errors.required">decimal value not allowed</div>
           </div>
         </div>
       </div>
