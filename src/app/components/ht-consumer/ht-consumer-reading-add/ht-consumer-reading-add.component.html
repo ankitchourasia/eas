@@ -3,7 +3,7 @@
     <label class="col-sm-3 col-form-label">Service No</label>
     <div class="col-sm-9">
       <input type="number" [ngClass]="{'is-valid': !serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched),'is-invalid': serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="reading.serviceNumber" #serviceNumber="ngModel" id="serviceNumber"  name="serviceNumber" required>
+        class="form-control" [(ngModel)]="reading.serviceNumber" #serviceNumber="ngModel" id="serviceNumber"  name="serviceNumber" required>
       <div class="invalid-feedback" *ngIf="serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched)">
         <div *ngIf="serviceNumber.errors.required">required field</div>
       </div>
@@ -15,12 +15,12 @@
       <div class="col-sm-9">
         <div class="input-group">
           <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
-            class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
+            class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
             <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
             <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
           </select>
           <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
-            class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
+            class="form-control" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
             <option disabled selected [ngValue]='undefined'>Year</option>
             <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
           </select>
@@ -65,7 +65,7 @@
       <label class="col-sm-3 col-form-label">Consumption</label>
       <div class="col-sm-9">
         <input type="number" [ngClass]="{'is-valid': !consumpton.errors && (consumpton.dirty || consumpton.touched),'is-invalid': consumpton.errors && (consumpton.dirty || consumpton.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="reading.totalConsumption" #consumpton="ngModel" id="consumpton"  name="consumpton" min="0" required>
+          class="form-control" [(ngModel)]="reading.totalConsumption" #consumpton="ngModel" id="consumpton"  name="consumpton" min="0" required>
         <div class="invalid-feedback" *ngIf="consumpton.errors && (consumpton.dirty || consumpton.touched)">
           <div *ngIf="consumpton.errors.required">required field</div>
           <div [hidden]="!consumpton.errors.min || consumpton.errors.required">Invalid consumption</div>

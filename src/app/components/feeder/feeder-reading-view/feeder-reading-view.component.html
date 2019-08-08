@@ -1,37 +1,3 @@
-<!-- <div class="form-group eas-flex-center">
-  <div class="form-inline align-items-baseline">
-    <label class="mx-sm-3">Month</label>
-    <div>
-      <select class="form-control form-control-sm" [(ngModel)]="month" id="selectedMonth" name="selectedMonth" #selectedMonth="ngModel" required
-      [ngClass]="{'is-valid': !selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched),'is-invalid': selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched)}">
-        <option selected [ngValue]='undefined' disabled>Select</option>
-        <option *ngFor="let month of globalConstants.MONTHS">{{month}}</option>
-      </select>
-      <div class="invalid-feedback" *ngIf="selectedMonth.errors && (selectedMonth.dirty || selectedMonth.touched)">
-        <div *ngIf="selectedMonth.errors.required">required field</div>
-      </div>
-    </div>
-  </div>
-  <div class="form-inline align-items-baseline">
-    <label class="mx-sm-3">Year</label>
-    <div>
-      <select class="form-control form-control-sm" id="year" [(ngModel)]="year" name="year" #selectedYear="ngModel" required
-      [ngClass]="{'is-valid': !selectedYear.errors && (selectedYear.dirty || selectedYear.touched),'is-invalid': selectedYear.errors && (selectedYear.dirty || selectedYear.touched)}">
-          <option selected [ngValue]='undefined' disabled>Select</option>
-        <option *ngFor="let year of years" [ngValue]="(year-2000)">{{year}}</option>
-      </select>
-      <div class="invalid-feedback" *ngIf="selectedYear.errors && (selectedYear.dirty || selectedYear.touched)">
-        <div *ngIf="selectedYear.errors.required">required field</div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <button class="btn btn-primary mx-sm-3" (click)="getFeederReadings()" [disabled]="loading || !year || !month" >
-      Fetch Readings <span class="spinner-border spinner-border-sm" [hidden]="!loading"></span>
-    </button>
-  </div>
-</div> -->
-
 <div class="eas-space-between mb-2">
   <div class="form-inline align-items-baseline">
     <label>Select Bill Month</label>

@@ -3,7 +3,7 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Region</label>
       <div class="col-sm-9">
-        <select class="form-control form-control-sm" id="region" name="region">
+        <select class="form-control" id="region" name="region">
           <option selected>{{user.region.name | uppercase}}</option>
         </select>
       </div>
@@ -11,7 +11,7 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Circle</label>
       <div class="col-sm-9">
-        <select class="form-control form-control-sm" id="circle"  name="circle" required>
+        <select class="form-control" id="circle"  name="circle" required>
           <option selected>{{user.circle.name | uppercase}}</option>
         </select>
       </div>
@@ -19,7 +19,7 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Division</label>
       <div class="col-sm-9">
-        <select class="form-control form-control-sm" id="division"  name="division" required>
+        <select class="form-control" id="division"  name="division" required>
           <option selected>{{user.division.name | uppercase}}</option>
         </select>
       </div>
@@ -28,7 +28,7 @@
       <label class="col-sm-3 col-form-label">Zone</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="substation.zone" #zone="ngModel" id="zone"  name="zone" required>
+          class="form-control" [(ngModel)]="substation.zone" #zone="ngModel" id="zone"  name="zone" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let zone of zoneList" [value]="zone">{{zone.name | uppercase}}</option>
         </select>

@@ -3,7 +3,7 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Region</label>
       <div class="col-sm-9">
-        <select class="form-control form-control-sm" id="region" name="region">
+        <select class="form-control" id="region" name="region">
           <option selected>{{user.region.name | uppercase}}</option>
         </select>
       </div>
@@ -11,7 +11,7 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Circle</label>
       <div class="col-sm-9">
-        <select class="form-control form-control-sm" id="circle"  name="circle" required>
+        <select class="form-control" id="circle"  name="circle" required>
           <option selected>{{user.circle.name | uppercase}}</option>
         </select>
       </div>
@@ -19,7 +19,7 @@
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Division</label>
       <div class="col-sm-9">
-        <select class="form-control form-control-sm" id="division"  name="division" required>
+        <select class="form-control" id="division"  name="division" required>
           <option selected>{{user.division.name | uppercase}}</option>
         </select>
       </div>
@@ -28,7 +28,7 @@
       <label class="col-sm-3 col-form-label">Zone</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="dtr.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged()">
+          class="form-control" [(ngModel)]="dtr.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged()">
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
         </select>
@@ -41,7 +41,7 @@
       <label class="col-sm-3 col-form-label">Substation Name</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="dtr.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged()">
+          class="form-control" [(ngModel)]="dtr.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged()">
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let substation of substationList" [value]="substation.id">{{substation.name | uppercase}}</option>
         </select>
@@ -54,7 +54,7 @@
       <label class="col-sm-3 col-form-label">Feeder Name</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="dtr.feederId" #feederName="ngModel" id="feederName"  name="feederName" required>
+          class="form-control" [(ngModel)]="dtr.feederId" #feederName="ngModel" id="feederName"  name="feederName" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let feeder of feederList" [value]="feeder.id">{{feeder.name | uppercase}}</option>
         </select>
@@ -97,7 +97,7 @@
       <label class="col-sm-3 col-form-label">No. of DTR Meters</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched),'is-invalid': noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="dtr.noOfDTRMeters" #noOfDtrMeters="ngModel" id="noOfDtrMeters"  name="noOfDtrMeters" required>
+          class="form-control" [(ngModel)]="dtr.noOfDTRMeters" #noOfDtrMeters="ngModel" id="noOfDtrMeters"  name="noOfDtrMeters" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</option>
         </select>
@@ -110,7 +110,7 @@
       <label class="col-sm-3 col-form-label">DTR Meter Make</label>
       <div class="col-sm-9">
         <select [ngClass]="{'is-valid': !dtrMeterMake.errors && (dtrMeterMake.dirty || dtrMeterMake.touched),'is-invalid': dtrMeterMake.errors && (dtrMeterMake.dirty || dtrMeterMake.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="dtr.dtrMeterMake" #dtrMeterMake="ngModel" id="dtrMeterMake"  name="dtrMeterMake" required>
+          class="form-control" [(ngModel)]="dtr.dtrMeterMake" #dtrMeterMake="ngModel" id="dtrMeterMake"  name="dtrMeterMake" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
           <option *ngFor="let meter of globalConstants.METER_MAKES" [ngValue]="meter.name">{{meter.value}}</option>
         </select>

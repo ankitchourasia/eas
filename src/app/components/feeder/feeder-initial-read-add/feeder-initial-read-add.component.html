@@ -2,7 +2,7 @@
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Region</label>
     <div class="col-sm-9">
-      <select class="form-control form-control-sm" id="region" name="region">
+      <select class="form-control" id="region" name="region">
         <option selected>{{user.region.name | uppercase}}</option>
       </select>
     </div>
@@ -10,7 +10,7 @@
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Circle</label>
     <div class="col-sm-9">
-      <select class="form-control form-control-sm" id="circle"  name="circle" required>
+      <select class="form-control" id="circle"  name="circle" required>
         <option selected>{{user.circle.name | uppercase}}</option>
       </select>
     </div>
@@ -18,7 +18,7 @@
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Division</label>
     <div class="col-sm-9">
-      <select class="form-control form-control-sm" id="division"  name="division" required>
+      <select class="form-control" id="division"  name="division" required>
         <option selected>{{user.division.name | uppercase}}</option>
       </select>
     </div>
@@ -27,7 +27,7 @@
     <label class="col-sm-3 col-form-label">Zone</label>
     <div class="col-sm-9">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="feederReading.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederReading.zoneId)" required>
+        class="form-control" [(ngModel)]="feederReading.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederReading.zoneId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
         <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
       </select>
@@ -40,7 +40,7 @@
     <label class="col-sm-3 col-form-label">Substation</label>
     <div class="col-sm-9">
       <select [ngClass]="{'is-valid': !substation.errors && (substation.dirty || substation.touched),'is-invalid': substation.errors && (substation.dirty || substation.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
+        class="form-control" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
         <option *ngFor="let substation of substations" [value]="substation.id">{{substation.name | uppercase}}</option>
       </select>
@@ -53,7 +53,7 @@
     <label class="col-sm-3 col-form-label">Feeder</label>
     <div class="col-sm-9">
       <select [ngClass]="{'is-valid': !feederId.errors && (feederId.dirty || feederId.touched),'is-invalid': feederId.errors && (feederId.dirty || feederId.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="feederReading.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederReading.feeder)" required>
+        class="form-control" [(ngModel)]="feederReading.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederReading.feeder)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
         <option *ngFor="let feeder of feeders" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
       </select>
@@ -84,12 +84,12 @@
     <label class="col-sm-3 col-form-label">Bill Month</label>
     <div class="input-group col-sm-9">
       <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
+        class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
         <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
         <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
       </select>
       <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
+        class="form-control" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
         <option disabled selected [ngValue]='undefined'>Year</option>
         <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
       </select>

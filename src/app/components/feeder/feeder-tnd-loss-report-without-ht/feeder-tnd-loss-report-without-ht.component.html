@@ -45,11 +45,6 @@
   </div> -->
   <div class="inner-group">
     <label class="form-text text-muted mb-0">Bill Month</label>
-    <!-- <input type="month" [ngClass]="{'is-valid': !billingMonth.errors && (billingMonth.dirty || billingMonth.touched),'is-invalid': billingMonth.errors && (billingMonth.dirty || billingMonth.touched)}"
-      class="form-control form-control-sm" [(ngModel)]="billMonth" #billingMonth="ngModel" id="billingMonth"  name="billingMonth" required>
-    <div class="invalid-feedback" *ngIf="(billingMonth.errors && (billingMonth.dirty || billingMonth.touched))">
-      <div [hidden]="!billingMonth.errors?.required">required bill month</div>
-    </div> -->
     <div class="input-group">
       <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
         class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
