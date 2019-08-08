@@ -81,7 +81,7 @@
     <div>
       <a class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" data-toggle="modal" data-target="#d1ReportModal" 
         (click)="viewClicked()"><i class="fa fa-eye" aria-hidden="true"></i>
-         View 
+          View 
       </a>
       <!-- <a class="btn btn-sm btn-primary" href='javascript:void(0);' (click)="exportClicked()" *ngIf="reportGenerated">
         <i class="fa fa-download" aria-hidden="true"></i> Export
@@ -146,16 +146,16 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="eas-flex-end" *ngIf="viewResultList && viewResultList.length">
+        <div class="eas-flex-end">
           <a class="btn btn-sm btn-primary rounded-circle" href='javascript:void(0);' (click)="exportClicked()">
             <i class="fa fa-download" aria-hidden="true"></i>
           </a>
         </div>
         <div class="table-responsive pt-1" id="d1LossReport">
-          <table class="table table-sm table-bordered table-hover" border="1" style="border-collapse:collapse; text-align: center">
+          <table class="table table-sm table-bordered" border="1" style="border-collapse:collapse; text-align: center">
             <thead class="text-sm text-center">
               <tr>
-                <td class="align-middle" colspan="6"><h3>D-1 REPORT ({{searchFormData.billingMonth}})</h3></td>
+                <td class="align-middle" colspan="6"><h3>D-1 REPORT-{{searchFormData.billingMonth}}</h3></td>
               </tr>
               <tr class="font-weight-bold">
                   <td class="align-middle" rowspan="2">Sr. No.</td>

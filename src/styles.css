@@ -39,8 +39,8 @@
     background-color: black;
 } */
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
 }
@@ -60,7 +60,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #content{
-    display: flex;
+    display: flex !important;
 }
 
 #sideMenu{
@@ -84,49 +84,49 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .eas-space-between{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }
 
 .eas-space-around{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-around !important;
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }
 
 .eas-space-evenly{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-evenly !important;
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }
 
 .eas-flex-start{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }
 
 .eas-flex-end{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }
 
 .eas-flex-center{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }

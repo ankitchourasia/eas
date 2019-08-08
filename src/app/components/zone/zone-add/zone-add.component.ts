@@ -26,6 +26,7 @@ export class ZoneAddComponent implements OnInit {
 
   setPartialData(){
     this.formData = {};
+    this.formData.baselineLoss = {}
     this.regionList = null;
     this.circleList = null;
     this.divisionList = null;

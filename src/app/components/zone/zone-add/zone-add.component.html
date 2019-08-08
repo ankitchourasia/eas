@@ -69,6 +69,19 @@
     </div>
   </div>
   <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Baseline Loss(%)</label>
+    <div class="col-sm-9">
+      <input type="number" [ngClass]="{'is-valid': !baselineLoss.errors && (baselineLoss.dirty || baselineLoss.touched),'is-invalid': baselineLoss.errors && (baselineLoss.dirty || baselineLoss.touched)}"
+        class="form-control" [(ngModel)]="formData.baselineLoss.baselineLoss" #baselineLoss="ngModel" id="baselineLoss"  name="baselineLoss" pattern="(-)?\d{1,3}(\.\d{1,2})?" [min]="0" [max]="100" required>
+      <div class="invalid-feedback" *ngIf="baselineLoss.errors && (baselineLoss.dirty || baselineLoss.touched)">
+        <div [hidden]="!baselineLoss.errors.required">required field</div>
+        <div [hidden]="!baselineLoss.errors.min || baselineLoss.errors.required">can not be less than 0</div>
+        <div [hidden]="!baselineLoss.errors.max || baselineLoss.errors.required">can not be greater than 100</div>
+        <div [hidden]="!baselineLoss.errors.pattern || baselineLoss.errors.min || baselineLoss.errors.max || baselineLoss.errors.required">after decimal 2 digit allowed</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
     <div class="col-4 offset-3">
       <button type="button" class="btn btn-success form-control" (click)=submitClicked(zoneAddForm) [disabled]="!zoneAddForm.form.valid || _submitClicked">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>

@@ -9,12 +9,12 @@ export class NumberDirective {
 
   constructor() {}
     
-  @HostListener('input', ['$event']) onInputChange($event) {
-    let number = Number.parseFloat($event.target.value);
-    if(!isNaN(number)){
-      $event.target.value = number.toPrecision();
-      this.ngModelChange.emit(Number($event.target.value));
-    }
-  }
+  // @HostListener('input', ['$event']) onInputChange($event) {
+  //   let number = Number($event.target.value);
+  //   if(!isNaN(number)){
+  //     $event.target.value = number.toPrecision();
+  //     this.ngModelChange.emit(Number($event.target.value));
+  //   }
+  // }
 
 }

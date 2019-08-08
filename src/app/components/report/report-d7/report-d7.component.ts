@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
 import { GlobalConstants } from 'app/utility/global.constants';
+import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { ReportService } from '@eas-services/report-service/report.service';
-import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConfiguration } from 'app/utility/global-configuration';
 
 @Component({
-  selector: 'eas-report-d1',
-  templateUrl: './report-d1.component.html',
-  styleUrls: ['./report-d1.component.css']
+  selector: 'eas-report-d7',
+  templateUrl: './report-d7.component.html',
+  styleUrls: ['./report-d7.component.css']
 })
-export class ReportD1Component implements OnInit {
+export class ReportD7Component implements OnInit {
 
   searchFormData: any;
   regionList: any;
@@ -132,6 +132,7 @@ export class ReportD1Component implements OnInit {
   }
   
   zoneChanged(zone){
+    console.log(zone);
     this.searchResultList = null;
   }
 
@@ -152,6 +153,7 @@ export class ReportD1Component implements OnInit {
   searchClicked(){
     this._searchClicked = true;
     this.reportGenerated = false;
+    console.log(this.searchFormData);
     if(this.searchFormData.zone === "ALL"){
       this.getByDivisionIdAndBillMonth();
     }else{
@@ -162,9 +164,10 @@ export class ReportD1Component implements OnInit {
   getByZoneIdAndBillMonth(){
     this.searchResultList = null;
     this._searchClicked = true;
-    this.reportService.getD1GenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    this.reportService.getD7GenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
-      this.searchResultList = successResponse;
+      console.log(successResponse);
+      this.searchResultList = successResponse
       this.initializePaginationVariables();
       this.setPage(1);
     },errorResponse =>{
@@ -176,9 +179,10 @@ export class ReportD1Component implements OnInit {
   getByDivisionIdAndBillMonth(){
     this.searchResultList = null;
     this._searchClicked = true;
-    this.reportService.getD1GenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    this.reportService.getD7GenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
-      this.searchResultList = successResponse;
+      console.log(successResponse);
+      this.searchResultList = successResponse
       this.initializePaginationVariables();
       this.setPage(1);
     },errorResponse =>{
@@ -212,7 +216,7 @@ export class ReportD1Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true
-        this.globalResources.successAlert("Report generated successfully !");
+        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -221,7 +225,7 @@ export class ReportD1Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert("Some error occured while generating report !!!");
       }
@@ -235,7 +239,7 @@ export class ReportD1Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true
-        this.globalResources.successAlert("Report generated successfully !");
+        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -244,7 +248,7 @@ export class ReportD1Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert("Some error occured while generating report !!!");
       }
@@ -261,7 +265,8 @@ export class ReportD1Component implements OnInit {
 
   viewByZoneIdAndBillMonth(){
     this.viewResultList = [];
-    this.reportService.getD1ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    this.reportService.getD7ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      console.log(successResponse);
       this.viewResultList.push(successResponse);
     },errorResponse =>{
       console.log(errorResponse);
@@ -270,7 +275,8 @@ export class ReportD1Component implements OnInit {
 
   viewByDivisionIdAndBillMonth(){
     this.viewResultList = [];
-    this.reportService.getD1ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    this.reportService.getD7ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      console.log(successResponse);
       this.viewResultList = successResponse
     },errorResponse =>{
       console.log(errorResponse);
