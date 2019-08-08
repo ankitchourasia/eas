@@ -59,7 +59,7 @@
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid || _searchClicked">
+          <button type="button" class="btn btn-sm btn-primary" (click)=viewClicked() [disabled]="!searchForm.form.valid || _searchClicked" data-toggle="modal" data-target="#d7ReportModal">
             Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
           </button>
         </div>
@@ -70,7 +70,7 @@
     </div>
   </div>
 </form>
-<div *ngIf="searchResultList && !searchButtonClicked">
+<div *ngIf="searchResultList && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" (click)="generateClicked()" 
@@ -78,15 +78,10 @@
       <!-- || (searchResultList && searchResultList.length && !searchResultList[0].allLossGenerated)-->
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
-    <div>
-      <a class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" data-toggle="modal" data-target="#d1ReportModal" 
-        (click)="viewClicked()"><i class="fa fa-eye" aria-hidden="true"></i>
-          View 
-      </a>
-      <!-- <a class="btn btn-sm btn-primary" href='javascript:void(0);' (click)="exportClicked()" *ngIf="reportGenerated">
-        <i class="fa fa-download" aria-hidden="true"></i> Export
-      </a> -->
-    </div>
+    <button class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" (click)="viewClicked()"
+      data-toggle="modal" data-target="#d7ReportModal"><i class="fa fa-eye" aria-hidden="true"></i>
+        View 
+    </button>
     
   </div>
   <div class="table-responsive mb-2 text-center">
@@ -142,7 +137,7 @@
   </div>
 </div>
 
-<div class="modal fade"  id="d1ReportModal" tabindex="-1" role="dialog">
+<div class="modal fade"  id="d7ReportModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -155,31 +150,36 @@
           <table class="table table-sm table-bordered" border="1" style="border-collapse:collapse; text-align: center">
             <thead class="text-sm text-center">
               <tr>
-                <td class="align-middle" colspan="6"><h3>D-1 REPORT-{{searchFormData.billingMonth}}</h3></td>
+                <td class="align-middle" colspan="8"><h4>D-7 REPORT ({{searchFormData.billingMonth}})</h4></td>
               </tr>
               <tr class="font-weight-bold">
-                  <td class="align-middle" rowspan="2">Sr. No.</td>
-                <td class="align-middle" rowspan="2">Zone/DC Name</td>
-                <td class="align-middle" rowspan="2">Baseline Loss(%)</td>
-                <td class="align-middle" colspan="3">Cumulative Billing Efficiency, Collection Efficiency and AT&C Losses in %</td>
-              </tr>
-              <tr class="font-weight-bold">
-                <td class="align-middle">Billing Efficiency(%)</td>
-                <td class="align-middle">Collection Efficiency(%)</td>
-                <td class="align-middle">AT&C Loss(%)</td>
+                <td class="align-middle">Sr. No.</td>
+                <td class="align-middle">Zone/DC Name</td>
+                <td class="align-middle">Total Consumers</td>
+                <td class="align-middle">Consumers paying through E-Payment</td>
+                <td class="align-middle">Total Collection(Rs.)</td>
+                <td class="align-middle">Collection through E-Payment(Rs.)</td>
+                <td class="align-middle">% Consumers paying through E-Payment</td>
+                <td class="align-middle">% Collection through E-Payment</td>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let viewResult of viewResultList; let i = index">
                 <td class="align-middle">{{i + 1}}</td>
                 <td class="align-middle">{{viewResult.zoneName | uppercase}}</td>
-                <td class="align-middle">{{viewResult.baseLineLoss}}%</td>
-                <td class="align-middle">{{viewResult.billing_efficiency}}%</td>
-                <td class="align-middle">{{viewResult.collection_efficiency}}%</td>
-                <td class="align-middle">{{viewResult.atnc_loss}}%</td>
+                <td class="align-middle">{{viewResult.totalConsumers}}</td>
+                <td class="align-middle">{{viewResult.ePaymentConsumer}}</td>
+                <td class="align-middle">
+                  <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.totalCollection}}
+                </td>
+                <td class="align-middle">
+                  <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.ePaymentCollection}}
+                </td>
+                <td class="align-middle">{{viewResult.ePaymentConsumerPercent}}%</td>
+                <td class="align-middle">{{viewResult.eCollectionPercent}}%</td>
               </tr>
               <tr *ngIf="viewResultList && viewResultList.length <=0">
-                <td class="align-middle" colspan="6">No Record Found</td>
+                <td class="align-middle" colspan="8">No Record Found</td>
               </tr>
             </tbody>
           </table>

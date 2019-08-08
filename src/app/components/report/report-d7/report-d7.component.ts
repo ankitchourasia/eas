@@ -194,24 +194,24 @@ export class ReportD7Component implements OnInit {
   generateClicked(){
     this._generateClicked = true;
     this.reportGenerated = false
-    let d1: any = {};
-    d1.regionId = this.searchFormData.region.id;
-    d1.circleId = this.searchFormData.circle.id;
-    d1.divisionId = this.searchFormData.division.id;
-    d1.billMonth = this.searchFormData.billingMonth;
+    let d7: any = {};
+    d7.regionId = this.searchFormData.region.id;
+    d7.circleId = this.searchFormData.circle.id;
+    d7.divisionId = this.searchFormData.division.id;
+    d7.billMonth = this.searchFormData.billingMonth;
     this._generateClicked = false;
     if(this.searchFormData.zone === "ALL"){
-      this.generateD1ReportForDivision(d1);
+      this.generateD7ReportForDivision(d7);
     }else{
-      d1.zoneId = this.searchFormData.zone.id;
-      d1.zoneName = this.searchFormData.zone.name;
-      this.generateD1ReportForZone(d1);
+      d7.zoneId = this.searchFormData.zone.id;
+      d7.zoneName = this.searchFormData.zone.name;
+      this.generateD7ReportForZone(d7);
     }
   }
 
-  generateD1ReportForDivision(d1Object){
+  generateD7ReportForDivision(d7Object){
     this._generateClicked = true;
-    this.reportService.generateD1ReportForDivision(d1Object, true).subscribe(successResponse =>{
+    this.reportService.generateD7ReportForDivision(d7Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
       let result = <any>successResponse;
       if(result && result.status === 201){
@@ -232,9 +232,9 @@ export class ReportD7Component implements OnInit {
     });
   }
 
-  generateD1ReportForZone(d1Object){
+  generateD7ReportForZone(d7Object){
     this._generateClicked = true;
-    this.reportService.generateD1ReportForZone(d1Object, true).subscribe(successResponse =>{
+    this.reportService.generateD7ReportForZone(d7Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
       let result = <any>successResponse;
       if(result && result.status === 201){
@@ -288,7 +288,7 @@ export class ReportD7Component implements OnInit {
     let params = {
       Authorization: "Basic " + encodedCredentials,
     };
-    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d1-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d7-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
     this.globalResources.downloadFile(fileUrl,params);
   }
 

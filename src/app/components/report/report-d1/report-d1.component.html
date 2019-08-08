@@ -70,7 +70,7 @@
     </div>
   </div>
 </form>
-<div *ngIf="searchResultList && !searchButtonClicked">
+<div *ngIf="searchResultList && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" (click)="generateClicked()" 
@@ -78,15 +78,10 @@
       <!-- || (searchResultList && searchResultList.length && !searchResultList[0].allLossGenerated)-->
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
-    <div>
-      <a class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" data-toggle="modal" data-target="#d1ReportModal" 
-        (click)="viewClicked()"><i class="fa fa-eye" aria-hidden="true"></i>
-         View 
-      </a>
-      <!-- <a class="btn btn-sm btn-primary" href='javascript:void(0);' (click)="exportClicked()" *ngIf="reportGenerated">
-        <i class="fa fa-download" aria-hidden="true"></i> Export
-      </a> -->
-    </div>
+    <button class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" (click)="viewClicked()"
+      data-toggle="modal" data-target="#d1ReportModal" ><i class="fa fa-eye" aria-hidden="true"></i>
+        View 
+    </button>
     
   </div>
   <div class="table-responsive mb-2 text-center">
@@ -155,10 +150,10 @@
           <table class="table table-sm table-bordered table-hover" border="1" style="border-collapse:collapse; text-align: center">
             <thead class="text-sm text-center">
               <tr>
-                <td class="align-middle" colspan="6"><h3>D-1 REPORT ({{searchFormData.billingMonth}})</h3></td>
+                <td class="align-middle" colspan="6"><h4>D-1 REPORT ({{searchFormData.billingMonth}})</h4></td>
               </tr>
               <tr class="font-weight-bold">
-                  <td class="align-middle" rowspan="2">Sr. No.</td>
+                <td class="align-middle" rowspan="2">Sr. No.</td>
                 <td class="align-middle" rowspan="2">Zone/DC Name</td>
                 <td class="align-middle" rowspan="2">Baseline Loss(%)</td>
                 <td class="align-middle" colspan="3">Cumulative Billing Efficiency, Collection Efficiency and AT&C Losses in %</td>
