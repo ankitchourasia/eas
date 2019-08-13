@@ -79,7 +79,7 @@
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" (click)="viewClicked()"
-      data-toggle="modal" data-target="#d7ReportModal"><i class="fa fa-eye" aria-hidden="true"></i>
+      data-toggle="modal" data-target="#d7ReportModal">
         View 
     </button>
     
@@ -164,21 +164,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let viewResult of viewResultList; let i = index">
-                <td class="align-middle">{{i + 1}}</td>
-                <td class="align-middle">{{viewResult.zoneName | uppercase}}</td>
-                <td class="align-middle">{{viewResult.totalConsumers}}</td>
-                <td class="align-middle">{{viewResult.ePaymentConsumer}}</td>
-                <td class="align-middle">
-                  <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.totalCollection}}
-                </td>
-                <td class="align-middle">
-                  <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.ePaymentCollection}}
-                </td>
-                <td class="align-middle">{{viewResult.ePaymentConsumerPercent}}%</td>
-                <td class="align-middle">{{viewResult.eCollectionPercent}}%</td>
-              </tr>
-              <tr *ngIf="viewResultList && viewResultList.length <=0">
+              <ng-template [ngIf]="viewResultList && viewResultList.length">
+                <tr *ngFor="let viewResult of viewResultList; let i = index">
+                  <td class="align-middle">{{i + 1}}</td>
+                  <td class="align-middle">{{viewResult.zoneName | uppercase}}</td>
+                  <td class="align-middle">{{viewResult.totalConsumers}}</td>
+                  <td class="align-middle">{{viewResult.ePaymentConsumer}}</td>
+                  <td class="align-middle">
+                    <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.totalCollection}}
+                  </td>
+                  <td class="align-middle">
+                    <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.ePaymentCollection}}
+                  </td>
+                  <td class="align-middle">{{viewResult.ePaymentConsumerPercent}}%</td>
+                  <td class="align-middle">{{viewResult.eCollectionPercent}}%</td>
+                </tr>
+              </ng-template>
+              <tr *ngIf="viewResultList && !viewResultList.length">
                 <td class="align-middle" colspan="8">No Record Found</td>
               </tr>
             </tbody>
