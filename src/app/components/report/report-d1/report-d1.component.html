@@ -142,23 +142,23 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="eas-flex-end" *ngIf="viewResultList && viewResultList.length">
-          <a class="btn btn-sm btn-primary rounded-circle" href='javascript:void(0);' (click)="exportClicked()">
-            <i class="fa fa-download" aria-hidden="true"></i>
+          <a class="btn btn-sm btn-primary" href='javascript:void(0);' (click)="exportClicked()">
+            <i class="fa fa-download" aria-hidden="true"></i> Export
           </a>
         </div>
         <div class="table-responsive pt-1" id="d1LossReport">
           <table class="table table-sm table-bordered table-hover" border="1" style="border-collapse:collapse; text-align: center">
-            <thead class="text-sm text-center">
+            <thead class="text-sm bg-dark text-white">
               <tr>
                 <td class="align-middle" colspan="6"><h4>D-1 REPORT ({{searchFormData.billingMonth}})</h4></td>
               </tr>
-              <tr class="font-weight-bold">
+              <tr>
                 <td class="align-middle" rowspan="2">Sr. No.</td>
                 <td class="align-middle" rowspan="2">Zone/DC Name</td>
                 <td class="align-middle" rowspan="2">Baseline Loss(%)</td>
                 <td class="align-middle" colspan="3">Cumulative Billing Efficiency, Collection Efficiency and AT&C Losses in %</td>
               </tr>
-              <tr class="font-weight-bold">
+              <tr>
                 <td class="align-middle">Billing Efficiency(%)</td>
                 <td class="align-middle">Collection Efficiency(%)</td>
                 <td class="align-middle">AT&C Loss(%)</td>
