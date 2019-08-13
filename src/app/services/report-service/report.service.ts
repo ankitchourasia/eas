@@ -30,6 +30,24 @@ export class ReportService {
     }
   }
 
+  generateD1ReportForZone(d1Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/',  d1Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/', d1Report);
+    }
+  }
+
+  generateD1ReportForDivision(d1Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/',  d1Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/', d1Report);
+    }
+  }
+  
   getD1ByZoneIdAndBillMonth(zoneId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
@@ -48,60 +66,6 @@ export class ReportService {
     }
   }
 
-  generateD1ReportForZone(d1Report, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/',  d1Report,  options);
-    }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/', d1Report);
-    }
-  }
-
-  generateD1ReportForDivision(d1Report, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/',  d1Report,  options);
-    }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/', d1Report);
-    }
-  }
-
-  getD7GenerationStatusByZoneIdAndBillMonth(zoneId, billMonth, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
-    }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
-    }
-  }
-
-  getD7GenerationStatusByDivisionIdAndBillMonth(divisionId, billMonth, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/missing-data/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
-    }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/missing-data/division/id/' + divisionId + "/bill-month/" + billMonth);
-    }
-  }
-  
-  getD7ByZoneIdAndBillMonth(zoneId, billMonth, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
-    }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
-    }
-  }
-
-  getD7ByDivisionIdAndBillMonth(divisionId, billMonth, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
-    }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/id/' + divisionId + "/bill-month/" + billMonth);
-    }
-  }
-  
   generateD7ReportForZone(d7Report, response){
     if(response){
       let options : any = {'observe' : 'response'};
@@ -119,4 +83,59 @@ export class ReportService {
       return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/', d7Report);
     }
   }
+    
+  getD7ByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD7ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+    }
+  }
+
+  generateD4ReportForZone(d4Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/zone/',  d4Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/zone/', d4Report);
+    }
+  }
+
+  generateD4ReportForDivision(d4Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/division/',  d4Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/division/', d4Report);
+    }
+  }
+    
+  getD4ByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD4ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+    }
+  }
+  
 }
