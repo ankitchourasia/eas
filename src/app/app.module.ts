@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { appRoutingModule } from './app-routing.module';
 import { LoginModule } from './modules/login/login.module';
 import { GlobalResources } from './utility/global.resources';
 import { GlobalConstants } from './utility/global.constants';
@@ -12,8 +11,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthorizationInterceptor } from './interceptors/authorization.interceptor';
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
-// import { AppRoutingModule } from './app-routing.module';
-// import { EasServicesModule } from '@eas-services/eas-service.module';
+import { AppRoutingModule } from './app-routing.module';
+// import { appRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,9 +25,8 @@ import { DirectiveModule } from '@eas-directives/directive.module';
     HttpClientModule,
     LoginModule,
     DirectiveModule,
-    // EasServicesModule,
-    appRoutingModule
-    // AppRoutingModule
+    // appRoutingModule
+    AppRoutingModule
   ],
   providers: [ 
     GlobalResources,

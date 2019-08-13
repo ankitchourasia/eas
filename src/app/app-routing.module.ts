@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 
 const routes: Routes = [
@@ -31,10 +31,12 @@ const routes: Routes = [
     pathMatch: 'full' 
   }
 ];
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule { }
-
-export const appRoutingModule: ModuleWithProviders = RouterModule.forRoot(routes);
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],//LAZY LOADING
+  // imports: [RouterModule.forRoot(routes ,{ preloadingStrategy: PreloadAllModules } )], //PRELOADING LOAD IN BACKGROUND
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+//-----------------------------------OR-------------------------------------
+// export const appRoutingModule: ModuleWithProviders = RouterModule.forRoot(routes);
+// export const appRoutingModule: ModuleWithProviders = RouterModule.forRoot(routes ,{ preloadingStrategy: PreloadAllModules } );
