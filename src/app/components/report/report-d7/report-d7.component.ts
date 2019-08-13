@@ -22,11 +22,6 @@ export class ReportD7Component implements OnInit {
   divisionList: any;
   zoneList: any;
   user: any;
-  pager: any;
-  pageSize: number;
-  searchResultList: any;
-  pagedSearchResultList: any;
-  _searchClicked: boolean;
   _generateClicked: boolean;
   viewResultList: any;
   reportGenerated: boolean;
@@ -132,63 +127,25 @@ export class ReportD7Component implements OnInit {
   }
   
   zoneChanged(zone){
+    this.viewResultList = null;
+    this.reportGenerated = false;
     console.log(zone);
-    this.searchResultList = null;
   }
 
     billMonthChanged(){
-      this.searchResultList = null;
+      this.viewResultList = null;
+      this.reportGenerated = false;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
   billMonthYearChanged(){
-    this.searchResultList = null;
+    this.viewResultList = null;
+    this.reportGenerated = false;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
-  }
-
-  searchClicked(){
-    this._searchClicked = true;
-    this.reportGenerated = false;
-    console.log(this.searchFormData);
-    if(this.searchFormData.zone === "ALL"){
-      this.getByDivisionIdAndBillMonth();
-    }else{
-      this.getByZoneIdAndBillMonth();
-    }
-  }
-
-  getByZoneIdAndBillMonth(){
-    this.searchResultList = null;
-    this._searchClicked = true;
-    this.reportService.getD7GenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      this._searchClicked = false;
-      console.log(successResponse);
-      this.searchResultList = successResponse
-      this.initializePaginationVariables();
-      this.setPage(1);
-    },errorResponse =>{
-      this._searchClicked = false;
-      console.log(errorResponse);
-    });
-  }
-
-  getByDivisionIdAndBillMonth(){
-    this.searchResultList = null;
-    this._searchClicked = true;
-    this.reportService.getD7GenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      this._searchClicked = false;
-      console.log(successResponse);
-      this.searchResultList = successResponse
-      this.initializePaginationVariables();
-      this.setPage(1);
-    },errorResponse =>{
-      this._searchClicked = false;
-      console.log(errorResponse);
-    });
   }
 
   generateClicked(){
@@ -215,8 +172,9 @@ export class ReportD7Component implements OnInit {
       this._generateClicked = false;
       let result = <any>successResponse;
       if(result && result.status === 201){
-        this.reportGenerated = true
-        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+        this.reportGenerated = true;
+        this.viewClicked();
+        // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -225,7 +183,8 @@ export class ReportD7Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.viewClicked();
+        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert("Some error occured while generating report !!!");
       }
@@ -238,8 +197,9 @@ export class ReportD7Component implements OnInit {
       this._generateClicked = false;
       let result = <any>successResponse;
       if(result && result.status === 201){
-        this.reportGenerated = true
-        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+        this.reportGenerated = true;
+        this.viewClicked();
+        // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -248,7 +208,8 @@ export class ReportD7Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.viewClicked();
+        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert("Some error occured while generating report !!!");
       }
@@ -284,24 +245,12 @@ export class ReportD7Component implements OnInit {
   }
 
   exportClicked(){
-    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    let params = {
-      Authorization: "Basic " + encodedCredentials,
-    };
-    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d7-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
-    this.globalResources.downloadFile(fileUrl,params);
-  }
-
-  initializePaginationVariables(){
-    this.pager = {};
-    this.pageSize = 10;
-  }
-
-  setPage(page: number) {
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
-    }
-    this.pager = this.paginationService.getPager(this.searchResultList.length, page, this.pageSize);
-    this.pagedSearchResultList = this.searchResultList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.globalResources.exportTableToExcel('d7Report');
+    // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    // let params = {
+    //   Authorization: "Basic " + encodedCredentials,
+    // };
+    // let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d7-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
+    // this.globalResources.downloadFile(fileUrl,params);
   }
 }
