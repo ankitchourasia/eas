@@ -244,8 +244,8 @@ export class ReportD7Component implements OnInit {
     });
   }
 
-  exportClicked(){
-    this.globalResources.exportTableToExcel('d7Report');
+  exportClicked(exportElementId){
+    this.globalResources.exportTableToExcel(exportElementId, "d-7_Report_" + this.searchFormData.billingMonth);
     // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     // let params = {
     //   Authorization: "Basic " + encodedCredentials,
