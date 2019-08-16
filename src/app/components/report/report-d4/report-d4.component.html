@@ -85,20 +85,26 @@
         </tr>
         <tr>
           <td class="align-middle">Sr. No.</td>
-          <td class="align-middle"></td>
-          <td class="align-middle"></td>
+          <td class="align-middle">Feeder Name</td>
+          <td class="align-middle">Bill Month</td>
+          <td class="align-middle">Billing Efficiency</td>
+          <td class="align-middle">Collection Efficiency</td>
+          <td class="align-middle">AT & C Loss</td>
         </tr>
       </thead>
       <tbody>
         <ng-template [ngIf]="viewResultList && viewResultList.length">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
-            <td class="align-middle"></td>
-            <td class="align-middle"></td>
+            <td class="align-middle">{{viewResult.feeder.name}}</td>
+            <td class="align-middle">{{viewResult.billMonth}}</td>
+            <td class="align-middle">{{viewResult.billingEfficiency}}</td>
+            <td class="align-middle">{{viewResult.collectionEfficiency}}</td>
+            <td class="align-middle">{{viewResult.atncLoss}}</td>
           </tr>
         </ng-template>
         <tr *ngIf="viewResultList && !viewResultList.length">
-          <td class="align-middle" colspan="8">No Record Found</td>
+          <td class="align-middle" colspan="6">No Record Found</td>
         </tr>
       </tbody>
     </table>
