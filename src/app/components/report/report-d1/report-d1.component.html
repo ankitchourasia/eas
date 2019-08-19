@@ -93,7 +93,9 @@
           <td class="align-middle">Feeder Name</td>
           <td class="align-middle">Feeder Group No</td>
           <td class="align-middle">Bill Month</td>
-          <td class="align-middle">AT&C Loss Generated</td>
+          <td class="align-middle">Read Inserted</td>
+          <td class="align-middle">Export Read Inserted</td>
+          <td class="align-middle">HT Read Inserted</td>
         </tr>
       </thead>
       <tbody>
@@ -104,12 +106,20 @@
           <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
           <td class="align-middle">{{searchResult?.billMonth | uppercase}}</td>
           <td class="align-middle">
-            <span class="text-success" *ngIf="searchResult.atncLossGenerated"><span class="fa fa-check"></span></span> 
-            <span class="text-danger" *ngIf="!searchResult.atncLossGenerated"><span class="fa fa-times"></span></span>
+            <span class="text-success" *ngIf="searchResult.feederReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!searchResult.feederReadingInserted"><span class="fa fa-times"></span></span>
+          </td>
+          <td class="align-middle">
+            <span class="text-success" *ngIf="searchResult.exportReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!searchResult.exportReadingInserted"><span class="fa fa-times"></span></span>
+          </td>
+          <td class="align-middle">
+            <span class="text-success" *ngIf="searchResult.htReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!searchResult.htReadingInserted"><span class="fa fa-times"></span></span>
           </td>
         </tr>
         <tr *ngIf="searchResultList && !searchResultList.length">
-          <td class="align-middle" colspan="6">No Records found</td>
+          <td class="align-middle" colspan="8">No Records found</td>
         </tr>
       </tbody>
     </table>

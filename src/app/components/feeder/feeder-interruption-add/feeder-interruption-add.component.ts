@@ -206,6 +206,7 @@ export class FeederInterruptionAddComponent implements OnInit {
     this.formData.feederId = this.formData.feeder.id;
     this.formData.groupNo = this.formData.feeder.groupNo;
     this.formData.feederCode = "DUMMY";
+    this.formData.zoneId = this.formData.zone.id;
     this._submitClicked = false;
     this.feederService.addFeederInterruption(this.formData, false).subscribe(successResponse =>{
       this._submitClicked = false;
