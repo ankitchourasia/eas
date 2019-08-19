@@ -183,10 +183,9 @@ export class ReportD5Component implements OnInit {
       if(errorResponse.status === 417){
         this.reportGenerated = true;
         this.viewClicked();
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }
@@ -211,7 +210,7 @@ export class ReportD5Component implements OnInit {
         this.viewClicked();
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }

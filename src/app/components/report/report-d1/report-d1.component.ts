@@ -223,7 +223,7 @@ export class ReportD1Component implements OnInit {
         this.reportGenerated = true;
         this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }
@@ -246,7 +246,7 @@ export class ReportD1Component implements OnInit {
         this.reportGenerated = true;
         this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }

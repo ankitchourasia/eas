@@ -98,17 +98,17 @@
         <ng-template [ngIf]="viewResultList && viewResultList.length">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
-            <td class="align-middle">{{viewResult.zoneName | uppercase}}</td>
-            <td class="align-middle">{{viewResult.totalConsumers}}</td>
-            <td class="align-middle">{{viewResult.ePaymentConsumer}}</td>
+            <td class="align-middle">{{viewResult?.zoneName | uppercase}}</td>
+            <td class="align-middle">{{viewResult?.totalConsumers}}</td>
+            <td class="align-middle">{{viewResult?.ePaymentConsumer}}</td>
             <td class="align-middle">
-              <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.totalCollection}}
+              <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult?.totalCollection}}
             </td>
             <td class="align-middle">
-              <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult.ePaymentCollection}}
+              <i class="fa fa-inr" aria-hidden="true"></i> {{viewResult?.ePaymentCollection}}
             </td>
-            <td class="align-middle">{{viewResult.ePaymentConsumerPercent}}%</td>
-            <td class="align-middle">{{viewResult.eCollectionPercent}}%</td>
+            <td class="align-middle">{{viewResult?.ePaymentConsumerPercent}}%</td>
+            <td class="align-middle">{{viewResult?.eCollectionPercent}}%</td>
           </tr>
         </ng-template>
         <tr *ngIf="viewResultList && !viewResultList.length">

@@ -99,25 +99,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let searchResult of pagedSearchResultList; let i = index">
-          <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td class="align-middle">{{searchResult?.feeder?.zone?.name | uppercase}}</td>
-          <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
-          <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
-          <td class="align-middle">{{searchResult?.billMonth | uppercase}}</td>
-          <td class="align-middle">
-            <span class="text-success" *ngIf="searchResult.feederReadingInserted"><span class="fa fa-check"></span></span> 
-            <span class="text-danger" *ngIf="!searchResult.feederReadingInserted"><span class="fa fa-times"></span></span>
-          </td>
-          <td class="align-middle">
-            <span class="text-success" *ngIf="searchResult.exportReadingInserted"><span class="fa fa-check"></span></span> 
-            <span class="text-danger" *ngIf="!searchResult.exportReadingInserted"><span class="fa fa-times"></span></span>
-          </td>
-          <td class="align-middle">
-            <span class="text-success" *ngIf="searchResult.htReadingInserted"><span class="fa fa-check"></span></span> 
-            <span class="text-danger" *ngIf="!searchResult.htReadingInserted"><span class="fa fa-times"></span></span>
-          </td>
-        </tr>
+        <ng-template [ngIf]="searchResultList && searchResultList.length">
+          <tr *ngFor="let searchResult of pagedSearchResultList; let i = index">
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td class="align-middle">{{searchResult?.feeder?.zone?.name | uppercase}}</td>
+            <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
+            <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
+            <td class="align-middle">{{searchResult?.billMonth | uppercase}}</td>
+            <td class="align-middle">
+              <span class="text-success" *ngIf="searchResult?.feederReadingInserted"><span class="fa fa-check"></span></span> 
+              <span class="text-danger" *ngIf="!searchResult?.feederReadingInserted"><span class="fa fa-times"></span></span>
+            </td>
+            <td class="align-middle">
+              <span class="text-success" *ngIf="searchResult?.exportReadingInserted"><span class="fa fa-check"></span></span> 
+              <span class="text-danger" *ngIf="!searchResult?.exportReadingInserted"><span class="fa fa-times"></span></span>
+            </td>
+            <td class="align-middle">
+              <span class="text-success" *ngIf="searchResult?.htReadingInserted"><span class="fa fa-check"></span></span> 
+              <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
+            </td>
+          </tr>
+        </ng-template>
         <tr *ngIf="searchResultList && !searchResultList.length">
           <td class="align-middle" colspan="8">No Records found</td>
         </tr>
@@ -178,11 +180,11 @@
               <ng-template [ngIf]="viewResultList && viewResultList.length">
                 <tr *ngFor="let viewResult of viewResultList; let i = index">
                   <td class="align-middle">{{i + 1}}</td>
-                  <td class="align-middle">{{viewResult.zoneName | uppercase}}</td>
-                  <td class="align-middle">{{viewResult.baseLineLoss}}%</td>
-                  <td class="align-middle">{{viewResult.billingEfficiency}}%</td>
-                  <td class="align-middle">{{viewResult.collectionEfficiency}}%</td>
-                  <td class="align-middle">{{viewResult.atncLoss}}%</td>
+                  <td class="align-middle">{{viewResult?.zoneName | uppercase}}</td>
+                  <td class="align-middle">{{viewResult?.baseLineLoss}}%</td>
+                  <td class="align-middle">{{viewResult?.billingEfficiency}}%</td>
+                  <td class="align-middle">{{viewResult?.collectionEfficiency}}%</td>
+                  <td class="align-middle">{{viewResult?.atncLoss}}%</td>
                 </tr>
               </ng-template>
               <tr *ngIf="viewResultList && !viewResultList.length">

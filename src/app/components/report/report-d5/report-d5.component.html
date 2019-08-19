@@ -98,13 +98,13 @@
         <ng-template [ngIf]="viewResultList && viewResultList.length">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
-            <td class="align-middle">{{viewResult.zone.name | uppercase}}</td>
-            <td class="align-middle">{{viewResult.feederCount}}</td>
-            <td class="align-middle">{{viewResult.totalConsumers}}</td>
-            <td class="align-middle">{{viewResult.averageInterruptionFrequency}}</td>
-            <td class="align-middle">{{viewResult.averageInterruptionSeconds}}</td>
-            <td class="align-middle">{{viewResult.averageInterruptionMinutes}}</td>
-            <td class="align-middle">{{viewResult.averageInterruptionHours}}</td>
+            <td class="align-middle">{{viewResult?.zone?.name | uppercase}}</td>
+            <td class="align-middle">{{viewResult?.feederCount}}</td>
+            <td class="align-middle">{{viewResult?.totalConsumers}}</td>
+            <td class="align-middle">{{viewResult?.averageInterruptionFrequency}}</td>
+            <td class="align-middle">{{viewResult?.averageInterruptionSeconds}}</td>
+            <td class="align-middle">{{viewResult?.averageInterruptionMinutes}}</td>
+            <td class="align-middle">{{viewResult?.averageInterruptionHours}}</td>
           </tr>
         </ng-template>
         <tr *ngIf="viewResultList && !viewResultList.length">

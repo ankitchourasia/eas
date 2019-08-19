@@ -186,7 +186,7 @@ export class ReportD7Component implements OnInit {
         this.viewClicked();
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }
@@ -211,7 +211,7 @@ export class ReportD7Component implements OnInit {
         this.viewClicked();
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }

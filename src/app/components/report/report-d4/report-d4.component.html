@@ -96,11 +96,11 @@
         <ng-template [ngIf]="viewResultList && viewResultList.length">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
-            <td class="align-middle">{{viewResult.feeder.name | uppercase}}</td>
-            <td class="align-middle">{{viewResult.billMonth | uppercase}}</td>
-            <td class="align-middle">{{viewResult.billingEfficiency}}%</td>
-            <td class="align-middle">{{viewResult.collectionEfficiency}}%</td>
-            <td class="align-middle">{{viewResult.atncLoss}}%</td>
+            <td class="align-middle">{{viewResult?.feeder?.name | uppercase}}</td>
+            <td class="align-middle">{{viewResult?.billMonth | uppercase}}</td>
+            <td class="align-middle">{{viewResult?.billingEfficiency}}%</td>
+            <td class="align-middle">{{viewResult?.collectionEfficiency}}%</td>
+            <td class="align-middle">{{viewResult?.atncLoss}}%</td>
           </tr>
         </ng-template>
         <tr *ngIf="viewResultList && !viewResultList.length">

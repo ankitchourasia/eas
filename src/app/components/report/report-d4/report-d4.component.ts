@@ -172,7 +172,7 @@ export class ReportD4Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true;
-        //this.viewClicked();
+        this.viewClicked();
         // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
@@ -182,10 +182,10 @@ export class ReportD4Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        //this.viewClicked();
+        this.viewClicked();
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }
@@ -210,7 +210,7 @@ export class ReportD4Component implements OnInit {
         this.viewClicked();
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
-        this.globalResources.errorAlert("Some error occured while generating report !!!");
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
   }
