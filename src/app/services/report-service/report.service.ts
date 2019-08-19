@@ -137,5 +137,40 @@ export class ReportService {
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/division/id/' + divisionId + "/bill-month/" + billMonth);
     }
   }
+
+  generateD5ReportForZone(d5Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd5-report/zone/',  d5Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd5-report/zone/', d5Report);
+    }
+  }
+
+  generateD5ReportForDivision(d5Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd5-report/division/',  d5Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd5-report/division/', d5Report);
+    }
+  }
+
+  getD5ByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd5-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd5-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
   
+  getD5ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd5-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd5-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+    }
+  }
 }

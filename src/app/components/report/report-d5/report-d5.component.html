@@ -1,0 +1,116 @@
+<form #searchForm="ngForm" id="searchForm">
+  <div class="eas-space-evenly mb-2">
+    <div class="inner-group">
+      <label class="form-text text-muted mb-0">Region</label>
+      <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(searchFormData.region)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+        <div [hidden]="!region.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <label class="form-text text-muted mb-0">Circle</label>
+      <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(searchFormData.circle)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
+        <div [hidden]="!circle.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <label class="form-text text-muted mb-0">Division</label>
+      <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(searchFormData.division)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
+        <div [hidden]="!division.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <label class="form-text text-muted mb-0">Zone</label>
+      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(searchFormData.zone)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngIf="zoneList && zoneList.length > 1">ALL</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+        <div [hidden]="!zone.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <label class="form-text text-muted mb-0">Bill Month</label>
+      <div class="input-group">
+        <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="searchFormData.billMonth" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
+          <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+          <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+        </select>
+        <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="searchFormData.billMonthYear" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthYearChanged()">
+          <option disabled selected [ngValue]='undefined'>Year</option>
+          <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+        </select>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-sm btn-primary" (click)=generateClicked() [disabled]="!searchForm.form.valid || _generateClicked">
+            Generate <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+          </button>
+        </div>
+        <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+          <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div *ngIf="!_generateClicked && reportGenerated && viewResultList">
+  <hr>
+  <div class="eas-flex-end">
+    <button  type="button" class="btn btn-sm btn-primary" (click)="exportClicked('d5Report')">
+      <i class="fa fa-download" aria-hidden="true"></i> Export
+    </button>
+  </div>
+  <div class="table-responsive pt-1" id="d5Report">
+    <table class="table table-sm table-bordered" border="1" style="border-collapse:collapse; text-align: center">
+      <thead class="text-sm bg-dark text-white" style="vertical-align: middle">
+        <tr hidden>
+          <td colspan="8" class="align-middle"><h4>D-7 REPORT ({{searchFormData.billingMonth}})</h4></td>
+        </tr>
+        <tr>
+          <td class="align-middle">Sr. No.</td>
+          <td class="align-middle">Zone/DC Name</td>
+          <td class="align-middle">Feeder Count</td>
+          <td class="align-middle">Total Consumers</td>
+          <td class="align-middle">SAIFI</td>
+          <td class="align-middle">SAIDI (SEC.)</td>
+          <td class="align-middle">SAIDI (MIN.)</td>
+          <td class="align-middle">SAIDI (HUR.)</td>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template [ngIf]="viewResultList && viewResultList.length">
+          <tr *ngFor="let viewResult of viewResultList; let i = index">
+            <td class="align-middle">{{i + 1}}</td>
+            <td class="align-middle">{{viewResult.zone.name | uppercase}}</td>
+            <td class="align-middle">{{viewResult.feederCount}}</td>
+            <td class="align-middle">{{viewResult.totalConsumers}}</td>
+            <td class="align-middle">{{viewResult.averageInterruptionFrequency}}</td>
+            <td class="align-middle">{{viewResult.averageInterruptionSeconds}}</td>
+            <td class="align-middle">{{viewResult.averageInterruptionMinutes}}</td>
+            <td class="align-middle">{{viewResult.averageInterruptionHours}}</td>
+          </tr>
+        </ng-template>
+        <tr *ngIf="viewResultList && !viewResultList.length">
+          <td class="align-middle" colspan="8">No Record Found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
