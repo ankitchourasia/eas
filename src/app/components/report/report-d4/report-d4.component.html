@@ -81,7 +81,7 @@
     <table class="table table-sm table-bordered" border="1" style="border-collapse:collapse; text-align: center">
       <thead class="text-sm bg-dark text-white" style="vertical-align: middle">
         <tr hidden>
-          <td colspan="3" class="align-middle"><h4>D-4 REPORT ({{searchFormData.billingMonth}})</h4></td>
+          <td colspan="6" class="align-middle"><h4>D-4 REPORT ({{searchFormData.billingMonth}})</h4></td>
         </tr>
         <tr>
           <td class="align-middle">Sr. No.</td>
@@ -89,18 +89,18 @@
           <td class="align-middle">Bill Month</td>
           <td class="align-middle">Billing Efficiency</td>
           <td class="align-middle">Collection Efficiency</td>
-          <td class="align-middle">AT & C Loss</td>
+          <td class="align-middle">AT&C Loss</td>
         </tr>
       </thead>
       <tbody>
         <ng-template [ngIf]="viewResultList && viewResultList.length">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
-            <td class="align-middle">{{viewResult.feeder.name}}</td>
-            <td class="align-middle">{{viewResult.billMonth}}</td>
-            <td class="align-middle">{{viewResult.billingEfficiency}}</td>
-            <td class="align-middle">{{viewResult.collectionEfficiency}}</td>
-            <td class="align-middle">{{viewResult.atncLoss}}</td>
+            <td class="align-middle">{{viewResult.feeder.name | uppercase}}</td>
+            <td class="align-middle">{{viewResult.billMonth | uppercase}}</td>
+            <td class="align-middle">{{viewResult.billingEfficiency}}%</td>
+            <td class="align-middle">{{viewResult.collectionEfficiency}}%</td>
+            <td class="align-middle">{{viewResult.atncLoss}}%</td>
           </tr>
         </ng-template>
         <tr *ngIf="viewResultList && !viewResultList.length">
