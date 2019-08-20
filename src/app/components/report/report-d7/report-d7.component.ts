@@ -228,7 +228,9 @@ export class ReportD7Component implements OnInit {
     this.viewResultList = [];
     this.reportService.getD7ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       console.log(successResponse);
-      this.viewResultList.push(successResponse);
+      if(successResponse){
+        this.viewResultList.push(successResponse);
+      }
     },errorResponse =>{
       console.log(errorResponse);
     });
@@ -238,7 +240,9 @@ export class ReportD7Component implements OnInit {
     this.viewResultList = [];
     this.reportService.getD7ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       console.log(successResponse);
-      this.viewResultList = successResponse
+      if(successResponse){
+        this.viewResultList = successResponse;
+      }
     },errorResponse =>{
       console.log(errorResponse);
     });

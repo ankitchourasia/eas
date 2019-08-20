@@ -262,7 +262,9 @@ export class ReportD1Component implements OnInit {
   viewByZoneIdAndBillMonth(){
     this.viewResultList = [];
     this.reportService.getD1ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      this.viewResultList.push(successResponse);
+      if(successResponse){
+        this.viewResultList.push(successResponse);
+      }
     },errorResponse =>{
       console.log(errorResponse);
     });
@@ -271,7 +273,9 @@ export class ReportD1Component implements OnInit {
   viewByDivisionIdAndBillMonth(){
     this.viewResultList = [];
     this.reportService.getD1ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      this.viewResultList = successResponse
+      if(successResponse){
+        this.viewResultList = successResponse;
+      }
     },errorResponse =>{
       console.log(errorResponse);
     });
