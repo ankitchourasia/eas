@@ -58,6 +58,7 @@ export class GlobalResources {
     }
 
     errorAlert( message:string){
+        // this.fixBootstrapModal();
         return alert.fire({
             html: "<strong>" + message + "<strong>",
             animation: true,
@@ -66,13 +67,14 @@ export class GlobalResources {
             allowEnterKey: true,
             focusConfirm: true,
             buttonsStyling: false,
-            confirmButtonClass: 'btn btn-danger',
-            // confirmButtonColor: "#d9534f",
             confirmButtonText: 'OK',
+            confirmButtonClass: 'btn btn-danger',
+            keydownListenerCapture: true,
         });
     }
 
     successAlert(message:string){
+        // this.fixBootstrapModal();
         return alert.fire({
             html: "<strong>" + message + "<strong>",
             animation: true,
@@ -81,13 +83,14 @@ export class GlobalResources {
             allowEnterKey: true,
             focusConfirm: true,
             buttonsStyling: false,
-            confirmButtonClass: 'btn btn-success',
-            // confirmButtonColor: "#5cb85c",
             confirmButtonText: 'OK',
+            confirmButtonClass: 'btn btn-success',
+            keydownListenerCapture: true,
         });
     }
 
     confirmAlert(message:string){
+        // this.fixBootstrapModal();
         return alert.fire({
             html: "<strong>" + message + "<strong>",
             animation: true,
@@ -97,12 +100,11 @@ export class GlobalResources {
             allowEnterKey: true,
             focusConfirm: true,
             buttonsStyling: false,
-            confirmButtonClass: 'btn btn-success mx-sm-3',
-            cancelButtonClass: 'btn btn-danger',
-            // confirmButtonColor: "#5cb85c",
-            // cancelButtonColor: '#d33',
             confirmButtonText: 'YES ',
+            confirmButtonClass: 'btn btn-success mx-3',
             cancelButtonText: 'NO ',
+            cancelButtonClass: 'btn btn-danger',
+            keydownListenerCapture: true,
             // reverseButtons: true,
             // background: "black",
             // position: "bottom",
@@ -111,6 +113,7 @@ export class GlobalResources {
       }
 
       templateAlert(templateRef, options){
+        //   this.fixBootstrapModal();
         return alert.fire({
             title: options.title,
             html: "<hr>" + templateRef.innerHTML + "<hr>",
@@ -125,9 +128,28 @@ export class GlobalResources {
             customClass:{
                 // content: "text-left"
             },
-            width: options.width
+            width: options.width,
+            keydownListenerCapture: true,
         });
       }
+
+    // call this before showing SweetAlert:
+    fixBootstrapModal() {
+        var modalNode = document.querySelector('.modal[tabindex="-1"]');
+        if (!modalNode) return;
+    
+        modalNode.removeAttribute('tabindex');
+        modalNode.classList.add('swal-fixed');
+    }
+  
+  // call this before hiding SweetAlert (inside done callback):
+    restoreBootstrapModal() {
+        var modalNode = document.querySelector('.modal.swal-fixed');
+        if (!modalNode) return;
+    
+        modalNode.setAttribute('tabindex', '-1');
+        modalNode.classList.remove('swal-fixed');
+    }
 
     makeDateAsDD_MM_YYYY(inputDate) {
         if(inputDate){
