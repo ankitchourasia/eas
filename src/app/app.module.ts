@@ -12,6 +12,7 @@ import { AuthorizationInterceptor } from './interceptors/authorization.intercept
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
 import { AppRoutingModule } from './app-routing.module';
+import { GlobalDOMUtility } from './utility/global-dom-utility';
 // import { appRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [ 
     GlobalResources,
     GlobalConstants,
+    GlobalDOMUtility,
     GlobalConfiguration,
     CanActivateAuthGuard,
     {
