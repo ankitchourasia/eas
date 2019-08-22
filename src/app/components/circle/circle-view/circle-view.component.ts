@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { GlobalResources } from 'app/utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
-import $ from 'jQuery';
 
 @Component({
   selector: 'eas-circle-view',

@@ -42,8 +42,8 @@ export class SubstationAddComponent implements OnInit {
   }
 
   submitClicked(substationAddForm){
-    this.submitButtonClicked = true;
     if(this.globalResources.validateForm(substationAddForm)){
+      this.submitButtonClicked = true;
       this.substationService.addSubstation(this.substation).subscribe(success =>{
         this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation added successfully");

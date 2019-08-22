@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 import alert from "sweetalert2";
 import $ from 'jQuery';
 
@@ -12,6 +12,34 @@ export class GlobalResources {
 
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));
+    }
+    
+    handleError(errorResponse: Response | any, componentName: string, methodName: string, customErrorMessage?: string) {
+        console.log("Error inside " + componentName + "-" + methodName, errorResponse);
+        let alertResponse: any = null;
+        try{
+            switch (errorResponse.status) {
+                case 0:{
+                    alertResponse = this.errorAlert("Server down. Try agian after some time...");
+                    break;
+                }
+                default:{
+                    if(customErrorMessage){
+                        alertResponse = this.errorAlert(customErrorMessage);
+                    }else if(errorResponse.error && errorResponse.error.errorMessage){
+                        alertResponse = this.errorAlert(errorResponse.error.errorMessage);
+                    }else if(errorResponse.error && errorResponse.error.message){
+                        alertResponse = this.errorAlert(errorResponse.error.message);
+                    }else{
+                        alertResponse = this.errorAlert("Some error occurred. Try again...");
+                    }
+                }
+            }
+        }catch(exception){
+            console.log(exception);
+            alertResponse = this.errorAlert("Exception occurred inside " + methodName + " of " + componentName);
+        }
+        return alertResponse;
     }
     
     setPristine(element : NgForm){
@@ -32,20 +60,32 @@ export class GlobalResources {
         }
     }
 
+    resetValidateInput(ngModelElement: NgModel){
+        if(ngModelElement){
+            ngModelElement.control.markAsPristine();
+            ngModelElement.control.markAsUntouched();
+        }
+    }
+
+    validateInput(ngModelElement: NgModel){
+        if(ngModelElement){
+            ngModelElement.control.markAsDirty();
+            ngModelElement.control.markAsTouched();
+        }
+    }
+
     resetValidateForm(ngForm:NgForm){
-        console.log("inside resetValidateForm", ngForm);
         this.setPristine(ngForm);
         this.setUntouched(ngForm);
         this.updateValueAndValidity(ngForm);
     }
 
     validateForm(ngForm: NgForm): boolean{
-        console.log("inside validateForm", ngForm);
         if(ngForm){
             if(ngForm.invalid){
                 Object.keys(ngForm.controls).forEach(control => {
-                ngForm.form.get(control).markAsDirty();
-                ngForm.form.get(control).markAsTouched();
+                    ngForm.form.get(control).markAsDirty();
+                    ngForm.form.get(control).markAsTouched();
                 });
                 return false;
             }else{

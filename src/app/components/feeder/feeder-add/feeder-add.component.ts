@@ -43,8 +43,8 @@ export class FeederAddComponent implements OnInit {
   }
   
   submitClicked(feederAddForm){
-    this.submitButtonClicked = true;
     if(this.globalResources.validateForm(feederAddForm)){
+      this.submitButtonClicked = true;
       this.feederService.addFeeder(this.feeder).subscribe(successResponese =>{
         this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
