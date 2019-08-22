@@ -123,6 +123,7 @@ export class FeederAtncLossReportComponent implements OnInit {
 
   getFeederBySubstationId(substationId){
     let methodName = "getFeederBySubstationId";
+    this.feederList = [];
     this._searchClicked = true;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.feederService.getFeedersForATnCLossGenerationBySubstationId(substationId, billingMonth).subscribe(successResponese =>{
