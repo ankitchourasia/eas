@@ -5,40 +5,42 @@
   </div>
 </div>
 
-<div *ngIf="substations && !loading">
+<div *ngIf="substationList && !loading">
   <div class="form-group  eas-flex-end">
-    <button class="button btn btn-primary" (click)="exportClicked()"><span class="fa fa-download"></span> Export</button>
+    <button class="button btn btn-primary" (click)="exportClicked()" [disabled]="substationList && !substationList.length">
+      <span class="fa fa-download"></span> Export
+    </button>
   </div>
   <fieldset [disabled]="deleteButtonClicked">
     <div class="table-responsive mb-2">
       <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
           <tr>
-            <td>SNo</td>
-            <td>Name</td>
-            <td>Code</td>
-            <td>Zone</td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td class="align-middle">SNo</td>
+            <td class="align-middle">Name</td>
+            <td class="align-middle">Code</td>
+            <td class="align-middle">Zone</td>
+            <td class="align-middle">Edit</td>
+            <td class="align-middle">Delete</td>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let substation of pagedSubstations; let i = index">
-            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td>{{substation.name | uppercase}}</td>
-            <td>{{substation.code}}</td>
-            <td>{{substation.zone.locationCode}} - {{substation.zone.name | uppercase}}</td>
-            <td><a href="javascript:void(0)" (click)="editClicked(substation)" data-toggle="modal" data-target="#updateSubstationModal"><span class="fa fa-pencil"></span></a></td>
-            <td><a href="javascript:void(0)" (click)="deleteClicked(substation)"><span class="fa fa-trash"></span></a></td>
+          <tr *ngFor="let substation of pagedSubstationList; let i = index">
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td class="align-middle">{{substation.name | uppercase}}</td>
+            <td class="align-middle">{{substation.code}}</td>
+            <td class="align-middle">{{substation.zone.locationCode}} - {{substation.zone.name | uppercase}}</td>
+            <td class="align-middle"><a href="javascript:void(0)" (click)="editClicked(substation)" data-toggle="modal" data-target="#updateSubstationModal"><span class="fa fa-pencil"></span></a></td>
+            <td class="align-middle"><a href="javascript:void(0)" (click)="deleteClicked(substation)"><span class="fa fa-trash"></span></a></td>
           </tr>
-          <tr *ngIf="substations && substations.length <= 0">
-            <td colspan="6">No Records Found</td>
+          <tr *ngIf="substationList && !substationList.length">
+            <td class="align-middle" colspan="6">No Records Found</td>
           </tr>
         </tbody>
       </table>
     </div>
   </fieldset>
-  <div id="pagination" *ngIf="substations && substations.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="substationList && substationList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">

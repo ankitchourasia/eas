@@ -20,7 +20,11 @@ export class GlobalResources {
         try{
             switch (errorResponse.status) {
                 case 0:{
-                    alertResponse = this.errorAlert("Server down. Try agian after some time...");
+                    alertResponse = this.errorAlert("Frontend Server down. Try agian after some time...");
+                    break;
+                }
+                case 500:{
+                    alertResponse = this.errorAlert("Backend Server down. Try agian after some time...");
                     break;
                 }
                 default:{

@@ -13,6 +13,7 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 })
 export class FeederTndLossReportWithoutHtComponent implements OnInit {
 
+  COMPONENT_NAME: "FeederTndLossReportWithoutHtComponent";
   user : any;
   zoneList: any;
   regionList: any;
@@ -29,7 +30,7 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
   showError: boolean;
   generating: boolean;
   reportGenerated: boolean;
-  searchButtonClicked: boolean;
+  _searchClicked: boolean;
   display: any = 'none';
   feederLossReportView : any = {};
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private feederService : FeederService, 
@@ -112,24 +113,29 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
     this.userDetails.feeder = undefined; 
   }
 
-  getFeederBySubstationId(substationId){
-    let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.feederService.getFeedersForLossGenerationBySubstationId(substationId, billingMonth).subscribe(successResponese =>{
-      this.feederList = successResponese;
-      console.log(this.feederList);
-      this.initializePaginationVariables();
-      this.setPage(1);
-    },errorResponse =>{
-      console.log(errorResponse);
-    });
-  }
-
   searchClicked(){
     this.showError = false;
     this.reportGenerated = false;
     this.generating = false;
     this.getFeederBySubstationId(this.userDetails.substation.id);
 
+  }
+
+  getFeederBySubstationId(substationId){
+    let methodName = "getFeederBySubstationId";
+    this.feederList = [];
+    this._searchClicked = true;
+    let billingMonth = this.billMonth + "-" + this.billMonthYear;
+    this.feederService.getFeedersForLossGenerationBySubstationId(substationId, billingMonth).subscribe(successResponese =>{
+      this._searchClicked = false;
+      this.feederList = successResponese;
+      console.log(this.feederList);
+      this.initializePaginationVariables();
+      this.setPage(1);
+    },errorResponse =>{
+      this._searchClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
   }
 
   generateSingleFeederLossReport(feeder){

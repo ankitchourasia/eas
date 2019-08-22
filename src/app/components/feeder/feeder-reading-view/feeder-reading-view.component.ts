@@ -11,22 +11,23 @@ import { GlobalConstants } from 'app/utility/global.constants';
 })
 export class FeederReadingViewComponent implements OnInit {
 
-  user : any = {};
-  billMonth : string;
-  feederReadings : any;
-  pagedFeederReadings : any = [];
-  month : string;
-  year : string;
-  loading : boolean;
-  readingToEdit : any;
-  updateButtonClicked : boolean;
+  COMPONENT_NAME: "FeederReadingViewComponent";
+  user: any = {};
+  billMonth: string;
+  feederReadingList: any;
+  pagedFeederReadingList: any;
+  month: string;
+  year: string;
+  loading: boolean;
+  readingToEdit: any;
+  updateButtonClicked: boolean;
 
   pager: any;
   pageSize: number;
   
   @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
-  constructor(private feederService : FeederService, public globalConstants : GlobalConstants,
-    private globalResources : GlobalResources, private paginationService : PaginationService) { }
+  constructor(private feederService: FeederService, public globalConstants: GlobalConstants,
+    private globalResources: GlobalResources, private paginationService: PaginationService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -35,17 +36,19 @@ export class FeederReadingViewComponent implements OnInit {
   
   
   getFeederReadings(){
+    let methodName = "getFeederReading";
     this.loading =true;
+    this.feederReadingList = [];
     this.billMonth = this.month + '-' + this.year;
-    this.feederService.getFeederReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(success =>{
+    this.feederService.getFeederReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
       this.loading = false;
-      console.log(success);
-      this.feederReadings = success;
+      console.log(successResponse);
+      this.feederReadingList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
-    }, error =>{
+    }, errorResponse =>{
       this.loading = false;
-      console.log(error);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -111,9 +114,9 @@ export class FeederReadingViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.feederReadings.length, page, this.pageSize);
-    this.pagedFeederReadings = this.feederReadings.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedFeederReadings);
+    this.pager = this.paginationService.getPager(this.feederReadingList.length, page, this.pageSize);
+    this.pagedFeederReadingList = this.feederReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    console.log(this.pagedFeederReadingList);
   }
 
   closeModal(closeButtonRef: ElementRef){

@@ -13,13 +13,14 @@ import { GlobalConfiguration } from 'app/utility/global-configuration';
 })
 export class FeederViewComponent implements OnInit {
 
+  COMPONENT_NAME: "FeederViewComponent";
   user : any;
-  feeders : any;
+  feederList : any;
   feederToEdit: any;
   substationList: any;
   pager: any;
   pageSize: number;
-  pagedFeeders : any;
+  pagedFeederList : any;
   loading : boolean;
   
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
@@ -31,15 +32,17 @@ export class FeederViewComponent implements OnInit {
   }
 
   getFeeders(){
+    let methodName = "getFeeders";
     this.loading = true;
+    this.feederList = [];
     this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(successResponese =>{
       this.loading = false;
-      this.feeders = successResponese;
+      this.feederList = successResponese;
       this.initializePaginationVariables();
       this.setPage(1);
     }, errorResponse =>{
-      console.log(errorResponse);
       this.loading = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -135,8 +138,8 @@ export class FeederViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.feeders.length, page, this.pageSize);
-    this.pagedFeeders = this.feeders.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.pager = this.paginationService.getPager(this.feederList.length, page, this.pageSize);
+    this.pagedFeederList = this.feederList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
   closeModal(modalCloseButtonRef){

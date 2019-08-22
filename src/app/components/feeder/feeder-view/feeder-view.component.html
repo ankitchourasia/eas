@@ -5,66 +5,68 @@
   </div>
 </div>
 
-<div *ngIf="feeders && !loading">
+<div *ngIf="feederList && !loading">
   <div class="form-group  eas-flex-end">
-    <button class="button btn btn-primary" (click)="exportClicked()"><span class="fa fa-download">&nbsp;Export</span></button>
+    <button class="button btn btn-primary" (click)="exportClicked()" [disabled]="feederList && !feederList.length">
+      <span class="fa fa-download">&nbsp;Export</span>
+    </button>
   </div>
   <fieldset [disabled]="deleteButtonClicked">
     <div class="table-responsive mb-2">
       <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
           <tr>
-            <td>SNo</td>
-            <td>Zone</td>
-            <td>Substation</td>
-            <td>Feeder Name</td>
-            <td>Feeder Code</td>
-            <td>Group No.</td>
-            <td>Feeder Incharge</td>
-            <td>STM ID</td>
-            <td>GIS ID</td>
-            <td>Feeder Type</td>
-            <td>Meter No.</td>
-            <td>MF</td>
-            <td>Meter Make</td>
-            <td>Edit</td>
-            <td *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
+            <td class="align-middle">SNo</td>
+            <td class="align-middle">Zone</td>
+            <td class="align-middle">Substation</td>
+            <td class="align-middle">Feeder Name</td>
+            <td class="align-middle">Feeder Code</td>
+            <td class="align-middle">Group No.</td>
+            <td class="align-middle">Feeder Incharge</td>
+            <td class="align-middle">STM ID</td>
+            <td class="align-middle">GIS ID</td>
+            <td class="align-middle">Feeder Type</td>
+            <td class="align-middle">Meter No.</td>
+            <td class="align-middle">MF</td>
+            <td class="align-middle">Meter Make</td>
+            <td class="align-middle">Edit</td>
+            <td class="align-middle" *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let feeder of pagedFeeders; let i = index">
-            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td>{{feeder.zone.name | uppercase}}</td>
-            <td>{{feeder.substation.name}}</td>
-            <td>{{feeder.name}}</td>
-            <td>{{feeder.feederCode}}</td>
-            <td>{{feeder.groupNo}}</td>
-            <td>{{feeder.link}}</td>
-            <td>{{feeder.feederSTMId}}</td>
-            <td>{{feeder.feederGISId}}</td>
-            <td>{{feeder.type}}</td>
-            <td>{{feeder.meterNo}}</td>
-            <td>{{feeder.mf}}</td>
-            <td>{{feeder.meterMake}}</td>
-            <td>
+          <tr *ngFor="let feeder of pagedFeederList; let i = index">
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td class="align-middle">{{feeder.zone.name | uppercase}}</td>
+            <td class="align-middle">{{feeder.substation.name}}</td>
+            <td class="align-middle">{{feeder.name}}</td>
+            <td class="align-middle">{{feeder.feederCode}}</td>
+            <td class="align-middle">{{feeder.groupNo}}</td>
+            <td class="align-middle">{{feeder.link}}</td>
+            <td class="align-middle">{{feeder.feederSTMId}}</td>
+            <td class="align-middle">{{feeder.feederGISId}}</td>
+            <td class="align-middle">{{feeder.type}}</td>
+            <td class="align-middle">{{feeder.meterNo}}</td>
+            <td class="align-middle">{{feeder.mf}}</td>
+            <td class="align-middle">{{feeder.meterMake}}</td>
+            <td class="align-middle">
               <a href="javascript:void(0)" (click)="editButtonClicked(feeder)" data-toggle="modal" data-target="#updateFeederModal">
                 <span class="fa fa-pencil"></span>
               </a>
             </td>
-            <td *ngIf="user.role==='admin' || user.role === 'htm_admin'">
+            <td class="align-middle" *ngIf="user.role==='admin' || user.role === 'htm_admin'">
               <a href="javascript:void(0)" (click)="deleteClicked(feeder)">
                 <span class="fa fa-trash"></span>
               </a>
             </td>
           </tr>
-          <tr *ngIf="feeders && feeders.length <= 0">
-            <td colspan="15">No Records Found</td>
+          <tr *ngIf="feederList && !feederList.length">
+            <td class="align-middle" colspan="15">No Records Found</td>
           </tr>
         </tbody>
       </table>
     </div>
   </fieldset>
-  <div id="pagination" *ngIf="feeders && feeders.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">

@@ -46,8 +46,8 @@
         <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
       </select>
       <div class="input-group-append">
-        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
-          Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span>
+        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="substationName.errors || month.errors || year.errors || _searchClicked">
+          Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -63,35 +63,35 @@
   </div>
 </div>
 
-<div *ngIf="feederList && !searchButtonClicked">
+<div *ngIf="feederList && !_searchClicked">
   <div class="table-responsive mb-2 text-center">
     <table class="table table-sm table-bordered table-hover" id="feeders">
       <thead class="bg-dark text-white">
         <tr>
-          <td>S.No</td>
-          <td>Feeder Name</td>
-          <td>Feeder Type</td>
-          <td>Group No</td>
-          <td>T&D Loss Generated</td>
-          <td>Next Month Bill File</td>
-          <td>Generate</td>
+          <td class="align-middle">S.No</td>
+          <td class="align-middle">Feeder Name</td>
+          <td class="align-middle">Feeder Type</td>
+          <td class="align-middle">Group No</td>
+          <td class="align-middle">T&D Loss Generated</td>
+          <td class="align-middle">Next Month Bill File</td>
+          <td class="align-middle">Generate</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let feeder of pagedFeederList; let i = index">
-          <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td>{{feeder?.feeder?.name}}</td>
-          <td>{{feeder?.feeder?.type}}</td>
-          <td>{{feeder?.feeder?.groupNo}}</td>
-          <td>
+          <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+          <td class="align-middle">{{feeder?.feeder?.name}}</td>
+          <td class="align-middle">{{feeder?.feeder?.type}}</td>
+          <td class="align-middle">{{feeder?.feeder?.groupNo}}</td>
+          <td class="align-middle">
             <span class="text-success" *ngIf="feeder.tdLossGenerated"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!feeder.tdLossGenerated"><span class="fa fa-times"></span></span>
           </td>
-          <td>
+          <td class="align-middle">
             <span class="text-success" *ngIf="feeder.billFileUploaded"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!feeder.billFileUploaded"><span class="fa fa-times"></span></span>
           </td>
-          <td>
+          <td class="align-middle">
             <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleFeederLossReport(feeder.feeder)" *ngIf="feeder?.billFileUploaded && feeder?.tdLossGenerated"
               [hidden]="feeder.feeder.singleReportGenerated || reportGenerated" [disabled]="generating || feeder.feeder.generatingSingleReport">
               Generate <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="feeder.feeder.generatingSingleReport"></span>
@@ -99,6 +99,9 @@
             <button type="button" class="btn btn-sm btn-info" (click)="viewFeederLossReport()" *ngIf="feeder.feeder.singleReportGenerated || reportGenerated" 
             [disabled]="generating">View</button>
           </td>
+        </tr>
+        <tr *ngIf="feederList && !feederList.length">
+          <td class="align-middle" colspan="7">No record found</td>
         </tr>
       </tbody>
     </table>

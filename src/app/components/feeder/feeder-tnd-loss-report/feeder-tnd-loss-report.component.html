@@ -79,8 +79,8 @@
         <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
       </select>
       <div class="input-group-append">
-        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
-          Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="searchButtonClicked"></span>
+        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="substationName.errors || month.errors || year.errors || _searchClicked">
+          Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -105,45 +105,45 @@
   </div>
 </div>
 
-<div *ngIf="feederList && !searchButtonClicked">
+<div *ngIf="feederList && !_searchClicked">
   <div class="table-responsive mb-2 text-center">
     <table class="table table-sm table-bordered table-hover" id="feeders">
       <thead class="bg-dark text-white">
         <tr>
-          <td>S.No</td>
-          <td>Feeder Name</td>
-          <td>Feeder Type</td>
-          <td>Group No</td>
-          <td>HT Reading</td>
-          <td>Bill File</td>
-          <td>11KV Reading</td>
-          <td>Export Reading</td>
-          <td>Generate</td>
+          <td class="align-middle">S.No</td>
+          <td class="align-middle">Feeder Name</td>
+          <td class="align-middle">Feeder Type</td>
+          <td class="align-middle">Group No</td>
+          <td class="align-middle">HT Reading</td>
+          <td class="align-middle">Bill File</td>
+          <td class="align-middle">11KV Reading</td>
+          <td class="align-middle">Export Reading</td>
+          <td class="align-middle">Generate</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let feeder of pagedFeederList; let i = index">
-          <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td>{{feeder?.feeder?.name}}</td>
-          <td>{{feeder?.feeder?.type}}</td>
-          <td>{{feeder?.feeder?.groupNo}}</td>
-          <td>
+          <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+          <td class="align-middle">{{feeder?.feeder?.name}}</td>
+          <td class="align-middle">{{feeder?.feeder?.type}}</td>
+          <td class="align-middle">{{feeder?.feeder?.groupNo}}</td>
+          <td class="align-middle">
             <span class="text-success" *ngIf="feeder.htReadingInserted"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!feeder.htReadingInserted"><span class="fa fa-times"></span></span>
           </td>
-          <td>
+          <td class="align-middle">
             <span class="text-success" *ngIf="feeder.billFileUploaded"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!feeder.billFileUploaded"><span class="fa fa-times"></span></span>
           </td>
-          <td>
+          <td class="align-middle">
             <span class="text-success" *ngIf="feeder.feederReadingInserted"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!feeder.feederReadingInserted"><span class="fa fa-times"></span></span>
           </td>
-          <td>
+          <td class="align-middle">
             <span class="text-success" *ngIf="feeder.exportReadingInserted"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!feeder.exportReadingInserted"><span class="fa fa-times"></span></span>
           </td>
-          <td>
+          <td class="align-middle">
             <button type="button" class="btn btn-sm btn-warning" (click)="generateSingleFeederLossReport(feeder.feeder)" 
               *ngIf="feeder?.billFileUploaded && feeder?.htReadingInserted && feeder?.feederReadingInserted && feeder?.exportReadingInserted"
               [hidden]="feeder.feeder.singleReportGenerated || reportGenerated" [disabled]="generating || feeder.feeder.generatingSingleReport">
@@ -152,6 +152,9 @@
             <button type="button" class="btn btn-sm btn-info" (click)="viewFeederLossReport()" *ngIf="feeder.feeder.singleReportGenerated || reportGenerated" 
             [disabled]="generating">View</button>
           </td>
+        </tr>
+        <tr *ngIf="feederList && !feederList.length">
+          <td class="align-middle" colspan="9">No Record found</td>
         </tr>
       </tbody>
     </table>

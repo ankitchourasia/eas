@@ -11,10 +11,11 @@ import { GlobalConfiguration } from 'app/utility/global-configuration';
 })
 export class SubstationViewComponent implements OnInit {
 
+  COMPONENT_NAME: "SubstationViewComponent";
   user : any;
-  substations : any;
+  substationList : any;
   substationToEdit : any;
-  pagedSubstations : any;
+  pagedSubstationList : any;
 
   pager: any ;
   pageSize: number;
@@ -27,15 +28,17 @@ export class SubstationViewComponent implements OnInit {
   }
 
   getSubstations(){
+    let methodName = "getSubstations"
     this.loading = true;
-    this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(success =>{
+    this.substationList = [];
+    this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(successResponse =>{
       this.loading = false;
-      this.substations = success;
+      this.substationList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
-    }, error =>{
+    }, errorResponse =>{
       this.loading = false;
-      console.log(error);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -117,8 +120,8 @@ export class SubstationViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.substations.length, page, this.pageSize);
-    this.pagedSubstations = this.substations.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.pager = this.paginationService.getPager(this.substationList.length, page, this.pageSize);
+    this.pagedSubstationList = this.substationList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
   closeModal(modalCloseButtonRef){

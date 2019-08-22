@@ -130,3 +130,21 @@ input::-webkit-outer-spin-button {
     align-items: baseline !important;
     -webkit-box-align: baseline !important;
 }
+
+.required:after{
+    color: #d00;
+    content: "*";
+    margin-left: 3px;
+    top: 2px;
+    /* font-size: 20px */
+    position: absolute;
+}
+
+.not-required:after{
+    color: #FFFFFF;
+    content: "*";
+    margin-left: 3px;
+    top: 2px;
+    /* font-size: 20px */
+    position: absolute;
+}

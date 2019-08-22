@@ -24,59 +24,59 @@
   </div>
 </div>
 
-<div *ngIf="feederReadings && !loading">
+<div *ngIf="feederReadingList && !loading">
   <div class="table-responsive mb-2">
     <table class="table table-sm table-bordered text-center">
       <thead class="bg-dark text-white">
         <tr>
-          <td>S.No</td>
-          <td>Zone</td>
-          <td>Feeder Name</td>
-          <td>Group no</td>
-          <td>Meter No</td>
-          <td>MF</td>
-          <td>Previous Reading</td>
-          <td>Previous Reading Date</td>
-          <td>Bill Month</td>
-          <td>Current Reading</td>
-          <td>Current Reading Date</td>
-          <td>Reading Difference</td>
-          <td>Assessment Unit</td>
-          <td>Metered Consumption</td>
-          <td>Total Consumption</td>
-          <td *ngIf="user.role==='admin'">Edit</td>
+          <td class="align-middle">S.No</td>
+          <td class="align-middle">Zone</td>
+          <td class="align-middle">Feeder Name</td>
+          <td class="align-middle">Group no</td>
+          <td class="align-middle">Meter No</td>
+          <td class="align-middle">MF</td>
+          <td class="align-middle">Previous Reading</td>
+          <td class="align-middle">Previous Reading Date</td>
+          <td class="align-middle">Bill Month</td>
+          <td class="align-middle">Current Reading</td>
+          <td class="align-middle">Current Reading Date</td>
+          <td class="align-middle">Reading Difference</td>
+          <td class="align-middle">Assessment Unit</td>
+          <td class="align-middle">Metered Consumption</td>
+          <td class="align-middle">Total Consumption</td>
+          <td class="align-middle" *ngIf="user.role==='admin'">Edit</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reading of pagedFeederReadings; let i = index">
-          <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td>{{reading.zone.name | uppercase}}</td>
-          <td>{{reading.feeder.name}}</td>
-          <td>{{reading.feeder.groupNo}}</td>
-          <td>{{reading.feeder.meterNo}}</td>
-          <td>{{reading.feeder.mf}}</td>
-          <td>{{reading.prevReading}}</td>
-          <td>{{reading.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-          <td>{{reading.billMonth}}</td>
-          <td>{{reading.currReading}}</td>
-          <td>{{reading.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-          <td>{{reading.readingDiff}}</td>
-          <td>{{reading.assUnit}}</td>
-          <td>{{reading.meterConsumption}}</td>
-          <td>{{reading.totalConsumption}}</td>
-          <td>
+        <tr *ngFor="let reading of pagedFeederReadingList; let i = index">
+          <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+          <td class="align-middle">{{reading.zone.name | uppercase}}</td>
+          <td class="align-middle">{{reading.feeder.name}}</td>
+          <td class="align-middle">{{reading.feeder.groupNo}}</td>
+          <td class="align-middle">{{reading.feeder.meterNo}}</td>
+          <td class="align-middle">{{reading.feeder.mf}}</td>
+          <td class="align-middle">{{reading.prevReading}}</td>
+          <td class="align-middle">{{reading.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+          <td class="align-middle">{{reading.billMonth}}</td>
+          <td class="align-middle">{{reading.currReading}}</td>
+          <td class="align-middle">{{reading.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+          <td class="align-middle">{{reading.readingDiff}}</td>
+          <td class="align-middle">{{reading.assUnit}}</td>
+          <td class="align-middle">{{reading.meterConsumption}}</td>
+          <td class="align-middle">{{reading.totalConsumption}}</td>
+          <td class="align-middle">
             <a href="javascript:void(0)" (click)="editClicked(reading)" data-toggle="modal" data-target="#updateReadingModal">
               <span class="fa fa-pencil"></span>
             </a>
           </td>
         </tr>
-        <tr *ngIf="feederReadings && feederReadings.length <= 0">
-          <td colspan="16">No Records Found</td>
+        <tr *ngIf="feederReadingList && !feederReadingList.length">
+          <td class="align-middle" colspan="16">No Records Found</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div id="pagination" *ngIf="feederReadings && feederReadings.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="feederReadingList && feederReadingList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">

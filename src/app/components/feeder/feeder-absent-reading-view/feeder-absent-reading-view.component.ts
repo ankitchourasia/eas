@@ -11,10 +11,11 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 })
 export class FeederAbsentReadingViewComponent implements OnInit {
 
+  COMPONENT_NAME = "FeederAbsentReadingViewComponent";
   user : any = {};
   billMonth : string;
-  feederAbsentReadings : any;
-  pagedFeederAbsentReadings : any = [];
+  feederAbsentReadingList : any;
+  pagedFeederAbsentReadingList : any;
   month : string;
   year : string;
   loading : boolean;
@@ -32,17 +33,19 @@ export class FeederAbsentReadingViewComponent implements OnInit {
   }
 
   getFeederAbsentReadings(){
+    let methodName = "getFeederAbsentReadings"
     this.loading =true;
+    this.feederAbsentReadingList = [];
     this.billMonth = this.month + '-' + this.year;
-    this.feederService.getFeederAbsentReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(success =>{
+    this.feederService.getFeederAbsentReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
       this.loading = false;
-      console.log(success);
-      this.feederAbsentReadings = success;
+      console.log(successResponse);
+      this.feederAbsentReadingList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
-    }, error =>{
+    }, errorResponse =>{
       this.loading = false;
-      console.log(error);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
   
@@ -55,9 +58,9 @@ export class FeederAbsentReadingViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.feederAbsentReadings.length, page, this.pageSize);
-    this.pagedFeederAbsentReadings = this.feederAbsentReadings.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedFeederAbsentReadings);
+    this.pager = this.paginationService.getPager(this.feederAbsentReadingList.length, page, this.pageSize);
+    this.pagedFeederAbsentReadingList = this.feederAbsentReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    console.log(this.pagedFeederAbsentReadingList);
   }
 
 }
