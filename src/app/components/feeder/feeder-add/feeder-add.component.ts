@@ -14,7 +14,7 @@ export class FeederAddComponent implements OnInit {
   user : any;
   feeder:any;
   substationList: any;
-  submitButtonClicked : boolean;
+  _submitClicked : boolean;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
     private feederService : FeederService, private substationService: SubstationService) { 
@@ -44,9 +44,9 @@ export class FeederAddComponent implements OnInit {
   
   submitClicked(feederAddForm){
     if(this.globalResources.validateForm(feederAddForm)){
-      this.submitButtonClicked = true;
+      this._submitClicked = true;
       this.feederService.addFeeder(this.feeder).subscribe(successResponese =>{
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
         alertResponse.then(result =>{
           this.feeder = {};
@@ -54,7 +54,7 @@ export class FeederAddComponent implements OnInit {
         });
       }, errorResponse =>{
         console.log(errorResponse);
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
         alertResponse.then(result =>{
           console.log("alert result", result);

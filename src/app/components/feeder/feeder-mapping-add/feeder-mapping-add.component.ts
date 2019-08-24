@@ -18,6 +18,7 @@ export class FeederMappingAddComponent implements OnInit {
   feederMapping : any = {};
   originalDivisions : any = [];
   originalFeeders : any = [];
+  _submitClicked: boolean;
   constructor(private globalResources : GlobalResources, private substationService : SubstationService, private feederService : FeederService,
     public globalConstants : GlobalConstants, private divisionService : DivisionService) { }
 
@@ -32,10 +33,10 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
-    this.substationService.getSubstationsByZoneId(zoneId).subscribe(success =>{
-      this.substations = success;
-    }, error =>{
-      console.log(error);
+    this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponse =>{
+      this.substations = successResponse;
+    }, errorResponse =>{
+      console.log(errorResponse);
     })
   }
 
@@ -45,10 +46,10 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   getFeedersBySubstationId(substationId){
-    this.feederService.getFeederBySubstationId(substationId).subscribe(success =>{
-      this.feeders = success;
-    }, error =>{
-      console.log(error);
+    this.feederService.getFeederBySubstationId(substationId).subscribe(successResponse =>{
+      this.feeders = successResponse;
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
@@ -59,38 +60,43 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   getDivisionsByCircleId(circleId){
-    this.divisionService.getDivisionsByCircleId(circleId, false).subscribe(success =>{
-      this.originalDivisions = success;
-    }, error=>{
-      console.log(error);
+    this.divisionService.getDivisionsByCircleId(circleId, false).subscribe(successResponse =>{
+      this.originalDivisions = successResponse;
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
   originalDivisionChanged(originalDivisionId){
-    this.feederService.getFeederByDivisionId(originalDivisionId).subscribe(success =>{
-      this.originalFeeders = success;
-    }, error =>{
-      console.log(error);
+    this.feederService.getFeederByDivisionId(originalDivisionId).subscribe(successResponse =>{
+      this.originalFeeders = successResponse;
+    }, errorResponse =>{
+      console.log(errorResponse);
     });
   }
 
-  submitButtonClicked(){
+  submitClicked(){
+    this._submitClicked = true;
     this.feederMapping.feederId = this.feederMapping.feeder.id;
     this.feederMapping.originalFeederId = this.feederMapping.originalFeeder.id;
     this.feederMapping.originalFeederSubstationId = this.feederMapping.originalFeeder.substationId;
     console.log(this.feederMapping);
+    this._submitClicked = false;
     this.addMapping();
   }
 
   addMapping(){
-    this.feederService.addFeederMapping(this.feederMapping, true).subscribe(success =>{
-      let result = <any> success;
+    this._submitClicked = true;
+    this.feederService.addFeederMapping(this.feederMapping, true).subscribe(successResponse =>{
+      this._submitClicked = false;
+      let result = <any> successResponse;
       if(result.status === 201){
         this.globalResources.successAlert("Mapping inserted successfully");
         this.feederMapping = {};
       }
-    }, error =>{
-      console.log(error)
+    }, errorResponse =>{
+      this._submitClicked = false;
+      console.log(errorResponse)
     });
   }
 
