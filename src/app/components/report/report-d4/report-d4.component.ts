@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { ReportService } from '@eas-services/report-service/report.service';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-report-d4',

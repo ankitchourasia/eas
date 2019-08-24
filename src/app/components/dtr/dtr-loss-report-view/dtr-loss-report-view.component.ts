@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
-import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalResources } from '@eas-utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-loss-report-view',

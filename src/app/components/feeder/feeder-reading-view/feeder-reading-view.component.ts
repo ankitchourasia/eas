@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConstants } from '@eas-utility/global.constants';
 
 @Component({
   selector: 'eas-feeder-reading-view',

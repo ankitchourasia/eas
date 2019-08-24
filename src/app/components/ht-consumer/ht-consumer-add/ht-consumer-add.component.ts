@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';

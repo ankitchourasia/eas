@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingMenuService } from '../setting-menu.service';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-setting-update-password',

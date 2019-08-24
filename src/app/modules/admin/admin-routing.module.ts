@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { AdminSubstationAddComponent } from './admin-substation/admin-substation-add/admin-substation-add.component';
 import { AdminSubstationViewComponent } from './admin-substation/admin-substation-view/admin-substation-view.component';
 import { AdminFeederAddComponent } from './admin-feeder/admin-feeder-add/admin-feeder-add.component';

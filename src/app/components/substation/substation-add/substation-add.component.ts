@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-substation-add',

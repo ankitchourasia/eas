@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
 
 @Component({

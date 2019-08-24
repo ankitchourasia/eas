@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SuperAdminComponent } from './super-admin.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { SuperAdminHomeComponent } from './super-admin-home/super-admin-home.component';
 import { SuperAdminRegionAddComponent } from './super-admin-region/super-admin-region-add/super-admin-region-add.component';
 import { SuperAdminRegionViewComponent } from './super-admin-region/super-admin-region-view/super-admin-region-view.component';

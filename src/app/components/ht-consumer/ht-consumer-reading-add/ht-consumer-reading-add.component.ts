@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
-import { GlobalResources } from 'app/utility/global.resources';
-import { isGeneratedFile } from '@angular/compiler/src/aot/util';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-ht-consumer-reading-add',

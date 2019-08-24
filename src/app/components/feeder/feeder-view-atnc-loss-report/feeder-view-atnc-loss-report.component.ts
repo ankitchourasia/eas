@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GlobalConstants } from 'app/utility/global.constants';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-feeder-view-atnc-loss-report',

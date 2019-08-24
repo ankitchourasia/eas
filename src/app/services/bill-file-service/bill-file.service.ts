@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpEventType } from '@angular/common/http';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
-import {map} from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from 'app/utility/global.constants';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ExportService } from '@eas-services/export-service/export.service';
 import { NgForm } from '@angular/forms';

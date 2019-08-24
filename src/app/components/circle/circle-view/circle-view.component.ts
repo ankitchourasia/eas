@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 

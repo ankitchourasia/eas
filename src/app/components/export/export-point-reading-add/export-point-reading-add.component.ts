@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalResources } from '@eas-utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
-import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { ExportService } from '@eas-services/export-service/export.service';
 

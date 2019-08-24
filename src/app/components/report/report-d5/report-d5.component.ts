@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalResources } from '@eas-utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';

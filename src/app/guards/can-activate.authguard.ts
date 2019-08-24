@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild } from "@angular/router";
 import { Observable } from "rxjs";
-import { GlobalResources } from "app/utility/global.resources";
+import { GlobalResources } from "@eas-utility/global.resources";
 
 @Injectable()
 export class CanActivateAuthGuard implements CanActivate,CanActivateChild{

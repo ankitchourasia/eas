@@ -21,6 +21,7 @@
       "@eas-directives/*":["app/directives/*"],
       "@eas-services/*":["app/services/*"],
       "@eas-modules/*":["app/modules/*"],
+      "@eas-utility/*":["app/utility/*"],
       "@environments/*":["environments/*"]
     }
   }

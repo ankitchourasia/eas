@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Injectable({
   providedIn: 'root'

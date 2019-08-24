@@ -5,7 +5,7 @@ import { SettingHomeComponent } from './setting-home/setting-home.component';
 import { SettingUpdateProfileComponent } from './setting-update-profile/setting-update-profile.component';
 import { SettingUpdatePasswordComponent } from './setting-update-password/setting-update-password.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 const settingRoutes: Routes = [
   {

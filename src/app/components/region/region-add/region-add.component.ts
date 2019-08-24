@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegionService } from '@eas-services/region-service/region.service';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-region-add',

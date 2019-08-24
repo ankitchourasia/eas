@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
-import { GlobalResources } from 'app/utility/global.resources';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalResources } from '@eas-utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-view',

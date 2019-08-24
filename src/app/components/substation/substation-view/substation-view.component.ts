@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SubstationService } from '@eas-services/substation/substation.service';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
-import { GlobalConfiguration } from 'app/utility/global-configuration';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-substation-view',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
-import { GlobalConstants } from 'app/utility/global.constants';
+import { GlobalConstants } from '@eas-utility/global.constants';
 
 @Component({
   selector: 'eas-feeder-initial-read-add',

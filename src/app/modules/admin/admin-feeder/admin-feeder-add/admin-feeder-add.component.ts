@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '@eas-services/login/login.service';
-import { GlobalResources } from 'app/utility/global.resources';
 
 @Component({
   selector: 'eas-admin-feeder-add',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ZoneService } from '@eas-services/zone/zone.service';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';

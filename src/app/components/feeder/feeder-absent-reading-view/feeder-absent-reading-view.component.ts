@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
-import { GlobalConstants } from 'app/utility/global.constants';
-import { GlobalResources } from 'app/utility/global.resources';
+import { GlobalConstants } from '@eas-utility/global.constants';
+import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 
 @Component({
