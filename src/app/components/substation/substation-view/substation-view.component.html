@@ -7,11 +7,11 @@
 
 <div *ngIf="substationList && !loading">
   <div class="form-group  eas-flex-end">
-    <button class="button btn btn-primary" (click)="exportClicked()" [disabled]="substationList && !substationList.length">
+    <button class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="substationList && !substationList.length">
       <span class="fa fa-download"></span> Export
     </button>
   </div>
-  <fieldset [disabled]="deleteButtonClicked">
+  <fieldset [disabled]="_deleteClicked">
     <div class="table-responsive mb-2">
       <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
@@ -71,7 +71,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <fieldset [disabled]="updateButtonClicked">
+          <fieldset [disabled]="_updateClicked">
             <form #updateSubstattionForm="ngForm" autocomplete="off">
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Region</label>
@@ -133,7 +133,7 @@
               <div class="form-group row">
                 <div class="col-4 offset-3">
                   <button type="button" class="btn btn-success form-control" (click)="updateSubstation(updateSubstattionForm, modalCloseButtonRef)">
-                    Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span>
+                    Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
                   </button>
                 </div>
                 <div class="col-4 offset-1">

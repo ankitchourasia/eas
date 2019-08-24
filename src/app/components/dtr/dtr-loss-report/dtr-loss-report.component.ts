@@ -29,15 +29,13 @@ export class DtrLossReportComponent implements OnInit {
   substationList: any;
   dtrReadingList: any;
   searchFormData: any;
-  // billMonth: any;
-  // billMonthYear: any;
   pager: any;
   pageSize: number;
   pagedDtrList : any;
   showError: boolean;
   generating: boolean;
   reportGenerated: boolean;
-  searchButtonClicked: boolean;
+  _searchClicked: boolean;
   allDtrReadingInserted: boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
@@ -227,24 +225,24 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   getDTRByFeederId(feederId){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
+    this.dtrList = [];
     this.dtrService.getDTRByFeederId(feederId).subscribe(successResponse =>{
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.dtrList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
       if(this.dtrList && this.dtrList.length){
-        // let billingMonth = this.billMonth + "-" + this.billMonthYear;
         this.getDTRReadingByFeederIdAndBillMonth(this.searchFormData.feeder.id, this.searchFormData.billingMonth);
       }
     }, errorResponse =>{
       console.log(errorResponse)
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
     });
   }
 
   getDTRReadingByFeederIdAndBillMonth(feederId, billMonth){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
     this.dtrService.getReadingByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
       this.dtrReadingList = successResponse;
       if(this.dtrReadingList){
@@ -257,11 +255,11 @@ export class DtrLossReportComponent implements OnInit {
           }
         });
       }
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.searchFormData.feeder.groupNo, billMonth);
     },errorResponse =>{
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
     });
   }
 
@@ -280,7 +278,7 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
     this.billFileService.checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth, false).subscribe(successResponse =>{
       let billFileRefs = <any>successResponse;
       if(billFileRefs && billFileRefs.length && (billFileRefs[0].billMonth === billingMonth || billFileRefs[1].billMonth === billingMonth)){
@@ -290,10 +288,10 @@ export class DtrLossReportComponent implements OnInit {
         this.searchFormData.feeder.billFileUploaded = false;
         this.searchFormData.feeder.billFileNotUploaded = true;
       }
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
     },errorResponse =>{
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.searchFormData.feeder.billFileUploaded = false;
       this.searchFormData.feeder.billFileNotUploaded = true;
     });

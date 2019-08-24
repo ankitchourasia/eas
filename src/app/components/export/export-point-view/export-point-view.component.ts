@@ -15,7 +15,7 @@ export class ExportPointViewComponent implements OnInit {
   zoneList: any;
   selectedZone: any;
   exportPointList:any;
-  searchButtonClicked: boolean;
+  _searchClicked: boolean;
   statusChangedButtonClicked: boolean;
   pager: any;
   pageSize: number;
@@ -44,18 +44,18 @@ export class ExportPointViewComponent implements OnInit {
   }
 
   getAll11KVExportPointsByZoneId(zoneId){
-    this.exportPointList = null;
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
+    this.exportPointList = [];
     this.exportService.getAll11KVExportPointsByZoneId(zoneId, false).subscribe(
       successResponse =>{
         console.log(successResponse);
-        this.searchButtonClicked = false;  
+        this._searchClicked = false;  
         this.exportPointList = successResponse;
         this.initializePaginationVariables();
         this.setPage(1);
       },errorResponse =>{
         console.log(errorResponse);
-        this.searchButtonClicked = false;
+        this._searchClicked = false;
         this.globalResources.errorAlert("Error while fetching Export point");
       }
     );

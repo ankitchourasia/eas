@@ -50,7 +50,7 @@ export class ExportPointReadingViewComponent implements OnInit {
 
   get11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billingMonth){
     this._searchClicked = true;
-    this.exportPointReadingList = null;
+    this.exportPointReadingList = [];
     this.exportService.getAll11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(
       successResponse =>{
         this._searchClicked = false;

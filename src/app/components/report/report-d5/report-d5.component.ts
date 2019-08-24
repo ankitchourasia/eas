@@ -249,7 +249,7 @@ export class ReportD5Component implements OnInit {
 
   exportClicked(exportElementId){
     console.log(exportElementId);
-    this.globalResources.exportTableToExcel(exportElementId, "d-7_Report_" + this.searchFormData.billingMonth);
+    this.globalResources.exportTableToExcel(exportElementId, "d-5_Report_" + this.searchFormData.billingMonth);
     // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     // let params = {
     //   Authorization: "Basic " + encodedCredentials,

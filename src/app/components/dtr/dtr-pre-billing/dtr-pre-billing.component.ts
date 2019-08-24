@@ -34,7 +34,7 @@ export class DtrPreBillingComponent implements OnInit {
   pageSize: number;
   pagedDtrList : any;
   showError: boolean;
-  searchButtonClicked: boolean;
+  _searchClicked: boolean;
   allDtrReadingInserted: boolean;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
@@ -208,9 +208,10 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   getDTRByFeederId(feederId){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
+    this.dtrList = [];
     this.dtrService.getDTRByFeederId(feederId).subscribe(successResponse =>{
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.dtrList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
@@ -220,13 +221,13 @@ export class DtrPreBillingComponent implements OnInit {
       }
     }, errorResponse =>{
       console.log(errorResponse)
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 
   getDTRReadingByFeederIdAndBillMonth(feederId, billMonth){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
     this.dtrService.getReadingByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
       this.dtrReadingList = successResponse;
       if(this.dtrReadingList){
@@ -239,11 +240,11 @@ export class DtrPreBillingComponent implements OnInit {
           }
         });
       }
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.getDtrPreBillingReportsByFeederIdAndBillMonth(this.userDetails.feeder.id, billMonth);
     },errorResponse =>{
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
@@ -265,7 +266,7 @@ export class DtrPreBillingComponent implements OnInit {
 
   dtrPreBillingReports: any;
   getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
     this.dtrService.getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
       this.dtrPreBillingReports = successResponse;
       if(this.dtrPreBillingReports){
@@ -273,11 +274,11 @@ export class DtrPreBillingComponent implements OnInit {
           this.checkPreBillingReportSaved(dtr,index);
         });
       }
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.userDetails.feeder.groupNo, billMonth);
     }, errorResponse =>{
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     })
   }
@@ -310,7 +311,7 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth){
-    this.searchButtonClicked = true;
+    this._searchClicked = true;
     this.billFileService.checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth, false).subscribe(successResponse =>{
       let billFileRefs = <any>successResponse;
       if(billFileRefs && billFileRefs.length && (billFileRefs[0].billMonth === billingMonth || billFileRefs[1].billMonth === billingMonth)){
@@ -321,10 +322,10 @@ export class DtrPreBillingComponent implements OnInit {
         this.userDetails.feeder.billFileNotUploaded = true;
       }
       console.log(this.dtrList);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
     },errorResponse =>{
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.userDetails.feeder.billFileUploaded = false;
       this.userDetails.feeder.billFileNotUploaded = true;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);

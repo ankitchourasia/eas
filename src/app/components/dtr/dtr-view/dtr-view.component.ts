@@ -15,13 +15,13 @@ import { GlobalConfiguration } from 'app/utility/global-configuration';
 export class DtrViewComponent implements OnInit {
 
   user : any;
-  dtrs: any;
+  dtrList: any;
   dtrToEdit: any;
   feederList: any;
   substationList: any;
   pager: any;
   pageSize: number;
-  pagedDTRs : any;
+  pagedDtrList : any;
   loading : boolean;
   
   constructor(private dtrService : DtrService, private feederService : FeederService,  private substationService : SubstationService, 
@@ -34,10 +34,11 @@ export class DtrViewComponent implements OnInit {
 
   getDTRByDivisionId(divisionId){
     this.loading = true;
+    this.dtrList = [];
     this.dtrService.getDTRByDivisionId(divisionId).subscribe(successResponese =>{
       this.loading = false;
-      this.dtrs = successResponese;
-      console.log(this.dtrs);
+      this.dtrList = successResponese;
+      console.log(this.dtrList);
       this.initializePaginationVariables();
       this.setPage(1);
     }, errorResponse =>{
@@ -57,7 +58,7 @@ export class DtrViewComponent implements OnInit {
     this.globalResources.downloadFile(fileUrl,params)
   }
 
-  deleteButtonClicked: boolean;
+  _deleteClicked: boolean;
   deleteClicked(dtr){
     let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this dtr ?")
     confirmAlertResponse.then((result) => {
@@ -70,16 +71,16 @@ export class DtrViewComponent implements OnInit {
   }
 
   deleteDTR(dtrId, deletedBy){
-    this.deleteButtonClicked = true;
+    this._deleteClicked = true;
     this.dtrService.deleteDTRById(dtrId, deletedBy).subscribe(successResponse => {
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       let alertResponse = this.globalResources.successAlert("dtr deleted successfully");
       alertResponse.then(result =>{
         this.getDTRByDivisionId(this.user.division.id);
       });
     }, errorResponse =>{
       console.log(errorResponse);
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
@@ -160,8 +161,8 @@ export class DtrViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.dtrs.length, page, this.pageSize);
-    this.pagedDTRs = this.dtrs.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.pager = this.paginationService.getPager(this.dtrList.length, page, this.pageSize);
+    this.pagedDtrList = this.dtrList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
   closeModal(modalCloseButtonRef){

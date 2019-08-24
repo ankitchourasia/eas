@@ -39,7 +39,7 @@ export class HtConsumerViewComponent implements OnInit {
 
     getAllHTConsumersByDivisionId(divisionId){
       this.loading = true;
-      this.htConsumerList = null;
+      this.htConsumerList = [];
       this.htConsumerService.getHTConsumerByDivisionId(divisionId, false).subscribe(successResponse =>{
         this.loading = false;
         this.htConsumerList = successResponse;

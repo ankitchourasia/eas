@@ -42,22 +42,11 @@ export class SubstationViewComponent implements OnInit {
     });
   }
 
-  exportClicked(){
-    var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
-    let fileUrl = null;
-    if(this.user.role === 'admin'){
-			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/division/" + this.user.division.id;
-		}else{
-			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/zone/" + this.user.zone.id;
-    }
-    this.globalResources.downloadFile(fileUrl, params);
-  }
-
   editClicked(substation){
     this.substationToEdit = Object.assign({}, substation);
   }
 
-  deleteButtonClicked: boolean;
+  _deleteClicked: boolean;
   deleteClicked(substation){
     let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this substation ?")
     confirmAlertResponse.then((result) => {
@@ -70,25 +59,25 @@ export class SubstationViewComponent implements OnInit {
   }
 
   deleteSubstation(substationId, deletedBy){
-    this.deleteButtonClicked = true;
+    this._deleteClicked = true;
     this.substationService.deleteSubstationById(substationId, deletedBy).subscribe(success => {
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       let alertResponse = this.globalResources.successAlert("Substation deleted successfully");
       alertResponse.then(result =>{
         this.getSubstations();
       });
     }, error =>{
       console.log(error);
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
     });
   }
 
-  updateButtonClicked: boolean;
+  _updateClicked: boolean;
   updateSubstation(updateSubstationForm, modalCloseButtonRef){
     if(this.globalResources.validateForm(updateSubstationForm)){
-      this.updateButtonClicked = true;
+      this._updateClicked = true;
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
-        this.updateButtonClicked = false;
+        this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -97,7 +86,7 @@ export class SubstationViewComponent implements OnInit {
         });
       }, error =>{
         console.log(error);
-        this.updateButtonClicked = false;
+        this._updateClicked = false;
         let alertResponse = this.globalResources.errorAlert("Unable to update substation.");
         alertResponse.then(result =>{
           console.log("alert result", result);
@@ -126,6 +115,18 @@ export class SubstationViewComponent implements OnInit {
   
   closeModal(modalCloseButtonRef){
     modalCloseButtonRef.click();
+  }
+
+  
+  exportClicked(){
+    var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
+    let fileUrl = null;
+    if(this.user.role === 'admin'){
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/division/" + this.user.division.id;
+		}else{
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/zone/" + this.user.zone.id;
+    }
+    this.globalResources.downloadFile(fileUrl, params);
   }
 
 }

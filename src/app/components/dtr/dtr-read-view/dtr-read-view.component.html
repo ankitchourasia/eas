@@ -13,8 +13,8 @@
         <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
       </select>
       <div class="input-group-append">
-        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || searchButtonClicked">
-          Search <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="searchButtonClicked"></span>
+        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="month.errors || year.errors || _searchClicked">
+          Search <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_searchClicked"></span>
         </button>
       </div>
       <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -27,59 +27,59 @@
   </div>
 </div>
 
-<div *ngIf="dtrReadingList && !searchButtonClicked">
+<div *ngIf="dtrReadingList && !_searchClicked">
   <fieldset>
     <div class="table-responsive mb-2">
       <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
           <tr class="text-center">
-            <td>S.No</td>
-            <td>Zone</td>
-            <td>Feeder Name</td>
-            <td>DTR Name</td>
-            <td>Group No.</td>
-            <td>RD No.</td>
-            <td>Meter No.</td>
-            <td>MF</td>
-            <td>Billing Month</td>
-            <td>Previous Reading</td>
-            <td>Previous Reading Date</td>
-            <td>Current Reading</td>
-            <td>Current Reading Date</td>
-            <td>Reading Difference</td>
-            <td>Meter Consumption</td>
-            <td>Assessment Unit</td>
-            <td>Total Consumption</td>
-            <td>Edit</td>
+            <td class="align-middle">S.No</td>
+            <td class="align-middle">Zone</td>
+            <td class="align-middle">Feeder Name</td>
+            <td class="align-middle">DTR Name</td>
+            <td class="align-middle">Group No.</td>
+            <td class="align-middle">RD No.</td>
+            <td class="align-middle">Meter No.</td>
+            <td class="align-middle">MF</td>
+            <td class="align-middle">Billing Month</td>
+            <td class="align-middle">Previous Reading</td>
+            <td class="align-middle">Previous Reading Date</td>
+            <td class="align-middle">Current Reading</td>
+            <td class="align-middle">Current Reading Date</td>
+            <td class="align-middle">Reading Difference</td>
+            <td class="align-middle">Meter Consumption</td>
+            <td class="align-middle">Assessment Unit</td>
+            <td class="align-middle">Total Consumption</td>
+            <td class="align-middle">Edit</td>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let dtrReading of pagedDtrReadingList; let i = index">
-            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td>{{dtrReading?.zone?.name | uppercase}}</td>
-            <td>{{dtrReading?.feeder?.name}}</td>
-            <td>{{dtrReading?.dtr?.dtrName}}</td>
-            <td>{{dtrReading?.groupNo1}}</td>
-            <td>{{dtrReading?.dtr?.billingRDNo}}</td>
-            <td>{{dtrReading?.meterNo}}</td>
-            <td>{{dtrReading?.mf}}</td>
-            <td>{{dtrReading?.billMonth}}</td>
-            <td>{{dtrReading?.prevReading}}</td>
-            <td>{{dtrReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-            <td>{{dtrReading?.currReading}}</td>
-            <td>{{dtrReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-            <td>{{dtrReading?.readingDiff}}</td>
-            <td>{{dtrReading?.meterConsumption}}</td>
-            <td>{{dtrReading?.assUnit}}</td>
-            <td>{{dtrReading?.totalConsumption}}</td>
-            <td>
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td class="align-middle">{{dtrReading?.zone?.name | uppercase}}</td>
+            <td class="align-middle">{{dtrReading?.feeder?.name}}</td>
+            <td class="align-middle">{{dtrReading?.dtr?.dtrName}}</td>
+            <td class="align-middle">{{dtrReading?.groupNo1}}</td>
+            <td class="align-middle">{{dtrReading?.dtr?.billingRDNo}}</td>
+            <td class="align-middle">{{dtrReading?.meterNo}}</td>
+            <td class="align-middle">{{dtrReading?.mf}}</td>
+            <td class="align-middle">{{dtrReading?.billMonth}}</td>
+            <td class="align-middle">{{dtrReading?.prevReading}}</td>
+            <td class="align-middle">{{dtrReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+            <td class="align-middle">{{dtrReading?.currReading}}</td>
+            <td class="align-middle">{{dtrReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+            <td class="align-middle">{{dtrReading?.readingDiff}}</td>
+            <td class="align-middle">{{dtrReading?.meterConsumption}}</td>
+            <td class="align-middle">{{dtrReading?.assUnit}}</td>
+            <td class="align-middle">{{dtrReading?.totalConsumption}}</td>
+            <td class="align-middle">
               <a href="javascript:void(0)" (click)="editClicked(dtrReading)" data-toggle="modal" data-target="#updateDtrReadingModal">
                 <span class="fa fa-pencil"></span>
               </a>
             </td>
           </tr>
           <tr *ngIf="dtrReadingList && dtrReadingList.length <= 0">
-            <td colspan="18">No Records Found</td>
+            <td class="align-middle" colspan="18">No Records Found</td>
           </tr>
         </tbody>
       </table>
@@ -106,7 +106,7 @@
       </ul>
     </nav>
   </div>
-  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDtrReadingModal" tabindex="-1" role="dialog" *ngIf="editButtonClicked">
+  <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDtrReadingModal" tabindex="-1" role="dialog" *ngIf="_editClicked">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-dark text-white">

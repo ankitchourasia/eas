@@ -17,7 +17,7 @@ export class DtrReadViewComponent implements OnInit {
   billMonthYear:any;
   dtrReadingList: any;
   dtrReadingToEdit: any;
-  searchButtonClicked: boolean;
+  _searchClicked: boolean;
   pager: any;
   pageSize: number;
   pagedDtrReadingList : any;
@@ -29,7 +29,6 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   searchClicked(){
-    this.dtrReadingList = null;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
     this.getAllDtrReadingByDivisionIdAndBillMonth(this.user.division.id, billingMonth);
@@ -38,32 +37,34 @@ export class DtrReadViewComponent implements OnInit {
     }
   }
 
-  getAllDtrReadingByDivisionIdAndBillMonth(divisionId,billingMonth){
-    this.searchButtonClicked = true;
+  getAllDtrReadingByDivisionIdAndBillMonth(divisionId, billingMonth){
+    this._searchClicked = true;
+    this.dtrReadingList = [];
     this.dtrService.getReadingByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.dtrReadingList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
       console.log(successResponse);
     },errorResponse =>{ 
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 
-  getAllDtrReadingByZoneIdAndBillMonth(zoneId,billingMonth){
-    this.searchButtonClicked = true;
+  getAllDtrReadingByZoneIdAndBillMonth(zoneId, billingMonth){
+    this._searchClicked = true;
+    this.dtrReadingList = [];
     this.dtrService.getReadingByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(successResponse =>{
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.dtrReadingList = successResponse;
       this.initializePaginationVariables();
       this.setPage(1);
       console.log(successResponse);
     },errorResponse =>{
       console.log(errorResponse);
-      this.searchButtonClicked = false;
+      this._searchClicked = false;
       this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
@@ -82,10 +83,10 @@ export class DtrReadViewComponent implements OnInit {
     this.pagedDtrReadingList = this.dtrReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  editButtonClicked: boolean;
+  _editClicked: boolean;
   editClicked(dtr){
     this.dtrReadingToEdit = Object.assign({}, dtr);
-    this.editButtonClicked = true;
+    this._editClicked = true;
   }
 
   dtrCurrentReadingChanged(){
@@ -165,7 +166,7 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   dtrUpdateModalCancel(dtrUpdateForm){
-    this.editButtonClicked = false;
+    this._editClicked = false;
     this.globalResources.resetValidateForm(dtrUpdateForm);
   }
 

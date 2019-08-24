@@ -5,72 +5,72 @@
   </div>
 </div>
 
-<div *ngIf="dtrs && !loading">
+<div *ngIf="dtrList && !loading">
   <div class="form-group  eas-flex-end">
-    <button class="button btn btn-primary" (click)="exportClicked()"><span class="fa fa-download">&nbsp;Export</span></button>
+    <button class="btn btn-sm btn-primary" (click)="exportClicked()"><span class="fa fa-download">&nbsp;Export</span></button>
   </div>
-  <fieldset [disabled]="deleteButtonClicked">
+  <fieldset [disabled]="_deleteClicked">
     <div class="table-responsive mb-2">
       <table class="table table-sm table-bordered text-center">
         <thead class="bg-dark text-white">
           <tr>
-            <td>SNo</td>
-            <td>Zone</td>
-            <td>Substation</td>
-            <td>Feeder Name</td>
-            <td>DTR Name</td>
-            <td>RD No.</td>
-            <td>Overall Mf</td>
-            <td>Meter Make</td>
-            <td>Meter No.</td>
-            <td>Capacity</td>
-            <td>Location Code</td>
-            <td>No of Meters</td>
-            <td>Meter Capacity</td>
-            <td>Meter S/R</td>
-            <td>S/R Date</td>
-            <td>LT Feeders</td>
-            <td>Edit</td>
-            <td *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
+            <td class="align-middle">SNo</td>
+            <td class="align-middle">Zone</td>
+            <td class="align-middle">Substation</td>
+            <td class="align-middle">Feeder Name</td>
+            <td class="align-middle">DTR Name</td>
+            <td class="align-middle">RD No.</td>
+            <td class="align-middle">Overall Mf</td>
+            <td class="align-middle">Meter Make</td>
+            <td class="align-middle">Meter No.</td>
+            <td class="align-middle">Capacity</td>
+            <td class="align-middle">Location Code</td>
+            <td class="align-middle">No of Meters</td>
+            <td class="align-middle">Meter Capacity</td>
+            <td class="align-middle">Meter S/R</td>
+            <td class="align-middle">S/R Date</td>
+            <td class="align-middle">LT Feeders</td>
+            <td class="align-middle">Edit</td>
+            <td class="align-middle" *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let dtr of pagedDTRs; let i = index">
-            <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td>{{dtr?.zone?.name | uppercase}}</td>
-            <td>{{dtr?.substation?.name}}</td>
-            <td>{{dtr?.feeder?.name}}</td>
-            <td>{{dtr?.dtrName}}</td>
-            <td>{{dtr?.billingRDNo}}</td>
-            <td>{{dtr?.overallMF}}</td>
-            <td>{{dtr?.dtrMeterMake}}</td>
-            <td>{{dtr?.dtrMeterNo}}</td>
-            <td>{{dtr?.dtrCapacity}}</td>
-            <td>{{dtr?.dtrCode}}</td>
-            <td>{{dtr?.noOfDTRMeters}}</td>
-            <td>{{dtr?.dtrMeterCapacity}}</td>
-            <td>{{dtr?.dtrMeterSR}}</td>
-            <td>{{dtr?.srDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-            <td>{{dtr?.ltFeeders}}</td>
-            <td>
+          <tr *ngFor="let dtr of pagedDtrList; let i = index">
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+            <td class="align-middle">{{dtr?.zone?.name | uppercase}}</td>
+            <td class="align-middle">{{dtr?.substation?.name}}</td>
+            <td class="align-middle">{{dtr?.feeder?.name}}</td>
+            <td class="align-middle">{{dtr?.dtrName}}</td>
+            <td class="align-middle">{{dtr?.billingRDNo}}</td>
+            <td class="align-middle">{{dtr?.overallMF}}</td>
+            <td class="align-middle">{{dtr?.dtrMeterMake}}</td>
+            <td class="align-middle">{{dtr?.dtrMeterNo}}</td>
+            <td class="align-middle">{{dtr?.dtrCapacity}}</td>
+            <td class="align-middle">{{dtr?.dtrCode}}</td>
+            <td class="align-middle">{{dtr?.noOfDTRMeters}}</td>
+            <td class="align-middle">{{dtr?.dtrMeterCapacity}}</td>
+            <td class="align-middle">{{dtr?.dtrMeterSR}}</td>
+            <td class="align-middle">{{dtr?.srDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+            <td class="align-middle">{{dtr?.ltFeeders}}</td>
+            <td class="align-middle">
               <a href="javascript:void(0)" (click)="editClicked(dtr)" data-toggle="modal" data-target="#updateDTRModal">
                 <span class="fa fa-pencil"></span>
               </a>
             </td>
-            <td *ngIf="user.role==='admin' || user.role === 'htm_admin'">
+            <td class="align-middle" *ngIf="user.role==='admin' || user.role === 'htm_admin'">
               <a href="javascript:void(0)" (click)="deleteClicked(dtr)">
                 <span class="fa fa-trash"></span>
               </a>
             </td>
           </tr>
-          <tr *ngIf="dtrs && dtrs.length <= 0">
-            <td colspan="18">No Records Found</td>
+          <tr *ngIf="dtrList && dtrList.length <= 0">
+            <td class="align-middle" colspan="18">No record found</td>
           </tr>
         </tbody>
       </table>
     </div>
   </fieldset>
-  <div id="pagination" *ngIf="dtrs && dtrs.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="dtrList && dtrList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
