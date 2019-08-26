@@ -2,7 +2,7 @@
 
 <!-- <div id="content">
     <div id="sideMenu" class="accordion"> -->
-<div class="row flex-xl-nowrap">
+<div class="row">
     <div class="col-md-2 accordion" id="menubar">
         <ul class="list-group list-group-flush">
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#substationCollapseMenu">33/11KV Substations</a>
@@ -23,7 +23,6 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report']">T&D Loss Report</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report/without-ht']">T&D Loss Report (Without HT)</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/atnc/loss/report']">AT&C Loss Report</a>
-                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Other Report</a> -->
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#exportCollapseMenu">11KV Export</a>
             <div class="collapse" id="exportCollapseMenu" data-parent="#menubar">
@@ -41,7 +40,6 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/read/view']">View Reading</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/generate/loss/report']">Loss Report</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/pre-billing']">Pre Billing Activity</a>
-                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/view']">Other Reports</a> -->
             </div>
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">11KV HT Consumers</a>
             <div class="collapse" id="htConsumerCollapseMenu" data-parent="#menubar">
