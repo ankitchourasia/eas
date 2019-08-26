@@ -74,8 +74,8 @@
   <hr>
   <div class="eas-flex-end mb-2">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" (click)="generateClicked()" 
-      [disabled]="_generateClicked">
-      <!-- || (searchResultList && searchResultList.length && !searchResultList[0].allLossGenerated)-->
+      [disabled]="_generateClicked || (searchResultList && searchResultList.length && !lossGenerationStatus)">
+      <!-- -->
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" (click)="viewClicked()"

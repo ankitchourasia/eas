@@ -152,6 +152,7 @@ export class ReportD1Component implements OnInit {
   searchClicked(){
     this._searchClicked = true;
     this.reportGenerated = false;
+    this.lossGenerationStatus = false;
     if(this.searchFormData.zone === "ALL"){
       this.getByDivisionIdAndBillMonth();
     }else{
@@ -165,6 +166,7 @@ export class ReportD1Component implements OnInit {
     this.reportService.getD1GenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       this.searchResultList = successResponse;
+      this.lossGenerationStatus = this.checkGenerationStatus(this.searchResultList);
       this.initializePaginationVariables();
       this.setPage(1);
     },errorResponse =>{
@@ -173,18 +175,33 @@ export class ReportD1Component implements OnInit {
     });
   }
 
+  lossGenerationStatus: boolean;
   getByDivisionIdAndBillMonth(){
     this.searchResultList = null;
     this._searchClicked = true;
     this.reportService.getD1GenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       this.searchResultList = successResponse;
+      this.lossGenerationStatus = this.checkGenerationStatus(this.searchResultList);
       this.initializePaginationVariables();
       this.setPage(1);
     },errorResponse =>{
       this._searchClicked = false;
       console.log(errorResponse);
     });
+  }
+
+  checkGenerationStatus(resultList):boolean{
+    if(resultList && resultList.length){
+      for(let item of resultList) {
+        if(!item.feederReadingInserted || !item.exportReadingInserted || !item.htReadingInserted){
+          return false;
+        }
+      }
+      return true;
+    } else{
+      return false;
+    }
   }
 
   generateClicked(){
