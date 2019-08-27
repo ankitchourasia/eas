@@ -93,9 +93,11 @@ export class FeederReadingViewComponent implements OnInit {
     this.feederService.updateFeederReading(this.readingToEdit, nextBillMonth, this.user.username).subscribe(success =>{
       this.updateButtonClicked = false;
       console.log(success);
-      this.globalResources.successAlert("Feeder reading updated successfully");
-      this.readingToEdit = undefined;
-      this.closeModal(this.closeButtonRef);
+      let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
+      aletResponse.then(result =>{
+        this.closeModal(this.closeButtonRef);
+        this.readingToEdit = undefined;
+      });
     }, error =>{
       this.updateButtonClicked = false;
       console.log(error);

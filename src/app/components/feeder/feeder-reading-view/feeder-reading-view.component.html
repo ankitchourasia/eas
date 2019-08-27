@@ -154,7 +154,7 @@
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Previous Read Date</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" [ngModel]="readingToEdit.prevReadingDateInString | date : 'dd-MM-yyyy'" name="zoneName" disabled>
+                  <input type="text" class="form-control" [ngModel]="readingToEdit.prevReadingDateInString | uppercase" name="zoneName" disabled>
                 </div>
               </div> 
               <div class="form-group row">
