@@ -10,7 +10,6 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthorizationInterceptor } from './interceptors/authorization.interceptor';
 import { FormsModule } from '@angular/forms';
-import { DirectiveModule } from '@eas-directives/directive.module';
 import { AppRoutingModule } from './app-routing.module';
 import { GlobalDOMUtility } from '@eas-utility/global-dom-utility';
 // import { appRoutingModule } from './app-routing.module';
@@ -25,7 +24,6 @@ import { GlobalDOMUtility } from '@eas-utility/global-dom-utility';
     HttpModule,
     HttpClientModule,
     LoginModule,
-    DirectiveModule,
     // appRoutingModule
     AppRoutingModule
   ],

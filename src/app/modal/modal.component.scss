@@ -1,0 +1,7 @@
+eas-modal {
+    .component-host-scrollable {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+}

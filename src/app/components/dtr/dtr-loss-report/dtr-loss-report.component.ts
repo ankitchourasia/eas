@@ -336,19 +336,6 @@ export class DtrLossReportComponent implements OnInit {
     });
   }
 
-  display: any = 'none';
-  viewDtrLossReport(){
-    this.openModal();
-  }
-
-  openModal(){
-    this.display = 'block';
-  }
-
-  closeModal(){
-    this.display = 'none';
-  }
-
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;

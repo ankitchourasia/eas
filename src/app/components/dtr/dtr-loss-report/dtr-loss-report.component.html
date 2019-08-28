@@ -139,7 +139,7 @@
               Generate <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="dtr.generatingSingleReport"></span>
             </button>
             <button type="button" class="btn btn-sm btn-info" *ngIf="dtr.singleReportGenerated || reportGenerated" 
-              [disabled]="generating" data-toggle="modal" data-target="#dtrLossReportModal" (click)="viewDtrLossReport()">
+              [disabled]="generating" data-toggle="modal" data-target="#dtrLossReportModal">
               View
             </button>
           </td>
@@ -180,7 +180,7 @@
         <eas-dtr-loss-report-view [feeder]="searchFormData.feeder" [billingMonth]="searchFormData.billingMonth"></eas-dtr-loss-report-view>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
