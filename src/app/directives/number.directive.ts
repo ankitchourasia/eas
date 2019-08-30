@@ -8,13 +8,12 @@ export class NumberDirective {
   @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
-    
-  // @HostListener('input', ['$event']) onInputChange($event) {
-  //   let number = Number($event.target.value);
-  //   if(!isNaN(number)){
-  //     $event.target.value = number.toPrecision();
-  //     this.ngModelChange.emit(Number($event.target.value));
-  //   }
-  // }
+
+  @HostListener('keydown', ['$event'])onKeyDown(event: KeyboardEvent) {
+    console.log(event);
+    if((event.key === "e" || event.key === "E")){
+      event.preventDefault();
+    }
+ }
 
 }
