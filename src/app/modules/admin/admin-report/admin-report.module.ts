@@ -8,6 +8,7 @@ import { AdminReportD5Component } from './admin-report-d5/admin-report-d5.compon
 import { AdminReportD6Component } from './admin-report-d6/admin-report-d6.component';
 import { AdminReportD7Component } from './admin-report-d7/admin-report-d7.component';
 import { ReportComponentModule } from '@eas-components/report/report-component.module';
+import { AdminReportNscMonitoringComponent } from './admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ReportComponentModule } from '@eas-components/report/report-component.m
     AdminReportD4Component, 
     AdminReportD5Component, 
     AdminReportD6Component, 
-    AdminReportD7Component
+    AdminReportD7Component, 
+    AdminReportNscMonitoringComponent
   ],
   
 })

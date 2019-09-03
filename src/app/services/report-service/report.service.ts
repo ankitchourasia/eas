@@ -173,4 +173,13 @@ export class ReportService {
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd5-report/division/id/' + divisionId + "/bill-month/" + billMonth);
     }
   }
+
+  saveNscMonitoringInput(nscMonitoringInput, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone',  nscMonitoringInput,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone', nscMonitoringInput);
+    }
+  }
 }

@@ -141,7 +141,7 @@ input::-webkit-outer-spin-button {
     margin-left: 3px;
     top: 2px;
     /* font-size: 20px */
-    position: absolute;
+    /* position: absolute; */
 }
 
 .not-required:after{
@@ -150,5 +150,5 @@ input::-webkit-outer-spin-button {
     margin-left: 3px;
     top: 2px;
     /* font-size: 20px */
-    position: absolute;
+    /* position: absolute; */
 }

@@ -10,7 +10,6 @@ export class NumberDirective {
   constructor() {}
 
   @HostListener('keydown', ['$event'])onKeyDown(event: KeyboardEvent) {
-    console.log(event);
     if((event.key === "e" || event.key === "E")){
       event.preventDefault();
     }
