@@ -95,10 +95,11 @@
     <div class="inner-group">
       <small class="form-text text-muted required">Current Released NSC</small>
       <input type="number" [ngClass]="{'is-valid': !currReleasedNSC.errors && (currReleasedNSC.dirty || currReleasedNSC.touched),'is-invalid': currReleasedNSC.errors && (currReleasedNSC.dirty || currReleasedNSC.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.currentReleasedNSC" #currReleasedNSC="ngModel" id="currReleasedNSC" name="currReleasedNSC" required [min]="0">
+        class="form-control form-control-sm" [(ngModel)]="formData.currentReleasedNSC" #currReleasedNSC="ngModel" id="currReleasedNSC" name="currReleasedNSC" required [min]="0" [max]="(formData.previousPendingNSC + formData.currentAppliedNSC)">
       <div class="invalid-feedback" *ngIf="currReleasedNSC.errors && (currReleasedNSC.dirty || currReleasedNSC.touched)">
         <div [hidden]="!currReleasedNSC.errors.required">required field</div>
         <div [hidden]="!currReleasedNSC.errors.min || currReleasedNSC.errors.required">can not be less than 0</div>
+        <div [hidden]="!currReleasedNSC.errors.max || currReleasedNSC.errors.required">can not be greater than {{formData.previousPendingNSC + formData.currentAppliedNSC}}</div>
       </div>
     </div>
     <!-- <div class="inner-group">
@@ -113,10 +114,11 @@
     <div class="inner-group">
         <small class="form-text text-muted required">NSC In SERC Time</small>
         <input type="number" [ngClass]="{'is-valid': !nscWithinSERCTime.errors && (nscWithinSERCTime.dirty || nscWithinSERCTime.touched),'is-invalid': nscWithinSERCTime.errors && (nscWithinSERCTime.dirty || nscWithinSERCTime.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="formData.nscWithinSERCTime" #nscWithinSERCTime="ngModel" id="nscWithinSERCTime" name="nscWithinSERCTime" required [min]="0">
+          class="form-control form-control-sm" [(ngModel)]="formData.nscWithinSERCTime" #nscWithinSERCTime="ngModel" id="nscWithinSERCTime" name="nscWithinSERCTime" required [min]="0" [max]="formData.currentReleasedNSC">
         <div class="invalid-feedback" *ngIf="nscWithinSERCTime.errors && (nscWithinSERCTime.dirty || nscWithinSERCTime.touched)">
           <div [hidden]="!nscWithinSERCTime.errors.required">required field</div>
           <div [hidden]="!nscWithinSERCTime.errors.min || nscWithinSERCTime.errors.required">can not be less than 0</div>
+          <div [hidden]="!nscWithinSERCTime.errors.max || nscWithinSERCTime.errors.required">can not be greater than {{formData.currentReleasedNSC ? formData.currentReleasedNSC : 'Current Released NSC'}}</div>
         </div>
       </div>
       <!-- <div class="inner-group">
@@ -131,10 +133,11 @@
       <div class="inner-group">
         <small class="form-text text-muted required">NSC Released by IT System</small>
         <input type="number" [ngClass]="{'is-valid': !itReleasedNSC.errors && (itReleasedNSC.dirty || itReleasedNSC.touched),'is-invalid': itReleasedNSC.errors && (itReleasedNSC.dirty || itReleasedNSC.touched)}"
-          class="form-control form-control-sm" [(ngModel)]="formData.itReleasedNSC" #itReleasedNSC="ngModel" id="itReleasedNSC" name="itReleasedNSC" required [min]="0">
+          class="form-control form-control-sm" [(ngModel)]="formData.itReleasedNSC" #itReleasedNSC="ngModel" id="itReleasedNSC" name="itReleasedNSC" required [min]="0" [max]="formData.currentReleasedNSC">
         <div class="invalid-feedback" *ngIf="itReleasedNSC.errors && (itReleasedNSC.dirty || itReleasedNSC.touched)">
           <div [hidden]="!itReleasedNSC.errors.required">required field</div>
           <div [hidden]="!itReleasedNSC.errors.min || itReleasedNSC.errors.required">can not be less than 0</div>
+          <div [hidden]="!itReleasedNSC.errors.max || itReleasedNSC.errors.required">can not be greater than {{formData.currentReleasedNSC ? formData.currentReleasedNSC : 'Current Released NSC'}}</div>
         </div>
       </div>
   </div>

@@ -174,12 +174,75 @@ export class ReportService {
     }
   }
 
-  saveNscMonitoringInput(nscMonitoringInput, response){
+  generateNscMonitoringInput(nscMonitoringInput, response){
     if(response){
       let options : any = {'observe' : 'response'};
       return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone',  nscMonitoringInput,  options);
     }else{
       return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone', nscMonitoringInput);
+    }
+  }
+  
+  generateD2ReportForZone(d2Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/',  d2Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/', d2Report);
+    }
+  }
+
+  generateD2ReportForDivision(d2Report, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/',  d2Report,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/', d2Report);
+    }
+  }
+    
+  getD2ByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD2ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+    }
+  }
+
+  generateConsumerComplaintsRedressal(consumerComplaintsRedressal, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone',  consumerComplaintsRedressal,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone', consumerComplaintsRedressal);
+    }
+  }
+
+  getD3ByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD3ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth);
     }
   }
 }

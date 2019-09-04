@@ -7,6 +7,9 @@ import { ReportD7Component } from './report-d7/report-d7.component';
 import { ReportD4Component } from './report-d4/report-d4.component';
 import { ReportD5Component } from './report-d5/report-d5.component';
 import { ReportNscMonitoringComponent } from './report-nsc-monitoring/report-nsc-monitoring.component';
+import { ReportD2Component } from './report-d2/report-d2.component';
+import { ReportConsumerComplaintsRedressalComponent } from './report-consumer-complaints-redressal/report-consumer-complaints-redressal.component';
+import { ReportD3Component } from './report-d3/report-d3.component';
 
 @NgModule({
   imports: [
@@ -14,7 +17,7 @@ import { ReportNscMonitoringComponent } from './report-nsc-monitoring/report-nsc
     FormsModule,
     DirectiveModule,
   ],
-  declarations: [ReportD1Component, ReportD7Component, ReportD4Component, ReportD5Component, ReportNscMonitoringComponent],
-  exports: [ReportD1Component, ReportD7Component, ReportD4Component, ReportD5Component, ReportNscMonitoringComponent]
+  declarations: [ReportD1Component, ReportD7Component, ReportD4Component, ReportD5Component, ReportNscMonitoringComponent, ReportD2Component, ReportConsumerComplaintsRedressalComponent, ReportD3Component],
+  exports: [ReportD1Component, ReportD7Component, ReportD4Component, ReportD5Component, ReportNscMonitoringComponent, ReportD2Component, ReportConsumerComplaintsRedressalComponent, ReportD3Component]
 })
 export class ReportComponentModule { }

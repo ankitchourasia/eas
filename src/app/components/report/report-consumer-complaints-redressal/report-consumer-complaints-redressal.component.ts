@@ -8,13 +8,13 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 import { ReportService } from '@eas-services/report-service/report.service';
 
 @Component({
-  selector: 'eas-report-nsc-monitoring',
-  templateUrl: './report-nsc-monitoring.component.html',
-  styleUrls: ['./report-nsc-monitoring.component.css']
+  selector: 'eas-report-consumer-complaints-redressal',
+  templateUrl: './report-consumer-complaints-redressal.component.html',
+  styleUrls: ['./report-consumer-complaints-redressal.component.css']
 })
-export class ReportNscMonitoringComponent implements OnInit {
+export class ReportConsumerComplaintsRedressalComponent implements OnInit {
 
-  COMPONENT_NAME: string = "ReportNscMonitoringComponent";
+  COMPONENT_NAME: string = "ReportConsumerComplaintsRedressalComponent";
   formData: any;
   regionList: any;
   circleList: any;
@@ -137,11 +137,11 @@ export class ReportNscMonitoringComponent implements OnInit {
     this.formData.divisionId = this.formData.division.id;
     this.formData.zoneId = this.formData.zone.id;
 
-    this.formData.totalPendingNSC = this.formData.previousPendingNSC + this.formData.currentAppliedNSC;
-    this.formData.currentPendingNSC = this.formData.totalPendingNSC - this.formData.currentReleasedNSC;
-    this.formData.nscBeyondSERCTime = this.formData.currentReleasedNSC - this.formData.nscWithinSERCTime;
-    this.formData.nscWithinSERCTimePercent = Number(((this.formData.nscWithinSERCTime * 100) / this.formData.currentReleasedNSC).toFixed(2));
-    this.reportService.generateNscMonitoringInput(this.formData, false).subscribe(successResponse =>{
+    this.formData.totalPendingComplaints = this.formData.previousPendingComplaints + this.formData.currentComplaints;
+    this.formData.pendingComplaints = this.formData.totalPendingComplaints - this.formData.closedComplaints;
+    this.formData.closedBeyondSERCTime = this.formData.closedComplaints - this.formData.closedWithinSERCTime;
+    this.formData.closedWithinTimePercent = Number(((this.formData.closedWithinSERCTime * 100) / this.formData.closedComplaints).toFixed(2));
+    this.reportService.generateConsumerComplaintsRedressal(this.formData, false).subscribe(successResponse =>{
       this._submintClicked = false;
       this.setInitialData();
       this.globalResources.resetValidateForm(nscMonitoringInput);

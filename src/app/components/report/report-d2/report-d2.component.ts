@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { GlobalConstants } from '@eas-utility/global.constants';
+import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
@@ -8,19 +9,19 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 import { ReportService } from '@eas-services/report-service/report.service';
 
 @Component({
-  selector: 'eas-report-nsc-monitoring',
-  templateUrl: './report-nsc-monitoring.component.html',
-  styleUrls: ['./report-nsc-monitoring.component.css']
+  selector: 'eas-report-d2',
+  templateUrl: './report-d2.component.html',
+  styleUrls: ['./report-d2.component.css']
 })
-export class ReportNscMonitoringComponent implements OnInit {
+export class ReportD2Component implements OnInit {
 
-  COMPONENT_NAME: string = "ReportNscMonitoringComponent";
-  formData: any;
+  searchFormData: any;
   regionList: any;
   circleList: any;
   divisionList:any;
   zoneList:any;
-  _submintClicked: boolean;
+  viewResultList: any;
+  _viewClicked: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private regionService: RegionService, private circleService: CircleService, 
     private divisionService: DivisionService, private zoneService: ZoneService, 
@@ -31,8 +32,7 @@ export class ReportNscMonitoringComponent implements OnInit {
   }
 
   setInitialData(){
-    console.log(this.globalResources.getUserDetails());
-    this.formData = {};
+    this.searchFormData = {};
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
@@ -44,10 +44,10 @@ export class ReportNscMonitoringComponent implements OnInit {
       this.regionList.push(user.zone.division.circle.region);
       this.circleList.push(user.zone.division.circle);
       this.divisionList.push(user.zone.division);
-      this.formData.region = user.zone.division.circle.region;
-      this.formData.circle = user.zone.division.circle;
-      this.formData.division = user.zone.division;
-      this.getZoneListByDivisionId(this.formData.division.id);
+      this.searchFormData.region = user.zone.division.circle.region;
+      this.searchFormData.circle = user.zone.division.circle;
+      this.searchFormData.division = user.zone.division;
+      this.getZoneListByDivisionId(this.searchFormData.division.id);
     }
   }
 
@@ -63,9 +63,9 @@ export class ReportNscMonitoringComponent implements OnInit {
   }
 
   regionChanged(region){
-    this.formData.circle = undefined;
-    this.formData.division = undefined;
-    this.formData.zone = undefined;
+    this.searchFormData.circle = undefined;
+    this.searchFormData.division = undefined;
+    this.searchFormData.zone = undefined;
     this.getCircleListByRegionId(region.id);
   }
 
@@ -81,8 +81,8 @@ export class ReportNscMonitoringComponent implements OnInit {
   }
 
   circleChanged(circle){
-    this.formData.division = undefined;
-    this.formData.zone = undefined;
+    this.searchFormData.division = undefined;
+    this.searchFormData.zone = undefined;
     this.getDivisionListByCircleId(circle.id);
   }
 
@@ -98,13 +98,14 @@ export class ReportNscMonitoringComponent implements OnInit {
   }
 
   divisionChanged(division){
-    this.formData.zone = undefined;
+    this.searchFormData.zone = undefined;
     this.getZoneListByDivisionId(division.id);
   }
 
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];
     this.zoneService.getZonseByDivisionId(divisionId, false).subscribe(successResponse =>{
+      console.log(successResponse);
       if(successResponse){
         this.zoneList = successResponse;
       }
@@ -114,43 +115,68 @@ export class ReportNscMonitoringComponent implements OnInit {
   }
   
   zoneChanged(zone){
+    this.viewResultList = null;
   }
 
   billMonthChanged(){
-    if(this.formData.month && this.formData.year){
-      this.formData.billMonth = this.formData.month + "-" + this.formData.year;
+    this.viewResultList = null;
+    if(this.searchFormData.month && this.searchFormData.year){
+      this.searchFormData.billMonth = this.searchFormData.month + "-" + this.searchFormData.year;
     }
   }
 
   billMonthYearChanged(){
-    if(this.formData.month && this.formData.year){
-      this.formData.billMonth = this.formData.month + "-" + this.formData.year;
+    this.viewResultList = null;
+    if(this.searchFormData.month && this.searchFormData.year){
+      this.searchFormData.billMonth = this.searchFormData.month + "-" + this.searchFormData.year;
     }
   }
 
-  submitClicked(nscMonitoringInput){
-    let methodName = "submitClicked"
-    this._submintClicked = true;
-    
-    this.formData.regionId = this.formData.region.id;
-    this.formData.circleId = this.formData.circle.id;
-    this.formData.divisionId = this.formData.division.id;
-    this.formData.zoneId = this.formData.zone.id;
+  viewClicked(){
+    if(this.searchFormData.zone === "ALL"){
+      this.viewByDivisionIdAndBillMonth();
+    }else{
+      this.viewByZoneIdAndBillMonth();
+    }
+  }
 
-    this.formData.totalPendingNSC = this.formData.previousPendingNSC + this.formData.currentAppliedNSC;
-    this.formData.currentPendingNSC = this.formData.totalPendingNSC - this.formData.currentReleasedNSC;
-    this.formData.nscBeyondSERCTime = this.formData.currentReleasedNSC - this.formData.nscWithinSERCTime;
-    this.formData.nscWithinSERCTimePercent = Number(((this.formData.nscWithinSERCTime * 100) / this.formData.currentReleasedNSC).toFixed(2));
-    this.reportService.generateNscMonitoringInput(this.formData, false).subscribe(successResponse =>{
-      this._submintClicked = false;
-      this.setInitialData();
-      this.globalResources.resetValidateForm(nscMonitoringInput);
-      this.globalResources.successAlert("Data saved successfully");
+  viewByZoneIdAndBillMonth(){
+    this._viewClicked = true;
+    this.viewResultList = [];
+    this.reportService.getD2ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billMonth, false).subscribe(successResponse =>{
+      this._viewClicked = false;
       console.log(successResponse);
+      if(successResponse){
+        this.viewResultList.push(successResponse);
+      }
     },errorResponse =>{
-      this._submintClicked = false;
-      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      this._viewClicked = false;
+      console.log(errorResponse);
     });
   }
 
+  viewByDivisionIdAndBillMonth(){
+    this._viewClicked = true;
+    this.viewResultList = [];
+    this.reportService.getD2ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billMonth, false).subscribe(successResponse =>{
+      this._viewClicked = false;
+      console.log(successResponse);
+      if(successResponse){
+        this.viewResultList = successResponse;
+      }
+    },errorResponse =>{
+      this._viewClicked = false;
+      console.log(errorResponse);
+    });
+  }
+
+  exportClicked(exportElementId){
+    this.globalResources.exportTableToExcel(exportElementId, "d-2_Report_" + this.searchFormData.billMonth);
+    // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    // let params = {
+    //   Authorization: "Basic " + encodedCredentials,
+    // };
+    // let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d2-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billMonth;
+    // this.globalResources.downloadFile(fileUrl,params);
+  }
 }

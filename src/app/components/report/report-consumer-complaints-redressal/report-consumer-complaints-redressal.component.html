@@ -1,0 +1,149 @@
+<form #ComplaintsMonitoringInput="ngForm" autocomplete="off">
+  <div class="eas-space-evenly">
+    <div class="inner-group">
+      <small class="form-text text-muted required">Region</small>
+      <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(formData.region)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+        <div [hidden]="!region.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <small class="form-text text-muted required">Circle</small>
+      <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(formData.circle)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
+        <div [hidden]="!circle.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <small class="form-text text-muted required">Division</small>
+      <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(formData.division)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
+        <div [hidden]="!division.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <small class="form-text text-muted required">Zone</small>
+      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(formData.zone)">
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+        <div [hidden]="!zone.errors.required">required field</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <small class="form-text text-muted required">Reporting Month</small>
+      <div class="input-group">
+        <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="formData.month" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
+          <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+          <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+        </select>
+        <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="formData.year" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthYearChanged()">
+          <option disabled selected [ngValue]='undefined'>Year</option>
+          <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+          <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="eas-space-evenly">
+    <div class="inner-group">
+      <small class="form-text text-muted required">Previous Pending Complaints</small>
+      <input type="number" [ngClass]="{'is-valid': !prePendingComplaints.errors && (prePendingComplaints.dirty || prePendingComplaints.touched),'is-invalid': prePendingComplaints.errors && (prePendingComplaints.dirty || prePendingComplaints.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.previousPendingComplaints" #prePendingComplaints="ngModel" id="prePendingComplaints" name="prePendingComplaints" required [min]="0">
+      <div class="invalid-feedback" *ngIf="prePendingComplaints.errors && (prePendingComplaints.dirty || prePendingComplaints.touched)">
+        <div [hidden]="!prePendingComplaints.errors.required">required field</div>
+        <div [hidden]="!prePendingComplaints.errors.min || prePendingComplaints.errors.required">can not be less than 0</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <small class="form-text text-muted required">Current Applied Complaints</small>
+      <input type="number" [ngClass]="{'is-valid': !currentComplaints.errors && (currentComplaints.dirty || currentComplaints.touched),'is-invalid': currentComplaints.errors && (currentComplaints.dirty || currentComplaints.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.currentComplaints" #currentComplaints="ngModel" id="currentComplaints" name="currentComplaints" required [min]="0">
+      <div class="invalid-feedback" *ngIf="currentComplaints.errors && (currentComplaints.dirty || currentComplaints.touched)">
+        <div [hidden]="!currentComplaints.errors.required">required field</div>
+        <div [hidden]="!currentComplaints.errors.min || currentComplaints.errors.required">can not be less than 0</div>
+      </div>
+    </div>
+    <!-- <div class="inner-group">
+      <small class="form-text text-muted required">Total Pending Complaints</small>
+      <input type="number" [ngClass]="{'is-valid': !totalPendingComplaints.errors && (totalPendingComplaints.dirty || totalPendingComplaints.touched),'is-invalid': totalPendingComplaints.errors && (totalPendingComplaints.dirty || totalPendingComplaints.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.totalPendingComplaints" #totalPendingComplaints="ngModel" id="totalPendingComplaints" name="totalPendingComplaints" required [min]="0">
+      <div class="invalid-feedback" *ngIf="totalPendingComplaints.errors && (totalPendingComplaints.dirty || totalPendingComplaints.touched)">
+        <div [hidden]="!totalPendingComplaints.errors.required">required field</div>
+        <div [hidden]="!totalPendingComplaints.errors.min || totalPendingComplaints.errors.required">can not be less than 0</div>
+      </div>
+    </div> -->
+    <div class="inner-group">
+      <small class="form-text text-muted required">Closed Complaints</small>
+      <input type="number" [ngClass]="{'is-valid': !closedComplaints.errors && (closedComplaints.dirty || closedComplaints.touched),'is-invalid': closedComplaints.errors && (closedComplaints.dirty || closedComplaints.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.closedComplaints" #closedComplaints="ngModel" id="closedComplaints" name="closedComplaints" required [min]="0" [max]="(formData.previousPendingComplaints + formData.currentComplaints)">
+      <div class="invalid-feedback" *ngIf="closedComplaints.errors && (closedComplaints.dirty || closedComplaints.touched)">
+        <div [hidden]="!closedComplaints.errors.required">required field</div>
+        <div [hidden]="!closedComplaints.errors.min || closedComplaints.errors.required">can not be less than 0</div>
+        <div [hidden]="!closedComplaints.errors.max || closedComplaints.errors.required">can not be greater than {{formData.previousPendingComplaints + formData.currentComplaints}}</div>
+      </div>
+    </div>
+    <div class="inner-group">
+      <small class="form-text text-muted required">Average Pending Time(minutes)</small>
+      <input type="number" [ngClass]="{'is-valid': !averagePendingTime.errors && (averagePendingTime.dirty || averagePendingTime.touched),'is-invalid': averagePendingTime.errors && (averagePendingTime.dirty || averagePendingTime.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.averagePendingTime" #averagePendingTime="ngModel" id="averagePendingTime" name="averagePendingTime" required [min]="0">
+      <div class="invalid-feedback" *ngIf="averagePendingTime.errors && (averagePendingTime.dirty || averagePendingTime.touched)">
+        <div [hidden]="!averagePendingTime.errors.required">required field</div>
+        <div [hidden]="!averagePendingTime.errors.min || averagePendingTime.errors.required">can not be less than 0</div>
+      </div>
+    </div>
+    <!-- <div class="inner-group">
+      <small class="form-text text-muted required">Pending Complaints</small>
+      <input type="number" [ngClass]="{'is-valid': !pendingComplaints.errors && (pendingComplaints.dirty || pendingComplaints.touched),'is-invalid': pendingComplaints.errors && (pendingComplaints.dirty || pendingComplaints.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.pendingComplaints" #pendingComplaints="ngModel" id="pendingComplaints" name="pendingComplaints" required [min]="0">
+      <div class="invalid-feedback" *ngIf="pendingComplaints.errors && (pendingComplaints.dirty || pendingComplaints.touched)">
+        <div [hidden]="!pendingComplaints.errors.required">required field</div>
+        <div [hidden]="!pendingComplaints.errors.min || pendingComplaints.errors.required">can not be less than 0</div>
+      </div>
+    </div> -->
+    <div class="inner-group">
+        <small class="form-text text-muted required">Complaints Closed In SERC Time</small>
+        <input type="number" [ngClass]="{'is-valid': !closedWithinSERCTime.errors && (closedWithinSERCTime.dirty || closedWithinSERCTime.touched),'is-invalid': closedWithinSERCTime.errors && (closedWithinSERCTime.dirty || closedWithinSERCTime.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="formData.closedWithinSERCTime" #closedWithinSERCTime="ngModel" id="closedWithinSERCTime" name="closedWithinSERCTime" required [min]="0" [max]="formData.closedComplaints">
+        <div class="invalid-feedback" *ngIf="closedWithinSERCTime.errors && (closedWithinSERCTime.dirty || closedWithinSERCTime.touched)">
+          <div [hidden]="!closedWithinSERCTime.errors.required">required field</div>
+          <div [hidden]="!closedWithinSERCTime.errors.min || closedWithinSERCTime.errors.required">can not be less than 0</div>
+          <div [hidden]="!closedWithinSERCTime.errors.max || closedWithinSERCTime.errors.required">can not be greater than {{formData.closedComplaints ? formData.closedComplaints : 'Closed Complaints'}}</div>
+        </div>
+      </div>
+      <!-- <div class="inner-group">
+        <small class="form-text text-muted required">Complaints Closed Beyond SERC Time</small>
+        <input type="number" [ngClass]="{'is-valid': !closedBeyondSERCTime.errors && (closedBeyondSERCTime.dirty || closedBeyondSERCTime.touched),'is-invalid': closedBeyondSERCTime.errors && (closedBeyondSERCTime.dirty || closedBeyondSERCTime.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="formData.closedBeyondSERCTime" #closedBeyondSERCTime="ngModel" id="closedBeyondSERCTime" name="closedBeyondSERCTime" required [min]="0">
+        <div class="invalid-feedback" *ngIf="closedBeyondSERCTime.errors && (closedBeyondSERCTime.dirty || closedBeyondSERCTime.touched)">
+          <div [hidden]="!closedBeyondSERCTime.errors.required">required field</div>
+          <div [hidden]="!closedBeyondSERCTime.errors.min || closedBeyondSERCTime.errors.required">can not be less than 0</div>
+        </div>
+      </div> -->
+  </div>
+  <hr>
+  <div class="eas-flex-center">
+    <button class="btn btn-sm btn-success" [disabled]="!ComplaintsMonitoringInput.form.valid || _submintClicked" (click)="submitClicked(ComplaintsMonitoringInput)">
+      Submit <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_submintClicked"></span>
+    </button>
+  </div>
+</form>
