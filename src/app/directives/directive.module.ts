@@ -8,6 +8,7 @@ import { RemoveCharacterDirective } from './remove-character.directive';
 import { CompareValidatorDirective } from './compare-validator.directive';
 import { EqualValidatorDirective } from './equal-validator.directive';
 import { NumberDirective } from './number.directive';
+import { PatternDirective } from './pattern.directive';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NumberDirective } from './number.directive';
     CompareValidatorDirective,
     EqualValidatorDirective,
     NumberDirective,
+    PatternDirective,
   ],
   exports:[
     LowercaseDirective,
@@ -30,7 +32,8 @@ import { NumberDirective } from './number.directive';
     RemoveCharacterDirective,
     CompareValidatorDirective,
     EqualValidatorDirective,
-    NumberDirective
+    NumberDirective,
+    PatternDirective
   ],
 })
 export class DirectiveModule { }
