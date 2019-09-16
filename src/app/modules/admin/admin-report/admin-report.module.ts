@@ -10,6 +10,7 @@ import { AdminReportD7Component } from './admin-report-d7/admin-report-d7.compon
 import { ReportComponentModule } from '@eas-components/report/report-component.module';
 import { AdminReportNscMonitoringComponent } from './admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
 import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report-consumer-complaints-redressal/admin-report-consumer-complaints-redressal.component';
+import { AdminReportFeederJsonFileComponent } from './admin-report-feeder-json-file/admin-report-feeder-json-file.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report-
     AdminReportD5Component, 
     AdminReportD6Component, 
     AdminReportD7Component, 
-    AdminReportNscMonitoringComponent, AdminReportConsumerComplaintsRedressalComponent
+    AdminReportNscMonitoringComponent, AdminReportConsumerComplaintsRedressalComponent, AdminReportFeederJsonFileComponent
   ],
   
 })

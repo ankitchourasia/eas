@@ -245,4 +245,22 @@ export class ReportService {
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth);
     }
   }
+
+  generateJsonInputForZone(inputObject, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + inputObject.zoneId + "/bill-month/" + inputObject.billMonth,  {},  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + inputObject.zoneId + "/bill-month/" + inputObject.billMonth, {});
+    }
+  }
+
+  getJsonInputByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
 }

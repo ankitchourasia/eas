@@ -23,10 +23,12 @@ export class HtConsumerAddComponent implements OnInit {
   }
 
   zoneChanged(zoneId){
+    this.htConsumer.substationId = undefined;
     this.getSubstationByZoneId(zoneId);
   }
 
   getSubstationByZoneId(zoneId){
+    this.substations = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(success =>{
       this.substations = success;
     }, error =>{
@@ -35,10 +37,12 @@ export class HtConsumerAddComponent implements OnInit {
   }
 
   substationChanged(substationId){
+    this.htConsumer.feederId = undefined;
     this.getFeedersBySubstationId(substationId);
   }
 
   getFeedersBySubstationId(substationId){
+    this.feeders = [];
     this.feederService.getFeederBySubstationId(substationId).subscribe(success =>{
       this.feeders = success;
     }, error =>{

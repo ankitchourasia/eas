@@ -43,6 +43,7 @@ import { AdminReportD7Component } from './admin-report/admin-report-d7/admin-rep
 import { AdminFeederInterruptionAddComponent } from './admin-feeder/admin-feeder-interruption-add/admin-feeder-interruption-add.component';
 import { AdminReportNscMonitoringComponent } from './admin-report/admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
 import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report/admin-report-consumer-complaints-redressal/admin-report-consumer-complaints-redressal.component';
+import { AdminReportFeederJsonFileComponent } from './admin-report/admin-report-feeder-json-file/admin-report-feeder-json-file.component';
 
 const adminRoutes: Routes = [
   {
@@ -173,6 +174,9 @@ const adminRoutes: Routes = [
           },
           {
             path: 'report/consumer-complaints-redressal',component: AdminReportConsumerComplaintsRedressalComponent
+          },
+          {
+            path: 'report/feeder/json',component: AdminReportFeederJsonFileComponent
           },
           {
             path: 'bill-file/upload',component: AdminBillFileUploadComponent

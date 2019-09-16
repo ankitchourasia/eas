@@ -10,6 +10,7 @@ import { ReportNscMonitoringComponent } from './report-nsc-monitoring/report-nsc
 import { ReportD2Component } from './report-d2/report-d2.component';
 import { ReportConsumerComplaintsRedressalComponent } from './report-consumer-complaints-redressal/report-consumer-complaints-redressal.component';
 import { ReportD3Component } from './report-d3/report-d3.component';
+import { ReportFeederJsonFileComponent } from './report-feeder-json-file/report-feeder-json-file.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,28 @@ import { ReportD3Component } from './report-d3/report-d3.component';
     FormsModule,
     DirectiveModule,
   ],
-  declarations: [ReportD1Component, ReportD7Component, ReportD4Component, ReportD5Component, ReportNscMonitoringComponent, ReportD2Component, ReportConsumerComplaintsRedressalComponent, ReportD3Component],
-  exports: [ReportD1Component, ReportD7Component, ReportD4Component, ReportD5Component, ReportNscMonitoringComponent, ReportD2Component, ReportConsumerComplaintsRedressalComponent, ReportD3Component]
+  declarations: [
+    ReportD1Component,
+    ReportD7Component,
+    ReportD4Component,
+    ReportD5Component,
+    ReportNscMonitoringComponent,
+    ReportD2Component,
+    ReportConsumerComplaintsRedressalComponent,
+    ReportD3Component, 
+    ReportFeederJsonFileComponent
+  ],
+ 
+  exports: [
+    ReportD1Component,
+    ReportD7Component,
+    ReportD4Component,
+    ReportD5Component,
+    ReportNscMonitoringComponent,
+    ReportD2Component,
+    ReportConsumerComplaintsRedressalComponent, 
+    ReportD3Component,
+    ReportFeederJsonFileComponent
+  ]
 })
 export class ReportComponentModule { }

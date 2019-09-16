@@ -35,6 +35,7 @@ export class FeederAddComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
+    this.substationList = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
       this.substationList = successResponese;
     }, error =>{

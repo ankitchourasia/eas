@@ -10,65 +10,82 @@ import { GlobalResources } from '@eas-utility/global.resources';
 })
 export class HtConsumerReadingAddComponent implements OnInit {
 
-  reading : any = {};
+  formData : any;
   consumer : any;
   month : string;
   year : string;
+  serviceNumber: any;
   loading : boolean;
-  constructor(public globalConstants : GlobalConstants, private htConsumerService : HtConsumerService, private globalResources : GlobalResources) { }
+  _submitClicked: boolean;
+  constructor(public globalConstants : GlobalConstants, private htConsumerService : HtConsumerService,
+     private globalResources : GlobalResources) { }
 
   ngOnInit() {
+    this.setInitialData();
+  }
+
+  setInitialData(){
+    this.formData = {};
+    this.consumer = null;
+  }
+
+  searchInputChanged(){
+    this.setInitialData();
   }
 
   searchButtonClicked(){
-    this.consumer = undefined;
+    this.setInitialData();
     this.getConsumerDetails();
   }
 
   getConsumerDetails(){
     this.loading = true;
-    this.htConsumerService.getHTConsumerByServiceNo(this.reading.serviceNumber, false).subscribe(success =>{
+    this.consumer = null;
+    this.htConsumerService.getHTConsumerByServiceNo(this.serviceNumber, false).subscribe(success =>{
       this.loading = false;
       this.consumer = success;
-      this.reading.consumerId = this.consumer.id;
+      console.log(this.consumer);
+      this.formData.consumerId = this.consumer.id;
     }, error =>{
       this.loading = false;
       console.log(error);
+      this.globalResources.errorAlert("consumer not found");
     });
   }
 
   submitClicked(){
     let billMonth = this.month + '-' + this.year;
-    this.reading.billMonth = billMonth;
-    this.reading.regionId = this.consumer.region.id;
-    this.reading.circleId = this.consumer.circle.id;
-    this.reading.divisionId = this.consumer.division.id;
-    this.reading.substationId = this.consumer.substation.id;
-    this.reading.zoneId = this.consumer.zone.id;
-    this.reading.feederId = this.consumer.feeder.id;
-    this.reading.consumerId = this.consumer.id;
+    this.formData.billMonth = billMonth;
+    this.formData.regionId = this.consumer.region.id;
+    this.formData.circleId = this.consumer.circle.id;
+    this.formData.divisionId = this.consumer.division.id;
+    this.formData.substationId = this.consumer.substation.id;
+    this.formData.zoneId = this.consumer.zone.id;
+    this.formData.feederId = this.consumer.feeder.id;
+    this.formData.consumerId = this.consumer.id;
+    this.formData.serviceNumber = this.serviceNumber;
     this.addReading();
   }
 
   addReading(){
-    this.loading = true;
-    this.htConsumerService.addHTConsumerReading(this.reading, true).subscribe(success =>{
-      this.loading = false;
+    this._submitClicked = true;
+    this.htConsumerService.addHTConsumerReading(this.formData, true).subscribe(success =>{
+      this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
-        this.globalResources.successAlert("Reading Added successfully");
-        this.consumer = undefined;
-        this.reading = {};
+        this.globalResources.successAlert("Data Added successfully");
+        this.consumer = null;
+        this.formData = {};
       }
     }, error =>{
-      this.loading = false;
+      this._submitClicked = false;
       console.log(error);
       this.globalResources.errorAlert(error.error.errorMessage);
     });
   }
 
   resetClicked(){
-    this.consumer = undefined;
+    this.setInitialData();
   }
 
 }

@@ -25,10 +25,12 @@ export class FeederReadingAddComponent implements OnInit {
   }
 
   zoneChanged(zoneId){
+    this.feederReading.substationId = undefined;
     this.getSubstationByZoneId(zoneId);
   }
 
   getSubstationByZoneId(zoneId){
+    this.substations = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(success =>{
       this.substations = success;
     }, error =>{
@@ -37,10 +39,12 @@ export class FeederReadingAddComponent implements OnInit {
   }
 
   substationChanged(substationId){
+    this.feederReading.feeder = undefined;
     this.getFeedersBySubstationId(substationId);
   }
 
   getFeedersBySubstationId(substationId){
+    this.feeders = [];
     this.feederService.getFeederBySubstationId(substationId).subscribe(success =>{
       this.feeders = success;
     }, error =>{

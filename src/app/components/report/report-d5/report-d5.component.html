@@ -1,7 +1,7 @@
 <form #searchForm="ngForm" id="searchForm">
   <div class="eas-space-evenly mb-2">
     <div class="inner-group">
-      <label class="form-text text-muted mb-0">Region</label>
+      <small class="form-text text-muted required">Region</small>
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control form-control-sm" [(ngModel)]="searchFormData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(searchFormData.region)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="inner-group">
-      <label class="form-text text-muted mb-0">Circle</label>
+      <small class="form-text text-muted required">Circle</small>
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control form-control-sm" [(ngModel)]="searchFormData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(searchFormData.circle)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="inner-group">
-      <label class="form-text text-muted mb-0">Division</label>
+      <small class="form-text text-muted required">Division</small>
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control form-control-sm" [(ngModel)]="searchFormData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(searchFormData.division)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="inner-group">
-      <label class="form-text text-muted mb-0">Zone</label>
+      <small class="form-text text-muted required">Zone</small>
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control form-control-sm" [(ngModel)]="searchFormData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(searchFormData.zone)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="inner-group">
-      <label class="form-text text-muted mb-0">Bill Month</label>
+      <small class="form-text text-muted required">Bill Month</small>
       <div class="input-group">
         <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
           class="form-control form-control-sm" [(ngModel)]="searchFormData.billMonth" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
