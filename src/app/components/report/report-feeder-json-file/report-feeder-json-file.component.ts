@@ -192,12 +192,12 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   viewByZoneIdAndBillMonth(){
     this.viewResultList = [];
-    // this.reportService.getJsonInputByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-    //   console.log(successResponse);
-    //   let result:any = successResponse;
-    //   if(result && result.length)
+    this.reportService.getJsonInputByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      console.log(successResponse);
+      let result:any = successResponse;
+      if(result && result.length)
       {
-        // this.viewResultList = result;
+        this.viewResultList = result;
         this.viewResultList = this.zoneList;
         let transaction_data =[];
         this.viewResultList.forEach(element => {
@@ -208,14 +208,14 @@ export class ReportFeederJsonFileComponent implements OnInit {
         jsonObject.headerObject = this.prepareHeaderObject(this.viewResultList);
         jsonObject.transaction_data = transaction_data;
         jsonObject.footerObject = this.prepareFooterObject(this.viewResultList);
-        console.log(jsonObject);
+        
         let jsonData = JSON.stringify(jsonObject , null, '\t');
         let dataType = 'data:application/octet-stream';
         this.globalResources.downloadByBlob(jsonData, dataType, "jsonFile", "json");
       }
-    // },errorResponse =>{
-    //   console.log(errorResponse);
-    // });
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   prepareHeaderObject(records){
@@ -238,7 +238,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   prepareTransactionDataElement(sourceObject){
     let customObject: any = {}
-    console.log(sourceObject);
     customObject["Feeder_Code"] = sourceObject.feederCode;
     customObject["Feeder_Type(U/R/M)"] = sourceObject.feederType;
     customObject["Start_Billing_Period"] = sourceObject.startBillingDate;
@@ -281,7 +280,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
     customObject["Govt_Amount_Collected"] = sourceObject.governmentAmountCollected;
     customObject["Agri_Amount_Collected"] = sourceObject.agricultureAmountCollected;
     customObject["Others_Amount_Collected"] = sourceObject.otherAmountCollected;
-    console.log(customObject);
     return customObject;
   }
 
