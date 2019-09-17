@@ -192,13 +192,97 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   viewByZoneIdAndBillMonth(){
     this.viewResultList = [];
-    this.reportService.getJsonInputByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      console.log(successResponse);
-      if(successResponse){
-        this.viewResultList = successResponse;
+    // this.reportService.getJsonInputByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    //   console.log(successResponse);
+    //   let result:any = successResponse;
+    //   if(result && result.length)
+      {
+        // this.viewResultList = result;
+        this.viewResultList = this.zoneList;
+        let transaction_data =[];
+        this.viewResultList.forEach(element => {
+          transaction_data.push(this.prepareTransactionDataElement(element));    
+        });
+
+        let jsonObject: any = {};
+        jsonObject.headerObject = this.prepareHeaderObject(this.viewResultList);
+        jsonObject.transaction_data = transaction_data;
+        jsonObject.footerObject = this.prepareFooterObject(this.viewResultList);
+        console.log(jsonObject);
+        let jsonData = JSON.stringify(jsonObject , null, '\t');
+        let dataType = 'data:application/octet-stream';
+        this.globalResources.downloadByBlob(jsonData, dataType, "jsonFile", "json");
       }
-    },errorResponse =>{
-      console.log(errorResponse);
-    });
+    // },errorResponse =>{
+    //   console.log(errorResponse);
+    // });
   }
+
+  prepareHeaderObject(records){
+    let current_datetime = new Date()
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
+    let headerObject: any = {};
+    headerObject["File_name"] = "mpwkvvcl_uf_"+"";
+    headerObject["File_generation_time"] = formatted_date;
+    headerObject["no_of_records"] = records.length;
+    headerObject["version"] = "1";
+    return headerObject;
+  }
+
+  prepareFooterObject(records){
+    let footerObject: any = {};
+    footerObject["File_name"] = "mpwkvvcl_uf_"+"";
+    footerObject["no_of_records"] = records.length;
+    return footerObject;
+  }
+
+  prepareTransactionDataElement(sourceObject){
+    let customObject: any = {}
+    console.log(sourceObject);
+    customObject["Feeder_Code"] = sourceObject.feederCode;
+    customObject["Feeder_Type(U/R/M)"] = sourceObject.feederType;
+    customObject["Start_Billing_Period"] = sourceObject.startBillingDate;
+    customObject["End_Billing_Period"] = sourceObject.endBillingDate;
+    customObject["No_Of_Power_Failure"] = sourceObject.powerFailureCount;
+    customObject["Duration_Of_Power_Failure(Sec)"] = sourceObject.powerFailureDuration;
+    customObject["Minimum_Voltage(V)"] = sourceObject.minimumVoltage;
+    customObject["Max_Current(A)"] = sourceObject.maxCurrent;
+    customObject["Input_Energy(kwh)"] = sourceObject.feederInput;
+    customObject["Export_Energy(kwh)"] = sourceObject.exportEnergy;
+    customObject["HT_Industrial_Consumer_Count"] = sourceObject.htIndustrialConsumer;
+    customObject["HT_Commercial_Consumer_Count"] = sourceObject.htCommercialConsumer;
+    customObject["LT_Industrial_Consumer_Count"] = sourceObject.ltIndustrialConsumer;
+    customObject["LT_Commercial_Consumer_Count"] = sourceObject.ltCommercialConsumer;
+    customObject["LT_Domestic_Consumer_Count"] = sourceObject.ltDomesticConsumer;
+    customObject["Govt_Consumer_Count"] = sourceObject.governmentConsumer;
+    customObject["Agri_Consumer_Count"] = sourceObject.agricultureConsumer;
+    customObject["Others_Consumer_Count"] = sourceObject.otherConsumer;
+    customObject["HT_Industrial_Energy_Billed"] = sourceObject.htIndustrialEnergy;
+    customObject["HT_Commercial_Energy_Billed"] = sourceObject.htCommercialEnergy;
+    customObject["LT_Industrial_Energy_Billed"] = sourceObject.ltIndustrialEnergy;
+    customObject["LT_Commercial_Energy_Billed"] = sourceObject.ltCommercialEnergy;
+    customObject["LT_Domestic_Energy_Billed(kwh)"] = sourceObject.ltDomesticEnergy;
+    customObject["Govt_Energy_Billed(kwh)"] = sourceObject.governmentEnergy;
+    customObject["Agri_Energy_Billed(kwh)"] = sourceObject.agricultureEnergy;
+    customObject["Others_Energy_Billed(kwh)"] = sourceObject.otherEnergy;
+    customObject["HT_Industrial_Amount_Billed"] = sourceObject.htIndustrialAmountBilled;
+    customObject["HT_Commercial_Amount_Billed"] = sourceObject.htCommercialAmountBilled;
+    customObject["LT_Industrial_Amount_Billed"] = sourceObject.ltIndustrialAmountBilled;
+    customObject["LT_Commercial_Amount_Billed"] = sourceObject.ltCommercialAmountBilled;
+    customObject["LT_Domestic_Amount_Billed"] = sourceObject.ltDomesticAmountBilled;
+    customObject["Govt_Amount_Billed"] = sourceObject.governmentAmountBilled;
+    customObject["Agri_Amount_Billed"] = sourceObject.agricultureAmountBilled;
+    customObject["Others_Amount_Billed"] = sourceObject.otherAmountBilled;
+    customObject["HT_Industrial_Amount_Collected"] = sourceObject.htIndustrialAmountCollected;
+    customObject["HT_Commercial_Amount_Collected"] = sourceObject.htCommercialAmountCollected;
+    customObject["LT_Industrial_Amount_Collected"] = sourceObject.ltIndustrialAmountCollected;
+    customObject["LT_Commercial_Amount_Collected"] = sourceObject.ltCommercialAmountCollected;
+    customObject["LT_Domestic_Amount_Collected"] = sourceObject.ltDomesticAmountCollected;
+    customObject["Govt_Amount_Collected"] = sourceObject.governmentAmountCollected;
+    customObject["Agri_Amount_Collected"] = sourceObject.agricultureAmountCollected;
+    customObject["Others_Amount_Collected"] = sourceObject.otherAmountCollected;
+    console.log(customObject);
+    return customObject;
+  }
+
 }
