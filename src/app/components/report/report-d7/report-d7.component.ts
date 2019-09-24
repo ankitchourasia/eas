@@ -16,6 +16,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ReportD7Component implements OnInit {
 
+  COMPONENT_NAME: string = "ReportD7Component";
   searchFormData: any;
   regionList: any;
   circleList: any;
@@ -127,25 +128,67 @@ export class ReportD7Component implements OnInit {
   }
   
   zoneChanged(zone){
-    this.viewResultList = null;
-    this.reportGenerated = false;
+    this.billingStatusList = null;
     console.log(zone);
   }
 
     billMonthChanged(){
-      this.viewResultList = null;
-      this.reportGenerated = false;
+      this.billingStatusList = null;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
   billMonthYearChanged(){
-    this.viewResultList = null;
-    this.reportGenerated = false;
+    this.billingStatusList = null;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
+  }
+
+  _searchClicked: boolean;
+  searchClicked(){
+    this.reportGenerated = false;
+    this.billingStatusList = null;
+    if(this.searchFormData.zone === "ALL"){
+      this.getNGBBillingStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth);
+    }else{
+      this.getNGBBillingStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth);
+    }
+  }
+
+  billingStatusList: any;
+  getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth){
+    let methodName = "getNGBBillingStatusByDivisionIdAndBillMonth";
+    this._searchClicked = true;
+    this.billingStatusList = [];
+    this.reportService.getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      this.billingStatusList =successResponse;
+      this.setBillingStatusFlag(this.billingStatusList);
+    },errorResponse =>{
+      this._searchClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
+  }
+
+  getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth){
+    let methodName = "getNGBBillingStatusByZoneIdAndBillMonth";
+    this._searchClicked = true;
+    this.billingStatusList = [];
+    this.reportService.getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      this.billingStatusList.push(successResponse);
+      this.setBillingStatusFlag(this.billingStatusList);
+    },errorResponse =>{
+      this._searchClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
+  }
+
+  billingStatusFlag: boolean;
+  setBillingStatusFlag(billingStatusList){
+    this.billingStatusFlag = billingStatusList.every(element => element.billingStatus);
   }
 
   generateClicked(){
@@ -173,8 +216,7 @@ export class ReportD7Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true;
-        this.viewClicked();
-        // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+        this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -183,11 +225,8 @@ export class ReportD7Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.viewClicked();
-        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 
@@ -198,8 +237,7 @@ export class ReportD7Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true;
-        this.viewClicked();
-        // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+        this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
       }
@@ -208,11 +246,8 @@ export class ReportD7Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.viewClicked();
-        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 

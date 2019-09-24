@@ -66,6 +66,24 @@ export class ReportService {
     }
   }
 
+  getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'ngb-billing/status/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'ngb-billing/status/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'ngb-billing/status/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'ngb-billing/status/division/id/' + divisionId + "/bill-month/" + billMonth);
+    }
+  }
+
   generateD7ReportForZone(d7Report, response){
     if(response){
       let options : any = {'observe' : 'response'};

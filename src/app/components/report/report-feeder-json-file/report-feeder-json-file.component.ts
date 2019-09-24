@@ -168,7 +168,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true;
-        // this.viewClicked();
+        this.viewClicked();
         let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
@@ -178,7 +178,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        // this.viewClicked();
+        this.viewClicked();
         let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert(errorResponse.error.errorMessage);
@@ -198,7 +198,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
       if(result && result.length)
       {
         this.viewResultList = result;
-        this.viewResultList = this.zoneList;
         let transaction_data =[];
         this.viewResultList.forEach(element => {
           transaction_data.push(this.prepareTransactionDataElement(element));    
@@ -220,13 +219,20 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   prepareHeaderObject(records){
     let current_datetime = new Date()
-    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
+    let formatted_date = current_datetime.getFullYear() + "-" + this.appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
     let headerObject: any = {};
     headerObject["File_name"] = "mpwkvvcl_uf_"+"";
     headerObject["File_generation_time"] = formatted_date;
     headerObject["no_of_records"] = records.length;
     headerObject["version"] = "1";
     return headerObject;
+  }
+
+  appendLeadingZeroes(n){
+    if(n <= 9){
+      return "0" + n;
+    }
+    return n
   }
 
   prepareFooterObject(records){
