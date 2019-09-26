@@ -15,15 +15,20 @@ import { ReportService } from '@eas-services/report-service/report.service';
 })
 export class ReportFeederJsonFileComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ReportFeederJsonFileComponent";
   searchFormData: any;
   regionList: any;
   circleList: any;
   divisionList: any;
   zoneList: any;
   user: any;
-  _generateClicked: boolean;
   viewResultList: any;
+  billingStatusList: any;
+  _generateClicked: boolean;
   reportGenerated: boolean;
+  _searchClicked: boolean;
+  generationStatusFlag: boolean;
+  
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService: PaginationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService,
@@ -149,6 +154,79 @@ export class ReportFeederJsonFileComponent implements OnInit {
     }
   }
 
+  searchClicked(){
+    this.reportGenerated = false;
+    this.billingStatusList = null;
+    if(this.searchFormData.zone === "ALL"){
+      this.getNGBBillingStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth);
+    }else{
+      this.getNGBBillingStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth);
+    }
+  }
+
+  getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth){
+    let methodName = "getNGBBillingStatusByDivisionIdAndBillMonth";
+    this._searchClicked = true;
+    this.generationStatusFlag = false;
+    this.billingStatusList = [];
+    this.reportService.getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      this.billingStatusList =successResponse;
+      console.log();
+      this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
+      this.billingStatusList.forEach(element => {
+        this.getD1GenerationStatusByZoneIdAndBillMonth(element);    
+      });
+    },errorResponse =>{
+      this._searchClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
+  }
+
+  getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth){
+    let methodName = "getNGBBillingStatusByZoneIdAndBillMonth";
+    this._searchClicked = true;
+    this.generationStatusFlag = false;
+    this.billingStatusList = [];
+    this.reportService.getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      this.billingStatusList.push(successResponse);
+      this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
+      this.billingStatusList.forEach(element => {
+        this.getD1GenerationStatusByZoneIdAndBillMonth(element);    
+      });
+    },errorResponse =>{
+      this._searchClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
+  }
+
+  getD1GenerationStatusByZoneIdAndBillMonth(searchElement){
+    this._searchClicked = true;
+    searchElement.generationStatusList = [];
+    this.reportService.getD1GenerationStatusByZoneIdAndBillMonth(searchElement.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      searchElement.generationStatusList = successResponse;
+      this.generationStatusFlag = this.checkGenerationStatus(searchElement.generationStatusList);
+    },errorResponse =>{
+      this._searchClicked = false;
+      console.log(errorResponse);
+    });
+  }
+
+  checkGenerationStatus(resultList):boolean{
+    if(resultList && resultList.length){
+      for(let item of resultList) {
+        if(!item.feederReadingInserted || !item.exportReadingInserted || !item.htReadingInserted){
+          return false;
+        }
+      }
+      return true;
+    } else{
+      return false;
+    }
+  }
+
   generateClicked(){
     this._generateClicked = true;
     this.reportGenerated = false
@@ -170,7 +248,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true;
-        this.viewClicked();
+        // this.viewClicked();
         let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
@@ -180,7 +258,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.viewClicked();
+        // this.viewClicked();
         let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert(errorResponse.error.errorMessage);
@@ -221,7 +299,18 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   prepareHeaderObject(records){
     let current_datetime = new Date()
-    let formatted_date = current_datetime.getFullYear() + "-" + this.appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
+    let formatted_date = current_datetime.getFullYear() + "-" 
+                        + this.appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" 
+                        + current_datetime.getDate() + " " 
+                        + current_datetime.getHours() + ":" 
+                        + current_datetime.getMinutes() + ":" 
+                        + current_datetime.getSeconds();
+    // let formatted_date = current_datetime.getFullYear() + "-" + 
+    //                     ("0" + (current_datetime.getMonth() + 1)).slice(-2) + "-" + 
+    //                     ("0" + current_datetime.getDate()).slice(-2) + " " + 
+    //                     ("0" + current_datetime.getHours()).slice(-2) + ":" + 
+    //                     ("0" + current_datetime.getMinutes()).slice(-2) + ":" + 
+    //                     ("0" + current_datetime.getSeconds()).slice(-2); 
     let headerObject: any = {};
     headerObject["File_name"] = "mpwkvvcl_uf_"+"";
     headerObject["File_generation_time"] = formatted_date;

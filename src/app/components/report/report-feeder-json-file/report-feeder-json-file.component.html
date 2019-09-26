@@ -59,8 +59,11 @@
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=generateClicked() [disabled]="!searchForm.form.valid || _generateClicked">
+          <!-- <button type="button" class="btn btn-sm btn-primary" (click)=generateClicked() [disabled]="!searchForm.form.valid || _generateClicked">
             Generate <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+          </button> -->
+          <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid || _searchClicked">
+            Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -74,3 +77,75 @@
     </div> -->
   </div>
 </form>
+
+<div *ngIf="billingStatusList && billingStatusList.length && !_searchClicked">
+  <hr>
+  <div class="eas-flex-end mb-2">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_generateClicked || !generationStatusFlag" (click)="generateClicked()">
+      Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+    </button>
+    <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked && reportGenerated" (click)="viewClicked()">
+      Export
+    </button>
+  </div>
+  <div class="table-responsive mb-2 text-center">
+    <table class="table table-sm table-bordered">
+      <thead class="bg-dark text-white">
+        <tr>
+          <td class="align-middle">S.No</td>
+          <td class="align-middle">Zone Name</td>
+          <td class="align-middle">Bill Month</td>
+          <td class="align-middle">Billing Status (Completed)</td>
+          <td class="align-middle">Feeder Status</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let billingStatus of billingStatusList; let i = index">
+          <td class="align-middle">{{i + 1}}</td>
+          <td class="align-middle">{{billingStatus?.zone?.name | uppercase}}</td>
+          <td class="align-middle">{{this.searchFormData.billingMonth | uppercase}}</td>
+          <td class="align-middle">
+            <span class="text-success" *ngIf="billingStatus?.billingStatus"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!billingStatus?.billingStatus"><span class="fa fa-times"></span></span>
+          </td>
+          <td class="align-middle" *ngIf="billingStatus.generationStatusList">
+            <table class="table table-sm table-bordered">
+              <thead class="bg-dark text-white">
+                <tr>
+                  <td class="align-middle">Feeder Name</td>
+                  <td class="align-middle">Feeder Group No</td>
+                  <td class="align-middle">Read Inserted</td>
+                  <td class="align-middle">Export Read Inserted</td>
+                  <td class="align-middle">HT Read Inserted</td>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template [ngIf]="billingStatus.generationStatusList.length">
+                  <tr *ngFor="let searchResult of billingStatus.generationStatusList; let i = index">
+                    <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
+                    <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
+                    <td class="align-middle">
+                      <span class="text-success" *ngIf="searchResult?.feederReadingInserted"><span class="fa fa-check"></span></span> 
+                      <span class="text-danger" *ngIf="!searchResult?.feederReadingInserted"><span class="fa fa-times"></span></span>
+                    </td>
+                    <td class="align-middle">
+                      <span class="text-success" *ngIf="searchResult?.exportReadingInserted"><span class="fa fa-check"></span></span> 
+                      <span class="text-danger" *ngIf="!searchResult?.exportReadingInserted"><span class="fa fa-times"></span></span>
+                    </td>
+                    <td class="align-middle">
+                      <span class="text-success" *ngIf="searchResult?.htReadingInserted"><span class="fa fa-check"></span></span> 
+                      <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
+                    </td>
+                  </tr>
+                </ng-template>
+                <tr *ngIf="!billingStatus.generationStatusList.length">
+                  <td class="align-middle" colspan="5">No Records found</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
