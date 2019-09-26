@@ -24,6 +24,9 @@ export class ReportFeederJsonFileComponent implements OnInit {
   user: any;
   viewResultList: any;
   billingStatusList: any;
+  pagedBillingStatusList: any;
+  pager: any;
+  pageSize: number;
   _generateClicked: boolean;
   reportGenerated: boolean;
   _searchClicked: boolean;
@@ -172,11 +175,12 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this.reportService.getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       this.billingStatusList =successResponse;
-      console.log();
       this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
       this.billingStatusList.forEach(element => {
         this.getD1GenerationStatusByZoneIdAndBillMonth(element);    
       });
+      this.initializePaginationVariables();
+      this.setPage(1);
     },errorResponse =>{
       this._searchClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
@@ -195,6 +199,8 @@ export class ReportFeederJsonFileComponent implements OnInit {
       this.billingStatusList.forEach(element => {
         this.getD1GenerationStatusByZoneIdAndBillMonth(element);    
       });
+      this.initializePaginationVariables();
+      this.setPage(1);
     },errorResponse =>{
       this._searchClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
@@ -378,6 +384,19 @@ export class ReportFeederJsonFileComponent implements OnInit {
     customObject["Agri_Amount_Collected"] = sourceObject.agricultureAmountCollected;
     customObject["Others_Amount_Collected"] = sourceObject.otherAmountCollected;
     return customObject;
+  }
+
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 1;
+  }
+
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+    this.pager = this.paginationService.getPager(this.billingStatusList.length, page, this.pageSize);
+    this.pagedBillingStatusList = this.billingStatusList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
 }

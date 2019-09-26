@@ -100,8 +100,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let billingStatus of billingStatusList; let i = index">
-          <td class="align-middle">{{i + 1}}</td>
+        <tr *ngFor="let billingStatus of pagedBillingStatusList; let i = index">
+            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
           <td class="align-middle">{{billingStatus?.zone?.name | uppercase}}</td>
           <td class="align-middle">{{this.searchFormData.billingMonth | uppercase}}</td>
           <td class="align-middle">
@@ -112,6 +112,7 @@
             <table class="table table-sm table-bordered">
               <thead class="bg-dark text-white">
                 <tr>
+                  <td class="align-middle">S.No</td>
                   <td class="align-middle">Feeder Name</td>
                   <td class="align-middle">Feeder Group No</td>
                   <td class="align-middle">Read Inserted</td>
@@ -122,6 +123,7 @@
               <tbody>
                 <ng-template [ngIf]="billingStatus.generationStatusList.length">
                   <tr *ngFor="let searchResult of billingStatus.generationStatusList; let i = index">
+                      <td class="align-middle">{{i+1}}</td>
                     <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
                     <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
                     <td class="align-middle">
@@ -139,7 +141,7 @@
                   </tr>
                 </ng-template>
                 <tr *ngIf="!billingStatus.generationStatusList.length">
-                  <td class="align-middle" colspan="5">No Records found</td>
+                  <td class="align-middle" colspan="6">No Records found</td>
                 </tr>
               </tbody>
             </table>
@@ -147,5 +149,26 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div id="pagination" *ngIf="billingStatusList && billingStatusList.length > pageSize" class="eas-flex-center">
+    <nav>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
