@@ -3,6 +3,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ExportService } from '@eas-services/export-service/export.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-export-point-view',
@@ -21,7 +22,8 @@ export class ExportPointViewComponent implements OnInit {
   pageSize: number;
   pagedExportPointList : any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private exportService: ExportService, public paginationService: PaginationService) { }
+    private exportService: ExportService, public paginationService: PaginationService,
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
@@ -31,12 +33,22 @@ export class ExportPointViewComponent implements OnInit {
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.selectedZone = this.user.zone;
       this.getAll11KVExportPointsByZoneId(this.selectedZone.id);
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   searchClicked(){

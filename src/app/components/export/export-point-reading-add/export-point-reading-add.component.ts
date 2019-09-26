@@ -4,6 +4,7 @@ import { GlobalConstants } from '@eas-utility/global.constants';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { ExportService } from '@eas-services/export-service/export.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-export-point-reading-add',
@@ -23,8 +24,9 @@ export class ExportPointReadingAddComponent implements OnInit {
   _submitClicked : boolean;
   _meterReplacementClicked: boolean;
   formData: any;
-  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
-    private substationService: SubstationService, private exportService: ExportService) { }
+  constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
+    private dtrService : DtrService, private substationService: SubstationService, 
+    private exportService: ExportService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
@@ -46,7 +48,8 @@ export class ExportPointReadingAddComponent implements OnInit {
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
       this.formData.region = this.user.region;
       this.formData.circle = this.user.circle;
       this.formData.division = this.user.division;
@@ -61,6 +64,15 @@ export class ExportPointReadingAddComponent implements OnInit {
       this.formData.zone = this.user.zone;
       this.getSubstationByZoneId(this.formData.zone.id);
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(zone){

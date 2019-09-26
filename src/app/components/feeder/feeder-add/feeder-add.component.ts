@@ -3,6 +3,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-feeder-add',
@@ -13,11 +14,13 @@ export class FeederAddComponent implements OnInit {
 
   user : any;
   feeder:any;
+  zoneList: any;
   substationList: any;
   _submitClicked : boolean;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
-    private feederService : FeederService, private substationService: SubstationService) { 
+    private feederService : FeederService, private substationService: SubstationService,
+    private zoneService: ZoneService) { 
 
   }
 
@@ -25,6 +28,16 @@ export class FeederAddComponent implements OnInit {
     this.feeder = {};
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
+    this.getZoneListByDivisionId(this.user.division.id);
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(){

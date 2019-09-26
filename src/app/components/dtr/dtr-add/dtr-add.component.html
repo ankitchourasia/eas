@@ -43,7 +43,7 @@
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
           class="form-control" [(ngModel)]="dtr.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged()">
           <option disabled selected [ngValue]='undefined'>Select</option>
-          <option *ngFor="let substation of substationList" [value]="substation.id">{{substation.name | uppercase}}</option>
+          <option *ngFor="let substation of substationList" [ngValue]="substation.id">{{substation.name | uppercase}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
           <div [hidden]="!substationName.errors.required">required field</div>
@@ -56,7 +56,7 @@
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control" [(ngModel)]="dtr.feederId" #feederName="ngModel" id="feederName"  name="feederName" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
-          <option *ngFor="let feeder of feederList" [value]="feeder.id">{{feeder.name | uppercase}}</option>
+          <option *ngFor="let feeder of feederList" [ngValue]="feeder.id">{{feeder.name | uppercase}}</option>
         </select>
           <div class="invalid-feedback" *ngIf="feederName.errors && (feederName.dirty || feederName.touched)">
           <div [hidden]="!feederName.errors.required">required field</div>
@@ -99,7 +99,7 @@
         <select [ngClass]="{'is-valid': !noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched),'is-invalid': noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched)}"
           class="form-control" [(ngModel)]="dtr.noOfDTRMeters" #noOfDtrMeters="ngModel" id="noOfDtrMeters"  name="noOfDtrMeters" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
-          <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}}</option>
+          <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [ngValue]="i">{{i}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched)">
           <div [hidden]="!noOfDtrMeters.errors.required">required field</div>

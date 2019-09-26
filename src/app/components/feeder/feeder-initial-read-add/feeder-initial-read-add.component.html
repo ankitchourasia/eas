@@ -29,7 +29,7 @@
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control" [(ngModel)]="feederReading.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederReading.zoneId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone.id">{{zone.name | uppercase}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
         <div *ngIf="zone.errors.required">required field</div>
@@ -42,7 +42,7 @@
       <select [ngClass]="{'is-valid': !substation.errors && (substation.dirty || substation.touched),'is-invalid': substation.errors && (substation.dirty || substation.touched)}"
         class="form-control" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let substation of substations" [value]="substation.id">{{substation.name | uppercase}}</option>
+        <option *ngFor="let substation of substations" [ngValue]="substation.id">{{substation.name | uppercase}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="substation.errors && (substation.dirty || substation.touched)">
         <div *ngIf="substation.errors.required">required field</div>

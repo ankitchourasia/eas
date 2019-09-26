@@ -3,6 +3,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-feeder-initial-read-add',
@@ -15,17 +16,29 @@ export class FeederInitialReadAddComponent implements OnInit {
   feederReading : any = {};
   substations : any = [];
   feeders : any = [];
+  zoneList: any;
   // previousReading : any = {};
   loading : boolean;
   formDates : any = {};
   month : any;
   year : any;
 
-  constructor(private globalResources : GlobalResources, private substationService : SubstationService, private feederService : FeederService, 
-    public globalConstants : GlobalConstants) { }
+  constructor(private globalResources : GlobalResources, private substationService : SubstationService, 
+    private feederService : FeederService, public globalConstants : GlobalConstants,
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    this.getZoneListByDivisionId(this.user.division.id);
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(zoneId){
@@ -36,6 +49,7 @@ export class FeederInitialReadAddComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
+    this.substations = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(success =>{
       this.substations = success;
     }, error =>{
@@ -50,6 +64,7 @@ export class FeederInitialReadAddComponent implements OnInit {
   }
 
   getFeedersBySubstationId(substationId){
+    this.feeders = [];
     this.feederService.getFeederBySubstationId(substationId).subscribe(success =>{
       this.feeders = success;
     }, error =>{

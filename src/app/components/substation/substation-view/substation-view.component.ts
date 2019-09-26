@@ -3,6 +3,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-substation-view',
@@ -13,6 +14,7 @@ export class SubstationViewComponent implements OnInit {
 
   COMPONENT_NAME: "SubstationViewComponent";
   user : any;
+  zoneList: any;
   substationList : any;
   substationToEdit : any;
   pagedSubstationList : any;
@@ -20,7 +22,8 @@ export class SubstationViewComponent implements OnInit {
   pager: any ;
   pageSize: number;
   loading : boolean;
-  constructor(private substationService : SubstationService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
+  constructor(private substationService : SubstationService, private globalResources : GlobalResources,
+    private paginationService : PaginationService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -44,6 +47,16 @@ export class SubstationViewComponent implements OnInit {
 
   editClicked(substation){
     this.substationToEdit = Object.assign({}, substation);
+    this.getZoneListByDivisionId(this.substationToEdit.zone.division.id);
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   _deleteClicked: boolean;

@@ -16,7 +16,7 @@ export class ZoneService {
     return this.http.get(this.URL_PREFIX + this.ZONE_URL + "division/id/" + divisionId);
   }
 
-  getZonseByDivisionId(divisionId,response){
+  getZonesByDivisionId(divisionId,response){
     // return this.http.get(this.URL_PREFIX + 'circle/');
     if(response){
       let options : any = {'observe' : 'response'};

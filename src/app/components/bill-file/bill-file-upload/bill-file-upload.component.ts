@@ -3,6 +3,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { BillFileService } from '@eas-services/bill-file-service/bill-file.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-bill-file-upload',
@@ -27,7 +28,8 @@ export class BillFileUploadComponent implements OnInit {
   uploadButtonClicked: boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private billFileService: BillFileService, public paginationService: PaginationService) { }
+    private billFileService: BillFileService, public paginationService: PaginationService,
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
@@ -37,11 +39,21 @@ export class BillFileUploadComponent implements OnInit {
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.selectedZone = this.user.zone;
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   fileChanged(event) {

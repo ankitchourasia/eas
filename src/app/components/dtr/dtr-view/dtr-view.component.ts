@@ -6,6 +6,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-dtr-view',
@@ -17,6 +18,7 @@ export class DtrViewComponent implements OnInit {
   user : any;
   dtrList: any;
   dtrToEdit: any;
+  zoneList: any;
   feederList: any;
   substationList: any;
   pager: any;
@@ -24,8 +26,10 @@ export class DtrViewComponent implements OnInit {
   pagedDtrList : any;
   loading : boolean;
   
-  constructor(private dtrService : DtrService, private feederService : FeederService,  private substationService : SubstationService, 
-    public globalConstants : GlobalConstants, private globalResources : GlobalResources, private paginationService : PaginationService) { }
+  constructor(private dtrService : DtrService, private feederService : FeederService,  
+    private substationService : SubstationService, public globalConstants : GlobalConstants, 
+    private globalResources : GlobalResources, private paginationService : PaginationService,
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -87,11 +91,22 @@ export class DtrViewComponent implements OnInit {
 
   _editClicked: boolean;
   editClicked(dtr){
+    console.log(dtr);
     this.dtrToEdit = Object.assign({}, dtr);
     this.dtrToEdit.srDate = this.globalResources.getDateFromDatetimestamp(this.dtrToEdit.srDate);
+    this.getZoneListByDivisionId(this.dtrToEdit.zone.division.id);
     this.getSubstationByZoneId(this.dtrToEdit.zoneId);
     this.getFeederBySubstationId(this.dtrToEdit.substationId);
     this._editClicked = true;
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(){
@@ -102,6 +117,7 @@ export class DtrViewComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
+    this.substationList = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
       this.substationList = successResponese;
     }, errorResponse =>{
@@ -116,6 +132,7 @@ export class DtrViewComponent implements OnInit {
   }
 
   getFeederBySubstationId(substationId){
+    this.feederList = [];
     this.feederService.getFeederBySubstationId(substationId).subscribe(successResponese =>{
       this.feederList = successResponese;
     },errorResponse =>{

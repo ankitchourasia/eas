@@ -4,6 +4,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-dtr-add',
@@ -20,7 +21,8 @@ export class DtrAddComponent implements OnInit {
   submitButtonClicked : boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private dtrService : DtrService, private feederService : FeederService, private substationService: SubstationService) { }
+    private dtrService : DtrService, private feederService : FeederService, 
+    private substationService: SubstationService, private zoneService: ZoneService) { }
 
 
   ngOnInit() {
@@ -33,13 +35,23 @@ export class DtrAddComponent implements OnInit {
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.dtr.zone = this.user.zone;
       this.dtr.zoneId = this.dtr.zone.id;
       this.getSubstationByZoneId(this.dtr.zoneId);
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
   
   zoneChanged(){
@@ -51,6 +63,7 @@ export class DtrAddComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
+    this.substationList = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
       this.substationList = successResponese;
     }, errorResponse =>{

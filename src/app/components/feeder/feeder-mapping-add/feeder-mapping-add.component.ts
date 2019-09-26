@@ -4,6 +4,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { DivisionService } from '@eas-services/division-service/division.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-feeder-mapping-add',
@@ -15,15 +16,27 @@ export class FeederMappingAddComponent implements OnInit {
   user : any = {};
   substations : any = [];
   feeders : any = [];
+  zoneList: any = [];
   feederMapping : any = {};
   originalDivisions : any = [];
   originalFeeders : any = [];
   _submitClicked: boolean;
-  constructor(private globalResources : GlobalResources, private substationService : SubstationService, private feederService : FeederService,
-    public globalConstants : GlobalConstants, private divisionService : DivisionService) { }
+  constructor(private globalResources : GlobalResources, private substationService : SubstationService, 
+    private feederService : FeederService, public globalConstants : GlobalConstants, 
+    private divisionService : DivisionService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    this.getZoneListByDivisionId(this.user.division.id);
+  }
+  
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(zoneId){
@@ -33,6 +46,7 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
+    this.substations = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponse =>{
       this.substations = successResponse;
     }, errorResponse =>{
@@ -46,6 +60,7 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   getFeedersBySubstationId(substationId){
+    this.feeders = [];
     this.feederService.getFeederBySubstationId(substationId).subscribe(successResponse =>{
       this.feeders = successResponse;
     }, errorResponse =>{
@@ -60,6 +75,7 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   getDivisionsByCircleId(circleId){
+    this.originalDivisions = [];
     this.divisionService.getDivisionsByCircleId(circleId, false).subscribe(successResponse =>{
       this.originalDivisions = successResponse;
     }, errorResponse =>{
@@ -68,6 +84,7 @@ export class FeederMappingAddComponent implements OnInit {
   }
 
   originalDivisionChanged(originalDivisionId){
+    this.originalFeeders = [];
     this.feederService.getFeederByDivisionId(originalDivisionId).subscribe(successResponse =>{
       this.originalFeeders = successResponse;
     }, errorResponse =>{

@@ -103,7 +103,7 @@
                   <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
                     class="form-control" [(ngModel)]="substationToEdit.zoneId" #zone="ngModel" id="zone"  name="zone" required>
                     <option disabled selected [ngValue]='undefined'>Select</option>
-                    <option *ngFor="let zone of user.zoneList" [value]="zone.id">{{zone.name | uppercase}}</option>
+                    <option *ngFor="let zone of zoneList" [ngValue]="zone.id">{{zone.name | uppercase}}</option>
                   </select>
                   <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
                     <div *ngIf="zone.errors.required">required field</div>

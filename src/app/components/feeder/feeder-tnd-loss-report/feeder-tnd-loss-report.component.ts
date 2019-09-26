@@ -49,7 +49,8 @@ export class FeederTndLossReportComponent implements OnInit {
     this.circleList = [];
     this.divisionList = [];
    if(user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = (user.zoneList);
+      // this.zoneList = (user.zoneList);
+      this.getZoneListByDivisionId(this.user.division.id);
       this.regionList.push(user.region);
       this.circleList.push(user.circle);
       this.divisionList.push(user.division);
@@ -83,8 +84,9 @@ export class FeederTndLossReportComponent implements OnInit {
   }
 
   getZoneListByDivisionId(divisionId){
-    this.zoneList = this.user.zoneList;
-    this.zoneService.getZonseByDivisionId(divisionId, false).subscribe(successResponse =>{
+    // this.zoneList = this.user.zoneList;
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       this.zoneList = successResponse;
     },errorResponse =>{
       console.log(errorResponse);

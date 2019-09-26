@@ -4,6 +4,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ExportService } from '@eas-services/export-service/export.service';
 import { NgForm } from '@angular/forms';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-export-point-reading-view',
@@ -26,7 +27,8 @@ export class ExportPointReadingViewComponent implements OnInit {
   _searchClicked: boolean;
   display: any = "none";
   constructor(public globalResources: GlobalResources, public globalConstants : GlobalConstants,
-     public paginationService :PaginationService, private exportService: ExportService) { }
+     public paginationService :PaginationService, private exportService: ExportService,
+     private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
@@ -36,11 +38,21 @@ export class ExportPointReadingViewComponent implements OnInit {
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.selectedZone = this.user.zone;
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   searchClicked(){

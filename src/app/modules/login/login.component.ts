@@ -32,19 +32,16 @@ export class LoginComponent implements OnInit {
       if(successResponse && successResponse.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
         let user = successResponse.json();
-        console.log(user);
+        sessionStorage.setItem('userDetails', JSON.stringify(user));
         if(user.role === this.globalConstants.ROLE_ADMIN){
-          this.getZones(user);
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
         }else if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
-          sessionStorage.setItem('userDetails', JSON.stringify(user));
           this.router.navigate(["/super_admin"]);
           this.submitButtonClicked = false;
           console.log("inside super-admin");
         }
         else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
-          sessionStorage.setItem('userDetails', JSON.stringify(user));
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
           console.log("inside field-admin");
@@ -71,14 +68,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getZones(user){
-    console.log(user);
-    this.zoneService.getZonesFromDivisionId(user.division.id).subscribe(successResponse =>{
-      user.zoneList = successResponse;
-      sessionStorage.setItem('userDetails', JSON.stringify(user));
-    }, errorResponse =>{
-      console.log(errorResponse);
-    });
-  }
+  // getZones(user){
+  //   console.log(user);
+  //   user.zoneList = [];
+  //   this.zoneService.getZonesByDivisionId(user.division.id, false).subscribe(successResponse =>{
+  //     user.zoneList = successResponse;
+  //     sessionStorage.setItem('userDetails', JSON.stringify(user));
+  //   }, errorResponse =>{
+  //     console.log(errorResponse);
+  //   });
+  // }
 
 }

@@ -29,12 +29,22 @@ export class SubstationAddComponent implements OnInit {
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
     }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.substation.zone = this.user.zone;
       this.substation.zoneId = this.substation.zone.id;
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(){
@@ -62,13 +72,4 @@ export class SubstationAddComponent implements OnInit {
     this.setPartialData();
     this.globalResources.resetValidateForm(substationAddForm);
   }
-
-  // getZones(){
-  //   this.zoneService.getZonesFromDivisionId(this.user.division.id).subscribe(success =>{
-  //     this.zoneList = success;
-  //   }, error =>{
-  //     console.log(error);
-  //   })
-  // }
-
 }

@@ -47,7 +47,8 @@ export class DtrReadAddComponent implements OnInit {
     if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
     }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
-      this.zoneList = (this.user.zoneList);
+      // this.zoneList = (this.user.zoneList);
+      this.getZoneListByDivisionId(this.user.division.id);
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
@@ -149,8 +150,9 @@ export class DtrReadAddComponent implements OnInit {
   }
 
   getZoneListByDivisionId(divisionId){
-    this.zoneList = this.user.zoneList;
-    this.zoneService.getZonseByDivisionId(divisionId, false).subscribe(successResponse =>{
+    // this.zoneList = this.user.zoneList;
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       this.zoneList = successResponse;
     },errorResponse =>{
       console.log(errorResponse);

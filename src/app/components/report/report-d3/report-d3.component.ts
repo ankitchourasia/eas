@@ -103,7 +103,7 @@ export class ReportD3Component implements OnInit {
 
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];
-    this.zoneService.getZonseByDivisionId(divisionId, false).subscribe(successResponse =>{
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       console.log(successResponse);
       if(successResponse){
         this.zoneList = successResponse;

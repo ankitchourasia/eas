@@ -3,6 +3,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-ht-consumer-add',
@@ -15,11 +16,24 @@ export class HtConsumerAddComponent implements OnInit {
   htConsumer : any = {};
   substations : any = [];
   feeders : any = [];
+  zoneList: any = [];
   loading : boolean;
-  constructor(private globalResources : GlobalResources, private substationService : SubstationService, private feederService : FeederService, private htConsumerService : HtConsumerService) { }
+  constructor(private globalResources : GlobalResources, private substationService : SubstationService,
+    private feederService : FeederService, private htConsumerService : HtConsumerService,
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    this.getZoneListByDivisionId(this.user.division.id);
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(zoneId){

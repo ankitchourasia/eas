@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-feeder-reading-add',
@@ -14,14 +15,26 @@ export class FeederReadingAddComponent implements OnInit {
   feederReading : any = {};
   substations : any = [];
   feeders : any = [];
+  zoneList : any = [];
   previousReading : any = {};
   feederMeterReplacement : boolean;
   loading : boolean;
   formDates : any = {};
-  constructor(private globalResources : GlobalResources, private substationService : SubstationService, private feederService : FeederService) { }
+  constructor(private globalResources : GlobalResources, private substationService : SubstationService, 
+    private feederService : FeederService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    this.getZoneListByDivisionId(this.user.division.id);
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(zoneId){

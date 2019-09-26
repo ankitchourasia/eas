@@ -5,6 +5,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-feeder-view',
@@ -15,6 +16,7 @@ export class FeederViewComponent implements OnInit {
 
   COMPONENT_NAME: "FeederViewComponent";
   user : any;
+  zoneList: any;
   feederList : any;
   feederToEdit: any;
   substationList: any;
@@ -24,7 +26,8 @@ export class FeederViewComponent implements OnInit {
   loading : boolean;
   
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
-    private dtrService : DtrService, private globalResources : GlobalResources, private paginationService : PaginationService) { }
+    private dtrService : DtrService, private globalResources : GlobalResources, 
+    private paginationService : PaginationService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -87,7 +90,17 @@ export class FeederViewComponent implements OnInit {
   editButtonClicked(feeder){
     this.feederToEdit = Object.assign({}, feeder);
     console.log(this.feederToEdit);
+    this.getZoneListByDivisionId(this.feederToEdit.zone.division.id);
     this.getSubstationByZoneId(this.feederToEdit.zoneId);
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(){
@@ -98,6 +111,7 @@ export class FeederViewComponent implements OnInit {
   }
 
   getSubstationByZoneId(zoneId){
+    this.substationList = [];
     this.substationService.getSubstationsByZoneId(zoneId).subscribe(successResponese =>{
       this.substationList = successResponese;
     }, errorResponse =>{

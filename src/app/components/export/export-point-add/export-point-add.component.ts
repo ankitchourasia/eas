@@ -4,6 +4,7 @@ import { GlobalConstants } from '@eas-utility/global.constants';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { ExportService } from '@eas-services/export-service/export.service';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-export-point-add',
@@ -23,7 +24,7 @@ export class ExportPointAddComponent implements OnInit {
   submitButtonClicked: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
     private substationService: SubstationService, private feederService : FeederService,
-    private exportService: ExportService) { }
+    private exportService: ExportService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
@@ -42,7 +43,8 @@ export class ExportPointAddComponent implements OnInit {
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
-      this.zoneList = this.user.zoneList;
+      // this.zoneList = this.user.zoneList;
+      this.getZoneListByDivisionId(this.user.division.id);
       this.formData.region = this.user.region;
       this.formData.circle = this.user.circle;
       this.formData.division = this.user.division;
@@ -57,6 +59,15 @@ export class ExportPointAddComponent implements OnInit {
       this.formData.zone = this.user.zone;
       this.getSubstationByZoneId(this.formData.zone.id);
     }
+  }
+
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
   zoneChanged(zone){
