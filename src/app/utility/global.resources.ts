@@ -234,6 +234,59 @@ export class GlobalResources {
         }
         
     }
+    getPreviousBillMonth(billMonth){
+        if(billMonth){
+            let values = billMonth.split('-');
+            let month = values[0];
+            let year = 	parseInt(values[1]);
+            let previousMonth;
+            let previousYear = year;
+            switch (month) {
+            case "JAN":
+                previousMonth = 'DEC';
+                previousYear = previousYear - 1;
+                break;
+            case "FEB":
+                previousMonth = 'JAN';
+                break;
+            case "MAR":
+                previousMonth = 'FEB';
+                break;
+            case "APR":
+                previousMonth = 'MAR';
+                break;
+            case "MAY":
+                previousMonth = 'APR';
+                break;
+            case "JUN":
+                previousMonth = 'MAY';
+                break;
+            case "JUL":
+                previousMonth = 'JUN';
+                break;
+            case "AUG":
+                previousMonth = 'JUL';
+                break;
+            case "SEP":
+                previousMonth = 'AUG';
+                break;
+            case "OCT":
+                previousMonth = 'SEP';
+                break;
+            case "NOV":
+                previousMonth = 'OCT';
+                break;
+            case "DEC":
+                previousMonth = 'NOV';
+                break;
+            default:
+                break;
+            }
+            return previousMonth.toUpperCase()+"-"+previousYear;
+        }else{
+            return null;
+        }
+    }
 
     getNextBillMonth(billMonth){
         if(billMonth){

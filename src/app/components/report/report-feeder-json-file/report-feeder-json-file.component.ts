@@ -142,16 +142,16 @@ export class ReportFeederJsonFileComponent implements OnInit {
   }
 
   billMonthChanged(){
-    this.viewResultList = null;
     this.reportGenerated = false;
+    this.billingStatusList = null;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
   billMonthYearChanged(){
-    this.viewResultList = null;
     this.reportGenerated = false;
+    this.billingStatusList = null;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
@@ -213,7 +213,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this.reportService.getD1GenerationStatusByZoneIdAndBillMonth(searchElement.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       searchElement.generationStatusList = successResponse;
-      this.generationStatusFlag = this.checkGenerationStatus(searchElement.generationStatusList);
+      this.generationStatusFlag = !!(Number(this.generationStatusFlag) * Number(this.checkGenerationStatus(searchElement.generationStatusList)));
     },errorResponse =>{
       this._searchClicked = false;
       console.log(errorResponse);
@@ -305,24 +305,47 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   prepareHeaderObject(records){
     let current_datetime = new Date()
-    let formatted_date = current_datetime.getFullYear() + "-" 
-                        + this.appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" 
-                        + current_datetime.getDate() + " " 
-                        + current_datetime.getHours() + ":" 
-                        + current_datetime.getMinutes() + ":" 
-                        + current_datetime.getSeconds();
-    // let formatted_date = current_datetime.getFullYear() + "-" + 
-    //                     ("0" + (current_datetime.getMonth() + 1)).slice(-2) + "-" + 
-    //                     ("0" + current_datetime.getDate()).slice(-2) + " " + 
-    //                     ("0" + current_datetime.getHours()).slice(-2) + ":" + 
-    //                     ("0" + current_datetime.getMinutes()).slice(-2) + ":" + 
-    //                     ("0" + current_datetime.getSeconds()).slice(-2); 
+    // let formatted_date = current_datetime.getFullYear() + "-" 
+    //                     + this.appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" 
+    //                     + current_datetime.getDate() + " " 
+    //                     + current_datetime.getHours() + ":" 
+    //                     + current_datetime.getMinutes() + ":" 
+    //                     + current_datetime.getSeconds();
+    let formatted_date = current_datetime.getFullYear() + "-" + 
+                        ("0" + (current_datetime.getMonth() + 1)).slice(-2) + "-" + 
+                        ("0" + current_datetime.getDate()).slice(-2) + " " + 
+                        ("0" + current_datetime.getHours()).slice(-2) + ":" + 
+                        ("0" + current_datetime.getMinutes()).slice(-2) + ":" + 
+                        ("0" + current_datetime.getSeconds()).slice(-2); 
     let headerObject: any = {};
-    headerObject["File_name"] = "mpwkvvcl_uf_"+"";
+    headerObject["File_name"] = this.getFileName();
     headerObject["File_generation_time"] = formatted_date;
     headerObject["no_of_records"] = records.length;
     headerObject["version"] = "1";
     return headerObject;
+  }
+
+  prepareFooterObject(records){
+    let footerObject: any = {};
+    footerObject["File_name"] =  this.getFileName();
+    footerObject["no_of_records"] = records.length;
+    return footerObject;
+  }
+
+  getFileName(){
+    let fileName = "mpwkvvcl_uf_"
+    let startBillMonth = this.searchFormData.billingMonth;
+    let endBillMonth = this.globalResources.getPreviousBillMonth(startBillMonth);
+
+    let startBillMonthValues = startBillMonth.split("-");
+    let endBillMonthValues = endBillMonth.split("-");
+
+    let month1 = Number(this.globalConstants.MONTHS.indexOf(startBillMonthValues[0])+1);
+    let year1 = Number(startBillMonthValues[1]);
+    let month2 = Number(this.globalConstants.MONTHS.indexOf(endBillMonthValues[0])+1);
+    let year2 = Number(endBillMonthValues[1])-1;
+    
+    return fileName + ("0" + month2).slice(-2) + ("0" + year2).slice(-2) + "_"+ ("0" + month1).slice(-2) + ("0" + year1).slice(-2) + ".txt"; 
   }
 
   appendLeadingZeroes(n){
@@ -330,13 +353,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
       return "0" + n;
     }
     return n
-  }
-
-  prepareFooterObject(records){
-    let footerObject: any = {};
-    footerObject["File_name"] = "mpwkvvcl_uf_"+"";
-    footerObject["no_of_records"] = records.length;
-    return footerObject;
   }
 
   prepareTransactionDataElement(sourceObject){
