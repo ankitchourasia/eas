@@ -21,33 +21,43 @@ export class ReportNscMonitoringComponent implements OnInit {
   divisionList:any;
   zoneList:any;
   _submintClicked: boolean;
+  user: any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private regionService: RegionService, private circleService: CircleService, 
     private divisionService: DivisionService, private zoneService: ZoneService, 
     private reportService: ReportService) { }
 
   ngOnInit() {
-    this.setInitialData();
+    this.setPartialData();
   }
 
-  setInitialData(){
-    console.log(this.globalResources.getUserDetails());
-    this.formData = {};
+  setPartialData(){
+    this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.zoneList = [];
-    let user = this.globalResources.getUserDetails();
-    if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    this.formData = {};
+    this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
-    }else if(user.role === this.globalConstants.ROLE_ADMIN){
-      this.regionList.push(user.zone.division.circle.region);
-      this.circleList.push(user.zone.division.circle);
-      this.divisionList.push(user.zone.division);
-      this.formData.region = user.zone.division.circle.region;
-      this.formData.circle = user.zone.division.circle;
-      this.formData.division = user.zone.division;
-      this.getZoneListByDivisionId(this.formData.division.id);
+    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      // this.zoneList = (this.user.zoneList);
+      this.getZoneListByDivisionId(this.user.division.id);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.formData.region = this.user.region;
+      this.formData.circle = this.user.circle;
+      this.formData.division = this.user.division;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.formData.region = this.user.region;
+      this.formData.circle = this.user.circle;
+      this.formData.division = this.user.division;
+      this.formData.zone = this.user.zone;
     }
   }
 
@@ -61,12 +71,17 @@ export class ReportNscMonitoringComponent implements OnInit {
       console.log(errorResponse);
     });
   }
-
+  
   regionChanged(region){
-    this.formData.circle = undefined;
-    this.formData.division = undefined;
-    this.formData.zone = undefined;
-    this.getCircleListByRegionId(region.id);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.circleList = null;
+      this.formData.circle = undefined;
+      this.divisionList = null;
+      this.formData.division = undefined;
+      this.zoneList = null;
+      this.formData.zone = undefined;
+      this.getCircleListByRegionId(region.id);
+    }
   }
 
   getCircleListByRegionId(regionId){
@@ -79,11 +94,15 @@ export class ReportNscMonitoringComponent implements OnInit {
       console.log(errorResponse);
     });
   }
-
+  
   circleChanged(circle){
-    this.formData.division = undefined;
-    this.formData.zone = undefined;
-    this.getDivisionListByCircleId(circle.id);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.divisionList = null;
+      this.formData.division = undefined;
+      this.zoneList = null;
+      this.formData.zone = undefined;
+      this.getDivisionListByCircleId(circle.id);
+    }
   }
 
   getDivisionListByCircleId(circleId){
@@ -98,8 +117,11 @@ export class ReportNscMonitoringComponent implements OnInit {
   }
 
   divisionChanged(division){
-    this.formData.zone = undefined;
-    this.getZoneListByDivisionId(division.id);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.zoneList = null;
+      this.formData.zone = undefined;
+      this.getZoneListByDivisionId(division.id);
+    }
   }
 
   getZoneListByDivisionId(divisionId){
@@ -143,7 +165,7 @@ export class ReportNscMonitoringComponent implements OnInit {
     this.formData.nscWithinSERCTimePercent = Number(((this.formData.nscWithinSERCTime * 100) / this.formData.currentReleasedNSC).toFixed(2));
     this.reportService.generateNscMonitoringInput(this.formData, false).subscribe(successResponse =>{
       this._submintClicked = false;
-      this.setInitialData();
+      this.setPartialData();
       this.globalResources.resetValidateForm(nscMonitoringInput);
       this.globalResources.successAlert("Data saved successfully");
       console.log(successResponse);

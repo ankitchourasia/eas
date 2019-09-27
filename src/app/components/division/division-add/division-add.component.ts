@@ -30,7 +30,7 @@ export class DivisionAddComponent implements OnInit {
   }
 
   getRegionList(){
-    this.regionList = null;
+    this.regionList = [];
     this.regionService.getRegions(false).subscribe(successResponse =>{
       this.regionList = successResponse;
       console.log(this.regionList);
@@ -47,7 +47,7 @@ export class DivisionAddComponent implements OnInit {
   }
 
   getCircleList(){
-    this.circleList = null;
+    this.circleList = [];
     this.circleService.getCirclesByRegionId(this.formData.regionId, false).subscribe(successResponse =>{
       this.circleList = successResponse;
       console.log(this.circleList);

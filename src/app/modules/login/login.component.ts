@@ -68,15 +68,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // getZones(user){
-  //   console.log(user);
-  //   user.zoneList = [];
-  //   this.zoneService.getZonesByDivisionId(user.division.id, false).subscribe(successResponse =>{
-  //     user.zoneList = successResponse;
-  //     sessionStorage.setItem('userDetails', JSON.stringify(user));
-  //   }, errorResponse =>{
-  //     console.log(errorResponse);
-  //   });
-  // }
+  getZones(user){
+    console.log(user);
+    user.zoneList = [];
+    this.zoneService.getZonesByDivisionId(user.division.id, false).subscribe(successResponse =>{
+      user.zoneList = successResponse;
+      sessionStorage.setItem('userDetails', JSON.stringify(user));
+    }, errorResponse =>{
+      console.log(errorResponse);
+    });
+  }
 
 }

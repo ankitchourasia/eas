@@ -66,6 +66,7 @@ export class ReportD7Component implements OnInit {
   }
   
   getRegionList(){
+    this.regionList = [];
     this.regionService.getRegions(false).subscribe(successResponse =>{
       this.regionList = successResponse;
     },errorResponse =>{
@@ -86,6 +87,7 @@ export class ReportD7Component implements OnInit {
   }
 
   getCircleListByRegionId(regionId){
+    this.circleList = [];
     this.circleService.getCirclesByRegionId(regionId, false).subscribe(successResponse =>{
       this.circleList = successResponse;
     },errorResponse =>{
@@ -104,6 +106,7 @@ export class ReportD7Component implements OnInit {
   }
 
   getDivisionListByCircleId(circleId){
+    this.divisionList = [];
     this.divisionService.getDivisionsByCircleId(circleId, false).subscribe(successResponse =>{
       this.divisionList = successResponse;
     },errorResponse =>{

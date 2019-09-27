@@ -22,32 +22,43 @@ export class ReportD2Component implements OnInit {
   zoneList:any;
   viewResultList: any;
   _viewClicked: boolean;
+  user: any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private regionService: RegionService, private circleService: CircleService, 
     private divisionService: DivisionService, private zoneService: ZoneService, 
     private reportService: ReportService) { }
 
   ngOnInit() {
-    this.setInitialData();
+    this.setPartialData();
   }
 
-  setInitialData(){
-    this.searchFormData = {};
+  setPartialData(){
+    this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.zoneList = [];
-    let user = this.globalResources.getUserDetails();
-    if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    this.searchFormData = {};
+    this.user = this.globalResources.getUserDetails();
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
       this.getRegionList();
-    }else if(user.role === this.globalConstants.ROLE_ADMIN){
-      this.regionList.push(user.zone.division.circle.region);
-      this.circleList.push(user.zone.division.circle);
-      this.divisionList.push(user.zone.division);
-      this.searchFormData.region = user.zone.division.circle.region;
-      this.searchFormData.circle = user.zone.division.circle;
-      this.searchFormData.division = user.zone.division;
-      this.getZoneListByDivisionId(this.searchFormData.division.id);
+    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      // this.zoneList = (this.user.zoneList);
+      this.getZoneListByDivisionId(this.user.division.id);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.searchFormData.region = this.user.region;
+      this.searchFormData.circle = this.user.circle;
+      this.searchFormData.division = this.user.division;
+    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.searchFormData.region = this.user.region;
+      this.searchFormData.circle = this.user.circle;
+      this.searchFormData.division = this.user.division;
+      this.searchFormData.zone = this.user.zone;
     }
   }
 
@@ -63,10 +74,15 @@ export class ReportD2Component implements OnInit {
   }
 
   regionChanged(region){
-    this.searchFormData.circle = undefined;
-    this.searchFormData.division = undefined;
-    this.searchFormData.zone = undefined;
-    this.getCircleListByRegionId(region.id);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.circleList = null;
+      this.searchFormData.circle = undefined;
+      this.divisionList = null;
+      this.searchFormData.division = undefined;
+      this.zoneList = null;
+      this.searchFormData.zone = undefined;
+      this.getCircleListByRegionId(region.id);
+    }
   }
 
   getCircleListByRegionId(regionId){
@@ -81,9 +97,13 @@ export class ReportD2Component implements OnInit {
   }
 
   circleChanged(circle){
-    this.searchFormData.division = undefined;
-    this.searchFormData.zone = undefined;
-    this.getDivisionListByCircleId(circle.id);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.divisionList = null;
+      this.searchFormData.division = undefined;
+      this.zoneList = null;
+      this.searchFormData.zone = undefined;
+      this.getDivisionListByCircleId(circle.id);
+    }
   }
 
   getDivisionListByCircleId(circleId){
@@ -96,10 +116,13 @@ export class ReportD2Component implements OnInit {
       console.log(errorResponse);
     });
   }
-
+  
   divisionChanged(division){
-    this.searchFormData.zone = undefined;
-    this.getZoneListByDivisionId(division.id);
+    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      this.zoneList = null;
+      this.searchFormData.zone = undefined;
+      this.getZoneListByDivisionId(division.id);
+    }
   }
 
   getZoneListByDivisionId(divisionId){
