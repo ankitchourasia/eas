@@ -277,6 +277,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
   }
 
   viewByZoneIdAndBillMonth(){
+    let methodName = "viewByZoneIdAndBillMonth";
     this.viewResultList = [];
     this.reportService.getJsonInputByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       console.log(successResponse);
@@ -300,6 +301,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       }
     },errorResponse =>{
       console.log(errorResponse);
+      this.globalResources.handleError(this.COMPONENT_NAME, methodName, errorResponse);
     });
   }
 
