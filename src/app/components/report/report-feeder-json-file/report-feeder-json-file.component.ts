@@ -334,18 +334,18 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   getFileName(){
     let fileName = "mpwkvvcl_uf_"
-    let startBillMonth = this.searchFormData.billingMonth;
-    let endBillMonth = this.globalResources.getPreviousBillMonth(startBillMonth);
+    let endBillMonth = this.searchFormData.billingMonth;
+    let startBillMonth = this.globalResources.getNextBillMonth(endBillMonth);
 
     let startBillMonthValues = startBillMonth.split("-");
     let endBillMonthValues = endBillMonth.split("-");
 
     let month1 = Number(this.globalConstants.MONTHS.indexOf(startBillMonthValues[0])+1);
-    let year1 = Number(startBillMonthValues[1]);
+    let year1 = Number(startBillMonthValues[1])-1;
     let month2 = Number(this.globalConstants.MONTHS.indexOf(endBillMonthValues[0])+1);
-    let year2 = Number(endBillMonthValues[1])-1;
+    let year2 = Number(endBillMonthValues[1]);
     
-    return fileName + ("0" + month2).slice(-2) + ("0" + year2).slice(-2) + "_"+ ("0" + month1).slice(-2) + ("0" + year1).slice(-2) + ".txt"; 
+    return fileName + ("0" + month1).slice(-2) + ("0" + year1).slice(-2) + "_"+ ("0" + month2).slice(-2) + ("0" + year2).slice(-2) + ".txt"; 
   }
 
   appendLeadingZeroes(n){
