@@ -12,6 +12,7 @@ import { SuperAdminDivisionAddComponent } from './super-admin-division/super-adm
 import { SuperAdminDivisionViewComponent } from './super-admin-division/super-admin-division-view/super-admin-division-view.component';
 import { SuperAdminZoneAddComponent } from './super-admin-zone/super-admin-zone-add/super-admin-zone-add.component';
 import { SuperAdminZoneViewComponent } from './super-admin-zone/super-admin-zone-view/super-admin-zone-view.component';
+import { SuperAdminUserAddComponent } from './super-admin-user/super-admin-user-add/super-admin-user-add.component';
 
 
 const superAdminRoutes: Routes = [
@@ -53,6 +54,9 @@ const superAdminRoutes: Routes = [
           },
           {
             path: 'zone/view',component: SuperAdminZoneViewComponent
+          },
+          {
+            path: 'user/add',component: SuperAdminUserAddComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

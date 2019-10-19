@@ -1,0 +1,118 @@
+<form #userAddForm = "ngForm" id="userAddForm">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Region Name</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+        class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(formData.region)">
+        <option disabled selected [ngValue]=undefined>Select</option>
+        <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+        <div [hidden]="!region.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Circle Name</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
+        class="form-control" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(formData.circle)">
+        <option disabled selected [ngValue]=undefined>Select</option>
+        <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
+        <div [hidden]="!circle.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Division Name</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
+        class="form-control" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(formData.division)">
+        <option disabled selected [ngValue]=undefined>Select</option>
+        <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
+        <div [hidden]="!division.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Zone Name</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+        class="form-control" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(formData.zone)">
+        <option disabled selected [ngValue]=undefined>Select</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+        <div [hidden]="!zone.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Name</label>
+    <div class="col-sm-9">
+      <input type="text" [ngClass]="{'is-valid': !name.errors && (name.dirty || name.touched),'is-invalid': name.errors && (name.dirty || name.touched)}"
+        class="form-control" [(ngModel)]="formData.name" #name="ngModel" id="name"  name="name"  required>
+      <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+        <div [hidden]="!name.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Mobile No</label>
+    <div class="col-sm-9">
+      <input type="number" [ngClass]="{'is-valid': !mobileNo.errors && (mobileNo.dirty || mobileNo.touched),'is-invalid': mobileNo.errors && (mobileNo.dirty || mobileNo.touched)}"
+        class="form-control" [(ngModel)]="formData.mobileNo" #mobileNo="ngModel" id="mobileNo" name="mobileNo" pattern="[5-9][0-9]{9}"  required>
+      <div class="invalid-feedback" *ngIf="mobileNo.errors && (mobileNo.dirty || mobileNo.touched)">
+        <div [hidden]="!mobileNo.errors.required">required field</div>
+        <div [hidden]="!mobileNo.errors.pattern || mobileNo.errors.required">invalid value</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Username</label>
+    <div class="col-sm-9">
+      <input type="text" [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}"
+        class="form-control" [(ngModel)]="formData.username" #username="ngModel" id="username"  name="username" required>
+      <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
+        <div [hidden]="!username.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Password</label>
+    <div class="col-sm-9">
+      <input type="text" [ngClass]="{'is-valid': !password.errors && (password.dirty || password.touched),'is-invalid': password.errors && (password.dirty || password.touched)}"
+        class="form-control" [(ngModel)]="formData.password" #password="ngModel" id="password"  name="password" required>
+      <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+        <div [hidden]="!password.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">User Role</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !role.errors && (role.dirty || role.touched),'is-invalid': role.errors && (role.dirty || role.touched)}"
+        class="form-control" [(ngModel)]="formData.role" #role="ngModel" id="role"  name="role" required >
+        <option disabled selected [ngValue]=undefined>Select</option>
+        <option *ngFor="let role of roleList" [ngValue]="role.value">{{role.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="role.errors && (role.dirty || role.touched)">
+        <div [hidden]="!role.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-4 offset-3">
+      <button type="button" class="btn btn-success form-control" (click)=submitClicked(userAddForm) [disabled]="!userAddForm.form.valid || _submitClicked">
+        Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
+      </button>
+    </div>
+    <div class="col-4 offset-1">
+      <button type="button" class="btn btn-danger form-control" (click)="resetClicked(userAddForm)" [disabled]="_submitClicked">Reset</button>
+    </div>
+  </div>
+</form>

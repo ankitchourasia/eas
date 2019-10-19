@@ -25,6 +25,10 @@
         <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['zone/add']">Zone Add</a>
         <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['zone/view']">Zone View</a>
       </div>
+      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#userCollapseMenu">User</a>
+      <div class="collapse" id="userCollapseMenu" data-parent="#menubar">
+        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['user/add']">User Add</a>
+        </div>
   </ul>
 </div>
 <!-- <div id="mainMenu"> -->

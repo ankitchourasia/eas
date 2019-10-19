@@ -8,6 +8,7 @@ import { SuperAdminRegionModule } from './super-admin-region/super-admin-region.
 import { SuperAdminCircleModule } from './super-admin-circle/super-admin-circle.module';
 import { SuperAdminDivisionModule } from './super-admin-division/super-admin-division.module';
 import { SuperAdminZoneModule } from './super-admin-zone/super-admin-zone.module';
+import { SuperAdminUserModule } from './super-admin-user/super-admin-user.module';
 
 @NgModule({
   declarations: [SuperAdminComponent, SuperAdminHomeComponent],
@@ -18,6 +19,7 @@ import { SuperAdminZoneModule } from './super-admin-zone/super-admin-zone.module
     SuperAdminCircleModule,
     SuperAdminDivisionModule,
     SuperAdminZoneModule,
+    SuperAdminUserModule,
     SuperAdminRoutingModule
   ]
 })
