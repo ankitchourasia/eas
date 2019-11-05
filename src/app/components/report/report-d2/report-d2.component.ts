@@ -194,13 +194,22 @@ export class ReportD2Component implements OnInit {
     });
   }
 
-  exportClicked(exportElementId){
-    this.globalResources.exportTableToExcel(exportElementId, "d-2_Report_" + this.searchFormData.billMonth);
+  //exportClicked(exportElementId){
+   // this.globalResources.exportTableToExcel(exportElementId, "d-2_Report_" + this.searchFormData.billMonth);
     // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     // let params = {
     //   Authorization: "Basic " + encodedCredentials,
     // };
     // let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d2-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billMonth;
     // this.globalResources.downloadFile(fileUrl,params);
+  //}
+
+  exportClicked(){
+    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    let params = {
+      Authorization: "Basic " + encodedCredentials,
+    };
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d2-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billMonth;
+    this.globalResources.downloadFile(fileUrl,params);
   }
 }
