@@ -73,7 +73,7 @@
 <div *ngIf="!_generateClicked && reportGenerated && viewResultList">
   <hr>
   <div class="eas-flex-end">
-    <button  type="button" class="btn btn-sm btn-primary" (click)="exportClicked('d4Report')">
+    <button  type="button" class="btn btn-sm btn-primary" [disabled]="viewResultList && !viewResultList.length" (click)="exportClicked('d4Report')">
       <i class="fa fa-download" aria-hidden="true"></i> Export
     </button>
   </div>
