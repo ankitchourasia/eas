@@ -44,7 +44,7 @@
           <td class="align-middle">Assessment Unit</td>
           <td class="align-middle">Metered Consumption</td>
           <td class="align-middle">Total Consumption</td>
-          <td class="align-middle" *ngIf="user.role==='admin'">Edit</td>
+          <td class="align-middle" *ngIf="user.role === ROLE_ADMIN">Edit</td>
         </tr>
       </thead>
       <tbody>
@@ -64,7 +64,7 @@
           <td class="align-middle">{{reading.assUnit}}</td>
           <td class="align-middle">{{reading.meterConsumption}}</td>
           <td class="align-middle">{{reading.totalConsumption}}</td>
-          <td class="align-middle">
+          <td class="align-middle" *ngIf="user.role === ROLE_ADMIN">
             <a href="javascript:void(0)" (click)="editClicked(reading)" data-toggle="modal" data-target="#updateReadingModal">
               <span class="fa fa-pencil"></span>
             </a>

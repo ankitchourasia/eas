@@ -30,7 +30,7 @@
             <td class="align-middle">MF</td>
             <td class="align-middle">Meter Make</td>
             <td class="align-middle">Edit</td>
-            <td class="align-middle" *ngIf="user.role==='admin' || user.role === 'htm_admin'">Delete</td>
+            <td class="align-middle" *ngIf="user.role === ROLE_ADMIN || user.role === ROLE_HTM_ADMIN">Delete</td>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +53,7 @@
                 <span class="fa fa-pencil"></span>
               </a>
             </td>
-            <td class="align-middle" *ngIf="user.role==='admin' || user.role === 'htm_admin'">
+            <td class="align-middle" *ngIf="user.role === ROLE_ADMIN || user.role === ROLE_HTM_ADMIN">
               <a href="javascript:void(0)" (click)="deleteClicked(feeder)">
                 <span class="fa fa-trash"></span>
               </a>
