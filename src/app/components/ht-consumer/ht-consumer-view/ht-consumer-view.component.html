@@ -23,8 +23,8 @@
           <td class="align-middle">Consumer Name</td>
           <!-- <td class="align-middle">Address</td> -->
           <td class="align-middle">Contract Demand</td>
-          <td class="align-middle" *ngIf="user.role === globalConstants.ROLE_HTM_ADMIN">Edit</td>
-          <td class="align-middle" *ngIf="user.role === globalConstants.ROLE_HTM_ADMIN">Delete</td>
+          <td class="align-middle" *ngIf="user.role === ROLE_HTM_ADMIN">Edit</td>
+          <td class="align-middle" *ngIf="user.role === ROLE_HTM_ADMIN">Delete</td>
         </tr>
       </thead>
       <tbody>
@@ -37,19 +37,19 @@
           <td class="align-middle">{{htConsumer.consumerName}}</td>
           <!-- <td class="align-middle">{{htConsumer.address}}</td> -->
           <td class="align-middle">{{htConsumer.contractDemand}}</td>
-          <td class="align-middle" *ngIf="user.role === globalConstants.ROLE_HTM_ADMIN">
+          <td class="align-middle" *ngIf="user.role === ROLE_HTM_ADMIN">
             <a href="javascript:void(0);">
               <span class="fa fa-pencil" (click)="viewHTConsumerController.updateConsumerModal(consumer)"></span>
             </a>
           </td>
-          <td class="align-middle" *ngIf="user.role === globalConstants.ROLE_HTM_ADMIN">
+          <td class="align-middle" *ngIf="user.role === ROLE_HTM_ADMIN">
             <a href="javascript:void(0);" (click)="viewHTConsumerController.remove(consumer)">
               <span class="fa fa-trash"></span>
             </a>
           </td>
         </tr>
         <tr *ngIf="htConsumerList && htConsumerList.length <= 0">
-          <td class="align-middle" [attr.colspan]="(user.role === globalConstants.ROLE_HTM_ADMIN)  ? 9 : 7">No Records Found</td>
+          <td class="align-middle" [attr.colspan]="(user.role === ROLE_HTM_ADMIN)  ? 9 : 7">No Records Found</td>
         </tr>
       </tbody>
     </table>

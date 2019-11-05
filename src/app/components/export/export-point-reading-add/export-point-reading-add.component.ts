@@ -5,6 +5,7 @@ import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { ExportService } from '@eas-services/export-service/export.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-export-point-reading-add',
@@ -44,7 +45,7 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.exportPointPreviousReading = null;
     this._meterReplacementClicked = false;
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
@@ -53,7 +54,7 @@ export class ExportPointReadingAddComponent implements OnInit {
       this.formData.region = this.user.region;
       this.formData.circle = this.user.circle;
       this.formData.division = this.user.division;
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);

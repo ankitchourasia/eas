@@ -40,7 +40,7 @@
           <td>Consumer Name</td>
           <td>Contract Demand</td>
           <td>Total Consumption</td>
-          <td *ngIf="user.role === globalConstants.ROLE_HTM_ADMIN">Edit</td>
+          <td *ngIf="user.role === ROLE_HTM_ADMIN">Edit</td>
         </tr>
       </thead>
       <tbody>
@@ -53,14 +53,14 @@
           <td>{{htConsumerConsumption.consumer?.consumerName}}</td>
           <td>{{htConsumerConsumption.consumer?.contractDemand}}</td>
           <td>{{htConsumerConsumption.totalConsumption}}</td>
-          <td *ngIf="user.role === globalConstants.ROLE_HTM_ADMIN">
+          <td *ngIf="user.role === ROLE_HTM_ADMIN">
             <a href="javascript:void(0);">
               <span class="fa fa-pencil" (click)="viewHTReadingController.updateConsumptionModal(consumption)"></span>
             </a>
           </td>
         </tr>
         <tr *ngIf="htConsumerConsumptionList && htConsumerConsumptionList.length <= 0">
-          <td [attr.colspan]="(user.role === globalConstants.ROLE_HTM_ADMIN)  ? 9 : 8">No Records Found</td>
+          <td [attr.colspan]="(user.role === ROLE_HTM_ADMIN)  ? 9 : 8">No Records Found</td>
         </tr>
       </tbody>
     </table>

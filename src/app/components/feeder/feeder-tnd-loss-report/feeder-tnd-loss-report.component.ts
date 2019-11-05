@@ -5,6 +5,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-feeder-tnd-loss-report',
@@ -48,7 +49,7 @@ export class FeederTndLossReportComponent implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-   if(user.role === this.globalConstants.ROLE_ADMIN){
+   if(user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = (user.zoneList);
       this.getZoneListByDivisionId(this.user.division.id);
       this.regionList.push(user.region);
@@ -57,7 +58,7 @@ export class FeederTndLossReportComponent implements OnInit {
       this.userDetails.region = user.region;
       this.userDetails.circle = user.circle;
       this.userDetails.division = user.division;
-    }else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zoneList.push(user.zone);
       this.regionList.push(user.region);
       this.circleList.push(user.circle);
@@ -71,7 +72,7 @@ export class FeederTndLossReportComponent implements OnInit {
   }
 
   divisionChanged(division){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.zoneList = null;
       this.userDetails.zone = undefined;
       this.substationList = null;

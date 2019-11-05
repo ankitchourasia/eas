@@ -20,6 +20,8 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
   billMonthYear: any;
   htConsumerConsumptionList:any;
   searchButtonClicked: boolean;
+
+  public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService : PaginationService, private htConsumerService: HtConsumerService) { }
@@ -29,11 +31,11 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
     }
   
     searchClicked(){
-      if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
         this.getHTConsumerConsumptionByDivisionIdAndBillMonth(this.user.division.id);
-      }else if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN){
         this.getHTConsumerConsumptionByDivisionIdAndBillMonth(this.user.division.id);
-      }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
         this.getHTConsumerConsumptionByDivisionIdAndBillMonth(this.user.division.id);
       }
     }
@@ -73,7 +75,7 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
         billMonth : this.billMonth + "-" + this.billMonthYear
 		};
     let fileUrl;
-    if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN || this.user.role === this.globalConstants.ROLE_FIELD_ADMIN || this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN || this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN || GlobalConfiguration.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/htconsumption/division/id/" + this.user.division.id;
 		}
 		this.globalResources.downloadFile(fileUrl, params)

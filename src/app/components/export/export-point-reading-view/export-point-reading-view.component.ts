@@ -5,6 +5,7 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ExportService } from '@eas-services/export-service/export.service';
 import { NgForm } from '@angular/forms';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-export-point-reading-view',
@@ -37,10 +38,10 @@ export class ExportPointReadingViewComponent implements OnInit {
   setPartialData(){
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = this.user.zoneList;
       this.getZoneListByDivisionId(this.user.division.id);
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.selectedZone = this.user.zone;
     }

@@ -10,6 +10,7 @@ import { DivisionService } from '@eas-services/division-service/division.service
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { BillFileService } from '@eas-services/bill-file-service/bill-file.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-pre-billing',
@@ -54,9 +55,9 @@ export class DtrPreBillingComponent implements OnInit {
       this.divisionList = [];
       this.substationList = null;
       this.user = this.globalResources.getUserDetails();
-      if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+      if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
         this.getRegionList();
-      }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
         // this.zoneList = (this.user.zoneList);
         this.getZoneListByDivisionId(this.user.division.id);
         this.regionList.push(this.user.region);
@@ -65,7 +66,7 @@ export class DtrPreBillingComponent implements OnInit {
         this.userDetails.region = this.user.region;
         this.userDetails.circle = this.user.circle;
         this.userDetails.division = this.user.division;
-      }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
         this.zoneList.push(this.user.zone);
         this.regionList.push(this.user.region);
         this.circleList.push(this.user.circle);
@@ -87,7 +88,7 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   regionChanged(region){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.circleList = null;
       this.userDetails.circle = undefined;
       this.divisionList = null;
@@ -113,7 +114,7 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   circleChanged(circle){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.divisionList = null;
       this.userDetails.division = undefined;
       this.zoneList = null;
@@ -137,7 +138,7 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   divisionChanged(division){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.zoneList = null;
       this.userDetails.zone = undefined;
       this.substationList = null;

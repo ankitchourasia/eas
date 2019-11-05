@@ -30,9 +30,9 @@ export class DtrReadViewComponent implements OnInit {
 
   searchClicked(){
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
     this.getAllDtrReadingByDivisionIdAndBillMonth(this.user.division.id, billingMonth);
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.getAllDtrReadingByZoneIdAndBillMonth(this.user.zone.id, billingMonth);
     }
   }

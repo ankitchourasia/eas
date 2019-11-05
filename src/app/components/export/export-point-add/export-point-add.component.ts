@@ -5,6 +5,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { ExportService } from '@eas-services/export-service/export.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-export-point-add',
@@ -39,7 +40,7 @@ export class ExportPointAddComponent implements OnInit {
     this.feederList = null;
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);
@@ -48,7 +49,7 @@ export class ExportPointAddComponent implements OnInit {
       this.formData.region = this.user.region;
       this.formData.circle = this.user.circle;
       this.formData.division = this.user.division;
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
       this.divisionList.push(this.user.division);

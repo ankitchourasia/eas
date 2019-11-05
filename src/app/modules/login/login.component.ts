@@ -4,6 +4,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { LoginService } from '@eas-services/login/login.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-login',
@@ -17,8 +18,7 @@ export class LoginComponent implements OnInit {
   loginError: boolean;
   submitButtonClicked : boolean;
 
-  constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService, private globalConstants : GlobalConstants,
-    private zoneService : ZoneService) { }
+  constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService, private zoneService : ZoneService) { }
 
   ngOnInit() {
     this.user = {};
@@ -28,20 +28,21 @@ export class LoginComponent implements OnInit {
   processLoginForm(){
     this.submitButtonClicked = true;
     this.loginService.authenticate(this.user).subscribe((successResponse) =>{
-      console.log(this.user);
+      console.log(this.user, successResponse);
       if(successResponse && successResponse.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
         let user = successResponse.json();
         sessionStorage.setItem('userDetails', JSON.stringify(user));
-        if(user.role === this.globalConstants.ROLE_ADMIN){
+        if(user.role === GlobalConfiguration.ROLE_ADMIN){
+          console.log("inside admin");
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
-        }else if(user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+        }else if(user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
           this.router.navigate(["/super_admin"]);
           this.submitButtonClicked = false;
           console.log("inside super-admin");
         }
-        else if(user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+        else if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
           console.log("inside field-admin");

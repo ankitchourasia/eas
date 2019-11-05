@@ -8,6 +8,7 @@ import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
 import { DivisionService } from '@eas-services/division-service/division.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-add-initial-read',
@@ -43,9 +44,9 @@ export class DtrAddInitialReadComponent implements OnInit {
     this.divisionList = [];
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
-    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = (this.user.zoneList);
       this.getZoneListByDivisionId(this.user.division.id);
       this.regionList.push(this.user.region);
@@ -54,7 +55,7 @@ export class DtrAddInitialReadComponent implements OnInit {
       this.dtrInitialReadAdd.region = this.user.region;
       this.dtrInitialReadAdd.circle = this.user.circle;
       this.dtrInitialReadAdd.division = this.user.division;
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
@@ -76,7 +77,7 @@ export class DtrAddInitialReadComponent implements OnInit {
   }
 
   regionChanged(region){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.circleList = null;
       this.dtrInitialReadAdd.circle = undefined;
       this.divisionList = null;
@@ -102,7 +103,7 @@ export class DtrAddInitialReadComponent implements OnInit {
   }
 
   circleChanged(circle){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.divisionList = null;
       this.dtrInitialReadAdd.division = undefined;
       this.zoneList = null;
@@ -126,7 +127,7 @@ export class DtrAddInitialReadComponent implements OnInit {
   }
 
   divisionChanged(division){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.zoneList = null;
       this.dtrInitialReadAdd.zone = undefined;
       this.substationList = null;

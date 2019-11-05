@@ -42,9 +42,9 @@ export class ReportD7Component implements OnInit {
     this.circleList = [];
     this.divisionList = [];
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
-    }else if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = (this.user.zoneList);
       this.getZoneListByDivisionId(this.user.division.id);
       this.regionList.push(this.user.region);
@@ -53,7 +53,7 @@ export class ReportD7Component implements OnInit {
       this.searchFormData.region = this.user.region;
       this.searchFormData.circle = this.user.circle;
       this.searchFormData.division = this.user.division;
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.regionList.push(this.user.region);
       this.circleList.push(this.user.circle);
@@ -75,7 +75,7 @@ export class ReportD7Component implements OnInit {
   }
 
   regionChanged(region){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.circleList = null;
       this.searchFormData.circle = undefined;
       this.divisionList = null;
@@ -96,7 +96,7 @@ export class ReportD7Component implements OnInit {
   }
 
   circleChanged(circle){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.divisionList = null;
       this.searchFormData.division = undefined;
       this.zoneList = null;
@@ -115,7 +115,7 @@ export class ReportD7Component implements OnInit {
   }
 
   divisionChanged(division){
-    if(this.user.role === this.globalConstants.ROLE_SUPER_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.zoneList = null;
       this.searchFormData.zone = undefined;
       this.getZoneListByDivisionId(division.id);

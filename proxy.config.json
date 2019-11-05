@@ -1,6 +1,6 @@
 {
   "/ROOT/backend/*": {
-    "target": "http://10.98.4.114:8090",
+    "target": "http://10.98.4.114:8080",
     "secure": false
   }
 }

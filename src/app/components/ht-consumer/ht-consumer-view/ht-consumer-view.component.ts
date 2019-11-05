@@ -18,6 +18,8 @@ export class HtConsumerViewComponent implements OnInit {
   pagedList:any;
   htConsumerList:any;
   loading: boolean;
+
+  public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService : PaginationService, private htConsumerService: HtConsumerService) { }
@@ -28,11 +30,11 @@ export class HtConsumerViewComponent implements OnInit {
   
     checkUserRoll(){
       this.user = this.globalResources.getUserDetails();
-      if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
         this.getAllHTConsumersByDivisionId(this.user.division.id);
-      }else if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN){
         this.getAllHTConsumersByDivisionId(this.user.division.id);
-      }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
         this.getAllHTConsumersByDivisionId(this.user.division.id);
       }
     }
@@ -70,7 +72,7 @@ export class HtConsumerViewComponent implements OnInit {
 				Authorization: 'Basic '+ sessionStorage.getItem("encodedCredentials")
 		};
 		let fileUrl;
-		if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN || this.user.role === this.globalConstants.ROLE_FIELD_ADMIN || this.globalConstants.ROLE_ADMIN){
+		if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN || this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN || GlobalConfiguration.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/htconsumer/division/id/" + this.user.division.id;
 		}
 		this.globalResources.downloadFile(fileUrl, params)

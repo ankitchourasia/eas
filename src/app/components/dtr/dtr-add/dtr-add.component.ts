@@ -5,6 +5,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-dtr-add',
@@ -34,10 +35,10 @@ export class DtrAddComponent implements OnInit {
     this.zoneList = [];
     this.substationList = null;
     this.user = this.globalResources.getUserDetails();
-    if(this.user.role === this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = this.user.zoneList;
       this.getZoneListByDivisionId(this.user.division.id);
-    }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zoneList.push(this.user.zone);
       this.dtr.zone = this.user.zone;
       this.dtr.zoneId = this.dtr.zone.id;

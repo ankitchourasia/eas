@@ -29,11 +29,11 @@ export class HtConsumerViewAbsentConsumptionComponent implements OnInit {
     }
   
     searchClicked(){
-      if(this.user.role === this.globalConstants.ROLE_ADMIN){
+      if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
         this.getHTConsumerAbsentConsumptionByDivisionIdAndBillMonth(this.user.division.id);
-      }else if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN){
         this.getHTConsumerAbsentConsumptionByDivisionIdAndBillMonth(this.user.division.id);
-      }else if(this.user.role === this.globalConstants.ROLE_FIELD_ADMIN){
+      }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
         this.getHTConsumerAbsentConsumptionByDivisionIdAndBillMonth(this.user.division.id);
       }
     }
@@ -72,7 +72,7 @@ export class HtConsumerViewAbsentConsumptionComponent implements OnInit {
         billMonth : this.billMonth + "-" + this.billMonthYear
 		};
     let fileUrl;
-    if(this.user.role === this.globalConstants.ROLE_HTM_ADMIN || this.user.role === this.globalConstants.ROLE_FIELD_ADMIN || this.globalConstants.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN || this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN || GlobalConfiguration.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/htconsumption/absent/division/id/" + this.user.division.id;
 		}
 		this.globalResources.downloadFile(fileUrl, params)
