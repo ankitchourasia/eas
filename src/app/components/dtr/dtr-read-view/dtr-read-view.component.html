@@ -23,7 +23,7 @@
     </div>
   </div>
   <div>
-    <button type="button" class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="month.errors && year.errors"><span class="fa fa-download"></span> Export</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="month.errors || year.errors"><span class="fa fa-download"></span> Export</button>
   </div>
 </div>
 

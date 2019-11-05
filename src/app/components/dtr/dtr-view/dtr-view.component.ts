@@ -25,7 +25,8 @@ export class DtrViewComponent implements OnInit {
   pageSize: number;
   pagedDtrList : any;
   loading : boolean;
-  
+  public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
+  public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   constructor(private dtrService : DtrService, private feederService : FeederService,  
     private substationService : SubstationService, public globalConstants : GlobalConstants, 
     private globalResources : GlobalResources, private paginationService : PaginationService,
@@ -54,7 +55,7 @@ export class DtrViewComponent implements OnInit {
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
-    if(this.user.role === 'admin'){
+    if(this.user.role === this.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/division/" + this.user.division.id;
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/zone/" + this.user.zone.id;

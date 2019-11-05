@@ -3,6 +3,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-feeder-reading-view',
@@ -24,7 +25,7 @@ export class FeederReadingViewComponent implements OnInit {
 
   pager: any;
   pageSize: number;
-  
+  public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private feederService: FeederService, public globalConstants: GlobalConstants,
     private globalResources: GlobalResources, private paginationService: PaginationService) { }

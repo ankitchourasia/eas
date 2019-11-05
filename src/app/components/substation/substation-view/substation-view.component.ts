@@ -22,6 +22,7 @@ export class SubstationViewComponent implements OnInit {
   pager: any ;
   pageSize: number;
   loading : boolean;
+  public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   constructor(private substationService : SubstationService, private globalResources : GlobalResources,
     private paginationService : PaginationService, private zoneService: ZoneService) { }
 
@@ -134,7 +135,7 @@ export class SubstationViewComponent implements OnInit {
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
-    if(this.user.role === 'admin'){
+    if(this.user.role === this.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/division/" + this.user.division.id;
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/substation/zone/" + this.user.zone.id;
