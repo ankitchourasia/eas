@@ -176,7 +176,7 @@ export class DtrReadViewComponent implements OnInit {
       billMonth: (this.billMonth + "-" + this.billMonthYear)
     };
     let fileUrl = null;
-    if(this.user.role === 'admin'){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/reading/division/" + this.user.division.id;
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/reading/zone/" + this.user.zone.id;
