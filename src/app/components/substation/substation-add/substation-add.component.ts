@@ -48,13 +48,10 @@ export class SubstationAddComponent implements OnInit {
     });
   }
 
-  zoneChanged(){
-    this.substation.zoneId = this.substation.zone.id;
-  }
-
   submitClicked(substationAddForm){
     if(this.globalResources.validateForm(substationAddForm)){
       this.submitButtonClicked = true;
+      this.substation.zoneId = this.substation.zone.id;
       this.substationService.addSubstation(this.substation).subscribe(success =>{
         this.submitButtonClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation added successfully");
