@@ -252,12 +252,12 @@ export class ReportD4Component implements OnInit {
 
   exportClicked(exportElementId){
     console.log(exportElementId);
-    this.globalResources.exportTableToExcel(exportElementId, "d-4_Report_" + this.searchFormData.billingMonth);
-    // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    // let params = {
-    //   Authorization: "Basic " + encodedCredentials,
-    // };
-    // let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d4-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
-    // this.globalResources.downloadFile(fileUrl,params);
+    // this.globalResources.exportTableToExcel(exportElementId, "d-4_Report_" + this.searchFormData.billingMonth);
+    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    let params = {
+      Authorization: "Basic " + encodedCredentials,
+    };
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d4-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
+    this.globalResources.downloadFile(fileUrl,params);
   }
 }

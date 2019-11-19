@@ -193,14 +193,13 @@ export class ReportD3Component implements OnInit {
     });
   }
 
-  exportClicked(exportElementId){
-    this.globalResources.exportTableToExcel(exportElementId, "d-3_Report_" + this.searchFormData.billMonth);
-    // let encodedCredentials = sessionStorage.getItem('encodedCredentials');
-    // let params = {
-    //   Authorization: "Basic " + encodedCredentials,
-    // };
-    // let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d3-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billMonth;
-    // this.globalResources.downloadFile(fileUrl,params);
+  exportClicked(){
+    let encodedCredentials = sessionStorage.getItem('encodedCredentials');
+    let params = {
+      Authorization: "Basic " + encodedCredentials,
+    };
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d3-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billMonth;
+    this.globalResources.downloadFile(fileUrl,params);
   }
 
   formatInHoursAndMinutes(minutes){
