@@ -36,16 +36,16 @@ export class LoginComponent implements OnInit {
         if(user.role === GlobalConfiguration.ROLE_ADMIN){
           console.log("inside admin");
           this.router.navigate(["/admin"]);
-          this.submitButtonClicked = false;
+          // this.submitButtonClicked = false;
         }else if(user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
           this.router.navigate(["/super_admin"]);
           this.submitButtonClicked = false;
-          console.log("inside super-admin");
+          // console.log("inside super-admin");
         }
         else if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
           this.router.navigate(["/admin"]);
           this.submitButtonClicked = false;
-          console.log("inside field-admin");
+          // console.log("inside field-admin");
         }
       }else{
         this.loginError= true;

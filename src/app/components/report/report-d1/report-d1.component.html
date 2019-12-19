@@ -90,21 +90,18 @@
         <tr>
           <td class="align-middle">S.No</td>
           <td class="align-middle">Zone Name</td>
-          <td class="align-middle">Feeder Name</td>
-          <td class="align-middle">Feeder Group No</td>
           <td class="align-middle">Bill Month</td>
           <td class="align-middle">Read Inserted</td>
           <td class="align-middle">Export Read Inserted</td>
           <td class="align-middle">HT Read Inserted</td>
+          <td class="align-middle">Billing Data</td>
         </tr>
       </thead>
       <tbody>
         <ng-template [ngIf]="searchResultList && searchResultList.length">
           <tr *ngFor="let searchResult of pagedSearchResultList; let i = index">
             <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td class="align-middle">{{searchResult?.feeder?.zone?.name | uppercase}}</td>
-            <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
-            <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
+            <td class="align-middle">{{searchResult?.zone?.name | uppercase}}</td>
             <td class="align-middle">{{searchResult?.billMonth | uppercase}}</td>
             <td class="align-middle">
               <span class="text-success" *ngIf="searchResult?.feederReadingInserted"><span class="fa fa-check"></span></span> 
@@ -117,6 +114,12 @@
             <td class="align-middle">
               <span class="text-success" *ngIf="searchResult?.htReadingInserted"><span class="fa fa-check"></span></span> 
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
+            </td>
+            <td class="align-middle">
+              <span class="text-success" *ngIf="searchResult?.billingData"><span class="fa fa-check"></span></span> 
+              <span class="text-danger" *ngIf="!searchResult?.billingData">
+                <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button>
+              </span>
             </td>
           </tr>
         </ng-template>

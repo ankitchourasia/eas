@@ -168,6 +168,7 @@ export class ReportD1Component implements OnInit {
     this.reportService.getD1GenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       this.searchResultList = successResponse;
+      console.log(this.searchResultList);
       this.lossGenerationStatus = this.checkGenerationStatus(this.searchResultList);
       this.initializePaginationVariables();
       this.setPage(1);
@@ -209,66 +210,59 @@ export class ReportD1Component implements OnInit {
   generateClicked(){
     this._generateClicked = true;
     this.reportGenerated = false
-    let d1: any = {};
-    d1.regionId = this.searchFormData.region.id;
-    d1.circleId = this.searchFormData.circle.id;
-    d1.divisionId = this.searchFormData.division.id;
-    d1.billMonth = this.searchFormData.billingMonth;
     this._generateClicked = false;
     if(this.searchFormData.zone === "ALL"){
-      this.generateD1ReportForDivision(d1);
+      this.generateD1ReportForDivision(this.searchFormData.division.id, this.searchFormData.billingMonth);
     }else{
-      d1.zoneId = this.searchFormData.zone.id;
-      d1.zoneName = this.searchFormData.zone.name;
-      this.generateD1ReportForZone(d1);
+      this.generateD1ReportForZone(this.searchFormData.zone.id, this.searchFormData.billingMonth);
     }
   }
 
-  generateD1ReportForDivision(d1Object){
-    this._generateClicked = true;
-    this.reportService.generateD1ReportForDivision(d1Object, true).subscribe(successResponse =>{
-      this._generateClicked = false;
-      let result = <any>successResponse;
-      if(result && result.status === 201){
-        this.reportGenerated = true
-        this.globalResources.successAlert("Report generated successfully !");
-      }else{
-        console.log("success with invalid result");
-      }
-    },errorResponse =>{
-      console.log(errorResponse);
-      this._generateClicked = false;
-      if(errorResponse.status === 417){
-        this.reportGenerated = true;
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }
-    });
-  }
+  // generateD1ReportForDivision(d1Object){
+  //   this._generateClicked = true;
+  //   this.reportService.generateD1ReportForDivision(d1Object, true).subscribe(successResponse =>{
+  //     this._generateClicked = false;
+  //     let result = <any>successResponse;
+  //     if(result && result.status === 201){
+  //       this.reportGenerated = true
+  //       this.globalResources.successAlert("Report generated successfully !");
+  //     }else{
+  //       console.log("success with invalid result");
+  //     }
+  //   },errorResponse =>{
+  //     console.log(errorResponse);
+  //     this._generateClicked = false;
+  //     if(errorResponse.status === 417){
+  //       this.reportGenerated = true;
+  //       this.globalResources.errorAlert(errorResponse.error.errorMessage);
+  //     }else{
+  //       this.globalResources.errorAlert(errorResponse.error.errorMessage);
+  //     }
+  //   });
+  // }
 
-  generateD1ReportForZone(d1Object){
-    this._generateClicked = true;
-    this.reportService.generateD1ReportForZone(d1Object, true).subscribe(successResponse =>{
-      this._generateClicked = false;
-      let result = <any>successResponse;
-      if(result && result.status === 201){
-        this.reportGenerated = true
-        this.globalResources.successAlert("Report generated successfully !");
-      }else{
-        console.log("success with invalid result");
-      }
-    },errorResponse =>{
-      console.log(errorResponse);
-      this._generateClicked = false;
-      if(errorResponse.status === 417){
-        this.reportGenerated = true;
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }
-    });
-  }
+  // generateD1ReportForZone(d1Object){
+  //   this._generateClicked = true;
+  //   this.reportService.generateD1ReportForZone(d1Object, true).subscribe(successResponse =>{
+  //     this._generateClicked = false;
+  //     let result = <any>successResponse;
+  //     if(result && result.status === 201){
+  //       this.reportGenerated = true
+  //       this.globalResources.successAlert("Report generated successfully !");
+  //     }else{
+  //       console.log("success with invalid result");
+  //     }
+  //   },errorResponse =>{
+  //     console.log(errorResponse);
+  //     this._generateClicked = false;
+  //     if(errorResponse.status === 417){
+  //       this.reportGenerated = true;
+  //       this.globalResources.errorAlert(errorResponse.error.errorMessage);
+  //     }else{
+  //       this.globalResources.errorAlert(errorResponse.error.errorMessage);
+  //     }
+  //   });
+  // }
 
   viewClicked(){
     if(this.searchFormData.zone === "ALL"){
@@ -311,7 +305,7 @@ export class ReportD1Component implements OnInit {
 
   initializePaginationVariables(){
     this.pager = {};
-    this.pageSize = 10;
+    this.pageSize = 12;
   }
 
   setPage(page: number) {
@@ -320,5 +314,73 @@ export class ReportD1Component implements OnInit {
     }
     this.pager = this.paginationService.getPager(this.searchResultList.length, page, this.pageSize);
     this.pagedSearchResultList = this.searchResultList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
+  fetchClicked : boolean;
+  fetchButtonClicked(missingData){
+    this.fetchClicked = true;
+    this.reportService.getD1ReportDataByZoneIdAndBillMonth(missingData.zone.id, missingData.billMonth, false).subscribe(success =>{
+      this.fetchClicked = false;
+      console.log(success);
+      this.searchClicked();
+      this.globalResources.successAlert("Data fetched successfully.");
+    }, error =>{
+      this.fetchClicked = false;
+      console.log(error);
+      if(error.status === 417){
+        this.reportGenerated = true;
+        this.globalResources.errorAlert(error.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Unable to generate report");
+      }
+    });
+  }
+
+  generateD1ReportForZone(zoneId, billMonth){
+    this._generateClicked = true;
+    this.reportService.generateD1ReportDataByZoneIdAndBillMonth(zoneId, billMonth, true).subscribe(successResponse =>{
+      this._generateClicked = false;
+      let result = <any>successResponse;
+      console.log(successResponse);
+      if(result && result.status === 201){
+        this.reportGenerated = true
+        this.globalResources.successAlert("Report generated successfully !");
+      }else{
+        console.log("success with invalid result");
+      }
+    },errorResponse =>{
+      console.log(errorResponse);
+      this._generateClicked = false;
+      if(errorResponse.status === 417){
+        this.reportGenerated = true;
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Unable to generate report");
+      }
+    });
+  }
+
+  generateD1ReportForDivision(divisionId, billMonth){
+    this._generateClicked = true;
+    this.reportService.generateD1ReportDataByDivisionIdAndBillMonth(divisionId, billMonth, true).subscribe(successResponse =>{
+      this._generateClicked = false;
+      let result = <any>successResponse;
+      console.log(successResponse);
+      if(result && result.status === 201){
+        this.reportGenerated = true
+        this.globalResources.successAlert("Report generated successfully !");
+      }else{
+        console.log("success with invalid result");
+      }
+    },errorResponse =>{
+      console.log(errorResponse);
+      this._generateClicked = false;
+      if(errorResponse.status === 417){
+        this.reportGenerated = true;
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Unable to generate report");
+      }
+    });
   }
 }

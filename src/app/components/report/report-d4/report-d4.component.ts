@@ -25,6 +25,11 @@ export class ReportD4Component implements OnInit {
   _generateClicked: boolean;
   viewResultList: any;
   reportGenerated: boolean;
+  billingDataAvailable : boolean;
+  pager: any;
+  pageSize: number;
+  searchResultList: any;
+  pagedSearchResultList: any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService: PaginationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService,
@@ -130,13 +135,11 @@ export class ReportD4Component implements OnInit {
   
   zoneChanged(zone){
     this.viewResultList = null;
-    this.reportGenerated = false;
     console.log(zone);
   }
 
   billMonthChanged(){
     this.viewResultList = null;
-    this.reportGenerated = false;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
@@ -144,15 +147,70 @@ export class ReportD4Component implements OnInit {
 
   billMonthYearChanged(){
     this.viewResultList = null;
-    this.reportGenerated = false;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
+  _searchClicked : boolean;
+  searchClicked(){
+    this._searchClicked = true;
+    this.lossGenerationStatus = false;
+    this.billingDataAvailable = false;
+    if(this.searchFormData.zone === "ALL"){
+      this.getByDivisionIdAndBillMonth();
+    }else{
+      this.getByZoneIdAndBillMonth();
+    }
+  }
+
+  getByZoneIdAndBillMonth(){
+    this.searchResultList = null;
+    this._searchClicked = true;
+    this.billingDataAvailable = false;
+    this.reportService.getD4GenerationStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      this.searchResultList = successResponse;
+      console.log(this.searchResultList);
+      this.getGenerationStatus();
+      this.initializePaginationVariables();
+      this.setPage(1);
+    },errorResponse =>{
+      this._searchClicked = false;
+      console.log(errorResponse);
+    });
+  }
+
+  lossGenerationStatus: boolean;
+  getByDivisionIdAndBillMonth(){
+    this.searchResultList = null;
+    this._searchClicked = true;
+    this.billingDataAvailable = false;
+    this.reportService.getD4GenerationStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+      this._searchClicked = false;
+      this.searchResultList = successResponse;
+      this.getGenerationStatus();
+      this.initializePaginationVariables();
+      this.setPage(1);
+    },errorResponse =>{
+      this._searchClicked = false;
+      console.log(errorResponse);
+    });
+  }
+
+  getGenerationStatus(){
+    for(let element of this.searchResultList) {
+      if(!element.billingData){
+        this.billingDataAvailable = false;
+        break;
+      }
+      this.billingDataAvailable = true;
+    };
+  }
+
   generateClicked(){
     this._generateClicked = true;
-    this.reportGenerated = false
+    //this.reportGenerated = false
     let d4: any = {};
     d4.regionId = this.searchFormData.region.id;
     d4.circleId = this.searchFormData.circle.id;
@@ -162,9 +220,7 @@ export class ReportD4Component implements OnInit {
     if(this.searchFormData.zone === "ALL"){
       this.generateD4ReportForDivision(d4);
     }else{
-      d4.zoneId = this.searchFormData.zone.id;
-      d4.zoneName = this.searchFormData.zone.name;
-      this.generateD4ReportForZone(d4);
+      this.generateD4ReportForZone();
     }
   }
 
@@ -175,7 +231,7 @@ export class ReportD4Component implements OnInit {
       let result = <any>successResponse;
       if(result && result.status === 201){
         this.reportGenerated = true;
-        this.viewClicked();
+        //this.viewClicked();
         // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
       }else{
         console.log("success with invalid result");
@@ -185,7 +241,7 @@ export class ReportD4Component implements OnInit {
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.viewClicked();
+        //this.viewClicked();
         // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }else{
         this.globalResources.errorAlert(errorResponse.error.errorMessage);
@@ -193,65 +249,64 @@ export class ReportD4Component implements OnInit {
     });
   }
 
-  generateD4ReportForZone(d4Object){
-    this._generateClicked = true;
-    this.reportService.generateD4ReportForZone(d4Object, true).subscribe(successResponse =>{
-      this._generateClicked = false;
-      let result = <any>successResponse;
-      if(result && result.status === 201){
-        this.reportGenerated = true;
-        this.viewClicked();
-        // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
-      }else{
-        console.log("success with invalid result");
-      }
-    },errorResponse =>{
-      console.log(errorResponse);
-      this._generateClicked = false;
-      if(errorResponse.status === 417){
-        this.reportGenerated = true;
-        this.viewClicked();
-        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }
-    });
-  }
+  // generateD4ReportForZone(d4Object){
+  //   this._generateClicked = true;
+  //   this.reportService.generateD4ReportForZone(d4Object, true).subscribe(successResponse =>{
+  //     this._generateClicked = false;
+  //     let result = <any>successResponse;
+  //     if(result && result.status === 201){
+  //       this.reportGenerated = true;
+  //       this.viewClicked();
+  //       // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+  //     }else{
+  //       console.log("success with invalid result");
+  //     }
+  //   },errorResponse =>{
+  //     console.log(errorResponse);
+  //     this._generateClicked = false;
+  //     if(errorResponse.status === 417){
+  //       this.reportGenerated = true;
+  //       this.viewClicked();
+  //       // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+  //     }else{
+  //       this.globalResources.errorAlert(errorResponse.error.errorMessage);
+  //     }
+  //   });
+  // }
 
-  viewClicked(){
-    if(this.searchFormData.zone === "ALL"){
-      this.viewByDivisionIdAndBillMonth();
-    }else{
-      this.viewByZoneIdAndBillMonth();
-    }
-  }
+  // viewClicked(){
+  //   if(this.searchFormData.zone === "ALL"){
+  //     this.viewByDivisionIdAndBillMonth();
+  //   }else{
+  //     this.viewByZoneIdAndBillMonth();
+  //   }
+  // }
 
-  viewByZoneIdAndBillMonth(){
-    this.viewResultList = [];
-    this.reportService.getD4ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      console.log(successResponse);
-      if(successResponse){
-        this.viewResultList = successResponse;
-      }
-    },errorResponse =>{
-      console.log(errorResponse);
-    });
-  }
+  // viewByZoneIdAndBillMonth(){
+  //   this.viewResultList = [];
+  //   this.reportService.getD4ByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+  //     console.log(successResponse);
+  //     if(successResponse){
+  //       this.viewResultList = successResponse;
+  //     }
+  //   },errorResponse =>{
+  //     console.log(errorResponse);
+  //   });
+  // }
 
-  viewByDivisionIdAndBillMonth(){
-    this.viewResultList = [];
-    this.reportService.getD4ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      console.log(successResponse);
-      if(successResponse){
-        this.viewResultList = successResponse;
-      }
-    },errorResponse =>{
-      console.log(errorResponse);
-    });
-  }
+  // viewByDivisionIdAndBillMonth(){
+  //   this.viewResultList = [];
+  //   this.reportService.getD4ByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+  //     console.log(successResponse);
+  //     if(successResponse){
+  //       this.viewResultList = successResponse;
+  //     }
+  //   },errorResponse =>{
+  //     console.log(errorResponse);
+  //   });
+  // }
 
-  exportClicked(exportElementId){
-    console.log(exportElementId);
+  exportClicked(){
     // this.globalResources.exportTableToExcel(exportElementId, "d-4_Report_" + this.searchFormData.billingMonth);
     let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     let params = {
@@ -260,4 +315,63 @@ export class ReportD4Component implements OnInit {
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d4-report/export/division/id/" + this.searchFormData.division.id + "/bill-month/" + this.searchFormData.billingMonth;
     this.globalResources.downloadFile(fileUrl,params);
   }
+
+  fetchClicked : boolean;
+  fetchButtonClicked(missingData){
+    this.fetchClicked = true;
+    this.reportService.getD4ReportBillingDataByZoneIdAndBillMonth(missingData.zone.id, missingData.billMonth, false).subscribe(success =>{
+      this.fetchClicked = false;
+      console.log(success);
+      this.searchClicked();
+      this.globalResources.successAlert("Data fetched successfully.");
+    }, error =>{
+      this.fetchClicked = false;
+      console.log(error);
+      if(error.status === 417){
+        // this.reportGenerated = true;
+        this.globalResources.errorAlert(error.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert("Unable to generate report");
+      }
+    });
+  }
+
+  initializePaginationVariables(){
+    this.pager = {};
+    this.pageSize = 12;
+  }
+
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+    this.pager = this.paginationService.getPager(this.searchResultList.length, page, this.pageSize);
+    this.pagedSearchResultList = this.searchResultList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
+  generateD4ReportForZone(){
+    this._generateClicked = true;
+    this.reportService.generateD4ReportByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, true).subscribe(successResponse =>{
+      this._generateClicked = false;
+      let result = <any>successResponse;
+      if(result && result.status === 201){
+        this.reportGenerated = true;
+        //this.viewClicked();
+        // let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+      }else{
+        console.log("success with invalid result");
+      }
+    },errorResponse =>{
+      console.log(errorResponse);
+      this._generateClicked = false;
+      if(errorResponse.status === 417){
+        this.reportGenerated = true;
+        //this.viewClicked();
+        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }else{
+        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      }
+    });
+  }
+
 }

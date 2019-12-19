@@ -178,7 +178,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       this.billingStatusList =successResponse;
       this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
       this.billingStatusList.forEach(element => {
-        this.getD1GenerationStatusByZoneIdAndBillMonth(element);    
+        this.getGenerationStatusByZoneIdAndBillMonth(element);    
       });
       this.initializePaginationVariables();
       this.setPage(1);
@@ -198,7 +198,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
       this.billingStatusList.push(successResponse);
       this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
       this.billingStatusList.forEach(element => {
-        this.getD1GenerationStatusByZoneIdAndBillMonth(element);    
+        this.getGenerationStatusByZoneIdAndBillMonth(element);    
       });
       this.initializePaginationVariables();
       this.setPage(1);
@@ -208,12 +208,14 @@ export class ReportFeederJsonFileComponent implements OnInit {
     });
   }
 
-  getD1GenerationStatusByZoneIdAndBillMonth(searchElement){
+  generationStatusList : any = [];
+  getGenerationStatusByZoneIdAndBillMonth(searchElement){
     this._searchClicked = true;
-    searchElement.generationStatusList = [];
-    this.reportService.getD1GenerationStatusByZoneIdAndBillMonth(searchElement.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    this.generationStatusList = [];
+    this.reportService.getFeederMonitoringReportBillingDataByZoneIdAndBillMonth(searchElement.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
-      searchElement.generationStatusList = successResponse;
+      console.log(successResponse);
+      this.generationStatusList = successResponse;
       this.generationStatusFlag = !!(Number(this.generationStatusFlag) * Number(this.checkGenerationStatus(searchElement.generationStatusList)));
     },errorResponse =>{
       this._searchClicked = false;

@@ -281,4 +281,76 @@ export class ReportService {
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + zoneId + "/bill-month/" + billMonth);
     }
   }
+
+  getD1ReportDataByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  generateD1ReportDataByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/' + zoneId + "/bill-month/" + billMonth, null,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/zone/' + zoneId + "/bill-month/" + billMonth, null);
+    }
+  }
+
+  generateD1ReportDataByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/' + divisionId + "/bill-month/" + billMonth, null,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/division/' + divisionId + "/bill-month/" + billMonth, null);
+    }
+  }
+
+  getD4GenerationStatusByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD4GenerationStatusByDivisionIdAndBillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/missing-data/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/missing-data/division/id/' + divisionId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD4ReportBillingDataByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/billing-data/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/billing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  generateD4ReportByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/zone/id/' + zoneId + "/bill-month/" + billMonth, null, options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/zone/id/' + zoneId + "/bill-month/" + billMonth, null);
+    }
+  }
+
+  getFeederMonitoringReportBillingDataByZoneIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
 }

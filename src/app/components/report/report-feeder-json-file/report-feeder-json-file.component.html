@@ -95,62 +95,38 @@
           <td class="align-middle">S.No</td>
           <td class="align-middle">Zone Name</td>
           <td class="align-middle">Bill Month</td>
-          <td class="align-middle">Billing Status (Completed)</td>
-          <td class="align-middle">Feeder Status</td>
+          <td class="align-middle">Feeder Reading</td>
+          <td class="align-middle">HT Reading</td>
+          <td class="align-middle">Export Reading</td>
+          <td class="align-middle">Billing Data</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let billingStatus of pagedBillingStatusList; let i = index">
-            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td class="align-middle">{{billingStatus?.zone?.name | uppercase}}</td>
-          <td class="align-middle">{{this.searchFormData.billingMonth | uppercase}}</td>
+        <tr *ngFor="let generationStatus of generationStatusList; let i = index">
+            <td class="align-middle">1</td>
+          <td class="align-middle">{{generationStatus?.zone?.name | uppercase}}</td>
+          <td class="align-middle">{{generationStatus.billMonth | uppercase}}</td>
           <td class="align-middle">
-            <span class="text-success" *ngIf="billingStatus?.billingStatus"><span class="fa fa-check"></span></span> 
-            <span class="text-danger" *ngIf="!billingStatus?.billingStatus"><span class="fa fa-times"></span></span>
+            <span class="text-success" *ngIf="generationStatus?.feederReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!generationStatus?.feederReadingInserted"><span class="fa fa-times"></span></span>
           </td>
-          <td class="align-middle" *ngIf="billingStatus.generationStatusList">
-            <table class="table table-sm table-bordered">
-              <thead class="bg-dark text-white">
-                <tr>
-                  <td class="align-middle">S.No</td>
-                  <td class="align-middle">Feeder Name</td>
-                  <td class="align-middle">Feeder Group No</td>
-                  <td class="align-middle">Read Inserted</td>
-                  <td class="align-middle">Export Read Inserted</td>
-                  <td class="align-middle">HT Read Inserted</td>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-template [ngIf]="billingStatus.generationStatusList.length">
-                  <tr *ngFor="let searchResult of billingStatus.generationStatusList; let i = index">
-                      <td class="align-middle">{{i+1}}</td>
-                    <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
-                    <td class="align-middle">{{searchResult?.feeder?.groupNo | uppercase}}</td>
-                    <td class="align-middle">
-                      <span class="text-success" *ngIf="searchResult?.feederReadingInserted"><span class="fa fa-check"></span></span> 
-                      <span class="text-danger" *ngIf="!searchResult?.feederReadingInserted"><span class="fa fa-times"></span></span>
-                    </td>
-                    <td class="align-middle">
-                      <span class="text-success" *ngIf="searchResult?.exportReadingInserted"><span class="fa fa-check"></span></span> 
-                      <span class="text-danger" *ngIf="!searchResult?.exportReadingInserted"><span class="fa fa-times"></span></span>
-                    </td>
-                    <td class="align-middle">
-                      <span class="text-success" *ngIf="searchResult?.htReadingInserted"><span class="fa fa-check"></span></span> 
-                      <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
-                    </td>
-                  </tr>
-                </ng-template>
-                <tr *ngIf="!billingStatus.generationStatusList.length">
-                  <td class="align-middle" colspan="6">No Records found</td>
-                </tr>
-              </tbody>
-            </table>
+          <td class="align-middle">
+            <span class="text-success" *ngIf="generationStatus?.htReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!generationStatus?.htReadingInserted"><span class="fa fa-times"></span></span>
+          </td>
+          <td class="align-middle">
+            <span class="text-success" *ngIf="generationStatus?.exportReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!generationStatus?.exportReadingInserted"><span class="fa fa-times"></span></span>
+          </td>
+          <td class="align-middle">
+            <span class="text-success" *ngIf="generationStatus?.billingData"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!generationStatus?.billingData"><span class="fa fa-times"></span></span>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div id="pagination" *ngIf="billingStatusList && billingStatusList.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="generationStatusList && generationStatusList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
