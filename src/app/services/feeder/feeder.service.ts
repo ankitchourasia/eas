@@ -182,9 +182,7 @@ export class FeederService {
 
   addFeederMapping(feederMapping, response){
     if(response){
-      let options : any = {
-        observe : "response"
-      };
+      let options : any = { observe : "response" };
       return this.http.post(this.URL_PREFIX + 'interDivision/feeder', feederMapping, options);
     } else{
       return this.http.post(this.URL_PREFIX + 'interDivision/feeder', feederMapping);
@@ -193,12 +191,48 @@ export class FeederService {
 
   addFeederInterruption(feederInterruption, response){
     if(response){
-      let options : any = {
-        observe : "response"
-      };
+      let options : any = { observe : "response" };
       return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'interruption', feederInterruption, options);
     } else{
       return this.http.post(this.URL_PREFIX + this.FEEDER_URL + 'interruption', feederInterruption);
     }
   }
+
+  add33KVFeeder(feeder, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.http.post(this.URL_PREFIX + 'feeder-33kv/', feeder,  options);
+    }else{
+      return this.http.post(this.URL_PREFIX + 'feeder-33kv/', feeder);
+    }
+  }
+  
+  get33KVFeederByZoneId(zoneId, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/zone/' + zoneId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/zone/' + zoneId);
+    }
+  }
+  
+  getPreviousReadingBy33KVFeederId(feederId, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/reading/last-inserted/feeder-33kv/' + feederId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/reading/last-inserted/feeder-33kv/' + feederId);
+    }
+  }
+
+  add33KVFeederReading(feederReading, punchedBy, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", punchedBy);
+    let options = { params: httpParams };
+    if(response){ 
+      options['observe'] = "response"; 
+    }
+    return this.http.post(this.URL_PREFIX + 'feeder-33kv/reading', feederReading, options);
+  }
+
 }

@@ -44,6 +44,8 @@ import { AdminFeederInterruptionAddComponent } from './admin-feeder/admin-feeder
 import { AdminReportNscMonitoringComponent } from './admin-report/admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
 import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report/admin-report-consumer-complaints-redressal/admin-report-consumer-complaints-redressal.component';
 import { AdminReportFeederJsonFileComponent } from './admin-report/admin-report-feeder-json-file/admin-report-feeder-json-file.component';
+import { AdminFeeder33KVAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-add/admin-feeder-33kv-add.component';
+import { AdminFeeder33KVReadingAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-reading-add/admin-feeder-33kv-reading-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -180,6 +182,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'bill-file/upload',component: AdminBillFileUploadComponent
+          },
+          {
+            path: 'feeder/33kv/add',component: AdminFeeder33KVAddComponent
+          },
+          {
+            path: 'feeder/33kv/reading/add',component: AdminFeeder33KVReadingAddComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

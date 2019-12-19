@@ -11,6 +11,7 @@ import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.mod
 import { AdminBillFileModule } from './admin-bill-file/admin-bill-file.module';
 import { AdminExportModule } from './admin-export/admin-export.module';
 import { AdminReportModule } from './admin-report/admin-report.module';
+import { AdminFeeder33kvModule } from './admin-feeder-33kv/admin-feeder-33kv.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { AdminReportModule } from './admin-report/admin-report.module';
     AdminHtConsumerModule,
     AdminReportModule,
     AdminSubstationModule,
+    AdminFeeder33kvModule,
     AdminRoutingModule,
   ],
   declarations: [
