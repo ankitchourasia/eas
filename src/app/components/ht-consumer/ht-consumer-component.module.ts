@@ -7,26 +7,33 @@ import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
 import { HtConsumerReadingAddComponent } from './ht-consumer-reading-add/ht-consumer-reading-add.component';
 import { HtConsumerAddComponent } from './ht-consumer-add/ht-consumer-add.component';
+import { HtConsumer33KVAddComponent } from './ht-consumer-33kv-add/ht-consumer-33kv-add.component';
+import { HtConsumer33KVReadingAddComponent } from './ht-consumer-33kv-reading-add/ht-consumer-33kv-reading-add.component';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    DirectiveModule,
+  ],
   declarations: [
     HtConsumerViewComponent, 
     HtConsumerViewConsumptionComponent,
     HtConsumerViewAbsentConsumptionComponent,
     HtConsumerReadingAddComponent,
-    HtConsumerAddComponent
+    HtConsumerAddComponent,
+    HtConsumer33KVAddComponent,
+    HtConsumer33KVReadingAddComponent
   ],
   exports: [
     HtConsumerViewComponent, 
     HtConsumerViewConsumptionComponent,
     HtConsumerViewAbsentConsumptionComponent,
     HtConsumerReadingAddComponent,
-    HtConsumerAddComponent
+    HtConsumerAddComponent,
+    HtConsumer33KVAddComponent,
+    HtConsumer33KVReadingAddComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    DirectiveModule,
-  ]
+  
 })
 export class HTConsumerComponentModule { }

@@ -1,0 +1,92 @@
+<form #htConsumerAddForm="ngForm" autocomplete="off">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Region</label>
+    <div class="col-sm-9">
+      <select class="form-control" id="region" name="region">
+        <option selected>{{user.region.name | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Circle</label>
+    <div class="col-sm-9">
+      <select class="form-control" id="circle"  name="circle" required>
+        <option selected>{{user.circle.name | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Division</label>
+    <div class="col-sm-9">
+      <select class="form-control" id="division"  name="division" required>
+        <option selected>{{user.division.name | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Zone</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+        class="form-control" [(ngModel)]="htConsumer.zone" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(htConsumer.zone)" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+        <div *ngIf="zone.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Feeder</label>
+    <div class="col-sm-9">
+      <select [ngClass]="{'is-valid': !feederId.errors && (feederId.dirty || feederId.touched),'is-invalid': feederId.errors && (feederId.dirty || feederId.touched)}"
+        class="form-control" [(ngModel)]="htConsumer.feeder" #feederId="ngModel" id="feeder" name="feeder" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let feeder of feederList" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="feederId.errors && (feederId.dirty || feederId.touched)">
+        <div *ngIf="feederId.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Service No</label>
+    <div class="col-sm-9">
+      <input type="number" [ngClass]="{'is-valid': !serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched),'is-invalid': serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched)}"
+        class="form-control" [(ngModel)]="htConsumer.serviceNumber" #serviceNumber="ngModel" id="serviceNumber"  name="serviceNumber" required>
+      <div class="invalid-feedback" *ngIf="serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched)">
+        <div *ngIf="serviceNumber.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Consumer Name</label>
+    <div class="col-sm-9">
+      <input type="text" [ngClass]="{'is-valid': !consumerName.errors && (consumerName.dirty || consumerName.touched),'is-invalid': consumerName.errors && (consumerName.dirty || consumerName.touched)}"
+        class="form-control" [(ngModel)]="htConsumer.name" #consumerName="ngModel" id="consumerName"  name="consumerName" required>
+      <div class="invalid-feedback" *ngIf="consumerName.errors && (consumerName.dirty || consumerName.touched)">
+        <div *ngIf="consumerName.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Contract Demand</label>
+    <div class="col-sm-9">
+      <input type="text" [ngClass]="{'is-valid': !contractDemand.errors && (contractDemand.dirty || contractDemand.touched),'is-invalid': contractDemand.errors && (contractDemand.dirty || contractDemand.touched)}"
+        class="form-control" [(ngModel)]="htConsumer.contractDemand" #contractDemand="ngModel" id="contractDemand"  name="contractDemand" required>
+      <div class="invalid-feedback" *ngIf="contractDemand.errors && (contractDemand.dirty || contractDemand.touched)">
+        <div *ngIf="contractDemand.errors.required">required field</div>
+      </div>
+    </div>
+  </div> -->
+  <div class="form-group row">
+    <div class="col-4 offset-3">
+      <button type="button" class="btn btn-success form-control" (click)=submitClicked(htConsumerAddForm) [disabled]="!htConsumerAddForm.form.valid || loading">
+        Submit <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+      </button>
+    </div>
+    <div class="col-4 offset-1">
+      <button type="reset" class="btn btn-danger form-control">Reset</button>
+    </div>
+  </div>
+</form>

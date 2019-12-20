@@ -71,4 +71,22 @@ export class HtConsumerService {
       return this.http.post(this.URL_PREFIX + 'htreading', reading);
     }
   }
+
+  add33KVHTConsumer(htConsumer, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.post(this.URL_PREFIX + this.HT_CONSUMER_URL, htConsumer, options);
+    } else {
+      return this.http.post(this.URL_PREFIX + this.HT_CONSUMER_URL, htConsumer);
+    }
+  }
+
+  add33KVHTConsumerReading(reading, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.post(this.URL_PREFIX + 'htreading', reading, options);
+    } else {
+      return this.http.post(this.URL_PREFIX + 'htreading', reading);
+    }
+  }
 }

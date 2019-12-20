@@ -1,0 +1,119 @@
+<form  #readAddForm="ngForm">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Service No</label>
+    <div class="col-sm-9">
+      <input type="number" [ngClass]="{'is-valid': !serviceNo.errors && (serviceNo.dirty || serviceNo.touched),'is-invalid': serviceNo.errors && (serviceNo.dirty || serviceNo.touched)}"
+        class="form-control" [(ngModel)]="serviceNumber" #serviceNo="ngModel" id="serviceNo"  name="serviceNo" required (change)="searchInputChanged()">
+      <div class="invalid-feedback" *ngIf="serviceNo.errors && (serviceNo.dirty || serviceNo.touched)">
+        <div *ngIf="serviceNo.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="input-group">
+      <label class="col-sm-3 col-form-label">Bill Month</label>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
+            class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required (change)="searchInputChanged()">
+            <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+            <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+          </select>
+          <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
+            class="form-control" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required (change)="searchInputChanged()">
+            <option disabled selected [ngValue]='undefined'>Year</option>
+            <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+          </select>
+          <div class="input-group-append">
+            <button type="button" class="btn btn-sm btn-primary" (click)="searchButtonClicked()" [disabled]="!readAddForm.form.valid || loading">
+              Search <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
+            </button>
+          </div>
+          <div class="invalid-feedback" *ngIf="(billmonth.errors && (billmonth.dirty || billmonth.touched)) || (billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched))">
+            <div [hidden]="!billmonth.errors?.required && !billMonthyear.errors?.required">required bill month</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <fieldset *ngIf="consumer">
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Division Name</label>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [ngModel]="consumer?.division.name" id="divisionName" name="divisionName" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Zone Name</label>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [ngModel]="consumer?.zone.name" id="zoneName" name="zoneName" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Feeder Name</label>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [ngModel]="consumer?.feeder.name" id="feederName" name="feederName" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Consumer Name</label>
+      <div class="col-sm-9">
+          <input type="text" class="form-control" [ngModel]="consumer?.consumerName" id="consumerName" name="consumerName" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Consumption</label>
+      <div class="col-sm-9">
+        <input type="number" [ngClass]="{'is-valid': !consumpton.errors && (consumpton.dirty || consumpton.touched),'is-invalid': consumpton.errors && (consumpton.dirty || consumpton.touched)}"
+          class="form-control" [(ngModel)]="formData.totalConsumption" #consumpton="ngModel" id="consumpton"  name="consumpton" min="0" required>
+        <div class="invalid-feedback" *ngIf="consumpton.errors && (consumpton.dirty || consumpton.touched)">
+          <div *ngIf="consumpton.errors.required">required field</div>
+          <div [hidden]="!consumpton.errors.min || consumpton.errors.required">Invalid consumption</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Billed Unit</label>
+      <div class="col-sm-9">
+        <input type="number" [ngClass]="{'is-valid': !billedUnit.errors && (billedUnit.dirty || billedUnit.touched),'is-invalid': billedUnit.errors && (billedUnit.dirty || billedUnit.touched)}"
+          class="form-control" [(ngModel)]="formData.billedUnits" #billedUnit="ngModel" id="billedUnit"  name="billedUnit" min="0" required>
+        <div class="invalid-feedback" *ngIf="billedUnit.errors && (billedUnit.dirty || billedUnit.touched)">
+          <div *ngIf="billedUnit.errors.required">required field</div>
+          <div [hidden]="!billedUnit.errors.min || billedUnit.errors.required">Invalid consumption</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Amount Billed</label>
+      <div class="col-sm-9">
+        <input type="number" [ngClass]="{'is-valid': !amountBilled.errors && (amountBilled.dirty || amountBilled.touched),'is-invalid': amountBilled.errors && (amountBilled.dirty || amountBilled.touched)}"
+          class="form-control" [(ngModel)]="formData.amountBilled" #amountBilled="ngModel" id="amountBilled"  name="amountBilled" min="0" required>
+        <div class="invalid-feedback" *ngIf="amountBilled.errors && (amountBilled.dirty || amountBilled.touched)">
+          <div *ngIf="amountBilled.errors.required">required field</div>
+          <div [hidden]="!amountBilled.errors.min || amountBilled.errors.required">Invalid consumption</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Amount Collected</label>
+      <div class="col-sm-9">
+        <input type="number" [ngClass]="{'is-valid': !amountCollected.errors && (amountCollected.dirty || amountCollected.touched),'is-invalid': amountCollected.errors && (amountCollected.dirty || amountCollected.touched)}"
+          class="form-control" [(ngModel)]="formData.amountCollected" #amountCollected="ngModel" id="amountCollected"  name="amountCollected" min="0" required>
+        <div class="invalid-feedback" *ngIf="amountCollected.errors && (amountCollected.dirty || amountCollected.touched)">
+          <div *ngIf="amountCollected.errors.required">required field</div>
+          <div [hidden]="!amountCollected.errors.min || amountCollected.errors.required">Invalid consumption</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-4 offset-3">
+        <button type="button" class="btn btn-success form-control" (click)="submitClicked()" [disabled]="!readAddForm.form.valid || _submitClicked">
+          Submit <span class="spinner-border spinner-border-sm" *ngIf="_submitClicked"></span>
+        </button>
+      </div>
+      <div class="col-4 offset-1">
+        <button type="button" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

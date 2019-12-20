@@ -6,6 +6,8 @@ import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consum
 import { HTConsumerComponentModule } from '@eas-components/ht-consumer/ht-consumer-component.module';
 import { AdminHtConsumerAddComponent } from './admin-ht-consumer-add/admin-ht-consumer-add.component';
 import { AdminHtConsumerReadingAddComponent } from './admin-ht-consumer-reading-add/admin-ht-consumer-reading-add.component';
+import { AdminHtConsumer33KVReadingAddComponent } from './admin-ht-consumer-33kv-reading-add/admin-ht-consumer-33kv-reading-add.component';
+import { AdminHtConsumer33KVAddComponent } from './admin-ht-consumer-33kv-add/admin-ht-consumer-33kv-add.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { AdminHtConsumerReadingAddComponent } from './admin-ht-consumer-reading-
     AdminHtConsumerViewAbsentConsumptionComponent,
     AdminHtConsumerAddComponent,
     AdminHtConsumerReadingAddComponent,
+    AdminHtConsumer33KVReadingAddComponent,
+    AdminHtConsumer33KVAddComponent,
   ],
   imports: [
     CommonModule,
