@@ -63,7 +63,7 @@ input::-webkit-outer-spin-button {
     display: flex !important;
 }
 
-#sideMenu{
+#menubar{
     background: #343a40;
     flex-grow : 0;
     flex-shrink: 0;
@@ -78,7 +78,7 @@ input::-webkit-outer-spin-button {
     max-width: 85%;
 }
 
-#sideMenu > ul {
+#menubar > ul {
     height: 100vh;
     overflow-y: auto;
 }
