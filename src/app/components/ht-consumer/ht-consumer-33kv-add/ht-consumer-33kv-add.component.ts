@@ -38,7 +38,7 @@ export class HtConsumer33KVAddComponent implements OnInit {
   zoneChanged(zone){
     console.log("zone changed");
     this.htConsumer.feeder = undefined;
-    this.htConsumer.feederId = undefined;
+    this.htConsumer.feeder33KVId = undefined;
     this.get33KVFeederByZoneId(zone.id);
   }
 
@@ -55,6 +55,8 @@ export class HtConsumer33KVAddComponent implements OnInit {
     this.htConsumer.regionId = this.user.region.id;
     this.htConsumer.circleId = this.user.circle.id;
     this.htConsumer.divisionId = this.user.division.id;
+    this.htConsumer.zoneId = this.htConsumer.zone.id;
+    this.htConsumer.feeder33KVId = this.htConsumer.feeder.id;
     this.add33KVHTConsumer(htConsumerAddForm);
   }
 

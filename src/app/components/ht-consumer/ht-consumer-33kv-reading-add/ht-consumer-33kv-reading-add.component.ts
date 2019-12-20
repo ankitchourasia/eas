@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
 import { GlobalResources } from '@eas-utility/global.resources';
+import { ZoneService } from '@eas-services/zone/zone.service';
 
 @Component({
   selector: 'eas-ht-consumer-33kv-reading-add',
@@ -10,71 +11,65 @@ import { GlobalResources } from '@eas-utility/global.resources';
 })
 export class HtConsumer33KVReadingAddComponent implements OnInit {
 
+  user: any;
   formData : any;
-  consumer : any;
-  month : string;
-  year : string;
-  serviceNumber: any;
+  zoneList: any;
+  consumerList: any;
   loading : boolean;
   _submitClicked: boolean;
   constructor(public globalConstants : GlobalConstants, private htConsumerService : HtConsumerService,
-     private globalResources : GlobalResources) { }
+     private globalResources : GlobalResources, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setInitialData();
+    this.user = this.globalResources.getUserDetails();
+    this.getZoneListByDivisionId(this.user.division.id);
   }
 
   setInitialData(){
     this.formData = {};
-    this.consumer = null;
   }
 
-  searchInputChanged(){
-    this.setInitialData();
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
   }
 
-  searchButtonClicked(){
-    this.setInitialData();
-    this.getConsumerDetails();
+  zoneChanged(zone){
+    console.log("zone changed");
+    this.getHTConsumerListByZoneId(zone.id);
   }
 
-  getConsumerDetails(){
-    this.loading = true;
-    this.consumer = null;
-    this.htConsumerService.getHTConsumerByServiceNo(this.serviceNumber, false).subscribe(success =>{
-      this.loading = false;
-      this.consumer = success;
-      console.log(this.consumer);
-      this.formData.consumerId = this.consumer.id;
+  getHTConsumerListByZoneId(zoneId){
+    this.consumerList = [];
+    this.htConsumerService.getHTConsumerListByZoneId(zoneId, false).subscribe(success =>{
+      console.log(success);
+      this.consumerList = success;
     }, error =>{
-      this.loading = false;
       console.log(error);
-      this.globalResources.errorAlert("consumer not found");
     });
   }
 
   submitClicked(){
-    let billMonth = this.month + '-' + this.year;
-    this.formData.billMonth = billMonth;
-    this.formData.regionId = this.consumer.region.id;
-    this.formData.circleId = this.consumer.circle.id;
-    this.formData.divisionId = this.consumer.division.id;
-    this.formData.substationId = this.consumer.substation.id;
-    this.formData.zoneId = this.consumer.zone.id;
-    this.formData.feederId = this.consumer.feeder.id;
-    this.formData.consumerId = this.consumer.id;
-    this.formData.serviceNumber = this.serviceNumber;
-    this.addReading();
+    this.formData.billMonth = this.formData.month + '-' + this.formData.year;
+    this.formData.zoneId = this.formData.consumer.zoneId;
+    this.formData.htConsumer33KVId = this.formData.consumer.id;
+    this.formData.feeder33KVId = this.formData.consumer.feeder33KVId;
+    this.add33KVHTConsumerReading();
   }
 
-  addReading(){
+  add33KVHTConsumerReading(){
     this._submitClicked = true;
-    this.htConsumerService.addHTConsumerReading(this.formData, true).subscribe(success =>{
+    console.log(this.formData);
+    this.htConsumerService.add33KVHTConsumerReading(this.formData, true).subscribe(success =>{
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
         this.globalResources.successAlert("Data Added successfully");
-        this.consumer = null;
         this.formData = {};
       }
     }, error =>{

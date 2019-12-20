@@ -72,21 +72,39 @@ export class HtConsumerService {
     }
   }
 
+  getHTConsumerListByZoneId(zoneId, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/zone/' + zoneId, options);
+    } else {
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/zone/' + zoneId);
+    }
+  }
+
+  getHTConsumerListByFeederId(feederId, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/feeder-33kv/' + feederId, options);
+    } else {
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/feeder-33kv/' + feederId);
+    }
+  }
+
   add33KVHTConsumer(htConsumer, response){
     if(response){
       let options : any = { observe : "response" };
-      return this.http.post(this.URL_PREFIX + this.HT_CONSUMER_URL, htConsumer, options);
+      return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/', htConsumer, options);
     } else {
-      return this.http.post(this.URL_PREFIX + this.HT_CONSUMER_URL, htConsumer);
+      return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/', htConsumer);
     }
   }
 
   add33KVHTConsumerReading(reading, response){
     if(response){
       let options : any = { observe : "response" };
-      return this.http.post(this.URL_PREFIX + 'htreading', reading, options);
+      return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/reading/', reading, options);
     } else {
-      return this.http.post(this.URL_PREFIX + 'htreading', reading);
+      return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/reading/', reading);
     }
   }
 }

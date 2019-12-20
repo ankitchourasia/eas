@@ -53,7 +53,7 @@
     <label class="col-4 col-form-label">Service No</label>
     <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched),'is-invalid': serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched)}"
-        class="form-control" [(ngModel)]="htConsumer.serviceNumber" #serviceNumber="ngModel" id="serviceNumber"  name="serviceNumber" required>
+        class="form-control" [(ngModel)]="htConsumer.serviceNo" #serviceNumber="ngModel" id="serviceNumber"  name="serviceNumber" required>
       <div class="invalid-feedback" *ngIf="serviceNumber.errors && (serviceNumber.dirty || serviceNumber.touched)">
         <div *ngIf="serviceNumber.errors.required">required field</div>
       </div>
