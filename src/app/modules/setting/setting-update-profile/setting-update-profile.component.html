@@ -7,8 +7,8 @@
       <div class="col-lg-8 offset-lg-2">
         <form #updateProfileForm="ngForm" autocomplete="off">
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Username</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Username</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}"
                 class="form-control" [(ngModel)]="formData.username" #username="ngModel" id="username"  name="username" placeholder="Enter Username" required disabled>
               <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
@@ -17,8 +17,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Name</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !name.errors && (name.dirty || name.touched),'is-invalid': name.errors && (name.dirty || name.touched)}"
                 class="form-control" [(ngModel)]="formData.name" #name="ngModel" id="name"  name="name" placeholder="Enter Name" required>
               <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
@@ -27,8 +27,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Role</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Role</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !role.errors && (role.dirty || role.touched),'is-invalid': role.errors && (role.dirty || role.touched)}"
                 class="form-control" [(ngModel)]="formData.role" #role="ngModel" id="role"  name="role" placeholder="Enter Role" required disabled>
               <div class="invalid-feedback" *ngIf="role.errors && (role.dirty || role.touched)">
@@ -37,8 +37,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Mobile No.</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Mobile No.</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !mobileNo.errors && (mobileNo.dirty || mobileNo.touched),'is-invalid': mobileNo.errors && (mobileNo.dirty || mobileNo.touched)}"
                 class="form-control" [(ngModel)]="formData.mobileNo" #mobileNo="ngModel" id="mobileNo"  name="mobileNo" placeholder="Enter Mobile No" maxlength="10" pattern="[5-9][0-9]{9}" required>
               <div class="invalid-feedback" *ngIf="mobileNo.errors && (mobileNo.dirty || mobileNo.touched)">
@@ -48,10 +48,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-4 offset-3">
+            <div class="col-4 offset-4">
               <button type="button" class="btn btn-success form-control" (click)=submitClicked(updateProfileForm)>Submit</button>
             </div>
-            <div class="col-4 offset-1">
+            <div class="col-4">
               <button type="button" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
             </div>
           </div>

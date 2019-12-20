@@ -71,20 +71,20 @@
       <div class="modal-body">
         <form #circleEditForm = "ngForm" id="circleEditForm">
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Region Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Region Name</label>
+            <div class="col-8">
               <input class="form-control" [value]="circleToEdit.region?.name | uppercase"  id="region"  name="region" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Old Circle Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Old Circle Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="circleToEdit.oldName | uppercase" id="oldcircle"  name="oldcircle" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">New Circle Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">New Circle Name</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !newCircle.errors && (newCircle.dirty || newCircle.touched),'is-invalid': newCircle.errors && (newCircle.dirty || newCircle.touched)}"
                 class="form-control" [(ngModel)]="circleToEdit.name" #newCircle="ngModel" id="newCircle"  name="newCircle" required>
               <div class="invalid-feedback" *ngIf="newCircle.errors && (newCircle.dirty || newCircle.touched)">
@@ -93,12 +93,12 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-4 offset-3">
+            <div class="col-4 offset-4">
               <button type="button" class="btn btn-success form-control" (click)=updateClicked(modalCloseButtonRef) [disabled]="!circleEditForm.form.valid || _updateClicked">
                 Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
               </button>
             </div>
-            <div class="col-4 offset-1">
+            <div class="col-4">
               <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef [disabled]="_updateClicked">Cancel</button>
             </div>
           </div>

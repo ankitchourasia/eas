@@ -104,32 +104,32 @@
           <fieldset [disabled]="_updateClicked">
             <form #dtrUpdateForm="ngForm" autocomplete="off">
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Region</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Region</label>
+                <div class="col-8">
                   <select class="form-control" id="region" name="region">
                     <option selected>{{user.region.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Circle</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Circle</label>
+                <div class="col-8">
                   <select class="form-control" id="circle"  name="circle" required>
                     <option selected>{{user.circle.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Division</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Division</label>
+                <div class="col-8">
                   <select class="form-control" id="division"  name="division" required>
                     <option selected>{{user.division.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Zone</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Zone</label>
+                <div class="col-8">
                   <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.zoneId" #zone="ngModel" id="zone"  name="zone" required (change)="zoneChanged()">
                     <option disabled selected [ngValue]='undefined'>Select</option>
@@ -141,8 +141,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Substation Name</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Substation Name</label>
+                <div class="col-8">
                   <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.substationId" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged()">
                     <option disabled selected [ngValue]='undefined'>Select</option>
@@ -154,8 +154,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Feeder Name</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Feeder Name</label>
+                <div class="col-8">
                   <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.feederId" #feederName="ngModel" id="feederName"  name="feederName" required>
                     <option disabled selected [ngValue]='undefined'>Select</option>
@@ -167,8 +167,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">DTR Location Name</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">DTR Location Name</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !dtrLocationName.errors && (dtrLocationName.dirty || dtrLocationName.touched),'is-invalid': dtrLocationName.errors && (dtrLocationName.dirty || dtrLocationName.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrName" #dtrLocationName="ngModel" id="dtrLocationName"  name="dtrLocationName" required>
                   <div class="invalid-feedback" *ngIf="dtrLocationName.errors && (dtrLocationName.dirty || dtrLocationName.touched)">
@@ -177,8 +177,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">DTR Location Code</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">DTR Location Code</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !dtrLocationCode.errors && (dtrLocationCode.dirty || dtrLocationCode.touched),'is-invalid': dtrLocationCode.errors && (dtrLocationCode.dirty || dtrLocationCode.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrCode" #dtrLocationCode="ngModel" id="dtrLocationCode"  name="dtrLocationCode" required>
                   <div class="invalid-feedback" *ngIf="dtrLocationCode.errors && (dtrLocationCode.dirty || dtrLocationCode.touched)">
@@ -187,8 +187,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">DTR Capacity</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">DTR Capacity</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !dtrCapacity.errors && (dtrCapacity.dirty || dtrCapacity.touched),'is-invalid': dtrCapacity.errors && (dtrCapacity.dirty || dtrCapacity.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrCapacity" #dtrCapacity="ngModel" id="dtrCapacity"  name="dtrCapacity" required>
                   <div class="invalid-feedback" *ngIf="dtrCapacity.errors && (dtrCapacity.dirty || dtrCapacity.touched)">
@@ -197,8 +197,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">No. of DTR Meters</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">No. of DTR Meters</label>
+                <div class="col-8">
                   <select [ngClass]="{'is-valid': !noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched),'is-invalid': noOfDtrMeters.errors && (noOfDtrMeters.dirty || noOfDtrMeters.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.noOfDTRMeters" #noOfDtrMeters="ngModel" id="noOfDtrMeters"  name="noOfDtrMeters" required>
                     <option disabled selected [ngValue]='undefined'>Select</option>
@@ -210,8 +210,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">DTR Meter Make</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">DTR Meter Make</label>
+                <div class="col-8">
                   <select [ngClass]="{'is-valid': !dtrMeterMake.errors && (dtrMeterMake.dirty || dtrMeterMake.touched),'is-invalid': dtrMeterMake.errors && (dtrMeterMake.dirty || dtrMeterMake.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrMeterMake" #dtrMeterMake="ngModel" id="dtrMeterMake"  name="dtrMeterMake" required>
                     <option disabled selected [ngValue]='undefined'>Select</option>
@@ -223,8 +223,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">DTR Meter No</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">DTR Meter No</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched),'is-invalid': dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrMeterNo" #dtrMeterNo="ngModel" id="dtrMeterNo"  name="dtrMeterNo" required>
                   <div class="invalid-feedback" *ngIf="dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched)">
@@ -233,8 +233,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Meter Capacity</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Meter Capacity</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !meterCapacity.errors && (meterCapacity.dirty || meterCapacity.touched),'is-invalid': meterCapacity.errors && (meterCapacity.dirty || meterCapacity.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrMeterCapacity" #meterCapacity="ngModel" id="meterCapacity"  name="meterCapacity" required>
                   <div class="invalid-feedback" *ngIf="meterCapacity.errors && (meterCapacity.dirty || meterCapacity.touched)">
@@ -243,8 +243,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Meter S/R</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Meter S/R</label>
+                <div class="col-8">
                   <input type="number" [ngClass]="{'is-valid': !meterSR.errors && (meterSR.dirty || meterSR.touched),'is-invalid': meterSR.errors && (meterSR.dirty || meterSR.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.dtrMeterSR" #meterSR="ngModel" id="meterSR"  name="meterSR" [min]="0" required>
                   <div class="invalid-feedback" *ngIf="meterSR.errors && (meterSR.dirty || meterSR.touched)">
@@ -254,8 +254,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">S/R Date</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">S/R Date</label>
+                <div class="col-8">
                   <input type="date" [ngClass]="{'is-valid': !srDate.errors && (srDate.dirty || srDate.touched),'is-invalid': srDate.errors && (srDate.dirty || srDate.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.srDate" #srDate="ngModel" id="srDate"  name="srDate" required (change)="!srDate.errors && srDateChanged()">
                   <div class="invalid-feedback" *ngIf="srDate.errors && (srDate.dirty || srDate.touched)">
@@ -264,8 +264,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Overall MF</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Overall MF</label>
+                <div class="col-8">
                   <input type="number" [ngClass]="{'is-valid': !overallMF.errors && (overallMF.dirty || overallMF.touched),'is-invalid': overallMF.errors && (overallMF.dirty || overallMF.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.overallMF" #overallMF="ngModel" id="overallMF"  name="overallMF" [min]="1" [max]="10000" step="0.0001" required>
                   <div class="invalid-feedback" *ngIf="overallMF.errors && (overallMF.dirty || overallMF.touched)">
@@ -276,8 +276,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">LT Feeders</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">LT Feeders</label>
+                <div class="col-8">
                   <input type="number" [ngClass]="{'is-valid': !ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched),'is-invalid': ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.ltFeeders" #ltFeeders="ngModel" id="ltFeeders"  name="ltFeeders" [min]="1" required>
                   <div class="invalid-feedback" *ngIf="ltFeeders.errors && (ltFeeders.dirty || ltFeeders.touched)">
@@ -287,8 +287,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Billing RD No.</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Billing RD No.</label>
+                <div class="col-8">
                   <input type="number" [ngClass]="{'is-valid': !billingRdNo.errors && (billingRdNo.dirty || billingRdNo.touched),'is-invalid': billingRdNo.errors && (billingRdNo.dirty || billingRdNo.touched)}"
                     class="form-control" [(ngModel)]="dtrToEdit.billingRDNo" #billingRdNo="ngModel" id="billingRdNo"  name="billingRdNo" [min]="1" required>
                   <div class="invalid-feedback" *ngIf="billingRdNo.errors && (billingRdNo.dirty || billingRdNo.touched)">
@@ -298,12 +298,12 @@
                 </div>
               </div>
               <div class="form-group row">
-                <div class="col-4 offset-3">
+                <div class="col-4 offset-4">
                   <button type="button" class="btn btn-success form-control" (click)="updateClicked(dtrUpdateForm, modalCloseButtonRef)">
                     Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
                   </button>
                 </div>
-                <div class="col-4 offset-1">
+                <div class="col-4">
                     <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="dtrUpdateModalCancel(dtrUpdateForm)">Cancel</button>
                 </div>
               </div>

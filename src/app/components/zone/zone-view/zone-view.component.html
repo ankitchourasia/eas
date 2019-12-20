@@ -77,32 +77,32 @@
       <div class="modal-body">
         <form #zoneEditForm = "ngForm" id="zoneEditForm">
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Region Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Region Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="zoneToEdit.division?.circle?.region?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Circle Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Circle Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="zoneToEdit.division?.circle?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Division Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Division Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="zoneToEdit.division?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Old Zone Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Old Zone Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="zoneToEdit.oldName | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">New Zone Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">New Zone Name</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !newZone.errors && (newZone.dirty || newZone.touched),'is-invalid': newZone.errors && (newZone.dirty || newZone.touched)}"
                 class="form-control" [(ngModel)]="zoneToEdit.name" #newZone="ngModel" id="newZone"  name="newZone" required>
               <div class="invalid-feedback" *ngIf="newZone.errors && (newZone.dirty || newZone.touched)">
@@ -111,12 +111,12 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-4 offset-3">
+            <div class="col-4 offset-4">
               <button type="button" class="btn btn-success form-control" (click)=updateClicked(modalCloseButtonRef) [disabled]="!zoneEditForm.form.valid || _updateClicked">
                 Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
               </button>
             </div>
-            <div class="col-4 offset-1">
+            <div class="col-4">
               <button type="reset" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef [disabled]="_updateClicked">Cancel</button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <form #exportPointReadAddForm="ngForm" autocomplete="off">
   <div class="form-group row">
-    <label class="col-sm-3">Region</label>
-    <div class="col-sm-9">
+    <label class="col-4">Region</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Circle</label>
-    <div class="col-sm-9">
+    <label class="col-4">Circle</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -26,8 +26,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Division</label>
-    <div class="col-sm-9">
+    <label class="col-4">Division</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -39,8 +39,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Zone</label>
-    <div class="col-sm-9">
+    <label class="col-4">Zone</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(formData.zone)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -52,8 +52,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Feeder Name</label>
-    <div class="col-sm-9">
+    <label class="col-4">Feeder Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
         class="form-control" [(ngModel)]="formData.exportPointFeeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(formData.exportPointFeeder)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -65,8 +65,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Export Location Name</label>
-    <div class="col-sm-9">
+    <label class="col-4">Export Location Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !exportLocationName.errors && (exportLocationName.dirty || exportLocationName.touched),'is-invalid': exportLocationName.errors && (exportLocationName.dirty || exportLocationName.touched)}"
         class="form-control" [(ngModel)]="formData.exportPointLocation" #exportLocationName="ngModel" id="exportLocationName"  name="exportLocationName" required (change)="!exportLocationName.errors && exportLocationNameChanged(formData.exportPointLocation)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -78,8 +78,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Meter MF</label>
-    <div class="col-sm-9">
+    <label class="col-4">Meter MF</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !meterMF.errors && (meterMF.dirty || meterMF.touched),'is-invalid': meterMF.errors && (meterMF.dirty || meterMF.touched)}"
         class="form-control" [ngModel]="formData.exportPointLocation?.mf" #meterMF="ngModel" id="meterMF"  name="meterMF" required readonly>
       <div class="invalid-feedback" *ngIf="meterMF.errors && (meterMF.dirty || meterMF.touched)">
@@ -88,8 +88,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Meter No</label>
-    <div class="col-sm-9">
+    <label class="col-4">Meter No</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !meterNo.errors && (meterNo.dirty || meterNo.touched),'is-invalid': meterNo.errors && (meterNo.dirty || meterNo.touched)}"
         class="form-control" [ngModel]="formData.exportPointLocation?.meterNo" #meterNo="ngModel" id="meterNo"  name="meterNo" required readonly>
       <div class="invalid-feedback" *ngIf="meterNo.errors && (meterNo.dirty || meterNo.touched)">
@@ -98,8 +98,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Previous Reading</label>
-    <div class="col-sm-9">
+    <label class="col-4">Previous Reading</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !previousReading.errors && (previousReading.dirty || previousReading.touched),'is-invalid': previousReading.errors && (previousReading.dirty || previousReading.touched)}"
         class="form-control" [ngModel]="formData.previousRead" #previousReading="ngModel" id="previousReading"  name="previousReading" required readonly>
       <div class="invalid-feedback" *ngIf="previousReading.errors && (previousReading.dirty || previousReading.touched)">
@@ -109,8 +109,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Previous Reading Date</label>
-    <div class="col-sm-9">
+    <label class="col-4">Previous Reading Date</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !prevReadingDate.errors && (prevReadingDate.dirty || prevReadingDate.touched),'is-invalid': prevReadingDate.errors && (prevReadingDate.dirty || prevReadingDate.touched)}"
         class="form-control" [ngModel]="(formData.previousReadDate | date : globalConstants.DATE_FORMAT | uppercase)" #prevReadingDate="ngModel" id="prevReadingDate"  name="prevReadingDate" required readonly>
       <div class="invalid-feedback" *ngIf="prevReadingDate.errors && (prevReadingDate.dirty || prevReadingDate.touched)">
@@ -119,8 +119,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Previous Bill Month</label>
-    <div class="col-sm-9">
+    <label class="col-4">Previous Bill Month</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !prevBillMonth.errors && (prevBillMonth.dirty || prevBillMonth.touched),'is-invalid': prevBillMonth.errors && (prevBillMonth.dirty || prevBillMonth.touched)}"
         class="form-control" [ngModel]="formData.previousBillMonth | uppercase" #prevBillMonth="ngModel" id="prevBillMonth"  name="prevBillMonth" required readonly>
       <div class="invalid-feedback" *ngIf="prevBillMonth.errors && (prevBillMonth.dirty || prevBillMonth.touched)">
@@ -129,8 +129,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3"><strong>Bill Month for Current Reading</strong></label>
-    <div class="col-sm-9">
+    <label class="col-4"><strong>Bill Month for Current Reading</strong></label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !currentReadingBillMonth.errors && (currentReadingBillMonth.dirty || currentReadingBillMonth.touched),'is-invalid': currentReadingBillMonth.errors && (currentReadingBillMonth.dirty || currentReadingBillMonth.touched)}"
         class="form-control" [ngModel]="formData.billMonth" #currentReadingBillMonth="ngModel" id="currentReadingBillMonth"  name="currentReadingBillMonth" required readonly>
       <div class="invalid-feedback" *ngIf="currentReadingBillMonth.errors && (currentReadingBillMonth.dirty || currentReadingBillMonth.touched)">
@@ -140,8 +140,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Current Reading</label>
-    <div class="col-sm-9">
+    <label class="col-4">Current Reading</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
         class="form-control" [(ngModel)]="formData.currentReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="(formData.previousRead)" step="0.001" required (change)="!currentReading.errors && currentReadingChanged()">
       <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
@@ -151,8 +151,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Current Reading Date</label>
-    <div class="col-sm-9">
+    <label class="col-4">Current Reading Date</label>
+    <div class="col-8">
       <input type="date" [ngClass]="{'is-valid': !currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched),'is-invalid': currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)}"
         class="form-control" [(ngModel)]="formData.currentReadingDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate"  [min]="(formData.previousReadDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
       <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
@@ -162,8 +162,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Difference</label>
-    <div class="col-sm-9">
+    <label class="col-4">Difference</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !readDifference.errors && (readDifference.dirty || readDifference.touched),'is-invalid': readDifference.errors && (readDifference.dirty || readDifference.touched)}"
         class="form-control" [ngModel]="formData.difference" #readDifference="ngModel" id="readDifference"  name="readDifference" required readonly>
       <div class="invalid-feedback" *ngIf="readDifference.errors && (readDifference.dirty || readDifference.touched)">
@@ -173,8 +173,8 @@
   </div>
   
   <div class="form-group row">
-    <label class="col-sm-3">Metered Consumption</label>
-    <div class="col-sm-9">
+    <label class="col-4">Metered Consumption</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !meteredConsumption.errors && (meteredConsumption.dirty || meteredConsumption.touched),'is-invalid': meteredConsumption.errors && (meteredConsumption.dirty || meteredConsumption.touched)}"
         class="form-control" [ngModel]="formData.consumption" #meteredConsumption="ngModel" id="meteredConsumption"  name="meteredConsumption"required readonly>
       <div class="invalid-feedback" *ngIf="meteredConsumption.errors && (meteredConsumption.dirty || meteredConsumption.touched)">
@@ -183,8 +183,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Assessment Units</label>
-    <div class="col-sm-9">
+    <label class="col-4">Assessment Units</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched),'is-invalid': assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)}"
         class="form-control" [(ngModel)]="formData.assessment" #assessmentUnit="ngModel" id="assessmentUnit"  name="assessmentUnit" [min]="0" step="0" required (change)="!assessmentUnit.errors && assessmentUnitChanged()">
       <div class="invalid-feedback" *ngIf="assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)">
@@ -194,8 +194,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Total Consumption</label>
-    <div class="col-sm-9">
+    <label class="col-4">Total Consumption</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !totalConsumption.errors && (totalConsumption.dirty || totalConsumption.touched),'is-invalid': totalConsumption.errors && (totalConsumption.dirty || totalConsumption.touched)}"
         class="form-control" [ngModel]="formData.totalConsumption" #totalConsumption="ngModel" id="totalConsumption"  name="totalConsumption"required readonly>
       <div class="invalid-feedback" *ngIf="totalConsumption.errors && (totalConsumption.dirty || totalConsumption.touched)">
@@ -204,12 +204,12 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-4 offset-3">
+    <div class="col-4 offset-4">
       <button type="button" class="btn btn-success form-control" (click)=submitClicked(exportPointReadAddForm) [disabled]="_submitClicked">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
-    <div class="col-4 offset-1">
+    <div class="col-4">
       <button type="button" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
     </div>
   </div>

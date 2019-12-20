@@ -1,7 +1,7 @@
 <form #zoneAddForm = "ngForm" id="zoneAddForm">
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Region Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Region Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(formData.region)">
         <option disabled selected [ngValue]=undefined>Select</option>
@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Circle Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Circle Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(formData.circle)">
         <option disabled selected [ngValue]=undefined>Select</option>
@@ -26,8 +26,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Division Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Division Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(formData.division)">
         <option disabled selected [ngValue]=undefined>Select</option>
@@ -39,8 +39,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Zone Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Zone Name</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control" [(ngModel)]="formData.name" #zone="ngModel" id="zone"  name="zone" required>
       <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
@@ -49,8 +49,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Zone Code</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Zone Code</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !zoneCode.errors && (zoneCode.dirty || zoneCode.touched),'is-invalid': zoneCode.errors && (zoneCode.dirty || zoneCode.touched)}"
         class="form-control" [(ngModel)]="formData.locationCode" #zoneCode="ngModel" id="zoneCode"  name="zoneCode" required>
       <div class="invalid-feedback" *ngIf="zoneCode.errors && (zoneCode.dirty || zoneCode.touched)">
@@ -59,8 +59,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Zone Ref</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Zone Ref</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !zoneRef.errors && (zoneRef.dirty || zoneRef.touched),'is-invalid': zoneRef.errors && (zoneRef.dirty || zoneRef.touched)}"
         class="form-control" [(ngModel)]="formData.zoneRef" #zoneRef="ngModel" id="zoneRef"  name="zoneRef" required>
       <div class="invalid-feedback" *ngIf="zoneRef.errors && (zoneRef.dirty || zoneRef.touched)">
@@ -69,8 +69,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">IS RAPDRP Zone</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">IS RAPDRP Zone</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !rapdrpLocation.errors && (rapdrpLocation.dirty || rapdrpLocation.touched),'is-invalid': rapdrpLocation.errors && (rapdrpLocation.dirty || rapdrpLocation.touched)}"
         class="form-control" [(ngModel)]="formData.rapdrpLocation" #rapdrpLocation="ngModel" id="rapdrpLocation"  name="rapdrpLocation" required>
         <option disabled selected [ngValue]=undefined>Select</option>
@@ -83,8 +83,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Baseline Loss(%)</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Baseline Loss(%)</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !baselineLoss.errors && (baselineLoss.dirty || baselineLoss.touched),'is-invalid': baselineLoss.errors && (baselineLoss.dirty || baselineLoss.touched)}"
         class="form-control" [(ngModel)]="formData.baselineLoss.baselineLoss" #baselineLoss="ngModel" id="baselineLoss"  name="baselineLoss" pattern="(-)?\d{1,3}(\.\d{1,2})?" [min]="0" [max]="100" required>
       <div class="invalid-feedback" *ngIf="baselineLoss.errors && (baselineLoss.dirty || baselineLoss.touched)">
@@ -96,12 +96,12 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-4 offset-3">
+    <div class="col-4 offset-4">
       <button type="button" class="btn btn-success form-control" (click)=submitClicked(zoneAddForm) [disabled]="!zoneAddForm.form.valid || _submitClicked">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
-    <div class="col-4 offset-1">
+    <div class="col-4">
       <button type="button" class="btn btn-danger form-control" (click)="resetClicked(zoneAddForm)" [disabled]="_submitClicked">Reset</button>
     </div>
   </div>

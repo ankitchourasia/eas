@@ -1,7 +1,7 @@
 <form #exportPointAddForm="ngForm" autocomplete="off">
   <div class="form-group row">
-    <label class="col-sm-3">Region</label>
-    <div class="col-sm-9">
+    <label class="col-4">Region</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Circle</label>
-    <div class="col-sm-9">
+    <label class="col-4">Circle</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -26,8 +26,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Division</label>
-    <div class="col-sm-9">
+    <label class="col-4">Division</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -39,8 +39,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Zone</label>
-    <div class="col-sm-9">
+    <label class="col-4">Zone</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(formData.zone)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -52,8 +52,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3">Feeder Name</label>
-    <div class="col-sm-9">
+    <label class="col-4">Feeder Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
         class="form-control" [(ngModel)]="formData.feeder" #feederName="ngModel" id="feederName"  name="feederName" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -65,8 +65,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Location Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Location Name</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !locationName.errors && (locationName.dirty || locationName.touched),'is-invalid': locationName.errors && (locationName.dirty || locationName.touched)}"
         class="form-control" [(ngModel)]="formData.locationName" #locationName="ngModel" id="locationName"  name="locationName" required>
       <div class="invalid-feedback" *ngIf="locationName.errors && (locationName.dirty || locationName.touched)">
@@ -75,8 +75,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Meter Make</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Meter Make</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !meterMake.errors && (meterMake.dirty || meterMake.touched),'is-invalid': meterMake.errors && (meterMake.dirty || meterMake.touched)}"
         class="form-control" [(ngModel)]="formData.meterMake" #meterMake="ngModel" id="meterMake"  name="meterMake" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -88,8 +88,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Meter No</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Meter No</label>
+    <div class="col-8">
       <input type="text" [ngClass]="{'is-valid': !meterNo.errors && (meterNo.dirty || meterNo.touched),'is-invalid': meterNo.errors && (meterNo.dirty || meterNo.touched)}"
         class="form-control" [(ngModel)]="formData.meterNo" #meterNo="ngModel" id="meterNo"  name="meterNo" required>
       <div class="invalid-feedback" *ngIf="meterNo.errors && (meterNo.dirty || meterNo.touched)">
@@ -98,8 +98,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Overall MF</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Overall MF</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !overallMF.errors && (overallMF.dirty || overallMF.touched),'is-invalid': overallMF.errors && (overallMF.dirty || overallMF.touched)}"
         class="form-control" [(ngModel)]="formData.mf" #overallMF="ngModel" id="overallMF"  name="overallMF" [min]="1" [max]="10000" step="0.0001" required>
       <div class="invalid-feedback" *ngIf="overallMF.errors && (overallMF.dirty || overallMF.touched)">
@@ -110,8 +110,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Status</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Status</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !status.errors && (status.dirty || status.touched),'is-invalid': status.errors && (status.dirty || status.touched)}"
         class="form-control" [(ngModel)]="formData.status" #status="ngModel" id="status"  name="status" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -124,12 +124,12 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-4 offset-3">
+    <div class="col-4 offset-4">
       <button type="submit" class="btn btn-success form-control" (click)=submitClicked(exportPointAddForm) [disabled]="submitButtonClicked">
         Submit <span class="spinner-border spinner-border-sm" *ngIf="submitButtonClicked"></span>
       </button>
     </div>
-    <div class="col-4 offset-1">
+    <div class="col-4">
       <button type="reset" class="btn btn-danger form-control">Reset</button>
     </div>
   </div>

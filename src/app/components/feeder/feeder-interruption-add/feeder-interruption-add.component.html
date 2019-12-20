@@ -1,7 +1,7 @@
 <form #interruptionAddForm = "ngForm" id="interruptionAddForm">
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Region Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Region Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control" [(ngModel)]="formData.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(formData.region)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Circle Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Circle Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control" [(ngModel)]="formData.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(formData.circle)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -26,8 +26,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Division Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Division Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(formData.division)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -39,8 +39,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Zone Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Zone Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(formData.zone)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -52,8 +52,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Substation Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Substation Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
         class="form-control" [(ngModel)]="formData.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(formData.substation)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -65,8 +65,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Feeder Name</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Feeder Name</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
         class="form-control" [(ngModel)]="formData.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(formData.feeder)">
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -78,8 +78,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Bill Month</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Bill Month</label>
+    <div class="col-8">
       <div class="row">
         <div class="col-6">
           <select [ngClass]="{'is-valid': !billMonth.errors && (billMonth.dirty || billMonth.touched),'is-invalid': billMonth.errors && (billMonth.dirty || billMonth.touched)}"
@@ -105,8 +105,8 @@
     </div>
   </div>
   <!-- <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Total No of Consumers</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Total No of Consumers</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !totalConsumers.errors && (totalConsumers.dirty || totalConsumers.touched),'is-invalid': totalConsumers.errors && (totalConsumers.dirty || totalConsumers.touched)}"
         class="form-control" [(ngModel)]="formData.totalConsumer" #totalConsumers="ngModel" id="totalConsumers"  name="totalConsumers" pattern="\d{1,9}" [min]="0" required>
       <div class="invalid-feedback" *ngIf="totalConsumers.errors && (totalConsumers.dirty || totalConsumers.touched)">
@@ -117,8 +117,8 @@
     </div>
   </div> -->
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Total No of Interruptions</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Total No of Interruptions</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !totalInterruptions.errors && (totalInterruptions.dirty || totalInterruptions.touched),'is-invalid': totalInterruptions.errors && (totalInterruptions.dirty || totalInterruptions.touched)}"
         class="form-control" [(ngModel)]="formData.totalInterruption" #totalInterruptions="ngModel" id="totalInterruptions"  name="totalInterruptions" pattern="\d{1,9}" [min]="0" required>
       <div class="invalid-feedback" *ngIf="totalInterruptions.errors && (totalInterruptions.dirty || totalInterruptions.touched)">
@@ -129,8 +129,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Interruption Duration (Minutes and Seconds)</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Interruption Duration (Minutes and Seconds)</label>
+    <div class="col-8">
       <div class="row">
         <div class="col-6">
           <input type="number" [ngClass]="{'is-valid': !minutes.errors && (minutes.dirty || minutes.touched),'is-invalid': minutes.errors && (minutes.dirty || minutes.touched)}"
@@ -157,12 +157,12 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-4 offset-3">
+    <div class="col-4 offset-4">
       <button type="button" class="btn btn-success form-control" (click)=submitClicked(interruptionAddForm) [disabled]="!interruptionAddForm.form.valid || _submitClicked">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
-    <div class="col-4 offset-1">
+    <div class="col-4">
       <button type="button" class="btn btn-danger form-control" (click)="resetClicked(interruptionAddForm)" [disabled]="_submitClicked">Reset</button>
     </div>
   </div>

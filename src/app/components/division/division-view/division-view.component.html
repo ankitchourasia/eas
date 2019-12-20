@@ -71,26 +71,26 @@
       <div class="modal-body">
         <form #divisionEditForm = "ngForm" id="divisionEditForm">
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Region Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Region Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="divisionToEdit.circle?.region?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Circle Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Circle Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="divisionToEdit.circle?.name | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Old Division Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">Old Division Name</label>
+            <div class="col-8">
               <input type="text" class="form-control" [value]="divisionToEdit.oldName | uppercase" id="oldDivision"  name="oldDivision" required disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">New Division Name</label>
-            <div class="col-sm-9">
+            <label class="col-4 col-form-label">New Division Name</label>
+            <div class="col-8">
               <input type="text" [ngClass]="{'is-valid': !newDivision.errors && (newDivision.dirty || newDivision.touched),'is-invalid': newDivision.errors && (newDivision.dirty || newDivision.touched)}"
                 class="form-control" [(ngModel)]="divisionToEdit.name" #newDivision="ngModel" id="newDivision"  name="newDivision" required>
               <div class="invalid-feedback" *ngIf="newDivision.errors && (newDivision.dirty || newDivision.touched)">
@@ -99,12 +99,12 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-4 offset-3">
+            <div class="col-4 offset-4">
               <button type="button" class="btn btn-success form-control" (click)=updateClicked(modalCloseButtonRef) [disabled]="!divisionEditForm.form.valid || _updateClicked">
                 Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
               </button>
             </div>
-            <div class="col-4 offset-1">
+            <div class="col-4">
               <button type="reset" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef [disabled]="_updateClicked">Cancel</button>
             </div>
           </div>

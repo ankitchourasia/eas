@@ -74,32 +74,32 @@
           <fieldset [disabled]="_updateClicked">
             <form #updateSubstattionForm="ngForm" autocomplete="off">
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Region</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Region</label>
+                <div class="col-8">
                   <select class="form-control" id="region" name="region">
                     <option selected>{{user.region.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Circle</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Circle</label>
+                <div class="col-8">
                   <select class="form-control" id="circle"  name="circle" required>
                     <option selected>{{user.circle.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Division</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Division</label>
+                <div class="col-8">
                   <select class="form-control" id="division"  name="division" required>
                     <option selected>{{user.division.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Zone</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Zone</label>
+                <div class="col-8">
                   <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
                     class="form-control" [(ngModel)]="substationToEdit.zoneId" #zone="ngModel" id="zone"  name="zone" required>
                     <option disabled selected [ngValue]='undefined'>Select</option>
@@ -111,8 +111,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Name</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Name</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
                     class="form-control" [(ngModel)]="substationToEdit.name" #substationName="ngModel" id="substationName"  name="substationName" required>
                   <div class="invalid-feedback" *ngIf="substationName.errors && (substationName.dirty || substationName.touched)">
@@ -121,8 +121,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Code</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Code</label>
+                <div class="col-8">
                   <input type="text" [ngClass]="{'is-valid': !substationCode.errors && (substationCode.dirty || substationCode.touched),'is-invalid': substationCode.errors && (substationCode.dirty || substationCode.touched)}"
                     class="form-control" [(ngModel)]="substationToEdit.code" #substationCode="ngModel" id="substationCode"  name="substationCode" required>
                   <div class="invalid-feedback" *ngIf="substationCode.errors && (substationCode.dirty || substationCode.touched)">
@@ -131,12 +131,12 @@
                 </div>
               </div>
               <div class="form-group row">
-                <div class="col-4 offset-3">
+                <div class="col-4 offset-4">
                   <button type="button" class="btn btn-success form-control" (click)="updateSubstation(updateSubstattionForm, modalCloseButtonRef)">
                     Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
                   </button>
                 </div>
-                <div class="col-4 offset-1">
+                <div class="col-4">
                   <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef>Cancel</button>
                 </div>
               </div>

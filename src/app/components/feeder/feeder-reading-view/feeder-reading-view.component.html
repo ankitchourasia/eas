@@ -110,56 +110,56 @@
           <fieldset [disabled]="updateButtonClicked">
             <form #updateReadingForm="ngForm" autocomplete="off">
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Zone</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Zone</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.zone.name | uppercase" name="zoneName" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Bill Month</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Bill Month</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.billMonth" name="billMonth" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">feeder</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">feeder</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.feeder.name" name="feederName" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Group No</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Group No</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.groupNo1" name="groupNo" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">MF</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">MF</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.mf" name="mf" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Meter No</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Meter No</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.meterNo" name="meterNo" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Previous Read</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Previous Read</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.prevReading" name="previousRead" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Previous Read Date</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Previous Read Date</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.prevReadingDateInString | uppercase" name="zoneName" disabled>
                 </div>
               </div> 
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Current Reading</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Current Reading</label>
+                <div class="col-8">
                   <input type="number" [ngClass]="{'is-valid': !currentRead.errors && (currentRead.dirty || currentRead.touched),'is-invalid': currentRead.errors && (currentRead.dirty || currentRead.touched)}"
                     class="form-control" [(ngModel)]="readingToEdit.currReading" #currentRead="ngModel" id="currentRead"  name="currentRead" [min]="readingToEdit.prevReading" (change)="!currentRead.errors && readingChanged()" required>
                   <div class="invalid-feedback" *ngIf="currentRead.errors && (currentRead.dirty || currentRead.touched)">
@@ -169,8 +169,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Current Read Date</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Current Read Date</label>
+                <div class="col-8">
                     <input type="date" class="form-control" [ngClass]="{'is-valid': !currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched),'is-invalid': currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)}"
                     [(ngModel)]="readingToEdit.currReadingDate" name="currentReadDate" id="currentReadDate" [min]="readingToEdit.prevReadingDate | date : 'yyyy-MM-dd'"
                     #currentReadDate="ngModel" required>
@@ -181,20 +181,20 @@
                 </div>
               </div>  
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Difference</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Difference</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.readingDiff" name="difference" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Metered Consumption</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Metered Consumption</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.meterConsumption" name="meterConsumption" disabled>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Assessment</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Assessment</label>
+                <div class="col-8">
                   <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
                     class="form-control" [(ngModel)]="readingToEdit.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
                   <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
@@ -204,18 +204,18 @@
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Total Consumption</label>
-                <div class="col-sm-9">
+                <label class="col-4 col-form-label">Total Consumption</label>
+                <div class="col-8">
                   <input type="text" class="form-control" [ngModel]="readingToEdit.totalConsumption" name="totalConsumption" disabled>
                 </div>
               </div>                 
               <div class="form-group row">
-                <div class="col-4 offset-3">
+                <div class="col-4 offset-4">
                   <button type="button" class="btn btn-success form-control" (click)=updateClicked(updateReadingForm)>
                     Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span>
                   </button>
                 </div>
-                <div class="col-4 offset-1">
+                <div class="col-4">
                   <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef>Cancel</button>
                 </div>
               </div>

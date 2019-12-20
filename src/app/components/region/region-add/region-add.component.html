@@ -7,7 +7,7 @@
       <div [hidden]="!regionName.errors.required">required field</div>
     </div>
   </div>
-  <button type="submit" class="btn btn-success form-control col-sm-3" [disabled]="regionName.errors || _submitClicked" (click)="submitClicked()">
+  <button type="submit" class="btn btn-success form-control col-4" [disabled]="regionName.errors || _submitClicked" (click)="submitClicked()">
     Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
   </button>
 </div>

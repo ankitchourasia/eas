@@ -1,7 +1,7 @@
 <form  #readAddForm="ngForm">
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Service No</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Service No</label>
+    <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !serviceNo.errors && (serviceNo.dirty || serviceNo.touched),'is-invalid': serviceNo.errors && (serviceNo.dirty || serviceNo.touched)}"
         class="form-control" [(ngModel)]="serviceNumber" #serviceNo="ngModel" id="serviceNo"  name="serviceNo" required (change)="searchInputChanged()">
       <div class="invalid-feedback" *ngIf="serviceNo.errors && (serviceNo.dirty || serviceNo.touched)">
@@ -11,8 +11,8 @@
   </div>
   <div class="form-group row">
     <div class="input-group">
-      <label class="col-sm-3 col-form-label">Bill Month</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Bill Month</label>
+      <div class="col-8">
         <div class="input-group">
           <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
             class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required (change)="searchInputChanged()">
@@ -38,32 +38,32 @@
   </div>
   <fieldset *ngIf="consumer">
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Division Name</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Division Name</label>
+      <div class="col-8">
           <input type="text" class="form-control" [ngModel]="consumer?.division.name" id="divisionName" name="divisionName" disabled>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Zone Name</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Zone Name</label>
+      <div class="col-8">
           <input type="text" class="form-control" [ngModel]="consumer?.zone.name" id="zoneName" name="zoneName" disabled>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Feeder Name</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Feeder Name</label>
+      <div class="col-8">
           <input type="text" class="form-control" [ngModel]="consumer?.feeder.name" id="feederName" name="feederName" disabled>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Consumer Name</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Consumer Name</label>
+      <div class="col-8">
           <input type="text" class="form-control" [ngModel]="consumer?.consumerName" id="consumerName" name="consumerName" disabled>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Consumption</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Consumption</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !consumpton.errors && (consumpton.dirty || consumpton.touched),'is-invalid': consumpton.errors && (consumpton.dirty || consumpton.touched)}"
           class="form-control" [(ngModel)]="formData.totalConsumption" #consumpton="ngModel" id="consumpton"  name="consumpton" min="0" required>
         <div class="invalid-feedback" *ngIf="consumpton.errors && (consumpton.dirty || consumpton.touched)">
@@ -73,8 +73,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Billed Unit</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Billed Unit</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !billedUnit.errors && (billedUnit.dirty || billedUnit.touched),'is-invalid': billedUnit.errors && (billedUnit.dirty || billedUnit.touched)}"
           class="form-control" [(ngModel)]="formData.billedUnits" #billedUnit="ngModel" id="billedUnit"  name="billedUnit" min="0" required>
         <div class="invalid-feedback" *ngIf="billedUnit.errors && (billedUnit.dirty || billedUnit.touched)">
@@ -84,8 +84,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Amount Billed</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Amount Billed</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !amountBilled.errors && (amountBilled.dirty || amountBilled.touched),'is-invalid': amountBilled.errors && (amountBilled.dirty || amountBilled.touched)}"
           class="form-control" [(ngModel)]="formData.amountBilled" #amountBilled="ngModel" id="amountBilled"  name="amountBilled" min="0" required>
         <div class="invalid-feedback" *ngIf="amountBilled.errors && (amountBilled.dirty || amountBilled.touched)">
@@ -95,8 +95,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Amount Collected</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Amount Collected</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !amountCollected.errors && (amountCollected.dirty || amountCollected.touched),'is-invalid': amountCollected.errors && (amountCollected.dirty || amountCollected.touched)}"
           class="form-control" [(ngModel)]="formData.amountCollected" #amountCollected="ngModel" id="amountCollected"  name="amountCollected" min="0" required>
         <div class="invalid-feedback" *ngIf="amountCollected.errors && (amountCollected.dirty || amountCollected.touched)">
@@ -106,12 +106,12 @@
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-4 offset-3">
+      <div class="col-4 offset-4">
         <button type="button" class="btn btn-success form-control" (click)="submitClicked()" [disabled]="!readAddForm.form.valid || _submitClicked">
           Submit <span class="spinner-border spinner-border-sm" *ngIf="_submitClicked"></span>
         </button>
       </div>
-      <div class="col-4 offset-1">
+      <div class="col-4">
         <button type="button" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
       </div>
     </div>

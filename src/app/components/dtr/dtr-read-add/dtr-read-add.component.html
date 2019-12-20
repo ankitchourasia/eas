@@ -1,8 +1,8 @@
 <fieldset [disabled]="submitButtonClicked">
   <form #dtrReadAddForm="ngForm" autocomplete="off">
     <div class="form-group row">
-      <label class="col-sm-3">Region</label>
-      <div class="col-sm-9">
+      <label class="col-4">Region</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(dtrReadAdd.region)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -14,8 +14,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Circle</label>
-      <div class="col-sm-9">
+      <label class="col-4">Circle</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(dtrReadAdd.circle)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -27,8 +27,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Division</label>
-      <div class="col-sm-9">
+      <label class="col-4">Division</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(dtrReadAdd.division)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -40,8 +40,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Zone</label>
-      <div class="col-sm-9">
+      <label class="col-4">Zone</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(dtrReadAdd.zone)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -53,8 +53,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Substation Name</label>
-      <div class="col-sm-9">
+      <label class="col-4">Substation Name</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(dtrReadAdd.substation)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -66,8 +66,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Feeder Name</label>
-      <div class="col-sm-9">
+      <label class="col-4">Feeder Name</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(dtrReadAdd.feeder)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -79,8 +79,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Group No.</label>
-      <div class="col-sm-9">
+      <label class="col-4">Group No.</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrGroupNo.errors && (dtrGroupNo.dirty || dtrGroupNo.touched),'is-invalid': dtrGroupNo.errors && (dtrGroupNo.dirty || dtrGroupNo.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.feeder?.groupNo" #dtrGroupNo="ngModel" id="dtrGroupNo"  name="dtrGroupNo" required readonly>
         <div class="invalid-feedback" *ngIf="dtrGroupNo.errors && (dtrGroupNo.dirty || dtrGroupNo.touched)">
@@ -89,8 +89,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">DTR Name</label>
-      <div class="col-sm-9">
+      <label class="col-4">DTR Name</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !dtrName.errors && (dtrName.dirty || dtrName.touched),'is-invalid': dtrName.errors && (dtrName.dirty || dtrName.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.dtr" #dtrName="ngModel" id="dtrName"  name="dtrName" required (change)="!dtrName.errors && dtrChanged(dtrReadAdd.dtr)">
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -102,8 +102,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">RD No.</label>
-      <div class="col-sm-9">
+      <label class="col-4">RD No.</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrRdNo.errors && (dtrRdNo.dirty || dtrRdNo.touched),'is-invalid': dtrRdNo.errors && (dtrRdNo.dirty || dtrRdNo.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.dtr?.billingRDNo" #dtrRdNo="ngModel" id="dtrRdNo"  name="dtrRdNo" required readonly>
         <div class="invalid-feedback" *ngIf="dtrRdNo.errors && (dtrRdNo.dirty || dtrRdNo.touched)">
@@ -112,8 +112,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Meter MF</label>
-      <div class="col-sm-9">
+      <label class="col-4">Meter MF</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrMeterMF.errors && (dtrMeterMF.dirty || dtrMeterMF.touched),'is-invalid': dtrMeterMF.errors && (dtrMeterMF.dirty || dtrMeterMF.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.dtr?.overallMF" #dtrMeterMF="ngModel" id="dtrMeterMF"  name="dtrMeterMF" required readonly>
         <div class="invalid-feedback" *ngIf="dtrMeterMF.errors && (dtrMeterMF.dirty || dtrMeterMF.touched)">
@@ -122,8 +122,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Meter No</label>
-      <div class="col-sm-9">
+      <label class="col-4">Meter No</label>
+      <div class="col-8">
         <div class="row">
           <div class="col-5">
             <input type="text" [ngClass]="{'is-valid': !dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched),'is-invalid': dtrMeterNo.errors && (dtrMeterNo.dirty || dtrMeterNo.touched)}"
@@ -140,8 +140,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Previous Reading</label>
-      <div class="col-sm-9">
+      <label class="col-4">Previous Reading</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrPreviousReading.errors && (dtrPreviousReading.dirty || dtrPreviousReading.touched),'is-invalid': dtrPreviousReading.errors && (dtrPreviousReading.dirty || dtrPreviousReading.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.prevReading" #dtrPreviousReading="ngModel" id="dtrPreviousReading"  name="dtrPreviousReading" required readonly>
         <div class="invalid-feedback" *ngIf="dtrPreviousReading.errors && (dtrPreviousReading.dirty || dtrPreviousReading.touched)">
@@ -151,8 +151,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Previous Reading Date</label>
-      <div class="col-sm-9">
+      <label class="col-4">Previous Reading Date</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrPrevReadingDate.errors && (dtrPrevReadingDate.dirty || dtrPrevReadingDate.touched),'is-invalid': dtrPrevReadingDate.errors && (dtrPrevReadingDate.dirty || dtrPrevReadingDate.touched)}"
           class="form-control" [ngModel]="(dtrReadAdd.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" #dtrPrevReadingDate="ngModel" id="dtrPrevReadingDate"  name="dtrPrevReadingDate" required readonly>
         <div class="invalid-feedback" *ngIf="dtrPrevReadingDate.errors && (dtrPrevReadingDate.dirty || dtrPrevReadingDate.touched)">
@@ -161,8 +161,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Previous Bill Month</label>
-      <div class="col-sm-9">
+      <label class="col-4">Previous Bill Month</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !prevBillMonth.errors && (prevBillMonth.dirty || prevBillMonth.touched),'is-invalid': prevBillMonth.errors && (prevBillMonth.dirty || prevBillMonth.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.prevBillMonth | uppercase" #prevBillMonth="ngModel" id="prevBillMonth"  name="prevBillMonth" required readonly>
         <div class="invalid-feedback" *ngIf="prevBillMonth.errors && (prevBillMonth.dirty || prevBillMonth.touched)">
@@ -171,8 +171,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">Meter Replacement Date</label>
-      <div class="col-sm-9">
+      <label class="col-4">Meter Replacement Date</label>
+      <div class="col-8">
         <input type="date" [ngClass]="{'is-valid': !dtrMeterReplacementDate.errors && (dtrMeterReplacementDate.dirty || dtrMeterReplacementDate.touched),'is-invalid': dtrMeterReplacementDate.errors && (dtrMeterReplacementDate.dirty || dtrMeterReplacementDate.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.meterReplacementDate" #dtrMeterReplacementDate="ngModel" id="dtrMeterReplacementDate"  name="dtrMeterReplacementDate" [min]="dtrReadAdd.prevReadingDate" required (change)="!dtrMeterReplacementDate.errors && dtrMeterReplacementDateChanged()">
         <div class="invalid-feedback" *ngIf="dtrMeterReplacementDate.errors && (dtrMeterReplacementDate.dirty || dtrMeterReplacementDate.touched)">
@@ -182,8 +182,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">Final Read</label>
-      <div class="col-sm-9">
+      <label class="col-4">Final Read</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrReplacedMeterFinalRead.errors && (dtrReplacedMeterFinalRead.dirty || dtrReplacedMeterFinalRead.touched),'is-invalid': dtrReplacedMeterFinalRead.errors && (dtrReplacedMeterFinalRead.dirty || dtrReplacedMeterFinalRead.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.finalRead" #dtrReplacedMeterFinalRead="ngModel" id="dtrReplacedMeterFinalRead"  name="dtrReplacedMeterFinalRead" step="0.001" [min]="dtrReadAdd.prevReading" required (change)="!dtrReplacedMeterFinalRead.errors && dtrReplacedMeterFinalReadChanged()">
         <div class="invalid-feedback" *ngIf="dtrReplacedMeterFinalRead.errors && (dtrReplacedMeterFinalRead.dirty || dtrReplacedMeterFinalRead.touched)">
@@ -193,8 +193,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">New Meter No</label>
-      <div class="col-sm-9">
+      <label class="col-4">New Meter No</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrNewMeterNo.errors && (dtrNewMeterNo.dirty || dtrNewMeterNo.touched),'is-invalid': dtrNewMeterNo.errors && (dtrNewMeterNo.dirty || dtrNewMeterNo.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.newDTRMeterNo" #dtrNewMeterNo="ngModel" id="dtrNewMeterNo"  name="dtrNewMeterNo" required>
         <div class="invalid-feedback" *ngIf="dtrNewMeterNo.errors && (dtrNewMeterNo.dirty || dtrNewMeterNo.touched)">
@@ -203,8 +203,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">New Meter Make</label>
-      <div class="col-sm-9">
+      <label class="col-4">New Meter Make</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched),'is-invalid': dtrNewMeterMake.errors && (dtrNewMeterMake.dirty || dtrNewMeterMake.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.newMeterMake" #dtrNewMeterMake="ngModel" id="dtrNewMeterMake"  name="dtrNewMeterMake" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -216,8 +216,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">New Meter MF</label>
-      <div class="col-sm-9">
+      <label class="col-4">New Meter MF</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrNewMeterMF.errors && (dtrNewMeterMF.dirty || dtrNewMeterMF.touched),'is-invalid': dtrNewMeterMF.errors && (dtrNewMeterMF.dirty || dtrNewMeterMF.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.newMeterMf" #dtrNewMeterMF="ngModel" id="dtrNewMeterMF"  name="dtrNewMeterMF" [min]="1" required (change)="!dtrNewMeterMF.errors && dtrNewMeterMFChanged()">
         <div class="invalid-feedback" *ngIf="dtrNewMeterMF.errors && (dtrNewMeterMF.dirty || dtrNewMeterMF.touched)">
@@ -227,8 +227,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">New Meter Capacity</label>
-      <div class="col-sm-9">
+      <label class="col-4">New Meter Capacity</label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrNewMeterCapacity.errors && (dtrNewMeterCapacity.dirty || dtrNewMeterCapacity.touched),'is-invalid': dtrNewMeterCapacity.errors && (dtrNewMeterCapacity.dirty || dtrNewMeterCapacity.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.newMeterCapacity" #dtrNewMeterCapacity="ngModel" id="dtrNewMeterCapacity"  name="dtrNewMeterCapacity" required>
         <div class="invalid-feedback" *ngIf="dtrNewMeterCapacity.errors && (dtrNewMeterCapacity.dirty || dtrNewMeterCapacity.touched)">
@@ -237,8 +237,8 @@
       </div>
     </div>
     <div class="form-group row" *ngIf="meterReplacementButtonClicked">
-      <label class="col-sm-3">New Meter Start Read</label>
-      <div class="col-sm-9">
+      <label class="col-4">New Meter Start Read</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrNewMeterStartRead.errors && (dtrNewMeterStartRead.dirty || dtrNewMeterStartRead.touched),'is-invalid': dtrNewMeterStartRead.errors && (dtrNewMeterStartRead.dirty || dtrNewMeterStartRead.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.newMeterStartRead" #dtrNewMeterStartRead="ngModel" id="dtrNewMeterStartRead"  name="dtrNewMeterStartRead" [min]="0" step="0.001" required (change)="!dtrNewMeterStartRead.errors && dtrNewMeterStartReadChanged()">
         <div class="invalid-feedback" *ngIf="dtrNewMeterStartRead.errors && (dtrNewMeterStartRead.dirty || dtrNewMeterStartRead.touched)">
@@ -248,8 +248,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3"><strong>Bill Month for Current Reading</strong></label>
-      <div class="col-sm-9">
+      <label class="col-4"><strong>Bill Month for Current Reading</strong></label>
+      <div class="col-8">
         <input type="text" [ngClass]="{'is-valid': !dtrCurrentReadingBillMonth.errors && (dtrCurrentReadingBillMonth.dirty || dtrCurrentReadingBillMonth.touched),'is-invalid': dtrCurrentReadingBillMonth.errors && (dtrCurrentReadingBillMonth.dirty || dtrCurrentReadingBillMonth.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.billMonth" #dtrCurrentReadingBillMonth="ngModel" id="dtrCurrentReadingBillMonth"  name="dtrCurrentReadingBillMonth" required readonly>
         <div class="invalid-feedback" *ngIf="dtrCurrentReadingBillMonth.errors && (dtrCurrentReadingBillMonth.dirty || dtrCurrentReadingBillMonth.touched)">
@@ -259,8 +259,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Current Reading</label>
-      <div class="col-sm-9">
+      <label class="col-4">Current Reading</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched),'is-invalid': dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.currReading" #dtrCurrentReading="ngModel" id="dtrCurrentReading"  name="dtrCurrentReading" [min]="(dtrReadAdd.newMeterStartRead?.toString().length ? dtrReadAdd.newMeterStartRead :  dtrReadAdd.prevReading)" step="0.001" required (change)="!dtrCurrentReading.errors && dtrCurrentReadingChanged()">
         <div class="invalid-feedback" *ngIf="dtrCurrentReading.errors && (dtrCurrentReading.dirty || dtrCurrentReading.touched)">
@@ -270,8 +270,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Current Reading Date</label>
-      <div class="col-sm-9">
+      <label class="col-4">Current Reading Date</label>
+      <div class="col-8">
         <input type="date" [ngClass]="{'is-valid': !dtrCurrentReadingDate.errors && (dtrCurrentReadingDate.dirty || dtrCurrentReadingDate.touched),'is-invalid': dtrCurrentReadingDate.errors && (dtrCurrentReadingDate.dirty || dtrCurrentReadingDate.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.currReadingDate" #dtrCurrentReadingDate="ngModel" id="dtrCurrentReadingDate"  name="dtrCurrentReadingDate"  [min]="(dtrReadAdd.meterReplacementDate ? dtrReadAdd.meterReplacementDate :  dtrReadAdd.prevReadingDate)" required (change)="!dtrCurrentReadingDate.errors && dtrCurrentReadingDateChanged()">
         <div class="invalid-feedback" *ngIf="dtrCurrentReadingDate.errors && (dtrCurrentReadingDate.dirty || dtrCurrentReadingDate.touched)">
@@ -281,8 +281,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Difference</label>
-      <div class="col-sm-9">
+      <label class="col-4">Difference</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrReadDifference.errors && (dtrReadDifference.dirty || dtrReadDifference.touched),'is-invalid': dtrReadDifference.errors && (dtrReadDifference.dirty || dtrReadDifference.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.readingDiff" #dtrReadDifference="ngModel" id="dtrReadDifference"  name="dtrReadDifference" required readonly>
         <div class="invalid-feedback" *ngIf="dtrReadDifference.errors && (dtrReadDifference.dirty || dtrReadDifference.touched)">
@@ -292,8 +292,8 @@
     </div>
     
     <div class="form-group row">
-      <label class="col-sm-3">Metered Consumption</label>
-      <div class="col-sm-9">
+      <label class="col-4">Metered Consumption</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrMeteredConsumption.errors && (dtrMeteredConsumption.dirty || dtrMeteredConsumption.touched),'is-invalid': dtrMeteredConsumption.errors && (dtrMeteredConsumption.dirty || dtrMeteredConsumption.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.meterConsumption" #dtrMeteredConsumption="ngModel" id="dtrMeteredConsumption"  name="dtrMeteredConsumption"required readonly>
         <div class="invalid-feedback" *ngIf="dtrMeteredConsumption.errors && (dtrMeteredConsumption.dirty || dtrMeteredConsumption.touched)">
@@ -302,8 +302,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Assessment Units</label>
-      <div class="col-sm-9">
+      <label class="col-4">Assessment Units</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched),'is-invalid': dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)}"
           class="form-control" [(ngModel)]="dtrReadAdd.assUnit" #dtrAssessmentUnit="ngModel" id="dtrAssessmentUnit"  name="dtrAssessmentUnit" [min]="0" step="0" required (change)="!dtrAssessmentUnit.errors && dtrAssessmentUnitChanged()">
         <div class="invalid-feedback" *ngIf="dtrAssessmentUnit.errors && (dtrAssessmentUnit.dirty || dtrAssessmentUnit.touched)">
@@ -313,8 +313,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3">Total Consumption</label>
-      <div class="col-sm-9">
+      <label class="col-4">Total Consumption</label>
+      <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !dtrTotalConsumption.errors && (dtrTotalConsumption.dirty || dtrTotalConsumption.touched),'is-invalid': dtrTotalConsumption.errors && (dtrTotalConsumption.dirty || dtrTotalConsumption.touched)}"
           class="form-control" [ngModel]="dtrReadAdd.totalConsumption" #dtrTotalConsumption="ngModel" id="dtrTotalConsumption"  name="dtrTotalConsumption"required readonly>
         <div class="invalid-feedback" *ngIf="dtrTotalConsumption.errors && (dtrTotalConsumption.dirty || dtrTotalConsumption.touched)">
@@ -323,12 +323,12 @@
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-4 offset-3">
+      <div class="col-4 offset-4">
         <button type="button" class="btn btn-success form-control" (click)=submitClicked(dtrReadAddForm) [disabled]="submitButtonClicked">
           Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span>
         </button>
       </div>
-      <div class="col-4 offset-1">
+      <div class="col-4">
         <button type="button" class="btn btn-danger form-control" (click)="resetClicked(dtrReadAddForm)">Reset</button>
       </div>
     </div>

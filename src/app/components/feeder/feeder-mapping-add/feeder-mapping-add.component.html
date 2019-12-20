@@ -1,31 +1,31 @@
 <form #feederMappingAddForm="ngForm" autocomplete="off">
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Region</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Region</label>
+    <div class="col-8">
       <select class="form-control" id="region" name="region">
         <option selected>{{user.region.name | uppercase}}</option>
       </select>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Circle</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Circle</label>
+    <div class="col-8">
       <select class="form-control" id="circle"  name="circle" required>
         <option selected>{{user.circle.name | uppercase}}</option>
       </select>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Division</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Division</label>
+    <div class="col-8">
       <select class="form-control" id="division"  name="division" required>
         <option selected>{{user.division.name | uppercase}}</option>
       </select>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Zone</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Zone</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control" [(ngModel)]="feederMapping.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederMapping.zoneId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -37,8 +37,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Substation</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Substation</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !substation.errors && (substation.dirty || substation.touched),'is-invalid': substation.errors && (substation.dirty || substation.touched)}"
         class="form-control" [(ngModel)]="feederMapping.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederMapping.substationId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -50,8 +50,8 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Feeder</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Feeder</label>
+    <div class="col-8">
       <select [ngClass]="{'is-valid': !feederId.errors && (feederId.dirty || feederId.touched),'is-invalid': feederId.errors && (feederId.dirty || feederId.touched)}"
         class="form-control" [(ngModel)]="feederMapping.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederMapping.feeder)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -63,15 +63,15 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-3 col-form-label">Feeder Type</label>
-    <div class="col-sm-9">
+    <label class="col-4 col-form-label">Feeder Type</label>
+    <div class="col-8">
       <input type="text" class="form-control" [ngModel]="feederMapping.feeder?.type" id="mf" name="mf" disabled>
     </div>
   </div>
   <fieldset *ngIf="feederMapping.feeder?.type && (feederMapping.feeder.type === globalConstants.FEEDER_TYPE_INTER_ZONE || feederMapping.feeder.type === globalConstants.FEEDER_TYPE_INTER_DIVISION)">
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Original Division</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Original Division</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !originalDivision.errors && (originalDivision.dirty || originalDivision.touched),'is-invalid': originalDivision.errors && (originalDivision.dirty || originalDivision.touched)}"
           class="form-control" [(ngModel)]="feederMapping.originalDivisionId" #originalDivision="ngModel" id="originalDivision" name="originalDivision" (change)="originalDivisionChanged(feederMapping.originalDivisionId)" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -83,8 +83,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-sm-3 col-form-label">Feeder</label>
-      <div class="col-sm-9">
+      <label class="col-4 col-form-label">Feeder</label>
+      <div class="col-8">
         <select [ngClass]="{'is-valid': !originalFeeder.errors && (originalFeeder.dirty || originalFeeder.touched),'is-invalid': originalFeeder.errors && (originalFeeder.dirty || originalFeeder.touched)}"
           class="form-control" [(ngModel)]="feederMapping.originalFeeder" #originalFeeder="ngModel" id="feeder" name="originalFeeder" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
@@ -97,12 +97,12 @@
     </div>
   </fieldset>
   <div class="form-group row">
-    <div class="col-4 offset-3">
+    <div class="col-4 offset-4">
       <button type="button" class="btn btn-success form-control" (click)="submitClicked()" [disabled]="!feederMappingAddForm.form.valid || feederMapping.feeder?.type === globalConstants.FEEDER_TYPE_PARENTAL || _submitClicked">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
-    <div class="col-4 offset-1">
+    <div class="col-4">
       <button type="reset" class="btn btn-danger form-control">Reset</button>
     </div>
   </div>
