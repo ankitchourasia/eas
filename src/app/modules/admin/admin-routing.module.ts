@@ -46,6 +46,8 @@ import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report/
 import { AdminReportFeederJsonFileComponent } from './admin-report/admin-report-feeder-json-file/admin-report-feeder-json-file.component';
 import { AdminFeeder33KVAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-add/admin-feeder-33kv-add.component';
 import { AdminFeeder33KVReadingAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-reading-add/admin-feeder-33kv-reading-add.component';
+import { AdminFeeder33KVExportPointAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-export-point-add/admin-feeder-33kv-export-point-add.component';
+import { AdminFeeder33KVExportPointReadingAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-export-point-reading-add/admin-feeder-33kv-export-point-reading-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -188,6 +190,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/33kv/reading/add',component: AdminFeeder33KVReadingAddComponent
+          },
+          {
+            path: 'feeder/33kv/export-point/add',component: AdminFeeder33KVExportPointAddComponent
+          },
+          {
+            path: 'feeder/33kv/export-point/reading/add',component: AdminFeeder33KVExportPointReadingAddComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

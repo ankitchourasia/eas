@@ -59,12 +59,13 @@ export class Feeder33KVReadingAddComponent implements OnInit {
   getPreviousFeederReadingByFeederId(feederId){
     let methodName = "getPreviousFeederReadingByFeederId";
     this.feederReading.currentRead = undefined;
-    this.feederReading.currentReadDate = undefined;
+    this.feederReading.currentReadingDate = undefined;
     this.feederService.getPreviousReadingBy33KVFeederId(feederId, false).subscribe(success =>{
       this.previousReading = success;
+      this.feederReading.prevBillMonth = this.previousReading.billMonth;
       this.feederReading.previousRead = this.previousReading.currentRead;
       this.feederReading.previousReadDate = this.previousReading.currentReadDate;
-      this.feederReading.prevBillMonth = this.previousReading.billMonth;
+      this.feederReading.previousReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.feederReading.previousReadDate);
       this.feederReading.billMonth = this.globalResources.getNextBillMonth(this.previousReading.billMonth);
     }, error =>{
       console.log(error);
@@ -96,8 +97,8 @@ export class Feeder33KVReadingAddComponent implements OnInit {
   submitClicked(feederReadingAddForm){
     if(this.globalResources.validateForm(feederReadingAddForm)){
       this.calculateConsumption();
-      this.feederReading.currentReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.feederReading.currentReadDate);
-      this.feederReading.currentReadDate = this.feederReading.currentReadDate;
+      this.feederReading.currentReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.feederReading.currentReadingDate);
+      this.feederReading.currentReadDate = new Date(this.feederReading.currentReadingDate);
       this.addFeederReading(feederReadingAddForm);
     }
   }

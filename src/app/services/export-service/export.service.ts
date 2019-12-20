@@ -120,4 +120,41 @@ export class ExportService {
     }
     return this.httpClient.get(this.URL_PREFIX + this.EXPORT_URL + 'reading/last-inserted/' + exportLocationNameId,  options);
   }
+
+  add33KVExportPoint(exportPoint, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/', exportPoint,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/', exportPoint);
+    }
+  }
+
+  getEXportPointListBy33KVFeederId(feederId, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/feeder-33kv/' + feederId,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/feeder-33kv/' + feederId);
+    }
+  }
+
+    
+  getPreviousReadingBy33KVExportPointId(exportPointId, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/last-inserted/export-33kv/' + exportPointId,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/last-inserted/export-33kv/' + exportPointId);
+    }
+  }
+
+  add33KVExportPointReading(exportPointReading, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading);
+    }
+  }
 }
