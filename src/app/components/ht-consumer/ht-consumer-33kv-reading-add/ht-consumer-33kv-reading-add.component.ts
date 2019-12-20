@@ -54,23 +54,28 @@ export class HtConsumer33KVReadingAddComponent implements OnInit {
     });
   }
 
-  submitClicked(){
-    this.formData.billMonth = this.formData.month + '-' + this.formData.year;
-    this.formData.zoneId = this.formData.consumer.zoneId;
-    this.formData.htConsumer33KVId = this.formData.consumer.id;
-    this.formData.feeder33KVId = this.formData.consumer.feeder33KVId;
-    this.add33KVHTConsumerReading();
+  submitClicked(readAddForm){
+    if(this.globalResources.validateForm(readAddForm)){
+      this.formData.billMonth = this.formData.month + '-' + this.formData.year;
+      this.formData.zoneId = this.formData.consumer.zoneId;
+      this.formData.htConsumer33KVId = this.formData.consumer.id;
+      this.formData.feeder33KVId = this.formData.consumer.feeder33KVId;
+      this.add33KVHTConsumerReading(readAddForm);
+    }
   }
 
-  add33KVHTConsumerReading(){
+  add33KVHTConsumerReading(readAddForm){
     this._submitClicked = true;
     console.log(this.formData);
     this.htConsumerService.add33KVHTConsumerReading(this.formData, true).subscribe(success =>{
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
-        this.globalResources.successAlert("Data Added successfully");
-        this.formData = {};
+        let alertResposne = this.globalResources.successAlert("Data Added successfully");
+        alertResposne.then(result=>{
+          this.setInitialData();
+          this.globalResources.resetValidateForm(readAddForm);
+        });
       }
     }, error =>{
       this._submitClicked = false;
@@ -79,8 +84,9 @@ export class HtConsumer33KVReadingAddComponent implements OnInit {
     });
   }
 
-  resetClicked(){
+  resetClicked(readAddForm){
     this.setInitialData();
+    this.globalResources.resetValidateForm(readAddForm);
   }
 
 }
