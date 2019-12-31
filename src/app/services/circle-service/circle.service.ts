@@ -47,4 +47,13 @@ export class CircleService {
       return this.http.put(this.URL_PREFIX + this.CIRCLE_URL, circle);
     }
   }
+
+  getTownsByCircleId(circleId,response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + 'town/circle/' + circleId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'town/circle/' + circleId);
+    }
+  }
 }

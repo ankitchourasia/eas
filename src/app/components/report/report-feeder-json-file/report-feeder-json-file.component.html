@@ -81,7 +81,7 @@
 <div *ngIf="billingStatusList && billingStatusList.length && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
-    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_generateClicked || !generationStatusFlag" (click)="generateClicked()">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_generateClicked" (click)="generateClicked()">
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked && reportGenerated" (click)="viewClicked()">
