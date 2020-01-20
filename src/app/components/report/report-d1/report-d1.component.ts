@@ -147,16 +147,14 @@ export class ReportD1Component implements OnInit {
           return false;
         }
       }
-      return true;
     } else{
       return false;
     }
+    return true;
   }
 
   generateClicked(){
-    this._generateClicked = true;
     this.reportGenerated = false
-    this._generateClicked = false;
     this.generateD1ReportForTown(this.searchFormData.town.id, this.searchFormData.billingMonth);
   }
 

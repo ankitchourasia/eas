@@ -63,6 +63,11 @@
 <div *ngIf="searchResultList && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!billingDataAvailable && !reportGenerated"  (click)="fetchButtonClicked(searchResult)" 
+      [disabled]="!readingData">
+      Fetch Billing Data <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+    </button>
+
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="billingDataAvailable && !reportGenerated" (click)="generateClicked()" 
       [disabled]="_generateClicked || (searchResultList && !searchResultList.length && !lossGenerationStatus)">
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
@@ -109,7 +114,8 @@
                 <span class="fa fa-check"></span>
               </span>
               <span class="text-danger" *ngIf="!searchResult?.billingData">
-                <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button>
+                <span class="text-danger" *ngIf="!searchResult?.billingData"><span class="fa fa-times"></span></span>
+                <!-- <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button> -->
               </span>
             </td>
           </tr>

@@ -417,4 +417,13 @@ export class ReportService {
     }
   }
 
+  getBillingDataForZone(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/billing-data/zone/id/' + zoneId + "/bill-month/" + billMonth, options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/billing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
 }
