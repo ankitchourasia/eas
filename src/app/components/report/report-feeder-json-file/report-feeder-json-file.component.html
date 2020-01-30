@@ -81,8 +81,11 @@
 <div *ngIf="billingStatusList && billingStatusList.length && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
-    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_generateClicked || !generationStatusFlag" (click)="generateClicked()">
-      Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_generateClicked || !readingData" (click)="generateClicked()">
+      Fetch Billing Data<span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+    </button>
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && billingData" [disabled]="_generateClicked || !billingData" (click)="generateClicked()">
+      Generate Report<span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked && reportGenerated" (click)="viewClicked()">
       <span class="fa fa-download"> Export </span>
@@ -93,7 +96,7 @@
       <thead class="bg-dark text-white">
         <tr>
           <td class="align-middle">S.No</td>
-          <td class="align-middle">Zone Name</td>
+          <td class="align-middle">Feeder Name</td>
           <td class="align-middle">Bill Month</td>
           <td class="align-middle">Feeder Reading</td>
           <td class="align-middle">HT Reading</td>
@@ -102,9 +105,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let generationStatus of generationStatusList; let i = index">
+        <tr *ngFor="let generationStatus of billingStatusList; let i = index">
             <td class="align-middle">1</td>
-          <td class="align-middle">{{generationStatus?.zone?.name | uppercase}}</td>
+          <td class="align-middle">{{generationStatus?.feeder?.name | uppercase}}</td>
           <td class="align-middle">{{generationStatus.billMonth | uppercase}}</td>
           <td class="align-middle">
             <span class="text-success" *ngIf="generationStatus?.feederReadingInserted"><span class="fa fa-check"></span></span> 
@@ -115,18 +118,23 @@
             <span class="text-danger" *ngIf="!generationStatus?.htReadingInserted"><span class="fa fa-times"></span></span>
           </td>
           <td class="align-middle">
-            <span class="text-success" *ngIf="generationStatus?.exportReadingInserted"><span class="fa fa-check"></span></span> 
+            <span class="text-success" *ngIf="generationStatus?.exportReadingInserted"><span class="fa fa-check"></span></span>
             <span class="text-danger" *ngIf="!generationStatus?.exportReadingInserted"><span class="fa fa-times"></span></span>
           </td>
           <td class="align-middle">
-            <span class="text-success" *ngIf="generationStatus?.billingData"><span class="fa fa-check"></span></span> 
+            <span class="text-success" *ngIf="generationStatus?.billingData">
+              <!-- <button type="button" class="btn btn-sm btn-warning mx-sm-1" (click)="generateClicked()">
+                Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+              </button> -->
+              <span class="text-success"><span class="fa fa-check"></span></span>
+            </span> 
             <span class="text-danger" *ngIf="!generationStatus?.billingData"><span class="fa fa-times"></span></span>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div id="pagination" *ngIf="generationStatusList && generationStatusList.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="billingStatusList && billingStatusList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">

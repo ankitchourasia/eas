@@ -31,7 +31,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
   _generateClicked: boolean;
   reportGenerated: boolean;
   _searchClicked: boolean;
-  generationStatusFlag: boolean;
+  // generationStatusFlag: boolean;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService: PaginationService, private regionService: RegionService, 
@@ -162,77 +162,38 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this.reportGenerated = false;
     this.billingStatusList = null;
     if(this.searchFormData.zone === "ALL"){
-      this.getNGBBillingStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth);
+      // this.getNGBBillingStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth);
     }else{
-      this.getNGBBillingStatusByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth);
+      this.getGenerationStatusByZoneIdAndBillMonth(this.searchFormData);
     }
   }
 
-  getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth){
-    let methodName = "getNGBBillingStatusByDivisionIdAndBillMonth";
-    this._searchClicked = true;
-    this.generationStatusFlag = false;
-    this.billingStatusList = [];
-    this.reportService.getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
-      this._searchClicked = false;
-      this.billingStatusList =successResponse;
-      this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
-      this.billingStatusList.forEach(element => {
-        this.getGenerationStatusByZoneIdAndBillMonth(element);    
-      });
-      this.initializePaginationVariables();
-      this.setPage(1);
-    },errorResponse =>{
-      this._searchClicked = false;
-      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-    });
-  }
-
-  getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth){
-    let methodName = "getNGBBillingStatusByZoneIdAndBillMonth";
-    this._searchClicked = true;
-    this.generationStatusFlag = false;
-    this.billingStatusList = [];
-    this.reportService.getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth, false).subscribe(successResponse =>{
-      this._searchClicked = false;
-      this.billingStatusList.push(successResponse);
-      this.generationStatusFlag = this.billingStatusList.every(element => element.billingStatus);
-      this.billingStatusList.forEach(element => {
-        this.getGenerationStatusByZoneIdAndBillMonth(element);    
-      });
-      this.initializePaginationVariables();
-      this.setPage(1);
-    },errorResponse =>{
-      this._searchClicked = false;
-      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-    });
-  }
-
-  generationStatusList : any = [];
   getGenerationStatusByZoneIdAndBillMonth(searchElement){
     this._searchClicked = true;
-    this.generationStatusList = [];
-    this.reportService.getFeederMonitoringReportBillingDataByZoneIdAndBillMonth(searchElement.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
+    this.billingStatusList = [];
+    this.reportService.getFeederMonitoringReportBillingDataByZoneIdAndBillMonth(searchElement.zone.id, searchElement.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       console.log(successResponse);
-      this.generationStatusList = successResponse;
-      this.generationStatusFlag = !!(Number(this.generationStatusFlag) * Number(this.checkGenerationStatus(searchElement.generationStatusList)));
+      this.billingStatusList = successResponse;
+      // this.generationStatusFlag = !!(Number(this.generationStatusFlag) * Number(this.checkGenerationStatus(searchElement.generationStatusList)));
+      this.checkGenerationStatus(this.billingStatusList);
+      this.initializePaginationVariables();
+      this.setPage(1);
     },errorResponse =>{
       this._searchClicked = false;
       console.log(errorResponse);
     });
   }
 
-  checkGenerationStatus(resultList):boolean{
+  readingData : boolean;
+  billingData : boolean;
+  checkGenerationStatus(resultList) {
+    this.billingData = true;
     if(resultList && resultList.length){
       for(let item of resultList) {
-        if(!item.feederReadingInserted || !item.exportReadingInserted || !item.htReadingInserted){
-          return false;
-        }
-      }
-      return true;
-    } else{
-      return false;
+        this.readingData = !!(Number(this.readingData) * item.feederReadingInserted * item.htReadingInserted * item.exportReadingInserted * item.billingData)
+        this.billingData = !!(Number(this.billingData) * item.feederReadingInserted * item.htReadingInserted * item.exportReadingInserted * item.billingData);
+      }  
     }
   }
 
@@ -247,7 +208,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this._generateClicked = false;
     generateInput.zoneId = this.searchFormData.zone.id;
     generateInput.zoneName = this.searchFormData.zone.name;
-    this.generateJsonInputForZone(generateInput);
+    this.getReportDataClicked(generateInput);
   }
 
   generateJsonInputForZone(generateInputObject){
@@ -273,6 +234,15 @@ export class ReportFeederJsonFileComponent implements OnInit {
         this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
     });
+  }
+
+  getReportDataClicked(generateInputObject){
+    this.reportService.getBillingDataForZone(generateInputObject.zoneId, generateInputObject.billMonth, false).subscribe(success=>{
+      console.log(success);
+      this.searchFormData();
+    }, error=>{
+      console.log(error);
+    })
   }
 
   viewClicked(){
@@ -410,7 +380,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   initializePaginationVariables(){
     this.pager = {};
-    this.pageSize = 1;
+    this.pageSize = 10;
   }
 
   setPage(page: number) {

@@ -353,4 +353,77 @@ export class ReportService {
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/missing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
     }
   }
+
+  getD1GenerationStatusByTownIdAndBillMonth(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/missing-data/town/' + townId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/missing-data/town/' + townId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD1ByTownIdAndBillMonth(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/town/' + townId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/town/' + townId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD1ReportDataByTownIdAndBillMonth(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/billing-data/town/' + townId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/billing-data/town/' + townId + "/bill-month/" + billMonth);
+    }
+  }
+
+  generateD1ReportDataByTownIdAndBillMonth(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/town/' + townId + "/bill-month/" + billMonth, null,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd1-report/town/' + townId + "/bill-month/" + billMonth, null);
+    }
+  }
+
+  getD4GenerationStatusByTownIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/missing-data/town/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/missing-data/town/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  getD4ReportBillingDataByTownIdAndBillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/billing-data/town/id/' + zoneId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd4-report/billing-data/town/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
+  generateD4ReportByTownIdAndBillMonth(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/town/id/' + townId + "/bill-month/" + billMonth, null, options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd4-report/town/id/' + townId + "/bill-month/" + billMonth, null);
+    }
+  }
+
+  getBillingDataForZone(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/billing-data/zone/id/' + zoneId + "/bill-month/" + billMonth, options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/billing-data/zone/id/' + zoneId + "/bill-month/" + billMonth);
+    }
+  }
+
 }

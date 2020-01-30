@@ -23,26 +23,15 @@
       </div>
     </div>
     <div class="inner-group">
-      <small class="form-text text-muted required">Division</small>
-      <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="searchFormData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(searchFormData.division)">
+      <small class="form-text text-muted required">Town</small>
+      <select [ngClass]="{'is-valid': !town.errors && (town.dirty || town.touched),'is-invalid': town.errors && (town.dirty || town.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.town" #town="ngModel" id="town"  name="town" required (change)="!town.errors && townChanged(searchFormData.town)">
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+        <!-- <option *ngIf="townList && townList.length > 1">ALL</option> -->
+        <option *ngFor="let town of townList" [ngValue]="town">{{town.name | uppercase}}</option>
       </select>
-      <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
-        <div [hidden]="!division.errors.required">required field</div>
-      </div>
-    </div>
-    <div class="inner-group">
-      <small class="form-text text-muted required">Zone</small>
-      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="searchFormData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(searchFormData.zone)">
-        <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngIf="zoneList && zoneList.length > 1">ALL</option>
-        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
-      </select>
-      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
-        <div [hidden]="!zone.errors.required">required field</div>
+      <div class="invalid-feedback" *ngIf="town.errors && (town.dirty || town.touched)">
+        <div [hidden]="!town.errors.required">required field</div>
       </div>
     </div>
     <div class="inner-group">
@@ -60,7 +49,7 @@
         </select>
         <div class="input-group-append">
           <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid || _generateClicked">
-            Generate <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
+            Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -74,6 +63,11 @@
 <div *ngIf="searchResultList && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!billingDataAvailable && !reportGenerated"  (click)="fetchButtonClicked(searchResult)" 
+      [disabled]="!readingData">
+      Fetch Billing Data <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+    </button>
+
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="billingDataAvailable && !reportGenerated" (click)="generateClicked()" 
       [disabled]="_generateClicked || (searchResultList && !searchResultList.length && !lossGenerationStatus)">
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
@@ -89,7 +83,7 @@
       <thead class="bg-dark text-white">
         <tr>
           <td class="align-middle">S.No</td>
-          <td class="align-middle">Zone Name</td>
+          <td class="align-middle">town Name</td>
           <td class="align-middle">Bill Month</td>
           <td class="align-middle">Read Inserted</td>
           <td class="align-middle">Export Read Inserted</td>
@@ -101,7 +95,7 @@
         <ng-template [ngIf]="searchResultList && searchResultList.length">
           <tr *ngFor="let searchResult of pagedSearchResultList; let i = index">
             <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td class="align-middle">{{searchResult?.zone?.name | uppercase}}</td>
+            <td class="align-middle">{{searchResult?.town?.name | uppercase}}</td>
             <td class="align-middle">{{searchResult?.billMonth | uppercase}}</td>
             <td class="align-middle">
               <span class="text-success" *ngIf="searchResult?.feederReadingInserted"><span class="fa fa-check"></span></span> 
@@ -120,7 +114,8 @@
                 <span class="fa fa-check"></span>
               </span>
               <span class="text-danger" *ngIf="!searchResult?.billingData">
-                <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button>
+                <span class="text-danger" *ngIf="!searchResult?.billingData"><span class="fa fa-times"></span></span>
+                <!-- <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button> -->
               </span>
             </td>
           </tr>

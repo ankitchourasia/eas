@@ -182,6 +182,7 @@ export class ReportD7Component implements OnInit {
     this._searchClicked = true;
     this.billingStatusList = [];
     this.reportService.getNGBBillingStatusByZoneIdAndBillMonth(zoneId, billMonth, false).subscribe(successResponse =>{
+      console.log(successResponse);
       this._searchClicked = false;
       this.billingStatusList.push(successResponse);
       this.setBillingStatusFlag(this.billingStatusList);

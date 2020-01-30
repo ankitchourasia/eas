@@ -8,7 +8,7 @@ export class GlobalConstants {
     public readonly YEARS = this.globalResources.getYearList();
     public readonly MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
     public readonly FEEDER_TYPES = [{name:'INTER_DIVISION', value:'INTER DIVISION'}, {name:'INTER_ZONE', value:'INTER ZONE'}, {name:'PARENTAL', value:'PARENTAL'}];
-    public readonly METER_MAKES = [{name:'GENUS', value:'GENUS'}, {name:'HPL', value:'HPL'}, {name:'OMNI', value:'OMNI'}, {name:'SECURE', value:'SECURE'}, {name:'OTHER', value:'OTHER'}];
+    public readonly METER_MAKES = [{name:'GENUS', value:'GENUS'}, {name:'HPL', value:'HPL'}, {name:'OMNI', value:'OMNI'}, {name:'SECURE', value:'SECURE'}, {name:'MPE', value:'MPE'}, {name:'OTHER', value:'OTHER'}];
     public readonly STATUS_ACTIVE = "ACTIVE";
     public readonly STATUS_INACTIVE = "INACTIVE";
     public readonly FEEDER_TYPE_PARENTAL = "PARENTAL";
