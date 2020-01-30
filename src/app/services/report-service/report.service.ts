@@ -264,12 +264,12 @@ export class ReportService {
     }
   }
 
-  generateJsonInputForZone(inputObject, response){
+  generateJsonInputForZone(zoneId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + inputObject.zoneId + "/bill-month/" + inputObject.billMonth,  {},  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + zoneId + "/bill-month/" + billMonth,  {},  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + inputObject.zoneId + "/bill-month/" + inputObject.billMonth, {});
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/zone/id/' + zoneId + "/bill-month/" + billMonth, {});
     }
   }
 
