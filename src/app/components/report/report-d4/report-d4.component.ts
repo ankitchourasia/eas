@@ -180,9 +180,9 @@ export class ReportD4Component implements OnInit {
   }
 
   fetchClicked: boolean;
-  fetchButtonClicked(missingData) {
+  fetchButtonClicked() {
     this.fetchClicked = true;
-    this.reportService.getD4ReportBillingDataByTownIdAndBillMonth(missingData.town.id, missingData.billMonth, false).subscribe(success => {
+    this.reportService.getD4ReportBillingDataByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(success => {
       this.fetchClicked = false;
       console.log(success);
       this.searchClicked();

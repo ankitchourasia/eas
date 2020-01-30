@@ -188,10 +188,11 @@ export class ReportFeederJsonFileComponent implements OnInit {
   readingData : boolean;
   billingData : boolean;
   checkGenerationStatus(resultList) {
+    this.readingData = true;
     this.billingData = true;
     if(resultList && resultList.length){
       for(let item of resultList) {
-        this.readingData = !!(Number(this.readingData) * item.feederReadingInserted * item.htReadingInserted * item.exportReadingInserted * item.billingData)
+        this.readingData = !!(Number(this.readingData) * item.feederReadingInserted * item.htReadingInserted * item.exportReadingInserted)
         this.billingData = !!(Number(this.billingData) * item.feederReadingInserted * item.htReadingInserted * item.exportReadingInserted * item.billingData);
       }  
     }
@@ -211,9 +212,9 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this.getReportDataClicked(generateInput);
   }
 
-  generateJsonInputForZone(generateInputObject){
+  generateJsonInputForZone(){
     this._generateClicked = true;
-    this.reportService.generateJsonInputForZone(generateInputObject, true).subscribe(successResponse =>{
+    this.reportService.generateJsonInputForZone(this.searchFormData.zone.id, this.searchFormData.billingMonth, true).subscribe(successResponse =>{
       this._generateClicked = false;
       let result = <any>successResponse;
       if(result && result.status === 201){
@@ -237,10 +238,14 @@ export class ReportFeederJsonFileComponent implements OnInit {
   }
 
   getReportDataClicked(generateInputObject){
+    this._generateClicked = true;
     this.reportService.getBillingDataForZone(generateInputObject.zoneId, generateInputObject.billMonth, false).subscribe(success=>{
       console.log(success);
+      this._generateClicked = false;
+      this.globalResources.successAlert("Billing data fetched successfully.");
       this.searchFormData();
     }, error=>{
+      this._generateClicked = false;
       console.log(error);
     })
   }
