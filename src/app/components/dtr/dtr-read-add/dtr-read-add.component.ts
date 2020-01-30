@@ -254,7 +254,8 @@ export class DtrReadAddComponent implements OnInit {
 		this.dtrReadAdd.prevReadingDateInString = this.dtrPreviousReading.currReadingDateInString;
 		this.dtrReadAdd.prevBillMonth = this.dtrPreviousReading.billMonth;
 		console.log("Forming next bill month for "+this.dtrPreviousReading.billMonth);
-		let nextBillMonth = this.globalResources.getNextBillMonth(this.dtrPreviousReading.billMonth);
+    // let nextBillMonth = this.globalResources.getNextBillMonth(this.dtrPreviousReading.billMonth);
+    let nextBillMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.dtrPreviousReading.billMonth, 0, 1));
 		console.log("Setting next bill month as: "+nextBillMonth);
 		this.dtrReadAdd.billMonth = nextBillMonth;
   }

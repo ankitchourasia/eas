@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { GlobalConstants } from '@eas-utility/global.constants';
-import { ExportService } from '@eas-services/export-service/export.service';
+import { FeederService } from '@eas-services/feeder/feeder.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
-import { FeederService } from '@eas-services/feeder/feeder.service';
+import { ImportService } from '@eas-services/import-service/import.service';
 
 @Component({
-  selector: 'eas-feeder-33kv-export-point-reading-add',
-  templateUrl: './feeder-33kv-export-point-reading-add.component.html',
-  styleUrls: ['./feeder-33kv-export-point-reading-add.component.css']
+  selector: 'eas-feeder-33kv-import-point-reading-add',
+  templateUrl: './feeder-33kv-import-point-reading-add.component.html',
+  styleUrls: ['./feeder-33kv-import-point-reading-add.component.css']
 })
-export class Feeder33KVExportPointReadingAddComponent implements OnInit {
-  
-  COMPONENT_NAME = "Feeder33KVExportPointReadingAddComponent";
+export class Feeder33KVImportPointReadingAddComponent implements OnInit {
+
+  COMPONENT_NAME = "Feeder33KVImportPointReadingAddComponent";
   user : any;
   zoneList: any;
   regionList: any;
   circleList: any;
   divisionList: any;
-  exportPointFeederList: any;
-  exportPointLocationList: any;
-  exportPointPreviousReading: any;
+  importPointFeederList: any;
+  importPointLocationList: any;
+  importPointPreviousReading: any;
   _submitClicked : boolean;
   formData: any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
-    private feederService: FeederService, private exportService: ExportService, private zoneService: ZoneService) { }
+    private feederService: FeederService, private importService: ImportService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
@@ -37,9 +37,9 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.circleList = [];
     this.divisionList = [];
     this.zoneList = [];
-    this.exportPointFeederList = null;
-    this.exportPointLocationList = null;
-    this.exportPointPreviousReading = null;
+    this.importPointFeederList = null;
+    this.importPointLocationList = null;
+    this.importPointPreviousReading = null;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.regionList.push(this.user.region);
@@ -73,55 +73,55 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
 
   zoneChanged(zone){
     console.log("zone changed");
-    this.exportPointLocationList = [];
-    this.formData.exportPointFeeder = undefined;
-    this.formData.exportPointLocation = undefined;
+    this.importPointLocationList = [];
+    this.formData.importPointFeeder = undefined;
+    this.formData.importPointLocation = undefined;
     this.get33KVFeederByZoneId(zone.id);
   }
 
   get33KVFeederByZoneId(zoneId){
-    this.exportPointFeederList = [];
+    this.importPointFeederList = [];
     this.feederService.get33KVFeederByZoneId(zoneId, false).subscribe(success =>{
-      this.exportPointFeederList = success;
+      this.importPointFeederList = success;
     }, error =>{
       console.log(error);
     });
   }
 
   feederChanged(feeder){
-    this.exportPointLocationList = null;
-    this.formData.exportPointLocation = undefined;
-    this.exportPointPreviousReading = null;
-    this.getExportPointsByFeederId(feeder.id);
+    this.importPointLocationList = null;
+    this.formData.importPointLocation = undefined;
+    this.importPointPreviousReading = null;
+    this.getImportPointsByFeederId(feeder.id);
   }
 
-  getExportPointsByFeederId(feederId){
-    this.exportPointLocationList = [];
-    this.exportService.getEXportPointListBy33KVFeederId(feederId, false).subscribe(successResponse =>{
+  getImportPointsByFeederId(feederId){
+    this.importPointLocationList = [];
+    this.importService.getImportPointListBy33KVFeederId(feederId, false).subscribe(successResponse =>{
       console.log(successResponse);
-      this.exportPointLocationList = successResponse;
+      this.importPointLocationList = successResponse;
     }, errorResponse =>{
       console.log(errorResponse)
     });
   }
 
-  exportLocationNameChanged(exportLocationName){
-    this.getPreviousReadingBy33KVExportPointId(exportLocationName.id);
+  importLocationNameChanged(importLocationName){
+    this.getPreviousReadingBy33KVImportPointId(importLocationName.id);
   }
 
-  getPreviousReadingBy33KVExportPointId(exportLocationNameId){
-    let methodName = "getPreviousReadingBy33KVExportPointId";
+  getPreviousReadingBy33KVImportPointId(importLocationNameId){
+    let methodName = "getPreviousReadingBy33KVImportPointId";
     this.formData.currentReading = undefined;
     this.formData.currentReadingDate = undefined;
-    this.exportPointPreviousReading = null;
-    this.exportService.getPreviousReadingBy33KVExportPointId(exportLocationNameId, false).subscribe(successResponse =>{
-      this.exportPointPreviousReading = <any>successResponse;
-      this.formData.previousBillMonth = this.exportPointPreviousReading.billMonth;
-      this.formData.previousRead = this.exportPointPreviousReading.currentRead;
-      this.formData.previousReadDate = this.exportPointPreviousReading.currentReadDate;
+    this.importPointPreviousReading = null;
+    this.importService.getPreviousReadingBy33KVImportPointId(importLocationNameId, false).subscribe(successResponse =>{
+      this.importPointPreviousReading = <any>successResponse;
+      this.formData.previousBillMonth = this.importPointPreviousReading.billMonth;
+      this.formData.previousRead = this.importPointPreviousReading.currentRead;
+      this.formData.previousReadDate = this.importPointPreviousReading.currentReadDate;
       this.formData.previousReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.previousReadDate);
-      // this.formData.billMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
-      this.formData.billMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.exportPointPreviousReading.billMonth, 0, 1));
+      // this.formData.billMonth = this.globalResources.getNextBillMonth(this.importPointPreviousReading.billMonth);
+      this.formData.billMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.importPointPreviousReading.billMonth, 0, 1));
     }, error =>{
       console.log(error);
       let alertResponse = this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
@@ -145,7 +145,7 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
   calculateConsumption(){
     this.formData.currentRead = Number(this.formData.currentReading);
     this.formData.previousRead = Number(this.formData.previousRead)
-    this.formData.mf = Number(this.formData.exportPointLocation.mf);
+    this.formData.mf = Number(this.formData.importPointLocation.mf);
     console.log(this.formData.currentReading, this.formData.previousRead);
     if(this.formData.currentRead >= 0 && this.formData.previousRead >= 0 && this.formData.mf && this.formData.currentRead >= this.formData.previousRead){
       this.formData.difference = Number((this.formData.currentRead - this.formData.previousRead).toFixed(2));
@@ -162,30 +162,30 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     }
   }
 
-  submitClicked(exportPointReadAddForm){
-    if(this.globalResources.validateForm(exportPointReadAddForm)){
+  submitClicked(importPointReadAddForm){
+    if(this.globalResources.validateForm(importPointReadAddForm)){
       this._submitClicked = true;
       this.formData.zoneId = this.formData.zone.id;
-      this.formData.feederId = this.formData.exportPointFeeder.id;
-      this.formData.export33KVId = this.formData.exportPointLocation.id;
-      this.formData.mf = this.formData.exportPointLocation.overallMf;
-      this.formData.meterNo = this.formData.exportPointLocation.meterNo;
+      this.formData.feederId = this.formData.importPointFeeder.id;
+      this.formData.import33KVId = this.formData.importPointLocation.id;
+      this.formData.mf = this.formData.importPointLocation.overallMf;
+      this.formData.meterNo = this.formData.importPointLocation.meterNo;
 			this.calculateConsumption();
       this._submitClicked = false;
-      this.addExportPointRead(exportPointReadAddForm)
+      this.addImportPointRead(importPointReadAddForm)
     }
   }
 
-  addExportPointRead(exportPointReadAddForm){
-    let methodName = "addExportPointRead";
+  addImportPointRead(importPointReadAddForm){
+    let methodName = "addImportPointRead";
     this._submitClicked = true;
     console.log(this.formData);
-    this.exportService.add33KVExportPointReading(this.formData, false).subscribe(successResponese =>{
+    this.importService.add33KVImportPointReading(this.formData, false).subscribe(successResponese =>{
       this._submitClicked = false;
-      let alertResponse = this.globalResources.successAlert("Export point read added successfully");
+      let alertResponse = this.globalResources.successAlert("Import point read added successfully");
       alertResponse.then(result =>{
         this.clearPartialData();
-        this.globalResources.resetValidateForm(exportPointReadAddForm);
+        this.globalResources.resetValidateForm(importPointReadAddForm);
       });
     }, errorResponse =>{
       console.log(errorResponse);

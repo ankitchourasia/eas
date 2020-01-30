@@ -137,7 +137,8 @@ export class ExportPointReadingViewComponent implements OnInit {
 
   updateExportPointReading(){
     this._updateClicked = true;
-    let nextBillMonth = this.globalResources.getNextBillMonth(this.updateFormData.billMonth);
+    // let nextBillMonth = this.globalResources.getNextBillMonth(this.updateFormData.billMonth);
+    let nextBillMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.updateFormData.billMonth, 0, 1));
     this.exportService.update11KVExportPointReading(this.updateFormData, nextBillMonth, this.user.username, false).subscribe(
       successResponse =>{
         this._updateClicked = false;

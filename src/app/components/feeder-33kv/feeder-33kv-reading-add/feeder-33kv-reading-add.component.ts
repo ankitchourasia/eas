@@ -66,7 +66,8 @@ export class Feeder33KVReadingAddComponent implements OnInit {
       this.feederReading.previousRead = this.previousReading.currentRead;
       this.feederReading.previousReadDate = this.previousReading.currentReadDate;
       this.feederReading.previousReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.feederReading.previousReadDate);
-      this.feederReading.billMonth = this.globalResources.getNextBillMonth(this.previousReading.billMonth);
+      // this.feederReading.billMonth = this.globalResources.getNextBillMonth(this.previousReading.billMonth);
+      this.feederReading.billMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.previousReading.billMonth, 0, 1));
     }, error =>{
       console.log(error);
       let alertResponse = this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);

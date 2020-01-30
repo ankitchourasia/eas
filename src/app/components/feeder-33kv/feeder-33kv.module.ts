@@ -6,6 +6,8 @@ import { Feeder33KVExportPointAddComponent } from './feeder-33kv-export-point-ad
 import { Feeder33KVExportPointReadingAddComponent } from './feeder-33kv-export-point-reading-add/feeder-33kv-export-point-reading-add.component';
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
+import { Feeder33KVImportPointReadingAddComponent } from './feeder-33kv-import-point-reading-add/feeder-33kv-import-point-reading-add.component';
+import { Feeder33KVImportPointAddComponent } from './feeder-33kv-import-point-add/feeder-33kv-import-point-add.component';
 
 @NgModule({
   imports: [
@@ -13,7 +15,21 @@ import { DirectiveModule } from '@eas-directives/directive.module';
     FormsModule,
     DirectiveModule,
   ],
-  declarations: [Feeder33KVAddComponent, Feeder33KVReadingAddComponent, Feeder33KVExportPointAddComponent, Feeder33KVExportPointReadingAddComponent],
-  exports: [Feeder33KVAddComponent, Feeder33KVReadingAddComponent, Feeder33KVExportPointAddComponent, Feeder33KVExportPointReadingAddComponent],
+  declarations: [
+    Feeder33KVAddComponent, 
+    Feeder33KVReadingAddComponent, 
+    Feeder33KVExportPointAddComponent, 
+    Feeder33KVExportPointReadingAddComponent, 
+    Feeder33KVImportPointAddComponent, 
+    Feeder33KVImportPointReadingAddComponent
+  ],
+  exports: [
+    Feeder33KVAddComponent, 
+    Feeder33KVReadingAddComponent, 
+    Feeder33KVExportPointAddComponent, 
+    Feeder33KVExportPointReadingAddComponent, 
+    Feeder33KVImportPointAddComponent, 
+    Feeder33KVImportPointReadingAddComponent
+  ],
 })
 export class Feeder33KVModule { }
