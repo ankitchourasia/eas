@@ -168,9 +168,8 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.formData.previousReadingDateInString = this.formData.prevReadingDateInString;
 		this.formData.prevBillMonth = this.exportPointPreviousReading.billMonth;
 		console.log("Forming next bill month for "+this.exportPointPreviousReading.billMonth);
-    // let nextBillMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
-    let nextBillMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.exportPointPreviousReading.billMonth, 0, 1));
-		console.log("Setting next bill month as: "+nextBillMonth);
+    let nextBillMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
+    console.log("Setting next bill month as: "+nextBillMonth);
 		this.formData.billMonth = nextBillMonth;
   }
 

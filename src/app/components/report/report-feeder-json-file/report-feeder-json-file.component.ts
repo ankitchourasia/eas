@@ -310,9 +310,8 @@ export class ReportFeederJsonFileComponent implements OnInit {
   getFileName(){
     let fileName = "mpwkvvcl_uf_"
     let endBillMonth = this.searchFormData.billingMonth;
-    // let startBillMonth = this.globalResources.getNextBillMonth(endBillMonth);
-    let startBillMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(endBillMonth, 0, 1));
-
+    let startBillMonth = this.globalResources.getNextBillMonth(endBillMonth);
+    
     let startBillMonthValues = startBillMonth.split("-");
     let endBillMonthValues = endBillMonth.split("-");
 

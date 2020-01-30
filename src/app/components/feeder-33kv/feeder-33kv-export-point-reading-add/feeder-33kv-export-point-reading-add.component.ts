@@ -120,8 +120,7 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
       this.formData.previousRead = this.exportPointPreviousReading.currentRead;
       this.formData.previousReadDate = this.exportPointPreviousReading.currentReadDate;
       this.formData.previousReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.previousReadDate);
-      // this.formData.billMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
-      this.formData.billMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.exportPointPreviousReading.billMonth, 0, 1));
+      this.formData.billMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
     }, error =>{
       console.log(error);
       let alertResponse = this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);

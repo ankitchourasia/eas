@@ -236,60 +236,6 @@ export class GlobalResources {
         
     }
 
-    getCustomDate(receivedDate, days: number = 0, months: number = 0, years: number = 0){
-        let date: Date = new Date(receivedDate);
-        
-        if(!receivedDate || Object.prototype.toString.call(date) !== "[object Date]" || isNaN(date.getTime()) ){
-            return; 
-        }
-        
-        date.setFullYear(date.getFullYear() + years);
-        date.setMonth(date.getMonth() + months);
-        date.setDate(date.getDate() + days);
-                
-        let year = date.getFullYear().toString();
-        let month = (date.getMonth() + 1).toString();
-        let day = date.getDate().toString();
-
-        if(month.length < 2){ month = '0' + month };
-        if(day.length < 2){ day = '0' + day }
-        
-        return [year,month,day].join('-');
-    }
-
-    getMonthWithYear(receivedDate){
-        let date: Date = new Date(receivedDate);
-
-        if(!receivedDate || Object.prototype.toString.call(date) !== "[object Date]" || isNaN(date.getTime()) ){
-            return; 
-        }
-        
-        return this.globalConstants.MONTHS[date.getMonth()] + "-" + date.getFullYear();
-    }
-
-    getDateDiffInDays(firstDate, secondDate){
-        let date1 = new Date(firstDate);
-        let date2 = new Date(secondDate);
-
-        if(!firstDate || Object.prototype.toString.call(date1) !== "[object Date]" || isNaN(date1.getTime()) ){
-            return; 
-        }
-
-        if(!secondDate || Object.prototype.toString.call(date2) !== "[object Date]" || isNaN(date2.getTime()) ){
-            return; 
-        }
-
-        //Get 1 day in milliseconds
-        let one_day = 1000*60*60*24;
-
-        // Convert both dates to milliseconds
-        let firstDate_ms = date1.getTime();
-        let secondDate_ms = date2.getTime();
-
-        return Math.round((firstDate_ms -secondDate_ms) / one_day); 
-    }
-
-
     getPreviousBillMonth(billMonth){
         if(billMonth){
             let values = billMonth.split('-');
@@ -396,15 +342,6 @@ export class GlobalResources {
         }else{
             return null;
         }
-    }
-
-    getYearList(){
-        let years = [];  
-        let year = 2016;
-        while(year <= 2050){
-           years.push(year++);
-        }
-        return years;
     }
 
     printElementById(elementId, options?:any){

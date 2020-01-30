@@ -62,8 +62,7 @@ export class FeederReadingViewComponent implements OnInit {
     if(this.globalResources.validateForm(updateForm)){
       this.readingToEdit.currReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.readingToEdit.currReadingDate);
       this.calculateConsumption();
-      // let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
-      let nextBillMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.readingToEdit.billMonth, 0, 1));
+      let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
       this.updateReading(nextBillMonth);
     }
   }

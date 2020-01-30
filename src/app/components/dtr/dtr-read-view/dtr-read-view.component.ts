@@ -143,8 +143,7 @@ export class DtrReadViewComponent implements OnInit {
 
   updateDTRRead(dtrReadingUpdateForm, modalCloseButtonRef){
     this._updateClicked = true;
-    // let nextBillMonth = this.globalResources.getNextBillMonth(this.dtrReadingToEdit.billMonth);
-    let nextBillMonth = this.globalResources.getMonthWithYear(this.globalResources.getCustomDate(this.dtrReadingToEdit.billMonth, 0, 1));
+    let nextBillMonth = this.globalResources.getNextBillMonth(this.dtrReadingToEdit.billMonth);
     this.dtrService.updateDTRRead(this.dtrReadingToEdit, nextBillMonth, this.user.username).subscribe(successResponese =>{
       this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read updated successfully");
