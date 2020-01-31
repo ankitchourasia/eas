@@ -44,8 +44,9 @@ export class DtrReadViewComponent implements OnInit {
       this._searchClicked = false;
       this.dtrReadingList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
-      console.log(successResponse);
+      if(this.dtrReadingList && this.dtrReadingList.length){
+        this.setPage(1);
+      }
     },errorResponse =>{ 
       console.log(errorResponse);
       this._searchClicked = false;
@@ -60,8 +61,9 @@ export class DtrReadViewComponent implements OnInit {
       this._searchClicked = false;
       this.dtrReadingList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
-      console.log(successResponse);
+      if(this.dtrReadingList && this.dtrReadingList.length){
+        this.setPage(1);
+      }
     },errorResponse =>{
       console.log(errorResponse);
       this._searchClicked = false;

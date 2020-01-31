@@ -35,9 +35,10 @@ export class ZoneViewComponent implements OnInit {
     this.zoneService.getZones(false).subscribe(successResponse =>{
       this.loading = false;
       this.zoneList = successResponse;
-      console.log(successResponse);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.zoneList && this.zoneList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       console.log(errorResponse);
@@ -46,7 +47,6 @@ export class ZoneViewComponent implements OnInit {
 
   editClicked(circle){
     this.zoneToEdit = Object.assign({}, circle);
-    console.log(this.zoneToEdit);
     this.zoneToEdit.oldName = circle.name;
   }
 
@@ -55,7 +55,6 @@ export class ZoneViewComponent implements OnInit {
     this._updateClicked = true;
     this.zoneService.updateZone(this.zoneToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
-      console.log(successResposne);
       let alertResponse = this.globalResources.successAlert("Zone updated successfully");
       alertResponse.then(result =>{
         this.closeModal(modalCloseButtonRef);

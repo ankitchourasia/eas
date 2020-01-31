@@ -36,7 +36,9 @@ export class DivisionViewComponent implements OnInit {
       this.loading = false;
       this.divisionList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.divisionList && this.divisionList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       console.log(errorResponse);

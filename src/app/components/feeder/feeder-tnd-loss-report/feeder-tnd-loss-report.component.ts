@@ -132,9 +132,10 @@ export class FeederTndLossReportComponent implements OnInit {
     this.feederService.getFeedersForLossGenerationBySubstationId(substationId, billingMonth).subscribe(successResponese =>{
       this._searchClicked = false;
       this.feederList = successResponese;
-      console.log(this.feederList);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.feederList && this.feederList.length){
+        this.setPage(1);
+      }
     },errorResponse =>{
       this._searchClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
@@ -144,10 +145,8 @@ export class FeederTndLossReportComponent implements OnInit {
   generateSingleFeederLossReport(feeder){
     feeder.generatingSingleReport = true;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    console.log(feeder);
     this.feederService.generateFeedertndLossReport(feeder, billingMonth.toUpperCase(), this.user.username).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
-      console.log(generatedReport);
       feeder.generatingSingleReport = false;
       feeder.singleReportGenerated = true;
       let alertResponse = this.globalResources.successAlert("Report Generated Successfully");

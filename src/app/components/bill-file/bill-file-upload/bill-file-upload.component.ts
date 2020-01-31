@@ -141,9 +141,10 @@ export class BillFileUploadComponent implements OnInit {
     this.billFileService.getNotUploadedBillFileListByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(successResponse =>{
       this.searchButtonClicked = false;
       this.missingBillFileRefFeederList = successResponse;
-      console.log(successResponse);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.missingBillFileRefFeederList && this.missingBillFileRefFeederList.length){
+        this.setPage(1);
+      }
     },errorResponse =>{
       console.log(errorResponse);
       this.searchButtonClicked = false;
@@ -156,9 +157,10 @@ export class BillFileUploadComponent implements OnInit {
     this.billFileService.getNotUploadedBillFileListByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
       this.searchButtonClicked = false;
       this.missingBillFileRefFeederList = successResponse;
-      console.log(successResponse);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.missingBillFileRefFeederList && this.missingBillFileRefFeederList.length){
+        this.setPage(1);
+      }
     },errorResponse =>{
       console.log(errorResponse);
       this.searchButtonClicked = false;

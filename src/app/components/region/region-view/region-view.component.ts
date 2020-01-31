@@ -30,9 +30,10 @@ export class RegionViewComponent implements OnInit {
     this.regionService.getRegions(false).subscribe(successResponse =>{
       this.loading = false;
       this.regionList = successResponse;
-      console.log(successResponse);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.regionList && this.regionList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       console.log(errorResponse);

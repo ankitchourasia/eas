@@ -43,9 +43,10 @@ export class DtrViewComponent implements OnInit {
     this.dtrService.getDTRByDivisionId(divisionId).subscribe(successResponese =>{
       this.loading = false;
       this.dtrList = successResponese;
-      console.log(this.dtrList);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.dtrList && this.dtrList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       console.log(errorResponse);

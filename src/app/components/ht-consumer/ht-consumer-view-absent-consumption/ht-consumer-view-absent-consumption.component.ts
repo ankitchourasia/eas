@@ -46,7 +46,9 @@ export class HtConsumerViewAbsentConsumptionComponent implements OnInit {
         this.searchButtonClicked = false;
         this.htConsumerAbsentConsumptionList = successResponse;
         this.initializePaginationVariables();
-        this.setPage(1);
+        if(this.htConsumerAbsentConsumptionList && this.htConsumerAbsentConsumptionList.length){
+          this.setPage(1);
+        }
       },errorResponse =>{
         this.searchButtonClicked = false;
         console.log(errorResponse);

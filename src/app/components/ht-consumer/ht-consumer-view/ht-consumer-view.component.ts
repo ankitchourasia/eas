@@ -45,9 +45,10 @@ export class HtConsumerViewComponent implements OnInit {
       this.htConsumerService.getHTConsumerByDivisionId(divisionId, false).subscribe(successResponse =>{
         this.loading = false;
         this.htConsumerList = successResponse;
-        console.log(successResponse);
         this.initializePaginationVariables();
-        this.setPage(1);
+        if(this.htConsumerList && this.htConsumerList.length){
+          this.setPage(1);
+        }
       },errorResponse =>{
         this.loading = false;
         console.log(errorResponse);
