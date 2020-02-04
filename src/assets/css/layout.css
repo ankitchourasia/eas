@@ -1,0 +1,43 @@
+
+#content{
+    display: flex !important;
+}
+
+#menubar{
+    background: #343a40;
+    flex-grow : 0;
+    flex-shrink: 0;
+    flex-basis: 20%;
+    max-width: 20%;
+} 
+ #menubar {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* #menubar {
+    min-width: 200px;
+    max-width: 270px;
+    background: #343a40;
+    color: #fff;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+} */
+
+
+#mainMenu{
+    flex-grow : 0; 
+    flex-shrink: 0;
+    flex-basis: 80%;
+    max-width: 80%;
+}
+
+/* #mainMenu {
+    width: 100%;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+} */
