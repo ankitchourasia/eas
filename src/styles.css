@@ -45,48 +45,6 @@ input::-webkit-outer-spin-button {
   margin: 0; 
 }
 
-
-.backdrop{
-    background-color: rgba(0, 0, 0, 0.6);
-    position: fixed;
-    top:0;
-    left: 0;
-    width:100%;
-    height: 100vh;
-}
-
-.modal-dialog.modal-full{
-    min-width: 98%;
-}
-
-#content{
-    display: flex !important;
-}
-
-#menubar{
-    background: #343a40;
-    flex-grow : 0;
-    flex-shrink: 0;
-    flex-basis: 15%;
-    max-width: 15%;
-}
-
-#mainMenu{
-    flex-grow : 0; 
-    flex-shrink: 0;
-    flex-basis: 85%;
-    max-width: 85%;
-}
-
-#menubar > ul {
-    height: 100vh;
-    overflow-y: auto;
-}
-
-.swal2-content.text-align-left{
-    text-align: left;
-}
-
 .eas-space-between{
     display: flex !important;
     flex-wrap: wrap !important;
@@ -155,4 +113,72 @@ input::-webkit-outer-spin-button {
 
 .element-size-equal{
     min-width: 170px;
+}
+
+
+.backdrop{
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top:0;
+    left: 0;
+    width:100%;
+    height: 100vh;
+}
+
+.modal-dialog.modal-full{
+    min-width: 98%;
+}
+
+#content{
+    display: flex !important;
+}
+
+#menubar{
+    background: #343a40;
+    flex-grow : 0;
+    flex-shrink: 0;
+    flex-basis: 20%;
+    max-width: 20%;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+} */
+
+/* #menubar > ul {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* #menubar {
+    min-width: 200px;
+    max-width: 270px;
+    background: #343a40;
+    color: #fff;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+} */
+
+
+#mainMenu{
+    flex-grow : 0; 
+    flex-shrink: 0;
+    flex-basis: 80%;
+    max-width: 80%;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+}
+
+/* #mainMenu {
+    width: 100%;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+} */
+
+.swal2-content.text-align-left{
+    text-align: left;
 }
