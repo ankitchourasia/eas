@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { GlobalDOMUtility } from '@eas-utility/global-dom-utility';
 // import { appRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { GlobalDOMUtility } from '@eas-utility/global-dom-utility';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,

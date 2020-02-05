@@ -25,6 +25,7 @@
             "styles": [
               "src/styles.css",
               "src/assets/css/print.css",
+              "src/assets/css/layout.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/sweetalert2/dist/sweetalert2.css"
@@ -32,7 +33,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/sweetalert2/dist/sweetalert2.js"
+              "node_modules/sweetalert2/dist/sweetalert2.js",
+              "src/assets/js/external.js"
             ]
           },
           "configurations": {
