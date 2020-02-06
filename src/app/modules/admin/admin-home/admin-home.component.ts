@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminMenuService } from '../admin-menu.service';
 
 @Component({
   selector: 'eas-admin-home',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminMenuService: AdminMenuService) {
+    if (!this.adminMenuService.START_MENU.active) {
+      this.adminMenuService.menuClicked(this.adminMenuService.START_MENU);
+    }
+  }
 
   ngOnInit() {
+  
   }
 
 }
