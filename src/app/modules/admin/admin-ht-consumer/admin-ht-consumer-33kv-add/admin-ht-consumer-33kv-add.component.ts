@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './admin-ht-consumer-33kv-add.component.html',
   styleUrls: ['./admin-ht-consumer-33kv-add.component.css']
 })
-export class AdminHtConsumer33KVAddComponent implements OnInit {
+export class AdminHTConsumer33KVAddComponent implements OnInit {
 
   constructor() { }
 

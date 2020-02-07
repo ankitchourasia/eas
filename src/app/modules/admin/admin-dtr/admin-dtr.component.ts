@@ -12,10 +12,10 @@ export class AdminDtrComponent implements OnInit {
 
   menus : any[] = new Array();
 
-  constructor(private route: ActivatedRoute, private router: Router, private oicMenuService : AdminMenuService, 
+  constructor(private route: ActivatedRoute, private router: Router, private adminMenuService : AdminMenuService, 
     private adminDtrMenuService: AdminDtrMenuService) {
-      if(!this.oicMenuService.FOURTH_MENU.active){
-        this.oicMenuService.menuClicked(this.oicMenuService.FOURTH_MENU);
+      if(!this.adminMenuService.FOURTH_MENU.active){
+        this.adminMenuService.menuClicked(this.adminMenuService.FOURTH_MENU);
       }
    }
 

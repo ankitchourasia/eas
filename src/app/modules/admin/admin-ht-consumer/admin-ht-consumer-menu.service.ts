@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MenuInterface } from 'app/interfaces/menu/menu.interface';
 
 @Injectable()
-export class AdminBillFileMenuService implements MenuInterface {
+export class AdminHTConsumerMenuService implements MenuInterface {
   
   public FIRST_MENU: any;
   private readonly FIRST_MENU_NAME: string = "Home";
@@ -10,8 +10,8 @@ export class AdminBillFileMenuService implements MenuInterface {
   private readonly FIRST_MENU_ACTIVE: boolean = true;
 
   public SECOND_MENU: any;
-  private readonly SECOND_MENU_NAME: string = "Upload";
-  private readonly SECOND_MENU_LINK: string = "upload";
+  private readonly SECOND_MENU_NAME: string = "Add";
+  private readonly SECOND_MENU_LINK: string = "add";
   private readonly SECOND_MENU_ACTIVE: boolean = false;
 
   menus: any[] = new Array();
@@ -49,8 +49,8 @@ export class AdminBillFileMenuService implements MenuInterface {
   }
 
   /**
-   * event handler method for menu clicked on component page
-  */
+ * event handler method for menu clicked on component page
+ */
   public menuClicked(menu: any): void {
     if(menu) {
       menu.active = true;

@@ -4,8 +4,6 @@ import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
-import { AdminSubstationAddComponent } from './admin-substation/admin-substation-add/admin-substation-add.component';
-import { AdminSubstationViewComponent } from './admin-substation/admin-substation-view/admin-substation-view.component';
 import { AdminFeederAddComponent } from './admin-feeder/admin-feeder-add/admin-feeder-add.component';
 import { AdminFeederViewComponent } from './admin-feeder/admin-feeder-view/admin-feeder-view.component';
 import { AdminFeederReadingAddComponent } from './admin-feeder/admin-feeder-reading-add/admin-feeder-reading-add.component';
@@ -14,16 +12,11 @@ import { AdminFeederAbsentReadingViewComponent } from './admin-feeder/admin-feed
 import { AdminFeederTndLossReportComponent } from './admin-feeder/admin-feeder-tnd-loss-report/admin-feeder-tnd-loss-report.component';
 import { AdminFeederTndLossReportWithoutHtComponent } from './admin-feeder/admin-feeder-tnd-loss-report-without-ht/admin-feeder-tnd-loss-report-without-ht.component';
 import { AdminFeederAtncLossReportComponent } from './admin-feeder/admin-feeder-atnc-loss-report/admin-feeder-atnc-loss-report.component';
-import { AdminHtConsumerViewComponent } from './admin-ht-consumer/admin-ht-consumer-view/admin-ht-consumer-view.component';
-import { AdminHtConsumerViewConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-consumption/admin-ht-consumer-view-consumption.component';
-import { AdminHtConsumerViewAbsentConsumptionComponent } from './admin-ht-consumer/admin-ht-consumer-view-absent-consumption/admin-ht-consumer-view-absent-consumption.component';
 import { AdminExportPointViewComponent } from './admin-export/admin-export-point-view/admin-export-point-view.component';
 import { AdminExportPointReadingViewComponent } from './admin-export/admin-export-point-reading-view/admin-export-point-reading-view.component';
 import { AdminExportPointAddComponent } from './admin-export/admin-export-point-add/admin-export-point-add.component';
 import { AdminFeederInitialReadAddComponent } from './admin-feeder/admin-feeder-initial-read-add/admin-feeder-initial-read-add.component';
 import { AdminFeederMappingAddComponent } from './admin-feeder/admin-feeder-mapping-add/admin-feeder-mapping-add.component';
-import { AdminHtConsumerAddComponent } from './admin-ht-consumer/admin-ht-consumer-add/admin-ht-consumer-add.component';
-import { AdminHtConsumerReadingAddComponent } from './admin-ht-consumer/admin-ht-consumer-reading-add/admin-ht-consumer-reading-add.component';
 import { AdminExportPointReadingAddComponent } from './admin-export/admin-export-point-reading-add/admin-export-point-reading-add.component';
 import { AdminReportD1Component } from './admin-report/admin-report-d1/admin-report-d1.component';
 import { AdminReportD2Component } from './admin-report/admin-report-d2/admin-report-d2.component';
@@ -36,8 +29,6 @@ import { AdminFeederInterruptionAddComponent } from './admin-feeder/admin-feeder
 import { AdminReportNscMonitoringComponent } from './admin-report/admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
 import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report/admin-report-consumer-complaints-redressal/admin-report-consumer-complaints-redressal.component';
 import { AdminReportFeederJsonFileComponent } from './admin-report/admin-report-feeder-json-file/admin-report-feeder-json-file.component';
-import { AdminHtConsumer33KVAddComponent } from './admin-ht-consumer/admin-ht-consumer-33kv-add/admin-ht-consumer-33kv-add.component';
-import { AdminHtConsumer33KVReadingAddComponent } from './admin-ht-consumer/admin-ht-consumer-33kv-reading-add/admin-ht-consumer-33kv-reading-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -56,6 +47,10 @@ const adminRoutes: Routes = [
             path: 'home', component: AdminHomeComponent
           },
           {
+            path: 'substation',
+            loadChildren: 'app/modules/admin/admin-substation/admin-substation.module#AdminSubstationModule'
+          },
+          {
             path: 'bill-file',
             loadChildren: 'app/modules/admin/admin-bill-file/admin-bill-file.module#AdminBillFileModule'
           },
@@ -68,10 +63,8 @@ const adminRoutes: Routes = [
             loadChildren: 'app/modules/admin/admin-feeder-33kv/admin-feeder-33kv.module#AdminFeeder33KVModule'
           },
           {
-            path: 'substation/add', component: AdminSubstationAddComponent
-          },
-          {
-            path: 'substation/view',component: AdminSubstationViewComponent
+            path: 'ht-consumer',
+            loadChildren: 'app/modules/admin/admin-ht-consumer/admin-ht-consumer.module#AdminHTConsumerModule'
           },
           {
             path: 'feeder/add', component: AdminFeederAddComponent
@@ -119,21 +112,6 @@ const adminRoutes: Routes = [
             path: 'export-point/read/view',component: AdminExportPointReadingViewComponent
           },
           {
-            path: 'ht/consumer/add',component: AdminHtConsumerAddComponent
-          },
-          {
-            path: 'ht/consumer/view',component: AdminHtConsumerViewComponent
-          },
-          {
-            path: 'ht/consumer/reading/add',component: AdminHtConsumerReadingAddComponent
-          },
-          {
-            path: 'ht/consumer/view/consumption',component: AdminHtConsumerViewConsumptionComponent
-          },
-          {
-            path: 'ht/consumer/view/absent-consumption',component: AdminHtConsumerViewAbsentConsumptionComponent
-          },
-          {
             path: 'report/d1',component: AdminReportD1Component
           },
           {
@@ -162,12 +140,6 @@ const adminRoutes: Routes = [
           },
           {
             path: 'report/feeder/json',component: AdminReportFeederJsonFileComponent
-          },
-          {
-            path: '33kv/ht-consumer/add',component: AdminHtConsumer33KVAddComponent
-          },
-          {
-            path: '33kv/ht-consumer/reading/add',component: AdminHtConsumer33KVReadingAddComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

@@ -31,7 +31,7 @@ export class AdminMenuService implements MenuInterface {
 
   public FIFTH_MENU: any;
   private readonly FIFTH_MENU_NAME: string = "HT Consumer";
-  private readonly FIFTH_MENU_LINK: string = "ht/consumer";
+  private readonly FIFTH_MENU_LINK: string = "ht-consumer";
   private readonly FIFTH_MENU_ACTIVE: boolean = false;
 
 

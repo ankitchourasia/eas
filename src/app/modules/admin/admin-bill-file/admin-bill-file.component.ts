@@ -12,10 +12,10 @@ export class AdminBillFileComponent implements OnInit {
 
   menus : any[] = new Array();
 
-  constructor(private route: ActivatedRoute, private router: Router, private oicMenuService : AdminMenuService, 
+  constructor(private route: ActivatedRoute, private router: Router, private adminMenuService : AdminMenuService, 
     private adminBillFileMenuService: AdminBillFileMenuService) {
-      if(!this.oicMenuService.SIXTH_MENU.active){
-        this.oicMenuService.menuClicked(this.oicMenuService.SIXTH_MENU);
+      if(!this.adminMenuService.SIXTH_MENU.active){
+        this.adminMenuService.menuClicked(this.adminMenuService.SIXTH_MENU);
       }
    }
 

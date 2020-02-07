@@ -1,35 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminMenuService } from '../admin-menu.service';
-import { AdminFeeder33KVMenuService } from './admin-feeder-33kv-menu.service';
+import { AdminSubstationMenuService } from './admin-substation-menu.service';
 
 @Component({
-  selector: 'eas-admin-feeder-33kv',
-  templateUrl: './admin-feeder-33kv.component.html',
-  styleUrls: ['./admin-feeder-33kv.component.css']
+  selector: 'eas-admin-substation',
+  templateUrl: './admin-substation.component.html',
+  styleUrls: ['./admin-substation.component.css']
 })
-export class AdminFeeder33KVComponent implements OnInit {
+export class AdminSubstationComponent implements OnInit {
 
   menus : any[] = new Array();
 
   constructor(private route: ActivatedRoute, private router: Router, private adminMenuService : AdminMenuService, 
-    private adminDtrMenuService: AdminFeeder33KVMenuService) {
-      if(!this.adminMenuService.SECOND_MENU.active){
-        this.adminMenuService.menuClicked(this.adminMenuService.SECOND_MENU);
+    private adminSubstationMenuService: AdminSubstationMenuService) {
+      if(!this.adminMenuService.FIRST_MENU.active){
+        this.adminMenuService.menuClicked(this.adminMenuService.FIRST_MENU);
       }
    }
 
   ngOnInit() {
-    this.menus = this.adminDtrMenuService.getMenus();
+    this.menus = this.adminSubstationMenuService.getMenus();
   }
 
   /**
    * event handler method for menu clicked on component page
-  */
+   */
   public menuClicked(menu : any) : void {
     /**
        * making global configuration call to get the log prefix
-    */
+    **/
     if(menu){
       menu.active = true;
       this.switchActive(menu);

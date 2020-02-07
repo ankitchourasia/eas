@@ -4,9 +4,8 @@ import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { HeaderComponentModule } from '@eas-components/header/header-component.module';
-import { AdminSubstationModule } from './admin-substation/admin-substation.module';
 import { AdminFeederModule } from './admin-feeder/admin-feeder.module';
-import { AdminHtConsumerModule } from './admin-ht-consumer/admin-ht-consumer.module';
+// import { AdminHTConsumerModule } from './admin-ht-consumer/admin-ht-consumer.module';
 import { AdminExportModule } from './admin-export/admin-export.module';
 import { AdminReportModule } from './admin-report/admin-report.module';
 import { AdminMenuService } from './admin-menu.service';
@@ -17,9 +16,9 @@ import { AdminMenuService } from './admin-menu.service';
     HeaderComponentModule,
     AdminExportModule,
     AdminFeederModule,
-    AdminHtConsumerModule,
+    // AdminHTConsumerModule,
     AdminReportModule,
-    AdminSubstationModule,
+    // AdminSubstationModule,
     AdminRoutingModule,
   ],
   declarations: [

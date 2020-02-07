@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MenuInterface } from 'app/interfaces/menu/menu.interface';
 
 @Injectable()
-export class AdminBillFileMenuService implements MenuInterface {
+export class AdminSubstationMenuService implements MenuInterface {
   
   public FIRST_MENU: any;
   private readonly FIRST_MENU_NAME: string = "Home";
