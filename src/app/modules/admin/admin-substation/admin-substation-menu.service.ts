@@ -10,9 +10,14 @@ export class AdminSubstationMenuService implements MenuInterface {
   private readonly FIRST_MENU_ACTIVE: boolean = true;
 
   public SECOND_MENU: any;
-  private readonly SECOND_MENU_NAME: string = "Upload";
-  private readonly SECOND_MENU_LINK: string = "upload";
+  private readonly SECOND_MENU_NAME: string = "Add";
+  private readonly SECOND_MENU_LINK: string = "add";
   private readonly SECOND_MENU_ACTIVE: boolean = false;
+
+  public LAST_MENU: any;
+  private readonly LAST_MENU_NAME: string = "View";
+  private readonly LAST_MENU_LINK: string = "view";
+  private readonly LAST_MENU_ACTIVE: boolean = false;
 
   menus: any[] = new Array();
 
@@ -39,8 +44,15 @@ export class AdminSubstationMenuService implements MenuInterface {
       link: this.SECOND_MENU_LINK
     }
 
-    this.menus.push(this.FIRST_MENU);
+    this.LAST_MENU = {
+      name: this.LAST_MENU_NAME,
+      active: this.LAST_MENU_ACTIVE,
+      link: this.LAST_MENU_LINK
+    }
+
+    this.menus.push(this.FIRST_MENU); 
     this.menus.push(this.SECOND_MENU);
+    this.menus.push(this.LAST_MENU);  
 
   }
 
@@ -49,8 +61,8 @@ export class AdminSubstationMenuService implements MenuInterface {
   }
 
   /**
-   * event handler method for menu clicked on component page
-  */
+ * event handler method for menu clicked on component page
+ */
   public menuClicked(menu: any): void {
     if(menu) {
       menu.active = true;

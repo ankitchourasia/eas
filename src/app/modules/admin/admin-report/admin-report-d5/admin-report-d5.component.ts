@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminReportMenuService } from '../admin-report-menu.service';
 
 @Component({
   selector: 'eas-admin-report-d5',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminReportD5Component implements OnInit {
 
-  constructor() { }
+  constructor(private adminReportMenuService: AdminReportMenuService) { 
+    if(!this.adminReportMenuService.NINETH_MENU.active){
+      this.adminReportMenuService.menuClicked(this.adminReportMenuService.NINETH_MENU);
+    }
+  }
 
   ngOnInit() {
   }
