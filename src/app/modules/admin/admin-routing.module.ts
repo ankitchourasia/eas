@@ -18,17 +18,7 @@ import { AdminExportPointAddComponent } from './admin-export/admin-export-point-
 import { AdminFeederInitialReadAddComponent } from './admin-feeder/admin-feeder-initial-read-add/admin-feeder-initial-read-add.component';
 import { AdminFeederMappingAddComponent } from './admin-feeder/admin-feeder-mapping-add/admin-feeder-mapping-add.component';
 import { AdminExportPointReadingAddComponent } from './admin-export/admin-export-point-reading-add/admin-export-point-reading-add.component';
-import { AdminReportD1Component } from './admin-report/admin-report-d1/admin-report-d1.component';
-import { AdminReportD2Component } from './admin-report/admin-report-d2/admin-report-d2.component';
-import { AdminReportD3Component } from './admin-report/admin-report-d3/admin-report-d3.component';
-import { AdminReportD4Component } from './admin-report/admin-report-d4/admin-report-d4.component';
-import { AdminReportD5Component } from './admin-report/admin-report-d5/admin-report-d5.component';
-import { AdminReportD6Component } from './admin-report/admin-report-d6/admin-report-d6.component';
-import { AdminReportD7Component } from './admin-report/admin-report-d7/admin-report-d7.component';
 import { AdminFeederInterruptionAddComponent } from './admin-feeder/admin-feeder-interruption-add/admin-feeder-interruption-add.component';
-import { AdminReportNscMonitoringComponent } from './admin-report/admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
-import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report/admin-report-consumer-complaints-redressal/admin-report-consumer-complaints-redressal.component';
-import { AdminReportFeederJsonFileComponent } from './admin-report/admin-report-feeder-json-file/admin-report-feeder-json-file.component';
 
 const adminRoutes: Routes = [
   {
@@ -65,6 +55,10 @@ const adminRoutes: Routes = [
           {
             path: 'ht-consumer',
             loadChildren: 'app/modules/admin/admin-ht-consumer/admin-ht-consumer.module#AdminHTConsumerModule'
+          },
+          {
+            path: 'report',
+            loadChildren: 'app/modules/admin/admin-report/admin-report.module#AdminReportModule'
           },
           {
             path: 'feeder/add', component: AdminFeederAddComponent
@@ -110,36 +104,6 @@ const adminRoutes: Routes = [
           },
           {
             path: 'export-point/read/view',component: AdminExportPointReadingViewComponent
-          },
-          {
-            path: 'report/d1',component: AdminReportD1Component
-          },
-          {
-            path: 'report/d2',component: AdminReportD2Component
-          },
-          {
-            path: 'report/d3',component: AdminReportD3Component
-          },
-          {
-            path: 'report/d4',component: AdminReportD4Component
-          },
-          {
-            path: 'report/d5',component: AdminReportD5Component
-          },
-          {
-            path: 'report/d6',component: AdminReportD6Component
-          },
-          {
-            path: 'report/d7',component: AdminReportD7Component
-          },
-          {
-            path: 'report/nsc-monitoring',component: AdminReportNscMonitoringComponent
-          },
-          {
-            path: 'report/consumer-complaints-redressal',component: AdminReportConsumerComplaintsRedressalComponent
-          },
-          {
-            path: 'report/feeder/json',component: AdminReportFeederJsonFileComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

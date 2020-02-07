@@ -11,13 +11,20 @@ import { ReportComponentModule } from '@eas-components/report/report-component.m
 import { AdminReportNscMonitoringComponent } from './admin-report-nsc-monitoring/admin-report-nsc-monitoring.component';
 import { AdminReportConsumerComplaintsRedressalComponent } from './admin-report-consumer-complaints-redressal/admin-report-consumer-complaints-redressal.component';
 import { AdminReportFeederJsonFileComponent } from './admin-report-feeder-json-file/admin-report-feeder-json-file.component';
+import { AdminReportHomeComponent } from './admin-report-home/admin-report-home.component';
+import { AdminReportComponent } from './admin-report.component';
+import { AdminReportRoutingModule } from './admin-report-routing.module';
+import { AdminReportMenuService } from './admin-report-menu.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReportComponentModule
+    ReportComponentModule,
+    AdminReportRoutingModule
   ],
   declarations: [
+    AdminReportComponent,
+    AdminReportHomeComponent, 
     AdminReportD1Component, 
     AdminReportD2Component, 
     AdminReportD3Component, 
@@ -25,8 +32,13 @@ import { AdminReportFeederJsonFileComponent } from './admin-report-feeder-json-f
     AdminReportD5Component, 
     AdminReportD6Component, 
     AdminReportD7Component, 
-    AdminReportNscMonitoringComponent, AdminReportConsumerComplaintsRedressalComponent, AdminReportFeederJsonFileComponent
+    AdminReportNscMonitoringComponent, 
+    AdminReportConsumerComplaintsRedressalComponent, 
+    AdminReportFeederJsonFileComponent, 
   ],
+  providers: [
+    AdminReportMenuService
+  ]
   
 })
 export class AdminReportModule { }
