@@ -4,16 +4,14 @@ import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { HeaderComponentModule } from '@eas-components/header/header-component.module';
-import { AdminFeederModule } from './admin-feeder/admin-feeder.module';
-import { AdminExportModule } from './admin-export/admin-export.module';
 import { AdminMenuService } from './admin-menu.service';
+import { AdminFeeder11KVModule } from './admin-feeder-11kv/admin-feeder-11kv.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HeaderComponentModule,
-    AdminExportModule,
-    AdminFeederModule,
+    AdminFeeder11KVModule,
     AdminRoutingModule,
   ],
   declarations: [
