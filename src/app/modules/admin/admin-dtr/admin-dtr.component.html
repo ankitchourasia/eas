@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<nav class="accordion" id="menubar">
+    <ul class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR MENU</a>
+        <div class="collapse show" id="dtrCollapseMenu" data-parent="#menubar">
+            <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
+            <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['add']">Add</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['view']">View</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['read/add/initial-read']">Add Initial(S/R) Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['read/add']">Add Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['read/view']">View Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['generate/loss/report']">Loss Report</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['pre-billing']">Pre Billing Activity</a> -->
+        </div>
+    </ul>
+</nav>
+<div id="mainMenu">
+    <router-outlet></router-outlet>
+</div>

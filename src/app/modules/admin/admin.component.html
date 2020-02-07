@@ -8,15 +8,15 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['substation/add']">Add</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['substation/view']">View</a>
             </div>
-            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feeder33KVCollapseMenu">33KV Feeders</a>
+            <!-- <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feeder33KVCollapseMenu">33KV Feeders</a>
             <div class="collapse" id="feeder33KVCollapseMenu" data-parent="#menubar">
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/add']">Add Feeder</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/reading/add']">Add Feeder Reading</a>
-                <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/import-point/add']">Add Import Point</a>
-                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/import-point/reading/add']">Add Import Point Reading</a> -->
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/import-point/add']">Add Import Point</a>
+                <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/import-point/reading/add']">Add Import Point Reading</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/export-point/add']">Add Export Point</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/33kv/export-point/reading/add']">Add Export Point Reading</a>
-            </div>
+            </div> -->
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders</a>
             <div class="collapse" id="feederCollapseMenu" data-parent="#menubar">
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Add</a>
@@ -42,7 +42,7 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/read/add']"> Add Export Point Reading</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/read/view']"> View Export Point Reading</a>
             </div> -->
-            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
+            <!-- <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#dtrCollapseMenu">DTR</a>
             <div class="collapse" id="dtrCollapseMenu" data-parent="#menubar">
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/add']">Add</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/view']">View</a>
@@ -51,8 +51,8 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/read/view']">View Reading</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/generate/loss/report']">Loss Report</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['dtr/pre-billing']">Pre Billing Activity</a>
-            </div>
-            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">HT Consumers</a>
+            </div> -->
+            <!-- <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">HT Consumers</a>
             <div class="collapse" id="htConsumerCollapseMenu" data-parent="#menubar">
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['ht/consumer/add']">Add 11KV HT Consumers</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['ht/consumer/view']">View 11KV HT Consumers</a>
@@ -61,11 +61,11 @@
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['ht/consumer/view/absent-consumption']">View 11KV HT Consumer Absent Consumption</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['33kv/ht-consumer/add']">Add 33KV HT Consumers</a>
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['33kv/ht-consumer/reading/add']">Add 33KV HT Consumer Reading</a>
-            </div>
-            <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
+            </div> -->
+            <!-- <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#billFileCollapseMenu">Bill File</a>
             <div class="collapse" id="billFileCollapseMenu" data-parent="#menubar">
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['bill-file/upload']">Upload</a>
-            </div>
+            </div> -->
             <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#reportCollapseMenu">Reports</a>
             <div class="collapse" id="reportCollapseMenu" data-parent="#menubar">
                 <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['report/nsc-monitoring']">NSC Monitoring Input</a>
@@ -99,13 +99,13 @@
   
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#substationCollapseMenu">33/11KV Substations 1</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#substationCollapseMenu">33/11KV Substations 1</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#feeder33KVCollapseMenu">33KV Feeders 2</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#feederCollapseMenu">11KV Feeders 3</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#dtrCollapseMenu">DTR 4 </a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#htConsumerCollapseMenu">HT Consumers 5 </a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#billFileCollapseMenu">Bill File 6 </a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#reportCollapseMenu">Reports 7</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="collapse" href="#reportCollapseMenu">Reports 7</a></li> -->
                         <li class="nav-item" *ngFor="let menu of menus">
                             <a class="nav-link" [ngClass]="{'active': menu.active}" href="javascript:void(0);" (click)="menuClicked(menu)">{{menu.name}}</a>
                         </li>

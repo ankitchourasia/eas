@@ -1,1 +1,18 @@
-<router-outlet></router-outlet>
+<nav class="accordion" id="menubar">
+    <ul class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#htConsumerCollapseMenu">HT CONSUMER MENU</a>
+        <div class="collapse show" id="htConsumerCollapseMenu" data-parent="#menubar">
+            <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
+            <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/add']">Add 11KV HT Consumer</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/view']">View 11KV HT Consumers</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/read/add']">Add 11KV HT Consumer Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/read/view']">View 11KV HT Consumer Consumption</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['11kv/read/view/absent']">View 11KV HT Consumer Absent Consumption</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['33kv/add']">Add 33KV HT Consumer</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['33kv/read/add']">Add 33KV HT Consumer Reading</a> -->
+        </div>
+    </ul>
+</nav>
+<div id="mainMenu">
+    <router-outlet></router-outlet>
+</div>

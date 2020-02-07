@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminHTConsumerMenuService } from '../admin-ht-consumer-menu.service';
 
 @Component({
   selector: 'eas-admin-ht-consumer-33kv-reading-add',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHTConsumer33KVReadingAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminHTConsumerMenuService: AdminHTConsumerMenuService) { 
+    if(!this.adminHTConsumerMenuService.LAST_MENU.active){
+      this.adminHTConsumerMenuService.menuClicked(this.adminHTConsumerMenuService.LAST_MENU);
+    }
+  }
 
   ngOnInit() {
   }

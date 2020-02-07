@@ -29,15 +29,15 @@ const routes: Routes = [
         data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
-        path: '11kv/reading/add',component: AdminHTConsumer11KVReadingAddComponent,
+        path: '11kv/read/add',component: AdminHTConsumer11KVReadingAddComponent,
         data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
-        path: '11kv/reading/view',component: AdminHTConsumer11KVReadingViewComponent,
+        path: '11kv/read/view',component: AdminHTConsumer11KVReadingViewComponent,
         data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
-        path: '11kv/reading/view/absent',component: AdminHTConsumer11KVReadingViewAbsentComponent,
+        path: '11kv/read/view/absent',component: AdminHTConsumer11KVReadingViewAbsentComponent,
         data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
@@ -45,7 +45,7 @@ const routes: Routes = [
         data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
-        path: '33kv/reading/add',component: AdminHTConsumer33KVReadingAddComponent,
+        path: '33kv/read/add',component: AdminHTConsumer33KVReadingAddComponent,
         data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       { 

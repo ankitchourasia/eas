@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminDtrMenuService } from '../admin-dtr-menu.service';
 
 @Component({
   selector: 'eas-admin-dtr-read-add',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDtrReadAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminDtrMenuService: AdminDtrMenuService) { 
+    if(!this.adminDtrMenuService.FIFTH_MENU.active){
+      this.adminDtrMenuService.menuClicked(this.adminDtrMenuService.FIFTH_MENU);
+    }
+  }
 
   ngOnInit() {
   }
