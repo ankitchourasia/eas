@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AdminBillFileMenuService } from './admin-bill-file-menu.service';
 import { AdminMenuService } from '../admin-menu.service';
 
@@ -30,10 +30,14 @@ export class AdminBillFileComponent implements OnInit {
     /**
        * making global configuration call to get the log prefix
     **/
-    if(menu){
+    if(menu) {
       menu.active = true;
       this.switchActive(menu);
-      this.router.navigate([menu.link],{relativeTo: this.route});
+      let navigationExtras: NavigationExtras = {
+        relativeTo: this.route,
+        skipLocationChange: true
+      };
+      this.router.navigate([menu.link],navigationExtras);
     }
   }
 

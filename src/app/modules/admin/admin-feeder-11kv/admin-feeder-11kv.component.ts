@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AdminMenuService } from '../admin-menu.service';
 import { AdminFeeder11KVMenuService } from './admin-feeder-11kv-menu.service';
 
@@ -30,11 +30,15 @@ export class AdminFeeder11KVComponent implements OnInit {
     /**
        * making global configuration call to get the log prefix
     */
-    if(menu){
-      menu.active = true;
-      this.switchActive(menu);
-      this.router.navigate([menu.link],{relativeTo: this.route});
-    }
+   if(menu) {
+    menu.active = true;
+    this.switchActive(menu);
+    let navigationExtras: NavigationExtras = {
+      relativeTo: this.route,
+      skipLocationChange: true
+    };
+    this.router.navigate([menu.link],navigationExtras);
+  }
   }
 
    /**

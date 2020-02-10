@@ -31,7 +31,8 @@ export class AdminComponent implements OnInit {
       menu.active = true;
       this.switchActive(menu);
       let navigationExtras: NavigationExtras = {
-        relativeTo: this.route
+        relativeTo: this.route,
+        skipLocationChange: true
       };
       this.router.navigate([menu.link],navigationExtras);
     }
