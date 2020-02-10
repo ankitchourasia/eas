@@ -1,26 +1,33 @@
-<nav class="accordion" id="menubar">
-  <ul class="list-group list-group-flush">
-      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV FEEDER MENU</a>
-      <div class="collapse show" id="feederCollapseMenu" data-parent="#menubar">
-          <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>  
-          <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Add</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">View</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/mapping/add']">Add Mapping</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/initial/reading/add']">Add Initial Reading</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/add']">Add Reading</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/view']">View Reading</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/absent/view']">View Absent Reading</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/interruption/add']">Add Interruption</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report']">T&D Loss Report</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report/without-ht']">T&D Loss Report (Without HT)</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/atnc/loss/report']">AT&C Loss Report</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/add']">Add Export Points</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/view']">View Export Points</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/read/add']"> Add Export Point Reading</a>
-          <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/read/view']"> View Export Point Reading</a> -->
-      </div>
-  </ul>
-</nav>
-<div id="mainMenu">
-  <router-outlet></router-outlet>
+<div class="wrapper">
+  <nav id="verticalNavBar" class="accordion">
+    <ul class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#feederCollapseMenu">11KV FEEDER MENU</a>
+        <div class="collapse show" id="feederCollapseMenu" data-parent="#verticalNavBar">
+            <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>  
+            <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/add']">Add</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/view']">View</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/mapping/add']">Add Mapping</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/initial/reading/add']">Add Initial Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/add']">Add Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/view']">View Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/reading/absent/view']">View Absent Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/interruption/add']">Add Interruption</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report']">T&D Loss Report</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/tnd/loss/report/without-ht']">T&D Loss Report (Without HT)</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['feeder/atnc/loss/report']">AT&C Loss Report</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/add']">Add Export Points</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/view']">View Export Points</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/read/add']"> Add Export Point Reading</a>
+            <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['export-point/read/view']"> View Export Point Reading</a> -->
+        </div>
+    </ul>
+    <div class="footer">
+      <p class="text-white text-center">
+            Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://mpwz.co.in" target="_blank">mpwz.co.in</a>
+        </p>
+    </div>
+  </nav>
+  <div id="mainContent">
+    <router-outlet></router-outlet>
+  </div>
 </div>

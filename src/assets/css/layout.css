@@ -1,3 +1,39 @@
+.wrapper{
+    display: flex !important;
+    align-items: stretch;
+}
+
+#verticalNavBar{
+    background: #343a40;
+    flex-grow : 0;
+    flex-shrink: 0;
+    flex-basis: 20%;
+    max-width: 20%;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+}
+
+#horizontalNavBar{
+
+}
+
+#mainContent{
+    flex-grow : 0; 
+    flex-shrink: 0;
+    flex-basis: 80%;
+    max-width: 80%;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; 
+    
+    height: calc(100vh - 56px - 56px);
+    overflow-y: auto;
+}
+/* ------------------------------------------------------------------------- */
 #content{
     display: flex !important;
 }
@@ -14,7 +50,7 @@
 }
 
 #menubar{
-    height: calc(100vh - 56px);
+    height: calc(100vh - 56px -56px);
     overflow-y: auto;
 }
 
