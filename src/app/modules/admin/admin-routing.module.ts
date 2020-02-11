@@ -5,19 +5,14 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
-const adminRoutes: Routes = [
+const routes: Routes = [
   {
-    path: '', 
-    component: AdminComponent,
     canActivate: [CanActivateAuthGuard],
-    data: {
-      expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN]
-    },
+    data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] },
+    path: '', component: AdminComponent,
     children: [
       {
-        path: '',
-        canActivateChild: [CanActivateAuthGuard],
-        children: [
+        path: '', children: [
           {
             path: 'home', component: AdminHomeComponent
           },
@@ -59,7 +54,7 @@ const adminRoutes: Routes = [
 ];
 @NgModule({
   imports: [
-    RouterModule.forChild(adminRoutes)
+    RouterModule.forChild(routes)
   ],
   exports : [RouterModule]
 })

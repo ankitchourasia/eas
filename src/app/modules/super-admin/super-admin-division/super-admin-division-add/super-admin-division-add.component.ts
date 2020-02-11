@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SuperAdminDivisionMenuService } from '../super-admin-division-menu.service';
 
 @Component({
   selector: 'eas-super-admin-division-add',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperAdminDivisionAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(private superAdminDivisionMenuService: SuperAdminDivisionMenuService) { 
+    if(!this.superAdminDivisionMenuService.SECOND_MENU.active){
+      this.superAdminDivisionMenuService.menuClicked(this.superAdminDivisionMenuService.SECOND_MENU);
+    }
+  }
 
   ngOnInit() {
   }

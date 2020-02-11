@@ -16,52 +16,41 @@ import { AdminReportFeederJsonFileComponent } from './admin-report-feeder-json-f
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminReportComponent,
+    data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } ,
+    path: '', component: AdminReportComponent,
     children: [
       { 
         path: 'home', component: AdminReportHomeComponent, 
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd1',component: AdminReportD1Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd2',component: AdminReportD2Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd3',component: AdminReportD3Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd4',component: AdminReportD4Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd5',component: AdminReportD5Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd6',component: AdminReportD6Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'd7',component: AdminReportD7Component,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'nsc-monitoring',component: AdminReportNscMonitoringComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'consumer-complaints-redressal',component: AdminReportConsumerComplaintsRedressalComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'feeder/json',component: AdminReportFeederJsonFileComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       { 
         path: '', redirectTo: 'home',

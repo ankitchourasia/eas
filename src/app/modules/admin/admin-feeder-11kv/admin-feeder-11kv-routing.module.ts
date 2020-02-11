@@ -21,72 +21,56 @@ import { AdminFeeder11KVExportPointReadViewComponent } from './admin-feeder-11kv
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminFeeder11KVComponent,
+    data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } ,
+    path: '', component: AdminFeeder11KVComponent,
     children: [
       { 
         path: 'home', component: AdminFeeder11KVHomeComponent, 
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'add', component: AdminFeeder11KVAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'view',component: AdminFeeder11KVViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/add/initial', component: AdminFeeder11KVInitialReadAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'mapping/add', component: AdminFeeder11KVMappingAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/add', component: AdminFeeder11KVReadAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/view',component: AdminFeeder11KVReadViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/view/absent',component: AdminFeeder11KVAbsentReadViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'report/tnd-loss',component: AdminFeeder11KVTndLossReportComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'report/tnd-loss/without-ht',component: AdminFeeder11KVTndLossReportWithoutHtComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'report/atnc-loss',component: AdminFeeder11KVAtncLossReportComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'interruption/add',component: AdminFeeder11KVInterruptionAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'export-point/add',component: AdminFeeder11KVExportPointAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'export-point/view',component: AdminFeeder11KVExportPointViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'export-point/read/add',component: AdminFeeder11KVExportPointReadAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'export-point/read/view',component: AdminFeeder11KVExportPointReadViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       { 
         path: '', redirectTo: 'home',

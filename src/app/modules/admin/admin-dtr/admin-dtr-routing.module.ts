@@ -13,40 +13,32 @@ import { AdminDtrPreBillingComponent } from './admin-dtr-pre-billing/admin-dtr-p
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminDtrComponent,
+    data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } ,
+    path: '', component: AdminDtrComponent,
     children: [
       { 
         path: 'home', component: AdminDtrHomeComponent, 
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'add', component: AdminDtrAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'view',component: AdminDtrViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/add/initial-read',component: AdminDtrAddInitialReadComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/add',component: AdminDtrReadAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'read/view',component: AdminDtrReadViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'generate/loss/report',component: AdminDtrLossReportComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'pre-billing',component: AdminDtrPreBillingComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       { 
         path: '', redirectTo: 'home',

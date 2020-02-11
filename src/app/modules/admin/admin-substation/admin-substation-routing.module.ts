@@ -8,20 +8,17 @@ import { AdminSubstationViewComponent } from './admin-substation-view/admin-subs
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminSubstationComponent,
+    data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } ,
+    path: '', component: AdminSubstationComponent,
     children: [
       { 
         path: 'home', component: AdminSubstationHomeComponent, 
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'add', component: AdminSubstationAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'view',component: AdminSubstationViewComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       { 
         path: '', redirectTo: 'home',

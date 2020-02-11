@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SuperAdminRegionMenuService } from '../super-admin-region-menu.service';
 
 @Component({
   selector: 'eas-super-admin-region-add',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperAdminRegionAddComponent implements OnInit {
 
-  constructor() { }
+  constructor(private superAdminRegionMenuService: SuperAdminRegionMenuService) { 
+    if(!this.superAdminRegionMenuService.SECOND_MENU.active){
+      this.superAdminRegionMenuService.menuClicked(this.superAdminRegionMenuService.SECOND_MENU);
+    }
+  }
 
   ngOnInit() {
   }

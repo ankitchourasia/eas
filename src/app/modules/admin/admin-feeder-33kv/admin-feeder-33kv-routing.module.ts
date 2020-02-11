@@ -12,36 +12,29 @@ import { AdminFeeder33KVExportPointReadingAddComponent } from './admin-feeder-33
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminFeeder33KVComponent,
+    data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } ,
+    path: '', component: AdminFeeder33KVComponent,
     children: [
       { 
         path: 'home', component: AdminFeeder33KVHomeComponent, 
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'add',component: AdminFeeder33KVAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'reading/add',component: AdminFeeder33KVReadingAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'import-point/add',component: AdminFeeder33KVImportPointAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'import-point/reading/add',component: AdminFeeder33KVImportPointReadingAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'export-point/add',component: AdminFeeder33KVExportPointAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       {
         path: 'export-point/reading/add',component: AdminFeeder33KVExportPointReadingAddComponent,
-        data: { expectedRoles: [GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] } 
       },
       { 
         path: '', redirectTo: 'home',

@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <nav id="verticalNavBar" class="accordion">
+      <ul class="list-group list-group-flush">
+          <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#regionCollapseMenu">CIRCLE MENU</a>
+          <div class="collapse show" id="regionCollapseMenu" data-parent="#verticalNavBar">
+              <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
+          </div>
+      </ul>
+      <div class="footer">
+        <p class="text-white text-center">
+              Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://mpwz.co.in" target="_blank">mpwz.co.in</a>
+          </p>
+      </div>
+  </nav>
+  <div id="mainContent">
+      <router-outlet></router-outlet>
+  </div>
+</div>

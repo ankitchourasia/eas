@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SuperAdminCircleMenuService } from '../super-admin-circle-menu.service';
 
 @Component({
   selector: 'eas-super-admin-circle-view',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperAdminCircleViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private superAdminCircleMenuService: SuperAdminCircleMenuService) { 
+    if(!this.superAdminCircleMenuService.LAST_MENU.active){
+      this.superAdminCircleMenuService.menuClicked(this.superAdminCircleMenuService.LAST_MENU);
+    }
+  }
 
   ngOnInit() {
   }
