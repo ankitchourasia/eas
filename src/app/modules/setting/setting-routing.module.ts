@@ -7,27 +7,22 @@ import { SettingUpdatePasswordComponent } from './setting-update-password/settin
 import { CanActivateAuthGuard } from 'app/guards/can-activate.authguard';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
-const settingRoutes: Routes = [
+const routes: Routes = [
   {
-    path: '', 
-    component: SettingComponent, 
     canActivate: [CanActivateAuthGuard],
-    data: {
-      expectedRoles: [GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN]
-    },
+    data: { expectedRoles: [GlobalConfiguration.ROLE_ADMIN, GlobalConfiguration.ROLE_FIELD_ADMIN, GlobalConfiguration.ROLE_SUPER_ADMIN] },
+    path: '', component: SettingComponent, 
     children: [
       {
-        path: '',
-        canActivateChild: [CanActivateAuthGuard],
-        children: [
+        path: '', children: [
           {
             path: 'home', component: SettingHomeComponent
           },
           {
-            path: 'setting/update/profile', component: SettingUpdateProfileComponent
+            path: 'profile/update', component: SettingUpdateProfileComponent
           },
           {
-            path: 'setting/update/password', component: SettingUpdatePasswordComponent
+            path: 'password/update', component: SettingUpdatePasswordComponent
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'
@@ -39,7 +34,7 @@ const settingRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(settingRoutes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class SettingRoutingModule { }

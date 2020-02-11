@@ -14,6 +14,10 @@ export class RegionAddComponent implements OnInit {
   constructor(private regionService: RegionService, public globalResources: GlobalResources) { }
 
   ngOnInit() {
+    this.setPartialData();
+  }
+
+  setPartialData(){
     this.formData = {};
   }
 
@@ -36,6 +40,12 @@ export class RegionAddComponent implements OnInit {
         }
       }
     );
+  }
+
+  
+  resetClicked(regionAddForm){
+    this.globalResources.resetValidateForm(regionAddForm);
+    this.setPartialData();
   }
 
 }

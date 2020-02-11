@@ -1,7 +1,7 @@
 <div class="wrapper">
   <nav id="verticalNavBar" class="accordion">
       <ul class="list-group list-group-flush">
-          <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#userCollapseMenu">CIRCLE MENU</a>
+          <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#userCollapseMenu">ZONE MENU</a>
           <div class="collapse show" id="userCollapseMenu" data-parent="#verticalNavBar">
               <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
           </div>

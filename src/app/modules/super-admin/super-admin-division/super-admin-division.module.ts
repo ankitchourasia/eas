@@ -5,12 +5,23 @@ import { SuperAdminDivisionAddComponent } from './super-admin-division-add/super
 import { DivisionComponentModule } from '@eas-components/division/division-component.module';
 import { SuperAdminDivisionComponent } from './super-admin-division.component';
 import { SuperAdminDivisionHomeComponent } from './super-admin-division-home/super-admin-division-home.component';
+import { SuperAdminDivisionRoutingModule } from './super-admin-division-routing.module';
+import { SuperAdminDivisionMenuService } from './super-admin-division-menu.service';
 
 @NgModule({
-  declarations: [SuperAdminDivisionViewComponent, SuperAdminDivisionAddComponent, SuperAdminDivisionComponent, SuperAdminDivisionHomeComponent],
   imports: [
     CommonModule,
-    DivisionComponentModule
+    DivisionComponentModule,
+    SuperAdminDivisionRoutingModule
+  ],
+  declarations: [
+    SuperAdminDivisionViewComponent, 
+    SuperAdminDivisionAddComponent, 
+    SuperAdminDivisionComponent, 
+    SuperAdminDivisionHomeComponent
+  ],
+  providers: [
+    SuperAdminDivisionMenuService
   ]
 })
 export class SuperAdminDivisionModule { }
