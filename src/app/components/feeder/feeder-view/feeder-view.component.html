@@ -103,7 +103,7 @@
                 <label class="col-4 col-form-label">Region</label>
                 <div class="col-8">
                   <select class="form-control" id="region" name="region">
-                    <option selected>{{user.region.name | uppercase}}</option>
+                    <option selected>{{user?.region?.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
@@ -111,7 +111,7 @@
                 <label class="col-4 col-form-label">Circle</label>
                 <div class="col-8">
                   <select class="form-control" id="circle"  name="circle" required>
-                    <option selected>{{user.circle.name | uppercase}}</option>
+                    <option selected>{{user?.circle?.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
@@ -119,7 +119,7 @@
                 <label class="col-4 col-form-label">Division</label>
                 <div class="col-8">
                   <select class="form-control" id="division"  name="division" required>
-                    <option selected>{{user.division.name | uppercase}}</option>
+                    <option selected>{{user?.division?.name | uppercase}}</option>
                   </select>
                 </div>
               </div>

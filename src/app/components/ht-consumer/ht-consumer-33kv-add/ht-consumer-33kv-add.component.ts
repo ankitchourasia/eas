@@ -4,6 +4,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-ht-consumer-33kv-add',
@@ -15,18 +16,38 @@ export class HtConsumer33KVAddComponent implements OnInit {
   COMPONENT_NAME = "HtConsumer33KVAddComponent";
   user : any = {};
   htConsumer : any = {};
-  feederList : any = [];
-  zoneList: any = [];
+  regionList: any;
+  circleList: any;
+  divisionList: any;
+  zoneList: any;
+  feederList : any;
   loading : boolean;
   constructor(private globalResources : GlobalResources,private feederService : FeederService, 
     private htConsumerService : HtConsumerService, private zoneService: ZoneService) { }
 
+
   ngOnInit() {
-    this.user = this.globalResources.getUserDetails();
-    if(this.user && this.user.division){
-      this.getZoneListByDivisionId(this.user.division.id);
-    }
+    this.setPartialData();
   }
+
+  setPartialData(){
+    this.htConsumer = {};
+    this.regionList = [];
+    this.circleList = [];
+    this.divisionList = [];
+    this.zoneList = [];
+    this.feederList = [];
+    this.user = this.globalResources.getUserDetails();
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.getZoneListByDivisionId(this.user.division.id);
+      this.htConsumer.region = this.user.region;
+      this.htConsumer.circle = this.user.circle;
+      this.htConsumer.division = this.user.division;
+    }
+  } 
 
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];

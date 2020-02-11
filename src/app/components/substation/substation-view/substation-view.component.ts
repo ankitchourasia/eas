@@ -33,7 +33,6 @@ export class SubstationViewComponent implements OnInit {
 
   getSubstations(){
     let methodName = "getSubstations"
-    this.loading = true;
     this.substationList = [];
     if(this.user && this.user.division){
       this.loading = true;
