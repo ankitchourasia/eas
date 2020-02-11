@@ -37,19 +37,21 @@ export class FeederViewComponent implements OnInit {
 
   getFeeders(){
     let methodName = "getFeeders";
-    this.loading = true;
     this.feederList = [];
-    this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(successResponese =>{
-      this.loading = false;
-      this.feederList = successResponese;
-      this.initializePaginationVariables();
-      if(this.feederList && this.feederList.length){
-        this.setPage(1);
-      }
-    }, errorResponse =>{
-      this.loading = false;
-      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-    });
+    if(this.user && this.user.division){
+      this.loading = true;
+      this.feederService.getFeederByDivisionId(this.user.division.id).subscribe(successResponese =>{
+        this.loading = false;
+        this.feederList = successResponese;
+        this.initializePaginationVariables();
+        if(this.feederList && this.feederList.length){
+          this.setPage(1);
+        }
+      }, errorResponse =>{
+        this.loading = false;
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      });
+    }
   }
 
   exportClicked(){

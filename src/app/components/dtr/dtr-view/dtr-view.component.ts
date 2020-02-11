@@ -32,10 +32,18 @@ export class DtrViewComponent implements OnInit {
     private globalResources : GlobalResources, private paginationService : PaginationService,
     private zoneService: ZoneService) { }
 
-  ngOnInit() {
-    this.user = this.globalResources.getUserDetails();
-    this.getDTRByDivisionId(this.user.division.id);
-  }
+    ngOnInit() {
+      this.user = this.globalResources.getUserDetails();
+      this.searchClicked();
+    }
+  
+    searchClicked(){
+      if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.getDTRByDivisionId(this.user.division.id);
+      }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
+        this.getDTRByZoneId(this.user.zone.id);
+      }
+    }
 
   getDTRByDivisionId(divisionId){
     this.loading = true;
@@ -51,6 +59,22 @@ export class DtrViewComponent implements OnInit {
       this.loading = false;
       console.log(errorResponse);
     });
+  }
+
+  getDTRByZoneId(zoneId){
+    // this.loading = true;
+    // this.dtrList = [];
+    // this.dtrService.getDTRByZoneId(zoneId).subscribe(successResponese =>{
+    //   this.loading = false;
+    //   this.dtrList = successResponese;
+    //   this.initializePaginationVariables();
+    //   if(this.dtrList && this.dtrList.length){
+    //     this.setPage(1);
+    //   }
+    // }, errorResponse =>{
+    //   this.loading = false;
+    //   console.log(errorResponse);
+    // });
   }
 
   exportClicked(){

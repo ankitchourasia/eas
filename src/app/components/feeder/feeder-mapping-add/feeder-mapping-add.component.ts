@@ -27,7 +27,9 @@ export class FeederMappingAddComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.getZoneListByDivisionId(this.user.division.id);
+    if(this.user && this.user.division){
+      this.getZoneListByDivisionId(this.user.division.id);
+    }
   }
   
   getZoneListByDivisionId(divisionId){
