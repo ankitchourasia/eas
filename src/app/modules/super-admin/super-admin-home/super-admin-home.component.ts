@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SuperAdminMenuService } from '../super-admin-menu.service';
 
 @Component({
   selector: 'eas-super-admin-home',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperAdminHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private superAdminMenuService: SuperAdminMenuService) {
+    if (!this.superAdminMenuService.START_MENU.active) {
+      this.superAdminMenuService.menuClicked(this.superAdminMenuService.START_MENU);
+    }
+  }
 
   ngOnInit() {
   }
