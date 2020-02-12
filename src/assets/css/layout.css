@@ -13,7 +13,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s; 
 
-    height: calc(100vh - 56px);
+    height: calc(100vh - 122px);
     overflow-y: auto;
 }
 
@@ -30,7 +30,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s; 
     
-    height: calc(100vh - 56px - 56px);
+    height: calc(100vh - 122px);
     overflow-y: auto;
 }
 /* ------------------------------------------------------------------------- */
