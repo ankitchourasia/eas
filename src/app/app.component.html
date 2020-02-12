@@ -1,1 +1,6 @@
 <router-outlet></router-outlet>
+<div class="backdrop eas-flex-center" *ngIf="loading">
+    <div class="text-white">
+        <span class="spinner-grow text-light" style="width: 5rem; height: 5rem;"></span> Loading...
+    </div>
+</div>

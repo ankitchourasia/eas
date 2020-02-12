@@ -89,8 +89,8 @@ input::-webkit-outer-spin-button {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    align-items: baseline !important;
-    -webkit-box-align: baseline !important;
+    align-items: center !important;
+    -webkit-box-align: center !important;
 }
 
 .required:after{
@@ -115,14 +115,19 @@ input::-webkit-outer-spin-button {
     min-width: 170px;
 }
 
-
 .backdrop{
-    background-color: rgba(0, 0, 0, 0.6);
-    position: fixed;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background: black;
+    opacity: .70;
+    position: absolute; /* fixed without display */
+    display: none;
     top:0;
     left: 0;
-    width:100%;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    /* width:100%;
+    height: 100vh; */
 }
 
 .modal-dialog.modal-full{
