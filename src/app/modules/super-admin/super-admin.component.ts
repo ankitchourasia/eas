@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { SuperAdminMenuService } from './super-admin-menu.service';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-super-admin',
@@ -9,12 +10,16 @@ import { SuperAdminMenuService } from './super-admin-menu.service';
 })
 export class SuperAdminComponent implements OnInit {
 
+   
+  user: any;
   menus : any[] = new Array();
 
-  constructor(private route: ActivatedRoute,private router: Router, private superAdminMenuService: SuperAdminMenuService) {
+  constructor(private route: ActivatedRoute,private router: Router, private superAdminMenuService: SuperAdminMenuService,
+    public globalResources: GlobalResources) {
   }
 
   ngOnInit() {
+    this.user = this.globalResources.getUserDetails();
     this.menus = this.superAdminMenuService.menus;
   }
 
@@ -51,6 +56,11 @@ export class SuperAdminComponent implements OnInit {
   menuState:string = 'in';
   toggleMenu(){
     this.menuState = this.menuState === 'in' ? 'out' : 'in';
+  }
+
+  titleClicked(){
+    let role = this.user.role.toLowerCase();
+    this.router.navigate(['/' + role]);
   }
 
 }

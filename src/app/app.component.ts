@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterEvent, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
 
 @Component({
   selector: 'eas-root',
@@ -12,14 +12,12 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event: RouterEvent) => {
       switch (true) {
-        case event instanceof NavigationStart: {
+        case event instanceof (RouteConfigLoadStart || NavigationStart): {
           this.loading = true;
           break;
         }
 
-        case event instanceof NavigationEnd:
-        case event instanceof NavigationCancel:
-        case event instanceof NavigationError: {
+        case event instanceof (RouteConfigLoadEnd || NavigationEnd ||  NavigationCancel || NavigationError):{
           this.loading = false;
           break;
         }
