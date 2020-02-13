@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <nav id="verticalNavBar" class="accordion justify-content-between">
+    <nav id="verticalNavBar" class="accordion d-flex flex-column justify-content-between">
         <ul class="list-group list-group-flush">
             <a class="sticky-top list-group-item list-group-item-action bg-dark text-light" data-toggle="collapse" href="#billFileCollapseMenu">BILL FILE MENU</a>
             <div class="collapse show" id="billFileCollapseMenu" data-parent="#verticalNavBar">
@@ -7,11 +7,11 @@
                 <!-- <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['upload']">Upload</a> -->
             </div>
         </ul>
-        <!-- <div class="footer">
+        <div class="footer">
         	<p class="text-light text-center">
                 Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://mpwz.co.in" target="_blank">mpwz.co.in</a>
             </p>
-        </div> -->
+        </div>
     </nav>
     <div id="mainContent">
         <router-outlet></router-outlet>

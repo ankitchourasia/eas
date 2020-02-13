@@ -1,16 +1,16 @@
 <div class="wrapper">
-    <nav id="verticalNavBar" class="accordion">
+    <nav id="verticalNavBar" class="accordion d-flex flex-column justify-content-between">
         <ul class="list-group list-group-flush">
             <a class="sticky-top list-group-item list-group-item-action bg-dark text-light" data-toggle="collapse" href="#dtrCollapseMenu">DTR MENU</a>
             <div class="collapse show" id="dtrCollapseMenu" data-parent="#verticalNavBar">
                 <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
             </div>
         </ul>
-        <!-- <div class="footer">
+        <div class="footer">
         	<p class="text-light text-center">
                 Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://mpwz.co.in" target="_blank">mpwz.co.in</a>
             </p>
-        </div> -->
+        </div>
     </nav>
     <div id="mainContent">
         <router-outlet></router-outlet>
