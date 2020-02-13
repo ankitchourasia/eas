@@ -33,19 +33,21 @@ export class SubstationViewComponent implements OnInit {
 
   getSubstations(){
     let methodName = "getSubstations"
-    this.loading = true;
     this.substationList = [];
-    this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(successResponse =>{
-      this.loading = false;
-      this.substationList = successResponse;
-      this.initializePaginationVariables();
-      if(this.substationList && this.substationList.length){
-        this.setPage(1);
-      }
-    }, errorResponse =>{
-      this.loading = false;
-      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-    });
+    if(this.user && this.user.division){
+      this.loading = true;
+      this.substationService.getSubstationByDivisionId(this.user.division.id).subscribe(successResponse =>{
+        this.loading = false;
+        this.substationList = successResponse;
+        this.initializePaginationVariables();
+        if(this.substationList && this.substationList.length){
+          this.setPage(1);
+        }
+      }, errorResponse =>{
+        this.loading = false;
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      });
+    }
   }
 
   editClicked(substation){

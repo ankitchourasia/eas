@@ -12,7 +12,7 @@
   <fieldset [disabled]="_deleteClicked">
     <div class="table-responsive mb-2">
       <table class="table table-sm table-bordered text-center">
-        <thead class="bg-dark text-white">
+        <thead class="bg-dark text-light">
           <tr>
             <td class="align-middle">SNo</td>
             <td class="align-middle">Zone</td>
@@ -94,9 +94,9 @@
   <div class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDTRModal" tabindex="-1" role="dialog" *ngIf="_editClicked">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header bg-dark text-white">
+        <div class="modal-header bg-dark text-light">
           <h5 class="modal-title">Edit DTR</h5>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" (click)="dtrUpdateModalCancel(dtrUpdateForm)">
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close" (click)="dtrUpdateModalCancel(dtrUpdateForm)">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -107,7 +107,7 @@
                 <label class="col-4 col-form-label">Region</label>
                 <div class="col-8">
                   <select class="form-control" id="region" name="region">
-                    <option selected>{{user.region.name | uppercase}}</option>
+                    <option selected>{{user?.region?.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
@@ -115,7 +115,7 @@
                 <label class="col-4 col-form-label">Circle</label>
                 <div class="col-8">
                   <select class="form-control" id="circle"  name="circle" required>
-                    <option selected>{{user.circle.name | uppercase}}</option>
+                    <option selected>{{user?.circle?.name | uppercase}}</option>
                   </select>
                 </div>
               </div>
@@ -123,7 +123,7 @@
                 <label class="col-4 col-form-label">Division</label>
                 <div class="col-8">
                   <select class="form-control" id="division"  name="division" required>
-                    <option selected>{{user.division.name | uppercase}}</option>
+                    <option selected>{{user?.division?.name | uppercase}}</option>
                   </select>
                 </div>
               </div>

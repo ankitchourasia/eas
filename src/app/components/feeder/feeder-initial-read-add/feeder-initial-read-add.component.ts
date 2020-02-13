@@ -4,6 +4,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-feeder-initial-read-add',
@@ -14,9 +15,12 @@ export class FeederInitialReadAddComponent implements OnInit {
 
   user : any = {};
   feederReading : any = {};
-  substations : any = [];
-  feeders : any = [];
+  regionList: any;
+  circleList: any;
+  divisionList: any;
   zoneList: any;
+  substations : any;
+  feeders : any;
   // previousReading : any = {};
   loading : boolean;
   formDates : any = {};
@@ -27,9 +31,29 @@ export class FeederInitialReadAddComponent implements OnInit {
     private feederService : FeederService, public globalConstants : GlobalConstants,
     private zoneService: ZoneService) { }
 
+  
   ngOnInit() {
+    this.setPartialData();
+  }
+  
+  setPartialData(){
+    this.feederReading = {};
+    this.regionList = [];
+    this.circleList = [];
+    this.divisionList = [];
+    this.zoneList = [];
+    this.substations = [];
+    this.feeders = [];
     this.user = this.globalResources.getUserDetails();
-    this.getZoneListByDivisionId(this.user.division.id);
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.getZoneListByDivisionId(this.user.division.id);
+      this.feederReading.region = this.user.region;
+      this.feederReading.circle = this.user.circle;
+      this.feederReading.division = this.user.division;
+    }
   }
 
   getZoneListByDivisionId(divisionId){

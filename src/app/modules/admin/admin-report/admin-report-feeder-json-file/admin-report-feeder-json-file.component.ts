@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminReportMenuService } from '../admin-report-menu.service';
 
 @Component({
   selector: 'eas-admin-report-feeder-json-file',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminReportFeederJsonFileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminReportMenuService: AdminReportMenuService) { 
+    if(!this.adminReportMenuService.FOURTH_MENU.active){
+      this.adminReportMenuService.menuClicked(this.adminReportMenuService.FOURTH_MENU);
+    }
+  }
 
   ngOnInit() {
   }

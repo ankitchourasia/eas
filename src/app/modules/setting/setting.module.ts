@@ -11,18 +11,18 @@ import { SettingRoutingModule } from './setting-routing.module';
 import { SettingMenuService } from './setting-menu.service';
 
 @NgModule({
-  declarations: [
-    SettingComponent,
-    SettingHomeComponent,
-    SettingUpdatePasswordComponent,
-    SettingUpdateProfileComponent
-  ],
   imports: [
     CommonModule,
     HeaderComponentModule,
     FormsModule,
     DirectiveModule,
     SettingRoutingModule
+  ],
+  declarations: [
+    SettingComponent,
+    SettingHomeComponent,
+    SettingUpdatePasswordComponent,
+    SettingUpdateProfileComponent
   ],
   providers: [
     SettingMenuService

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SuperAdminZoneMenuService } from '../super-admin-zone-menu.service';
 
 @Component({
   selector: 'eas-super-admin-zone-view',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuperAdminZoneViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private superAdminZoneMenuService: SuperAdminZoneMenuService) { 
+    if(!this.superAdminZoneMenuService.LAST_MENU.active){
+      this.superAdminZoneMenuService.menuClicked(this.superAdminZoneMenuService.LAST_MENU);
+    }
+  }
 
   ngOnInit() {
   }

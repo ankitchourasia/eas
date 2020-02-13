@@ -1,14 +1,17 @@
-<nav class="navbar navbar-dark bg-dark" id="oagNavbar">
-  <a class="navbar-brand text-white" href="JavaScript:void(0);" (click)="titleClicked()">
-    EAS
-  </a>
+<nav class="navbar bg-dark" id="navbarHeader">
+  <div class="navbar-header">
+    <a class="navbar-brand text-light" href="JavaScript:void(0);" (click)="titleClicked()">
+        <span class="navbar-brand mb-0 h1">EAS</span>
+    </a>
+  </div>
   <div id="welcomeMessage">
-      <div class="dropdown">
-          <label class="text-white">Welcome &nbsp;</label>
-          <a class="dropdown-toggle text-white" role="button" id="dropdownMenuLink" data-toggle="dropdown" href="javascript:void(0);">
-            <span class="fa fa-user" aria-hidden="true">&nbsp;&nbsp;</span>{{user?.name | uppercase}}
+      <div class="dropdown rounded-circle bg-light">
+          <a class="dropdown-toggle text-dark m-1" role="button" id="dropdownMenuLink" data-toggle="dropdown" href="javascript:void(0);">
+            <span class="fa fa-user" aria-hidden="true"></span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <h6 class="dropdown-header"><span class="fa fa-user-circle" aria-hidden="true"></span> {{user?.name | uppercase}}</h6>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="javascript:void(0);" (click)="settingClicked()"><span class="fa fa-wrench" aria-hidden="true">&nbsp;&nbsp;</span>Settings</a>
             <a class="dropdown-item" href="javascript:void(0);" (click)="logoutClicked()"><span class="fa fa-sign-out" aria-hidden="true">&nbsp;&nbsp;</span>Logout</a>
           </div>

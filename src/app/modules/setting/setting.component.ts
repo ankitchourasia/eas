@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingMenuService } from './setting-menu.service';
+import { GlobalResources } from '@eas-utility/global.resources';
 
 @Component({
   selector: 'eas-setting',
@@ -9,11 +10,14 @@ import { SettingMenuService } from './setting-menu.service';
 })
 export class SettingComponent implements OnInit {
 
+  user: any;
   public sourceUrl : string;
   public menus : any[] = new Array();
-  constructor(private route: ActivatedRoute, private router: Router, private settingMenuService: SettingMenuService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private settingMenuService: SettingMenuService,
+    public globalResources: GlobalResources) { }
 
   ngOnInit() {
+    this.user = this.globalResources.getUserDetails();
     this.menus = this.settingMenuService.getMenus();
     this.route.queryParams.subscribe(params => {
       this.sourceUrl = params['source'];
@@ -43,6 +47,11 @@ export class SettingComponent implements OnInit {
       this.menus.forEach(element =>{
           if(element.name != menu.name) element.active = false;
       });
+  }
+
+  titleClicked(){
+    let role = this.user.role.toLowerCase();
+    this.router.navigate(['/' + role]);
   }
 
 }

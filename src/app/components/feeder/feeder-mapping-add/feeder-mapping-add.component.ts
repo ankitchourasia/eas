@@ -5,6 +5,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { DivisionService } from '@eas-services/division-service/division.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 
 @Component({
   selector: 'eas-feeder-mapping-add',
@@ -14,9 +15,12 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 export class FeederMappingAddComponent implements OnInit {
 
   user : any = {};
-  substations : any = [];
-  feeders : any = [];
-  zoneList: any = [];
+  regionList: any;
+  circleList: any;
+  divisionList: any;
+  zoneList: any;
+  substations: any;
+  feeders: any;
   feederMapping : any = {};
   originalDivisions : any = [];
   originalFeeders : any = [];
@@ -25,11 +29,31 @@ export class FeederMappingAddComponent implements OnInit {
     private feederService : FeederService, public globalConstants : GlobalConstants, 
     private divisionService : DivisionService, private zoneService: ZoneService) { }
 
-  ngOnInit() {
-    this.user = this.globalResources.getUserDetails();
-    this.getZoneListByDivisionId(this.user.division.id);
-  }
   
+  ngOnInit() {
+    this.setPartialData();
+  }
+
+  setPartialData(){
+    this.feederMapping = {};
+    this.regionList = [];
+    this.circleList = [];
+    this.divisionList = [];
+    this.zoneList = [];
+    this.substations = [];
+    this.feeders = [];
+    this.user = this.globalResources.getUserDetails();
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
+      this.getZoneListByDivisionId(this.user.division.id);
+      this.feederMapping.region = this.user.region;
+      this.feederMapping.circle = this.user.circle;
+      this.feederMapping.division = this.user.division;
+    }
+  }  
+
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{

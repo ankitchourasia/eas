@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminDtrMenuService } from '../admin-dtr-menu.service';
 
 @Component({
   selector: 'eas-admin-dtr-pre-billing',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDtrPreBillingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminDtrMenuService: AdminDtrMenuService) { 
+    if(!this.adminDtrMenuService.LAST_MENU.active){
+      this.adminDtrMenuService.menuClicked(this.adminDtrMenuService.LAST_MENU);
+    }
+  }
 
   ngOnInit() {
   }

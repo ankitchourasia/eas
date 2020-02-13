@@ -8,12 +8,17 @@ import { AdminDtrLossReportComponent } from './admin-dtr-loss-report/admin-dtr-l
 import { AdminDtrReadAddComponent } from './admin-dtr-read-add/admin-dtr-read-add.component';
 import { DtrComponentModule } from '@eas-components/dtr/dtr-component.module';
 import { AdminDtrPreBillingComponent } from './admin-dtr-pre-billing/admin-dtr-pre-billing.component';
+import { AdminDtrHomeComponent } from './admin-dtr-home/admin-dtr-home.component';
+import { AdminDtrComponent } from './admin-dtr.component';
+import { AdminDtrMenuService } from './admin-dtr-menu.service';
+import { AdminDtrRoutingModule } from './admin-dtr-routing.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     DtrComponentModule,
+    AdminDtrRoutingModule
   ],
   declarations: [
     AdminDtrAddComponent,
@@ -22,7 +27,12 @@ import { AdminDtrPreBillingComponent } from './admin-dtr-pre-billing/admin-dtr-p
     AdminDtrReadViewComponent,
     AdminDtrLossReportComponent,
     AdminDtrReadAddComponent,
-    AdminDtrPreBillingComponent
+    AdminDtrPreBillingComponent,
+    AdminDtrHomeComponent,
+    AdminDtrComponent
   ],
+  providers: [
+    AdminDtrMenuService
+  ]
 })
 export class AdminDtrModule { }

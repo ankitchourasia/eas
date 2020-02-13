@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
   titleClicked(){
     let role = this.user.role.toLowerCase();
-    this.router.navigate(['/' + role + '/home']);
+    this.router.navigate(['/' + role]);
   }
 
   logoutClicked() {

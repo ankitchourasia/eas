@@ -14,6 +14,9 @@ export class SubstationAddComponent implements OnInit {
 
   substation : any;
   user : any;
+  regionList: any;
+  circleList: any;
+  divisionList: any;
   zoneList: any;
   submitButtonClicked : boolean;
   constructor(public globalResources: GlobalResources, private globalConstants : GlobalConstants,
@@ -27,18 +30,22 @@ export class SubstationAddComponent implements OnInit {
 
   setPartialData(){
     this.substation = {};
+    this.regionList = [];
+    this.circleList = [];
+    this.divisionList = [];
     this.zoneList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
-      // this.zoneList = this.user.zoneList;
+      this.regionList.push(this.user.region);
+      this.circleList.push(this.user.circle);
+      this.divisionList.push(this.user.division);
       this.getZoneListByDivisionId(this.user.division.id);
-    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
-      this.zoneList.push(this.user.zone);
-      this.substation.zone = this.user.zone;
-      this.substation.zoneId = this.substation.zone.id;
+      this.substation.region = this.user.region;
+      this.substation.circle = this.user.circle;
+      this.substation.division = this.user.division;
     }
   }
-
+  
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{

@@ -38,20 +38,22 @@ export class FeederReadingViewComponent implements OnInit {
   
   getFeederReadings(){
     let methodName = "getFeederReading";
-    this.loading =true;
     this.feederReadingList = [];
     this.billMonth = this.month + '-' + this.year;
-    this.feederService.getFeederReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
-      this.loading = false;
-      this.feederReadingList = successResponse;
-      this.initializePaginationVariables();
-      if(this.feederReadingList &&  this.feederReadingList.length){
-        this.setPage(1);
-      }
-    }, errorResponse =>{
-      this.loading = false;
-      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-    });
+    if(this.user && this.user.division){
+      this.loading =true;
+      this.feederService.getFeederReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
+        this.loading = false;
+        this.feederReadingList = successResponse;
+        this.initializePaginationVariables();
+        if(this.feederReadingList &&  this.feederReadingList.length){
+          this.setPage(1);
+        }
+      }, errorResponse =>{
+        this.loading = false;
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      });
+    }
   }
 
   editClicked(reading){

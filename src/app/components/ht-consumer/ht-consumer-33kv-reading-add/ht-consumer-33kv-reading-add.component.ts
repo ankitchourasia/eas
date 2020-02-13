@@ -23,7 +23,9 @@ export class HtConsumer33KVReadingAddComponent implements OnInit {
   ngOnInit() {
     this.setInitialData();
     this.user = this.globalResources.getUserDetails();
-    this.getZoneListByDivisionId(this.user.division.id);
+    if(this.user && this.user.division){
+      this.getZoneListByDivisionId(this.user.division.id);
+    }
   }
 
   setInitialData(){

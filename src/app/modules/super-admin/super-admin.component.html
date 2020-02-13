@@ -1,34 +1,18 @@
 <eas-header></eas-header>
-<div id="content">
-  <div  class="accordion" id="menubar">
-    <ul class="list-group list-group-flush">
-      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#regionCollapseMenu">Region</a>
-      <div class="collapse" id="regionCollapseMenu" data-parent="#menubar">
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['region/add']">Region Add</a>
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['region/view']">Region View</a>
-      </div>
-      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#circleCollapseMenu">Circle</a>
-      <div class="collapse" id="circleCollapseMenu" data-parent="#menubar">
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['circle/add']">Circle Add</a>
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['circle/view']">Circle View</a>
-      </div>
-      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#divisionCollapseMenu">Division</a>
-      <div class="collapse" id="divisionCollapseMenu" data-parent="#menubar">
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['division/add']">Division Add</a>
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['division/view']">Division View</a>
-      </div>
-      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#zoneCollapseMenu">Zone</a>
-      <div class="collapse" id="zoneCollapseMenu" data-parent="#menubar">
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['zone/add']">Zone Add</a>
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['zone/view']">Zone View</a>
-      </div>
-      <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#userCollapseMenu">User</a>
-      <div class="collapse" id="userCollapseMenu" data-parent="#menubar">
-        <a class="list-group-item list-group-item-action" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="['user/add']">User Add</a>
-        </div>
-    </ul>
-  </div>
-  <div id="mainMenu">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<nav class="navbar bg-dark navbar-expand-lg">
+    <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary mb-1" (click)="toggleMenu()">
+        <i class="fa fa-bars"></i><span class="sr-only">Toggle Menu</span>
+    </button>     -->
+
+    <button class="btn bg-light d-inline-block d-lg-none ml-auto mb-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav nav-fill ml-auto">
+            <li class="nav-item" [ngClass]="{'bg-light': menu.active}"  *ngFor="let menu of menus">
+                <a class="nav-link" [ngClass]="{'text-dark': menu.active, 'text-light': !menu.active}" href="javascript:void(0);" (click)="menuClicked(menu)">{{menu.name}}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<router-outlet></router-outlet>
