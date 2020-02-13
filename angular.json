@@ -34,7 +34,8 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/sweetalert2/dist/sweetalert2.js",
-              "src/assets/js/external.js"
+              "src/assets/js/external.js",
+              "src/assets/js/css-variable.js"
             ]
           },
           "configurations": {

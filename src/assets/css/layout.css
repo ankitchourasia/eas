@@ -1,10 +1,14 @@
+.theme-color{
+    background-color: var(--theme-color);
+}
+
 .wrapper{
     display: flex !important;
     align-items: stretch;
 }
 
 #verticalNavBar{
-    background: #343a40;
+    background: var(--theme-color);
     flex-grow : 0;
     flex-shrink: 0;
     flex-basis: 20%;
@@ -33,39 +37,67 @@
     height: calc(100vh - 122px);
     overflow-y: auto;
 }
+
+.backdrop{
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    background: var(--theme-color);
+    opacity: .70;
+    position: fixed; /* absolute */
+    display: none;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    /* width:100%;
+    height: 100vh; */
+}
+
 /* ------------------------------------------------------------------------- */
-#content{
-    display: flex !important;
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #ebebeb;
+    /* -webkit-border-radius: 10px; */ 
+    /* border-radius: 10px; */
 }
 
-#menubar{
-    background: #343a40;
-    flex-grow : 0;
-    flex-shrink: 0;
-    flex-basis: 20%;
-    max-width: 20%;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s; 
+::-webkit-scrollbar-thumb {
+    /* -webkit-border-radius: 10px;
+    border-radius: 10px; */
+    background: var(--theme-color);
+}
+/* 
+::-webkit-scrollbar-track-piece  { 
+    background-color: black;
+} */
+
+::-webkit-scrollbar:horizontal {
+    /* width: 3px; */
+    height: 5px;
+}
+ 
+::-webkit-scrollbar-track:horizontal {
+    background-color: #ebebeb;
+    /* -webkit-border-radius: 10px; */ 
+    /* border-radius: 10px; */
 }
 
-#menubar{
-    height: calc(100vh - 56px -56px);
-    overflow-y: auto;
+::-webkit-scrollbar-thumb:horizontal {
+    /* -webkit-border-radius: 10px;
+    border-radius: 10px; */
+    background: var(--theme-color);
 }
 
+/* ::-webkit-scrollbar-track-piece:horizontal  { 
+    background-color: black;
+} */
 
-#mainMenu{
-    flex-grow : 0; 
-    flex-shrink: 0;
-    flex-basis: 80%;
-    max-width: 80%;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s; 
-}
-
-#mainMenu{
-    height: calc(100vh - 56px);
-    overflow-y: auto;
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
