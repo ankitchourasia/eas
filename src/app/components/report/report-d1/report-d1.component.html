@@ -25,7 +25,7 @@
     <div class="inner-group">
       <small class="form-text text-muted required">Town</small>
       <select [ngClass]="{'is-valid': !town.errors && (town.dirty || town.touched),'is-invalid': town.errors && (town.dirty || town.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="searchFormData.town" #town="ngModel" id="town"  name="town" required (change)="!town.errors && townChanged(searchFormData.town)">
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.town" #town="ngModel" id="town"  name="town" required (change)="!town.errors && townChanged()">
         <option disabled selected [ngValue]='undefined'>Select</option>
         <!-- <option *ngIf="townList && townList.length > 1">ALL</option> -->
         <option *ngFor="let town of townList" [ngValue]="town">{{town.name | uppercase}}</option>

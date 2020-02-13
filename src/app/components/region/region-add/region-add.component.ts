@@ -21,7 +21,7 @@ export class RegionAddComponent implements OnInit {
     this.formData = {};
   }
 
-  submitClicked(){
+  submitClicked(regionAddForm){
     this._submitClicked = true;
     this.regionService.addRegion(this.formData, true).subscribe(
       successResponse =>{
