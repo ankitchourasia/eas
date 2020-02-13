@@ -61,11 +61,12 @@ export class ExportPointViewComponent implements OnInit {
     this.exportPointList = [];
     this.exportService.getAll11KVExportPointsByZoneId(zoneId, false).subscribe(
       successResponse =>{
-        console.log(successResponse);
         this._searchClicked = false;  
         this.exportPointList = successResponse;
         this.initializePaginationVariables();
-        this.setPage(1);
+        if(this.exportPointList && this.exportPointList.length){
+          this.setPage(1);
+        }
       },errorResponse =>{
         console.log(errorResponse);
         this._searchClicked = false;
@@ -76,10 +77,8 @@ export class ExportPointViewComponent implements OnInit {
 
   statusChanged(exportPoint){
     this.statusChangedButtonClicked = true;
-    console.log(exportPoint);
     this.exportService.statusChanged(exportPoint, false).subscribe(
       successResponse =>{
-        console.log(successResponse);
         this.statusChangedButtonClicked = false;  
         if(successResponse){
           let resultResponse = <any>successResponse;

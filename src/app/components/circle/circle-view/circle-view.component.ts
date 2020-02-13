@@ -35,9 +35,10 @@ export class CircleViewComponent implements OnInit {
     this.circleService.getCircles(false).subscribe(successResponse =>{
       this.loading = false;
       this.circleList = successResponse;
-      console.log(successResponse);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.circleList && this.circleList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       console.log(errorResponse);

@@ -133,10 +133,11 @@ export class ReportD4Component implements OnInit {
     this.reportService.getD4GenerationStatusByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(successResponse => {
       this._searchClicked = false;
       this.searchResultList = successResponse;
-      console.log(this.searchResultList);
       this.getGenerationStatus();
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.searchResultList && this.searchResultList.length){
+        this.setPage(1);
+      }
     }, errorResponse => {
       this._searchClicked = false;
       console.log(errorResponse);
@@ -184,7 +185,6 @@ export class ReportD4Component implements OnInit {
     this.fetchClicked = true;
     this.reportService.getD4ReportBillingDataByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(success => {
       this.fetchClicked = false;
-      console.log(success);
       this.searchClicked();
       this.globalResources.successAlert("Data fetched successfully.");
     }, error => {

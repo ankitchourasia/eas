@@ -47,9 +47,10 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
       this.htConsumerService.getHTConsumerConsumptionByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
         this.searchButtonClicked = false;
         this.htConsumerConsumptionList = successResponse;
-        console.log(successResponse);
         this.initializePaginationVariables();
-        this.setPage(1);
+        if(this.htConsumerConsumptionList && this.htConsumerConsumptionList.length){
+          this.setPage(1);
+        }
       },errorResponse =>{
         this.searchButtonClicked = false;
         console.log(errorResponse);

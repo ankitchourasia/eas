@@ -69,7 +69,9 @@ export class ExportPointReadingViewComponent implements OnInit {
         this._searchClicked = false;
         this.exportPointReadingList = successResponse;
         this.initializePaginationVariables();
-        this.setPage(1);
+        if(this.exportPointReadingList && this.exportPointReadingList.length){
+          this.setPage(1);
+        }
       }, errorResponse =>{
         console.log(errorResponse);
         this._searchClicked = false;

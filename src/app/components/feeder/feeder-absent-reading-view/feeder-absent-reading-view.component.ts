@@ -39,10 +39,11 @@ export class FeederAbsentReadingViewComponent implements OnInit {
     this.billMonth = this.month + '-' + this.year;
     this.feederService.getFeederAbsentReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
       this.loading = false;
-      console.log(successResponse);
       this.feederAbsentReadingList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.feederAbsentReadingList && this.feederAbsentReadingList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

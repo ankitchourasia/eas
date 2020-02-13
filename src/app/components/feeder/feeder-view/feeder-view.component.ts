@@ -43,7 +43,9 @@ export class FeederViewComponent implements OnInit {
       this.loading = false;
       this.feederList = successResponese;
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.feederList && this.feederList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

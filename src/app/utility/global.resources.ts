@@ -2,38 +2,39 @@ import { Injectable } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import alert from "sweetalert2";
 import $ from 'jQuery';
+import { GlobalConstants } from './global.constants';
 
 @Injectable()
 export class GlobalResources {
 
-    constructor(){
+    constructor(private globalConstants: GlobalConstants){
 
     }
 
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));
     }
-    
-    handleError(errorResponse: Response | any, componentName: string, methodName: string, customErrorMessage?: string) {
-        console.log("Error inside " + componentName + "-" + methodName, errorResponse);
+
+    handleError(response: Response | any, componentName: string, methodName: string, customErrorMessage?: string) {
+        console.error("error inside " + componentName + "-" + methodName, response);
         let alertResponse: any = null;
         try{
-            switch (errorResponse.status) {
+            switch (response.status) {
                 case 0:{
-                    alertResponse = this.errorAlert("Frontend Server down. Try agian after some time...");
+                    alertResponse = this.errorAlert("Frontend Server error");
                     break;
                 }
-                case 500:{
-                    alertResponse = this.errorAlert("Backend Server down. Try agian after some time...");
+                case 500: case 501: case 502: case 503:case 504:{
+                    alertResponse = this.errorAlert("Backend Server error");
                     break;
                 }
                 default:{
                     if(customErrorMessage){
                         alertResponse = this.errorAlert(customErrorMessage);
-                    }else if(errorResponse.error && errorResponse.error.errorMessage){
-                        alertResponse = this.errorAlert(errorResponse.error.errorMessage);
-                    }else if(errorResponse.error && errorResponse.error.message){
-                        alertResponse = this.errorAlert(errorResponse.error.message);
+                    }else if(response.error && response.error.errorMessage){
+                        alertResponse = this.errorAlert(response.error.errorMessage);
+                    }else if(response.error && response.error.message){
+                        alertResponse = this.errorAlert(response.error.message);
                     }else{
                         alertResponse = this.errorAlert("Some error occurred. Try again...");
                     }
@@ -234,6 +235,7 @@ export class GlobalResources {
         }
         
     }
+
     getPreviousBillMonth(billMonth){
         if(billMonth){
             let values = billMonth.split('-');
@@ -340,15 +342,6 @@ export class GlobalResources {
         }else{
             return null;
         }
-    }
-
-    getYearList(){
-        let years = [];  
-        let year = 2016;
-        while(year <= 2050){
-           years.push(year++);
-        }
-        return years;
     }
 
     printElementById(elementId, options?:any){

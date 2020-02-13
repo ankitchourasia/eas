@@ -173,12 +173,13 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this.billingStatusList = [];
     this.reportService.getFeederMonitoringReportBillingDataByZoneIdAndBillMonth(searchElement.zone.id, searchElement.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
-      console.log(successResponse);
       this.billingStatusList = successResponse;
-      // this.generationStatusFlag = !!(Number(this.generationStatusFlag) * Number(this.checkGenerationStatus(searchElement.generationStatusList)));
-      this.checkGenerationStatus(this.billingStatusList);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.billingStatusList && this.billingStatusList.length){
+        // this.generationStatusFlag = !!(Number(this.generationStatusFlag) * Number(this.checkGenerationStatus(searchElement.generationStatusList)));
+        this.checkGenerationStatus(this.billingStatusList);
+        this.setPage(1);
+      }
     },errorResponse =>{
       this._searchClicked = false;
       console.log(errorResponse);
@@ -240,7 +241,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
   getReportDataClicked(generateInputObject){
     this._generateClicked = true;
     this.reportService.getBillingDataForZone(generateInputObject.zoneId, generateInputObject.billMonth, false).subscribe(success=>{
-      console.log(success);
       this._generateClicked = false;
       this.globalResources.successAlert("Billing data fetched successfully.");
       this.searchFormData();
@@ -258,7 +258,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
     let methodName = "viewByZoneIdAndBillMonth";
     this.viewResultList = [];
     this.reportService.getJsonInputByZoneIdAndBillMonth(this.searchFormData.zone.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      console.log(successResponse);
       let result:any = successResponse;
       if(result && result.length)
       {
@@ -316,7 +315,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
     let fileName = "mpwkvvcl_uf_"
     let endBillMonth = this.searchFormData.billingMonth;
     let startBillMonth = this.globalResources.getNextBillMonth(endBillMonth);
-
+    
     let startBillMonthValues = startBillMonth.split("-");
     let endBillMonthValues = endBillMonth.split("-");
 

@@ -43,10 +43,11 @@ export class FeederReadingViewComponent implements OnInit {
     this.billMonth = this.month + '-' + this.year;
     this.feederService.getFeederReadingsByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
       this.loading = false;
-      console.log(successResponse);
       this.feederReadingList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.feederReadingList &&  this.feederReadingList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
@@ -93,7 +94,6 @@ export class FeederReadingViewComponent implements OnInit {
     this.updateButtonClicked = true;
     this.feederService.updateFeederReading(this.readingToEdit, nextBillMonth, this.user.username).subscribe(success =>{
       this.updateButtonClicked = false;
-      console.log(success);
       let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
       aletResponse.then(result =>{
         this.closeModal(this.closeButtonRef);

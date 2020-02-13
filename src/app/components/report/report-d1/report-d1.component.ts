@@ -130,10 +130,11 @@ export class ReportD1Component implements OnInit {
     this.reportService.getD1GenerationStatusByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
       this.searchResultList = successResponse;
-      console.log(this.searchResultList);
       this.lossGenerationStatus = this.checkGenerationStatus(this.searchResultList);
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.searchResultList && this.searchResultList.length){
+        this.setPage(1);
+      }
     },errorResponse =>{
       this._searchClicked = false;
       console.log(errorResponse);
@@ -165,7 +166,6 @@ export class ReportD1Component implements OnInit {
   viewByTownIdAndBillMonth(){
     this.viewResultList = [];
     this.reportService.getD1ByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
-      console.log(successResponse);
       if(successResponse){
         this.viewResultList.push(successResponse);
       }

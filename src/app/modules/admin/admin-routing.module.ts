@@ -50,6 +50,8 @@ import { AdminFeeder33KVExportPointAddComponent } from './admin-feeder-33kv/admi
 import { AdminFeeder33KVExportPointReadingAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-export-point-reading-add/admin-feeder-33kv-export-point-reading-add.component';
 import { AdminHtConsumer33KVAddComponent } from './admin-ht-consumer/admin-ht-consumer-33kv-add/admin-ht-consumer-33kv-add.component';
 import { AdminHtConsumer33KVReadingAddComponent } from './admin-ht-consumer/admin-ht-consumer-33kv-reading-add/admin-ht-consumer-33kv-reading-add.component';
+import { AdminFeeder33KVImportPointAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-import-point-add/admin-feeder-33kv-import-point-add.component';
+import { AdminFeeder33KVImportPointReadingAddComponent } from './admin-feeder-33kv/admin-feeder-33kv-import-point-reading-add/admin-feeder-33kv-import-point-reading-add.component';
 
 const adminRoutes: Routes = [
   {
@@ -192,6 +194,12 @@ const adminRoutes: Routes = [
           },
           {
             path: 'feeder/33kv/reading/add',component: AdminFeeder33KVReadingAddComponent
+          },
+          {
+            path: 'feeder/33kv/import-point/add',component: AdminFeeder33KVImportPointAddComponent
+          },
+          {
+            path: 'feeder/33kv/import-point/reading/add',component: AdminFeeder33KVImportPointReadingAddComponent
           },
           {
             path: 'feeder/33kv/export-point/add',component: AdminFeeder33KVExportPointAddComponent

@@ -39,7 +39,9 @@ export class SubstationViewComponent implements OnInit {
       this.loading = false;
       this.substationList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
+      if(this.substationList && this.substationList.length){
+        this.setPage(1);
+      }
     }, errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

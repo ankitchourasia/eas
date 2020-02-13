@@ -217,8 +217,8 @@ export class DtrPreBillingComponent implements OnInit {
       this._searchClicked = false;
       this.dtrList = successResponse;
       this.initializePaginationVariables();
-      this.setPage(1);
       if(this.dtrList && this.dtrList.length){
+        this.setPage(1);
         let billingMonth = this.billMonth + "-" + this.billMonthYear;
         this.getDTRReadingByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth);
       }

@@ -3,7 +3,7 @@
   <div id="menubar" class="accordion">
     <ul class="list-group list-group-flush">
       <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#settingCollapseMenu">Setting</a>
-      <div class="collapse show" id="settingCollapseMenu" data-parent="#sideMenu">
+      <div class="collapse show" id="settingCollapseMenu" data-parent="#menubar">
           <a class="list-group-item list-group-item-action sub-menu" *ngFor="let menu of menus" [ngClass]="{'router-link-active': menu.active}" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
           <a class="list-group-item list-group-item-action sub-menu" href="javascript:void(0);" (click)="backClicked()">Back</a>
       </div>
