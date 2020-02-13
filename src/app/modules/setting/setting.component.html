@@ -1,21 +1,21 @@
 <eas-header></eas-header>
-<nav class="navbar theme-color navbar-expand-lg">
-    <button type="button" id="sidebarCollapse" class="btn btn-primary mb-1" (click)="toggleMenu()">
+<nav class="navbar bg-dark navbar-expand-lg">
+    <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary mb-1" (click)="toggleMenu()">
         <i class="fa fa-bars"></i><span class="sr-only">Toggle Menu</span>
-    </button>    
+    </button>     -->
     <ul class="nav nav-fill ml-auto">
-        <li class="nav-item bg-color-default">
-            <a class="nav-link text-color-inverse" href="javascript:void(0);" (click)="backClicked()">Back</a>
+        <li class="nav-item bg-light">
+            <a class="nav-link text-dark" href="javascript:void(0);" (click)="backClicked()">Back</a>
         </li>
     </ul>
 
-    <!-- <button class="btn bg-color-default d-inline-block d-lg-none ml-auto mb-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <!-- <button class="btn bg-light d-inline-block d-lg-none ml-auto mb-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <i class="fa fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav nav-fill ml-auto">
-            <li class="nav-item bg-color-default">
-                <a class="nav-link theme-color" href="javascript:void(0);" (click)="backClicked()">Back</a>
+            <li class="nav-item bg-light">
+                <a class="nav-link bg-dark" href="javascript:void(0);" (click)="backClicked()">Back</a>
             </li>
         </ul>
     </div> -->
@@ -23,16 +23,16 @@
 <div class="wrapper">
     <nav id="verticalNavBar" class="accordion">
         <ul class="list-group list-group-flush">
-            <a class="sticky-top list-group-item list-group-item-action theme-color text-color-default" data-toggle="collapse" href="#settingCollapseMenu">SETTING MENU</a>
+            <a class="sticky-top list-group-item list-group-item-action bg-dark text-light" data-toggle="collapse" href="#settingCollapseMenu">SETTING MENU</a>
             <div class="collapse show" id="settingCollapseMenu" data-parent="#verticalNavBar">
                 <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
             </div>
         </ul>
-        <div class="footer">
-        	<p class="text-color-default text-center">
+        <!-- <div class="footer">
+        	<p class="text-light text-center">
                 Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://mpwz.co.in" target="_blank">mpwz.co.in</a>
             </p>
-        </div>
+        </div> -->
     </nav>
     <div id="mainContent">
         <router-outlet></router-outlet>

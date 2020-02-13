@@ -35,7 +35,7 @@ export class AdminHTConsumerComponent implements OnInit {
     this.switchActive(menu);
     let navigationExtras: NavigationExtras = {
       relativeTo: this.route,
-      skipLocationChange: true
+      // skipLocationChange: true
     };
     this.router.navigate([menu.link],navigationExtras);
   }
