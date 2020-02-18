@@ -3,6 +3,7 @@ import { sidebarTransition, sidebarAnimate, mainContainerAnimate } from 'app/ani
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AdminMenuService } from './admin-menu.service';
 import { GlobalResources } from '@eas-utility/global.resources';
+import { LazyLoadingScriptService } from '@eas-services/lazy-loading-script-service/lazy-loading-script.service';
 
 @Component({
   selector: 'eas-admin',
@@ -16,10 +17,11 @@ export class AdminComponent implements OnInit {
   menus : any[] = new Array();
 
   constructor(private route: ActivatedRoute,private router: Router, private adminMenuService: AdminMenuService,
-    public globalResources: GlobalResources) {
+    public globalResources: GlobalResources, private lazyLoadingScriptService: LazyLoadingScriptService) {
   }
 
   ngOnInit() {
+    this.lazyLoadingScriptService.loadScript('assets/js/external.js');
     this.user = this.globalResources.getUserDetails();
     this.menus = this.adminMenuService.menus;
   }

@@ -14,4 +14,6 @@ $(document).ready(function () {
   console.log(vheight, navbarHeaderHeight, horizontalNavBarHeight);
   // $("#verticalNavBar").height(vheight - navbarHeaderHeight - horizontalNavBarHeight);
   // $("#mainContent").height(vheight - navbarHeaderHeight - horizontalNavBarHeight);
+  document.documentElement.style.setProperty('--navbar-header-height', navbarHeaderHeight + 'px');
+  document.documentElement.style.setProperty('--horizontal-navbar-height', horizontalNavBarHeight + 'px');
 });

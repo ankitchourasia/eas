@@ -56,7 +56,7 @@ body{
     -o-transition: all 0.3s;
     transition: all 0.3s; 
 
-    height: calc(100vh - 96px);
+    height: calc(100vh - var(--navbar-header-height) - var(--horizontal-navbar-height));
     overflow-y: auto;
 }
 
@@ -69,7 +69,7 @@ body{
     -o-transition: all 0.3s;
     transition: all 0.3s; 
     
-    height: calc(100vh - 96px);
+    height: calc(100vh - var(--navbar-header-height) - var(--horizontal-navbar-height));
     overflow-y: auto;
 }
 
