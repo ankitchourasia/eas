@@ -28,6 +28,14 @@
     align-items: stretch;
 }
 
+#navbarHeader{
+    padding: 0.1rem 1rem !important;
+}
+
+#horizontalNavBar{
+    padding: 0.1rem 1rem !important;
+}
+
 #verticalNavBar{
     background: #343a40 !important;
     flex-grow : 0;
@@ -38,12 +46,8 @@
     -o-transition: all 0.3s;
     transition: all 0.3s; 
 
-    height: calc(100vh - 124px);
+    height: calc(100vh - 96px);
     overflow-y: auto;
-}
-
-#horizontalNavBar{
-
 }
 
 #mainContent{
@@ -55,7 +59,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s; 
     
-    height: calc(100vh - 124px);
+    height: calc(100vh - 96px);
     overflow-y: auto;
 }
 

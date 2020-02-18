@@ -53,11 +53,6 @@ export class AdminComponent implements OnInit {
       if (element.name != menu.name) element.active = false;
     });
   }
-  
-  menuState:string = 'in';
-  toggleMenu(){
-    this.menuState = this.menuState === 'in' ? 'out' : 'in';
-  }
 
   titleClicked(){
     let role = this.user.role.toLowerCase();
