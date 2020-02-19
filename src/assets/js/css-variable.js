@@ -7,11 +7,7 @@
 // dark     #292b2c	rgb(41, 43, 44)
 // default  #f7f7f7	rgb(247, 247, 247)
 
-let themeDefault = '#292b2c'
-let themeTextColorDefault = '#f7f7f7';
-let themeTextColorInverse = '#292b2c';
-let themeHeaderTextColorDefault = '#f7f7f7';
-document.documentElement.style.setProperty('--theme-color', themeDefault);
-document.documentElement.style.setProperty('--theme-text-color-default', themeTextColorDefault);
-document.documentElement.style.setProperty('--theme-text-color-inverse', themeTextColorInverse);
-document.documentElement.style.setProperty('--theme-header-text-color', themeHeaderTextColorDefault);
+let colorDefault = '#fafafa'; //white
+let colorInverse = '#343a40'; // black
+document.documentElement.style.setProperty('--color-default', colorDefault);
+document.documentElement.style.setProperty('--color-inverse', colorInverse);

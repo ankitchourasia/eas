@@ -4,33 +4,25 @@ router-outlet + * {
    flex-grow: 1;
 }
 
-.theme-color{
-    background-color: var(--theme-color) !important;
-   
+.bg-default{
+    background-color: var(--color-default) !important;
 }
 
-.bg-color-default{
-    background-color: var(--theme-text-color-default) !important;
+.bg-inverse{
+    background-color: var(--color-inverse) !important;
 }
 
-.bg-color-inverse{
-    background-color: var(--theme-color) !important;
+.text-default{
+    color: var(--color-default) !important;
 }
 
-.text-color-default{
-    color: var(--theme-text-color-default) !important;
-}
-
-.text-color-inverse{
-    color: var(--theme-text-color-inverse) !important;
-}
-
-.header-text-color{
-    color: var(--theme-header-text-color) !important;
+.text-inverse{
+    color: var(--color-inverse) !important;
 }
 
 body{
-    background-color: #fafafa !important;
+    background-color: var(--color-default) !important;
+    color: var(--color-inverse)  !important;
 }
 
 .wrapper{
@@ -47,7 +39,7 @@ body{
 }
 
 #verticalNavBar{
-    background: var(--theme-color) !important;
+    background:var(--color-inverse) !important;
     flex-grow : 0;
     flex-shrink: 0;
     flex-basis: 20%;
@@ -75,7 +67,7 @@ body{
 
 .backdrop{
     /* background-color: rgba(0, 0, 0, 0.7); */
-    background: var(--theme-color) !important;
+    background:var(--color-inverse) !important;
     opacity: .70;
     position: fixed; /* absolute */
     display: none;
@@ -95,7 +87,7 @@ body{
 }
  
 ::-webkit-scrollbar-track {
-    background-color:  var(--theme-color) !important;
+    background-color:  var(--color-default) !important;
     /* -webkit-border-radius: 10px; */ 
     /* border-radius: 10px; */
 }
@@ -103,7 +95,7 @@ body{
 ::-webkit-scrollbar-thumb {
     /* -webkit-border-radius: 10px;
     border-radius: 10px; */
-    background: var(--theme-color) !important;
+    background:var(--color-inverse) !important;
 }
 /* 
 ::-webkit-scrollbar-track-piece  { 
@@ -116,7 +108,7 @@ body{
 }
  
 ::-webkit-scrollbar-track:horizontal {
-    background-color: #ebebeb;
+    background-color: var(--color-default);
     /* -webkit-border-radius: 10px; */ 
     /* border-radius: 10px; */
 }
@@ -124,7 +116,7 @@ body{
 ::-webkit-scrollbar-thumb:horizontal {
     /* -webkit-border-radius: 10px;
     border-radius: 10px; */
-    background: var(--theme-color) !important;
+    background:var(--color-inverse) !important;
 }
 
 /* ::-webkit-scrollbar-track-piece:horizontal  { 

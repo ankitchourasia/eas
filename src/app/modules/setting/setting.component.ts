@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingMenuService } from './setting-menu.service';
 import { GlobalResources } from '@eas-utility/global.resources';
+import { LazyLoadingScriptService } from '@eas-services/lazy-loading-script-service/lazy-loading-script.service';
 
 @Component({
   selector: 'eas-setting',
@@ -14,9 +15,11 @@ export class SettingComponent implements OnInit {
   public sourceUrl : string;
   public menus : any[] = new Array();
   constructor(private route: ActivatedRoute, private router: Router, private settingMenuService: SettingMenuService,
-    public globalResources: GlobalResources) { }
-
+    public globalResources: GlobalResources, private lazyLoadingScriptService: LazyLoadingScriptService) {
+    }
+  
   ngOnInit() {
+    this.lazyLoadingScriptService.loadScript('assets/js/external.js');
     this.user = this.globalResources.getUserDetails();
     this.menus = this.settingMenuService.getMenus();
     this.route.queryParams.subscribe(params => {
