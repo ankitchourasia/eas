@@ -140,4 +140,9 @@ export class Feeder33KVReadingAddComponent implements OnInit {
       let alertResponse = this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
   }
+
+  resetClicked(feederReadingAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederReadingAddForm);
+  }
 }

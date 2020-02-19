@@ -115,6 +115,11 @@ export class Feeder33KVExportPointAddComponent implements OnInit {
     );
   }
 
+  resetClicked(exportPointAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(exportPointAddForm);
+  }
+
   clearPartialData(){
     this.setPartialData();
   }

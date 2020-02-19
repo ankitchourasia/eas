@@ -114,6 +114,11 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
     );
   }
 
+  resetClicked(importPointAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(importPointAddForm);
+  }
+
   clearPartialData(){
     this.setPartialData();
   }

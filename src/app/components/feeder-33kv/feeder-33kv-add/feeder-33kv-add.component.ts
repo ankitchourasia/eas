@@ -85,8 +85,9 @@ export class Feeder33KVAddComponent implements OnInit {
     }
   }
 
-  resetClicked(){
-
+  resetClicked(feederAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederAddForm);
   }
 
 }
