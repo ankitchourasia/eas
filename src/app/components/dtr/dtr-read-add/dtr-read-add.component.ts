@@ -17,6 +17,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class DtrReadAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "DtrReadAddComponent";
   user : any;
   zoneList: any;
   regionList: any;
@@ -401,6 +402,7 @@ export class DtrReadAddComponent implements OnInit {
   }
 
   addDtrReadWithMeterReplacement(dtrReadAddForm){
+    let methodName = "addDtrReadWithMeterReplacement";
     this.submitButtonClicked = true;
     this.dtrService.addDtrReadWithMeterReplacement(this.dtrReadAdd, this.user.username).subscribe(successResponese =>{
       this.submitButtonClicked = false;
@@ -409,14 +411,14 @@ export class DtrReadAddComponent implements OnInit {
         this.setPartialData();
         this.globalResources.resetValidateForm(dtrReadAddForm);
       });
-    }, errorResponse =>{
-      console.log(errorResponse);
+    }, errorResponse=>{
       this.submitButtonClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   addDtrRead(dtrReadAddForm){
+    let methodName = "addDtrRead";
     this.submitButtonClicked = true;
     this.dtrService.addDTRRead(this.dtrReadAdd, this.user.username).subscribe(successResponese =>{
       this.submitButtonClicked = false;
@@ -425,10 +427,9 @@ export class DtrReadAddComponent implements OnInit {
         this.setPartialData();
         this.globalResources.resetValidateForm(dtrReadAddForm);
       });
-    }, errorResponse =>{
-      console.log(errorResponse);
+    },errorResponse=>{
       this.submitButtonClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

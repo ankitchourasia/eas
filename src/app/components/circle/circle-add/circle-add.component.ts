@@ -9,7 +9,8 @@ import { CircleService } from '@eas-services/circle-service/circle.service';
   styleUrls: ['./circle-add.component.css']
 })
 export class CircleAddComponent implements OnInit {
-
+  
+  COMPONENT_NAME: string = "CircleAddComponent";
   formData: any;
   regionList: any;
   _submitClicked: boolean;
@@ -42,24 +43,22 @@ export class CircleAddComponent implements OnInit {
   }
 
   submitClicked(circleAddForm){
+    let methodName = "submitClicked"
+    if(!this.globalResources.validateForm(circleAddForm)){
+      return;
+    }
     this._submitClicked = true;
     console.log(this.formData);
     this.circleService.addCircle(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      console.log(successResponse);
-      let alertResponse =this.globalResources.successAlert("Circle add successfully !!!");
+      let alertResponse =this.globalResources.successAlert("Circle added successfully !!!");
       alertResponse.then(result =>{
-        circleAddForm.reset();
+        this.globalResources.resetValidateForm(circleAddForm);
         this.setPartialData();
       });
     },errorResponse=>{
       this._submitClicked = false;
-      console.log(errorResponse);
-      if(errorResponse.status == 417){
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert("Some error accourd. Please try again...");
-      }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

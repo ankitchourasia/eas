@@ -14,6 +14,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ExportPointReadingAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ExportPointReadingAddComponent";
   user : any;
   zoneList: any;
   regionList: any;
@@ -323,6 +324,7 @@ export class ExportPointReadingAddComponent implements OnInit {
   }
 
   addExportPointReadWithMeterReplacement(exportPointReadAddForm){
+    let methodName = "addExportPointReadWithMeterReplacement";
     this._submitClicked = true;
     this.exportService.add11KVExportPointReadingWithMeterReplacement(this.formData, this.user.username, false).subscribe(successResponese =>{
       this._submitClicked = false;
@@ -332,13 +334,13 @@ export class ExportPointReadingAddComponent implements OnInit {
         this.globalResources.resetValidateForm(exportPointReadAddForm);
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._submitClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   addExportPointRead(exportPointReadAddForm){
+    let methodName = "addExportPointRead";
     this._submitClicked = true;
     this.exportService.add11KVExportPointReading(this.formData, this.user.username, false).subscribe(successResponese =>{
       this._submitClicked = false;
@@ -348,9 +350,8 @@ export class ExportPointReadingAddComponent implements OnInit {
         this.globalResources.resetValidateForm(exportPointReadAddForm);
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._submitClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

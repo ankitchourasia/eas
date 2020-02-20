@@ -10,6 +10,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 })
 export class HtConsumerReadingAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "HtConsumerReadingAddComponent";
   formData : any;
   consumer : any;
   month : string;
@@ -68,19 +69,18 @@ export class HtConsumerReadingAddComponent implements OnInit {
   }
 
   addReading(){
+    let methodName = "addReading";
     this._submitClicked = true;
     this.htConsumerService.addHTConsumerReading(this.formData, true).subscribe(success =>{
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
         this.globalResources.successAlert("Data Added successfully");
-        this.consumer = null;
-        this.formData = {};
+        this.setInitialData();
       }
-    }, error =>{
+    }, errorResponse =>{
       this._submitClicked = false;
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

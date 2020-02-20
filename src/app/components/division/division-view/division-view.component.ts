@@ -9,7 +9,8 @@ import { DivisionService } from '@eas-services/division-service/division.service
   styleUrls: ['./division-view.component.css']
 })
 export class DivisionViewComponent implements OnInit {
-
+  
+  COMPONENT_NAME: string = "DivisionViewComponent";
   pager: any ;
   pageSize: number;
   loading : boolean;
@@ -53,22 +54,18 @@ export class DivisionViewComponent implements OnInit {
 
   _updateClicked: boolean;
   updateClicked(modalCloseButtonRef){
+    let methodName = "updateClicked";
     this._updateClicked = true;
     this.divisionService.updateDivision(this.divisionToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
-      console.log(successResposne);
       let alertResponse = this.globalResources.successAlert("Division updated successfully");
       alertResponse.then(result =>{
         this.closeModal(modalCloseButtonRef);
         this.getDivisionList();
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._updateClicked = false;
-      let alertResponse = this.globalResources.errorAlert("Unable to update region.");
-      alertResponse.then(result =>{
-        console.log("alert result", result);
-      });
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);;
     })
   }
 

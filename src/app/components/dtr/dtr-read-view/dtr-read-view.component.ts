@@ -12,6 +12,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class DtrReadViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "DtrReadViewComponent";
   user: any;
   billMonth:any;
   billMonthYear:any;
@@ -38,6 +39,7 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   getAllDtrReadingByDivisionIdAndBillMonth(divisionId, billingMonth){
+    let methodName = "getAllDtrReadingByDivisionIdAndBillMonth";
     this._searchClicked = true;
     this.dtrReadingList = [];
     this.dtrService.getReadingByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
@@ -47,14 +49,14 @@ export class DtrReadViewComponent implements OnInit {
       if(this.dtrReadingList && this.dtrReadingList.length){
         this.setPage(1);
       }
-    },errorResponse =>{ 
-      console.log(errorResponse);
+    },errorResponse=>{
       this._searchClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   getAllDtrReadingByZoneIdAndBillMonth(zoneId, billingMonth){
+    let methodName = "getAllDtrReadingByZoneIdAndBillMonth";
     this._searchClicked = true;
     this.dtrReadingList = [];
     this.dtrService.getReadingByZoneIdAndBillMonth(zoneId, billingMonth, false).subscribe(successResponse =>{
@@ -64,10 +66,9 @@ export class DtrReadViewComponent implements OnInit {
       if(this.dtrReadingList && this.dtrReadingList.length){
         this.setPage(1);
       }
-    },errorResponse =>{
-      console.log(errorResponse);
+    },errorResponse=>{
       this._searchClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -144,6 +145,7 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   updateDTRRead(dtrReadingUpdateForm, modalCloseButtonRef){
+    let methodName = "updateDTRRead";
     this._updateClicked = true;
     let nextBillMonth = this.globalResources.getNextBillMonth(this.dtrReadingToEdit.billMonth);
     this.dtrService.updateDTRRead(this.dtrReadingToEdit, nextBillMonth, this.user.username).subscribe(successResponese =>{
@@ -153,13 +155,9 @@ export class DtrReadViewComponent implements OnInit {
         this.globalResources.resetValidateForm(dtrReadingUpdateForm);
         this.closeModal(modalCloseButtonRef);
       });
-    }, errorResponse =>{
-      console.log(errorResponse);
+    },errorResponse=>{
       this._updateClicked = false;
-      let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      alertResponse.then(result =>{
-        console.log("alert result", result);
-      });
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
   

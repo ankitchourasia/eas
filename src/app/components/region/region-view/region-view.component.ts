@@ -10,6 +10,7 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 })
 export class RegionViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "RegionViewComponent";
   user: any;
   pager: any ;
   pageSize: number;
@@ -47,6 +48,7 @@ export class RegionViewComponent implements OnInit {
 
   _updateClicked: boolean;
   updateClicked(modalCloseButtonRef){
+    let methodName = "updateClicked";
     this._updateClicked = true;
       this.regionService.updateRegion(this.regionToEdit, false).subscribe(successResposne =>{
         this._updateClicked = false;
@@ -56,12 +58,9 @@ export class RegionViewComponent implements OnInit {
           this.getRegionList();
         });
       }, errorResponse =>{
-        console.log(errorResponse);
         this._updateClicked = false;
-        let alertResponse = this.globalResources.errorAlert("Unable to update region.");
-        alertResponse.then(result =>{
-          console.log("alert result", result);
-        });
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+        
       })
   }
 

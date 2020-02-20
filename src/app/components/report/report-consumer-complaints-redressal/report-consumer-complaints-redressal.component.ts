@@ -169,7 +169,6 @@ export class ReportConsumerComplaintsRedressalComponent implements OnInit {
       this.setPartialData();
       this.globalResources.resetValidateForm(nscMonitoringInput);
       this.globalResources.successAlert("Data saved successfully");
-      console.log(successResponse);
     },errorResponse =>{
       this._submintClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

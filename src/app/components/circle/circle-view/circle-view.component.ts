@@ -10,6 +10,7 @@ import { CircleService } from '@eas-services/circle-service/circle.service';
 })
 export class CircleViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "CircleViewComponent";
   // user: any;
   pager: any ;
   pageSize: number;
@@ -53,22 +54,18 @@ export class CircleViewComponent implements OnInit {
 
   _updateClicked: boolean;
   updateClicked(modalCloseButtonRef){
+    let methodName = "updateClicked"
     this._updateClicked = true;
     this.circleService.updateCircle(this.circleToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
-      console.log(successResposne);
       let alertResponse = this.globalResources.successAlert("Circle updated successfully");
       alertResponse.then(result =>{
         this.closeModal(modalCloseButtonRef);
         this.getCircleList();
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._updateClicked = false;
-      let alertResponse = this.globalResources.errorAlert("Unable to update region.");
-      alertResponse.then(result =>{
-        console.log("alert result", result);
-      });
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);;
     })
   }
 

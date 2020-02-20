@@ -19,6 +19,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class DtrPreBillingComponent implements OnInit {
 
+  COMPONENT_NAME: string = "DtrPreBillingComponent";
   user : any;
   zoneList: any;
   regionList: any;
@@ -211,6 +212,7 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   getDTRByFeederId(feederId){
+    let methodName = "getDTRByFeederId";
     this._searchClicked = true;
     this.dtrList = [];
     this.dtrService.getDTRByFeederId(feederId).subscribe(successResponse =>{
@@ -222,14 +224,14 @@ export class DtrPreBillingComponent implements OnInit {
         let billingMonth = this.billMonth + "-" + this.billMonthYear;
         this.getDTRReadingByFeederIdAndBillMonth(this.userDetails.feeder.id, billingMonth);
       }
-    }, errorResponse =>{
-      console.log(errorResponse)
+    }, errorResponse=>{
       this._searchClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   getDTRReadingByFeederIdAndBillMonth(feederId, billMonth){
+    let methodName = "getDTRReadingByFeederIdAndBillMonth";
     this._searchClicked = true;
     this.dtrService.getReadingByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
       this.dtrReadingList = successResponse;
@@ -245,10 +247,9 @@ export class DtrPreBillingComponent implements OnInit {
       }
       this._searchClicked = false;
       this.getDtrPreBillingReportsByFeederIdAndBillMonth(this.userDetails.feeder.id, billMonth);
-    },errorResponse =>{
-      console.log(errorResponse);
+    }, errorResponse=>{
       this._searchClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -269,6 +270,7 @@ export class DtrPreBillingComponent implements OnInit {
 
   dtrPreBillingReports: any;
   getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth){
+    let methodName = "getDtrPreBillingReportsByFeederIdAndBillMonth";
     this._searchClicked = true;
     this.dtrService.getDtrPreBillingReportsByFeederIdAndBillMonth(feederId, billMonth, false).subscribe(successResponse =>{
       this.dtrPreBillingReports = successResponse;
@@ -279,11 +281,10 @@ export class DtrPreBillingComponent implements OnInit {
       }
       this._searchClicked = false;
       this.checkBillFileUploadedByFeederGroupNoAndBillMonth(this.userDetails.feeder.groupNo, billMonth);
-    }, errorResponse =>{
-      console.log(errorResponse);
+    },errorResponse=>{
       this._searchClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
-    })
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
   }
 
   allDtrPrebillingInserted: boolean;
@@ -314,6 +315,7 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth){
+    let methodName = "checkBillFileUploadedByFeederGroupNoAndBillMonth";
     this._searchClicked = true;
     this.billFileService.checkBillFileUploadedByFeederGroupNoAndBillMonth(feederGroupNo, billingMonth, false).subscribe(successResponse =>{
       let billFileRefs = <any>successResponse;
@@ -327,11 +329,10 @@ export class DtrPreBillingComponent implements OnInit {
       console.log(this.dtrList);
       this._searchClicked = false;
     },errorResponse =>{
-      console.log(errorResponse);
       this._searchClicked = false;
       this.userDetails.feeder.billFileUploaded = false;
       this.userDetails.feeder.billFileNotUploaded = true;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -434,17 +435,17 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   savePreBillingReport(dtr){
+    let methodName = "savePreBillingReport";
     let billMonth = this.billMonth + "-" + this.billMonthYear;
     this.dtrService.savePreBillingReport(dtr.prebilling, billMonth, true).subscribe(successResponse =>{
       dtr.prebilling.savingSingleReport = false;
       dtr.prebilling.singleReportSaved = true;
     },errorResponse =>{
-      console.log(errorResponse);
       dtr.prebilling.savingSingleReport = false;
       if(errorResponse && errorResponse.status === 417){
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }else{
-        this.globalResources.errorAlert("Error while saving single dtr pre billing report");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName, "Error while saving single dtr pre billing report.");
       }
     });
   }

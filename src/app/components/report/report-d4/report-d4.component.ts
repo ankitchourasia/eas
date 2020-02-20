@@ -14,6 +14,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ReportD4Component implements OnInit {
 
+  COMPONENT_NAME: string = "ReportD4Component";
   searchFormData: any;
   regionList: any;
   circleList: any;
@@ -182,19 +183,19 @@ export class ReportD4Component implements OnInit {
 
   fetchClicked: boolean;
   fetchButtonClicked() {
+    let methodName = "fetchButtonClicked";
     this.fetchClicked = true;
     this.reportService.getD4ReportBillingDataByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(success => {
       this.fetchClicked = false;
       this.searchClicked();
       this.globalResources.successAlert("Data fetched successfully.");
-    }, error => {
+    }, errorResponse => {
       this.fetchClicked = false;
-      console.log(error);
-      if (error.status === 417) {
+      if (errorResponse.status === 417) {
         // this.reportGenerated = true;
-        this.globalResources.errorAlert(error.error.errorMessage);
-      } else {
-        this.globalResources.errorAlert("Unable to generate report");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      }else{
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     });
   }
@@ -213,6 +214,7 @@ export class ReportD4Component implements OnInit {
   }
 
   generateD4ReportForTown() {
+    let methodName = "generateD4ReportForTown";
     this._generateClicked = true;
     this.reportService.generateD4ReportByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, true).subscribe(successResponse => {
       this._generateClicked = false;
@@ -222,15 +224,16 @@ export class ReportD4Component implements OnInit {
         // this.viewClicked();
         this.globalResources.successAlert("Report generated successfully !");
       } else {
-        console.log("success with invalid result");
+        this.globalResources.handleError(successResponse, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     }, errorResponse => {
-      console.log(errorResponse);
       this._generateClicked = false;
       if (errorResponse.status === 417) {
         this.reportGenerated = true;
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      }else{
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
     });
   }
 

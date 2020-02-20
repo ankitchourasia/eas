@@ -93,6 +93,7 @@ export class FeederReadingViewComponent implements OnInit {
   }
 
   updateReading(nextBillMonth){
+    let methodName = "updateReading";
     this.updateButtonClicked = true;
     this.feederService.updateFeederReading(this.readingToEdit, nextBillMonth, this.user.username).subscribe(success =>{
       this.updateButtonClicked = false;
@@ -101,10 +102,9 @@ export class FeederReadingViewComponent implements OnInit {
         this.closeModal(this.closeButtonRef);
         this.readingToEdit = undefined;
       });
-    }, error =>{
+    }, errorResponse =>{
       this.updateButtonClicked = false;
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

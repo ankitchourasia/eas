@@ -9,6 +9,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 })
 export class RegionAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "RegionAddComponent";
   formData: any;
   _submitClicked: boolean;
   constructor(private regionService: RegionService, public globalResources: GlobalResources) { }
@@ -21,23 +22,20 @@ export class RegionAddComponent implements OnInit {
     this.formData = {};
   }
 
-  submitClicked(){
+  submitClicked(regionAddForm){
+    let methodName = "submitClicked";
+    if(!this.globalResources.validateForm(regionAddForm)){
+      return;
+    }
     this._submitClicked = true;
-    this.regionService.addRegion(this.formData, true).subscribe(
-      successResponse =>{
-        this.formData = {};
-        this._submitClicked = false;
-        console.log(successResponse);
-        this.globalResources.successAlert("Region add successfully !!!");
-
+    this.regionService.addRegion(this.formData, true).subscribe(successResponse =>{
+      this._submitClicked = false;
+      this.globalResources.successAlert("Region added successfully !!!");
+      this.globalResources.resetValidateForm(regionAddForm);
+      this.setPartialData();
       },errorResponse=>{
         this._submitClicked = false;
-        console.log(errorResponse);
-        if(errorResponse.status == 417){
-          this.globalResources.errorAlert(errorResponse.error.errorMessage);
-        }else{
-          this.globalResources.errorAlert("Some error accourd. Please try again...");
-        }
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );
   }

@@ -16,6 +16,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class FeederInterruptionAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "FeederInterruptionAddComponent";
   regionList: any;
   circleList: any;
   divisionList: any;
@@ -199,12 +200,8 @@ export class FeederInterruptionAddComponent implements OnInit {
     }
   }
 
-  resetClicked(interruptionAddForm){
-    this.globalResources.resetValidateForm(interruptionAddForm);
-    this.setPartialData();
-  }
-
   submitClicked(interruptionAddForm){
+    let methodName = "submitClicked";
     this._submitClicked = true;
     this.formData.feederId = this.formData.feeder.id;
     this.formData.groupNo = this.formData.feeder.groupNo;
@@ -221,8 +218,13 @@ export class FeederInterruptionAddComponent implements OnInit {
       });
     },errorResponse =>{
       this._submitClicked = false;
-      console.log(errorResponse);
-      this.globalResources.errorAlert("Some error accourd. Please try again...");
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
+  
+  resetClicked(interruptionAddForm){
+    this.globalResources.resetValidateForm(interruptionAddForm);
+    this.setPartialData();
+  }
+
 }

@@ -13,6 +13,7 @@ import { ImportService } from '@eas-services/import-service/import.service';
 })
 export class Feeder33KVImportPointAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "Feeder33KVImportPointAddComponent";
   user:any;
   formData: any;
   regionList: any;
@@ -94,6 +95,7 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
   }
 
   addImportPoint(importPointAddForm){
+    let methodName = "addImportPoint";
     this.submitButtonClicked = true;
     this.importService.add33KVImportPoint(this.formData, false).subscribe(
       successResponse =>{
@@ -102,14 +104,13 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
         if(successResponse){
           let alertResponse =this.globalResources.successAlert("33KV Import Added Successfully !");
           alertResponse.then(result =>{
-            this.clearPartialData();
+            this.setPartialData();
             this.globalResources.resetValidateForm(importPointAddForm);
           });
         }
       },errorResponse =>{
         this.submitButtonClicked = false;
-        console.log(errorResponse);
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );
   }

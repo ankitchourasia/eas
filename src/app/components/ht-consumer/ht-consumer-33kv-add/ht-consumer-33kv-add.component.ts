@@ -93,13 +93,18 @@ export class HtConsumer33KVAddComponent implements OnInit {
       this.loading = false;
       if(result.status === 201){
         this.globalResources.successAlert("Consumer Added Successfully");
-        this.htConsumer = {};
+        this.setPartialData();
         this.globalResources.resetValidateForm(htConsumerAddForm);
       }
     }, error =>{
       this.loading = false;
       this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(htConsumerAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(htConsumerAddForm);
   }
 
 }

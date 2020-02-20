@@ -14,6 +14,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ExportPointAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ExportPointAddComponent ";
   user:any;
   formData: any;
   regionList: any;
@@ -121,6 +122,7 @@ export class ExportPointAddComponent implements OnInit {
   }
 
   addExportPoint(exportPointAddForm){
+    let methodName = "addExportPoint";
     this.submitButtonClicked = true;
     this.exportService.add11KVExportPoint(this.formData,this.user.username, false).subscribe(
       successResponse =>{
@@ -129,16 +131,19 @@ export class ExportPointAddComponent implements OnInit {
         if(successResponse){
           let alertResponse =this.globalResources.successAlert("11KV Export Added Successfully !");
           alertResponse.then(result =>{
-            this.clearPartialData();
+            this.setPartialData();
             this.globalResources.resetValidateForm(exportPointAddForm);
           });
         }
       },errorResponse =>{
         this.submitButtonClicked = false;
-        console.log(errorResponse);
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }
-    );
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      });
+  }
+
+  resetClicked(exportPointAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(exportPointAddForm);
   }
 
   clearPartialData(){

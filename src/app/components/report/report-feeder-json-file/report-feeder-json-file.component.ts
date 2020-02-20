@@ -214,6 +214,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
   }
 
   generateJsonInputForZone(){
+    let methodName = "generateJsonInputForZone";
     this._generateClicked = true;
     this.reportService.generateJsonInputForZone(this.searchFormData.zone.id, this.searchFormData.billingMonth, true).subscribe(successResponse =>{
       this._generateClicked = false;
@@ -221,20 +222,17 @@ export class ReportFeederJsonFileComponent implements OnInit {
       if(result && result.status === 201){
         this.reportGenerated = true;
         // this.viewClicked();
-        let alertResponse = this.globalResources.successAlert("Report generated successfully !");
+        this.globalResources.successAlert("Report generated successfully !");
       }else{
-        console.log("success with invalid result");
+        this.globalResources.handleError(result, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     },errorResponse =>{
-      console.log(errorResponse);
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
         // this.viewClicked();
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

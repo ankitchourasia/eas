@@ -13,6 +13,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ExportPointViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ExportPointViewComponent";
   user: any;
   zoneList: any;
   selectedZone: any;
@@ -76,6 +77,7 @@ export class ExportPointViewComponent implements OnInit {
   }
 
   statusChanged(exportPoint){
+    let methodName = "statusChanged";
     this.statusChangedButtonClicked = true;
     this.exportService.statusChanged(exportPoint, false).subscribe(
       successResponse =>{
@@ -89,9 +91,8 @@ export class ExportPointViewComponent implements OnInit {
           });
         }
       },errorResponse =>{
-        console.log(errorResponse);
         this.statusChangedButtonClicked = false;
-        this.globalResources.errorAlert("Error while fetching Export point");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );
   }

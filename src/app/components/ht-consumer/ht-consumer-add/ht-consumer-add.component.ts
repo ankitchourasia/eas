@@ -13,6 +13,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class HtConsumerAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "HtConsumerAddComponent";
   user : any = {};
   htConsumer : any = {};
   regionList: any;
@@ -95,6 +96,7 @@ export class HtConsumerAddComponent implements OnInit {
   }
 
   addHTConsumer(htConsumerAddForm){
+    let methodName = "addHTConsumer";
     this.loading = true;
     console.log(this.htConsumer);
     this.htConsumerService.addHTConsumer(this.htConsumer, true).subscribe(success =>{
@@ -103,13 +105,18 @@ export class HtConsumerAddComponent implements OnInit {
       this.loading = false;
       if(result.status === 201){
         this.globalResources.successAlert("Consumer Added Successfully");
-        this.htConsumer = {};
+        this.setPartialData();
         this.globalResources.resetValidateForm(htConsumerAddForm);
       }
-    }, error =>{
+    }, errorResponse =>{
       this.loading = false;
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(htConsumerAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(htConsumerAddForm);
   }
 
 }

@@ -15,6 +15,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ReportD1Component implements OnInit {
 
+  COMPONENT_NAME: string = "ReportD1Component";
   searchFormData: any;
   regionList: any;
   circleList: any;
@@ -97,7 +98,7 @@ export class ReportD1Component implements OnInit {
     }
   }
   
-  townChanged(){
+  townChanged(town){
     this.searchResultList = null;
   }
 
@@ -198,25 +199,26 @@ export class ReportD1Component implements OnInit {
 
   fetchClicked : boolean;
   fetchButtonClicked(missingData){
+    let methodName = "fetchButtonClicked";
     this.fetchClicked = true;
     this.reportService.getD1ReportDataByTownIdAndBillMonth(missingData.town.id, missingData.billMonth, false).subscribe(success =>{
       this.fetchClicked = false;
       console.log(success);
       this.searchClicked();
       this.globalResources.successAlert("Data fetched successfully.");
-    }, error =>{
+    }, errorResponse =>{
       this.fetchClicked = false;
-      console.log(error);
-      if(error.status === 417){
+      if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.globalResources.errorAlert(error.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }else{
-        this.globalResources.errorAlert("Unable to generate report");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     });
   }
 
   generateD1ReportForTown(townId, billMonth){
+    let methodName = "generateD1ReportForTown";
     this._generateClicked = true;
     this.reportService.generateD1ReportDataByTownIdAndBillMonth(townId, billMonth, true).subscribe(successResponse =>{
       this._generateClicked = false;
@@ -226,16 +228,15 @@ export class ReportD1Component implements OnInit {
         this.reportGenerated = true
         this.globalResources.successAlert("Report generated successfully !");
       }else{
-        console.log("success with invalid result");
+        this.globalResources.handleError(successResponse, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     },errorResponse =>{
-      console.log(errorResponse);
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }else{
-        this.globalResources.errorAlert("Unable to generate report");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     });
   }

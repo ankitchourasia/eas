@@ -71,16 +71,12 @@ export class Feeder33KVAddComponent implements OnInit {
         this._submitClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
         alertResponse.then(result =>{
-          this.feeder = {};
+          this.setPartialData();
           this.globalResources.resetValidateForm(feederAddForm);
         });
       }, errorResponse =>{
-        console.log(errorResponse);
         this._submitClicked = false;
-        let alertResponse = this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-        alertResponse.then(result =>{
-          
-        });
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       });
     }
   }

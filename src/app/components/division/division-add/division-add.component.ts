@@ -11,6 +11,7 @@ import { DivisionService } from '@eas-services/division-service/division.service
 })
 export class DivisionAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "DivisionAddComponent";
   formData: any;
   regionList: any;
   circleList: any;
@@ -61,6 +62,10 @@ export class DivisionAddComponent implements OnInit {
   }
 
   submitClicked(divisionAddForm){
+    let methodName = "submitClicked"
+    if(!this.globalResources.validateForm(divisionAddForm)){
+      return;
+    }
     this._submitClicked = true;
     this.divisionService.addDivision(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
@@ -71,12 +76,7 @@ export class DivisionAddComponent implements OnInit {
       });
     },errorResponse=>{
       this._submitClicked = false;
-      console.log(errorResponse);
-      if(errorResponse.status == 417){
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert("Some error accourd. Please try again...");
-      }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

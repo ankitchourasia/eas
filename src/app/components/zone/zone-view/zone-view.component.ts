@@ -10,6 +10,7 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 })
 export class ZoneViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ZoneViewComponent";
   pager: any ;
   pageSize: number;
   loading : boolean;
@@ -52,6 +53,7 @@ export class ZoneViewComponent implements OnInit {
 
   _updateClicked: boolean;
   updateClicked(modalCloseButtonRef){
+    let methodName = "updateClicked";
     this._updateClicked = true;
     this.zoneService.updateZone(this.zoneToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
@@ -63,10 +65,7 @@ export class ZoneViewComponent implements OnInit {
     }, errorResponse =>{
       console.log(errorResponse);
       this._updateClicked = false;
-      let alertResponse = this.globalResources.errorAlert("Unable to update region.");
-      alertResponse.then(result =>{
-        console.log("alert result", result);
-      });
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);;
     })
   }
 
