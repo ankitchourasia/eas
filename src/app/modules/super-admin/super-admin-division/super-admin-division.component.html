@@ -1,13 +1,13 @@
 <div class="wrapper" id="contentBody">
   <nav id="verticalNavBar" class="accordion d-flex flex-column justify-content-between">
       <ul class="list-group list-group-flush">
-          <a class="sticky-top list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#divisionCollapseMenu">DIVISION MENU</a>
+          <a class="sticky-top list-group-item list-group-item-action bg-inverse text-default" data-toggle="collapse" href="#divisionCollapseMenu">DIVISION MENU</a>
           <div class="collapse show" id="divisionCollapseMenu" data-parent="#verticalNavBar">
               <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
           </div>
       </ul>
       <div class="footer">
-        <p class="text-white text-center">
+        <p class="text-default text-center">
               Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="http://www.mpwz.co.in" target="_blank">mpwz.co.in</a>
           </p>
       </div>

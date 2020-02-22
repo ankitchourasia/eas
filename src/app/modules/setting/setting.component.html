@@ -1,21 +1,21 @@
 <eas-header></eas-header>
-<nav class="navbar bg-dark navbar-expand-lg" id="horizontalNavBar">
+<nav class="navbar bg-inverse navbar-expand-lg" id="horizontalNavBar">
     <!-- <button type="button" id="sidebarCollapse" class="btn btn-primary mb-1" (click)="toggleMenu()">
         <i class="fa fa-bars"></i><span class="sr-only">Toggle Menu</span>
     </button>     -->
     <ul class="nav nav-fill ml-auto">
-        <li class="nav-item bg-white">
-            <a class="nav-link text-dark" href="javascript:void(0);" (click)="backClicked()">Back</a>
+        <li class="nav-item bg-default">
+            <a class="nav-link text-inverse" href="javascript:void(0);" (click)="backClicked()">Back</a>
         </li>
     </ul>
 
-    <!-- <button class="btn bg-dark d-inline-block d-lg-none ml-auto mb-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <!-- <button class="btn bg-inverse d-inline-block d-lg-none ml-auto mb-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <i class="fa fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav nav-fill ml-auto">
-            <li class="nav-item bg-dark">
-                <a class="nav-link bg-dark" href="javascript:void(0);" (click)="backClicked()">Back</a>
+            <li class="nav-item bg-inverse">
+                <a class="nav-link bg-inverse" href="javascript:void(0);" (click)="backClicked()">Back</a>
             </li>
         </ul>
     </div> -->
@@ -23,13 +23,13 @@
 <div class="wrapper" id="contentBody">
     <nav id="verticalNavBar" class="accordion d-flex flex-column justify-content-between">
         <ul class="list-group list-group-flush">
-            <a class="sticky-top list-group-item list-group-item-action bg-dark text-white" data-toggle="collapse" href="#settingCollapseMenu">SETTING MENU</a>
+            <a class="sticky-top list-group-item list-group-item-action bg-inverse text-default" data-toggle="collapse" href="#settingCollapseMenu">SETTING MENU</a>
             <div class="collapse show" id="settingCollapseMenu" data-parent="#verticalNavBar">
                 <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
             </div>
         </ul>
         <div class="footer">
-        	<p class="text-white text-center">
+        	<p class="text-default text-center">
                 Copyright &copy; All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="http://www.mpwz.co.in" target="_blank">mpwz.co.in</a>
             </p>
         </div>
