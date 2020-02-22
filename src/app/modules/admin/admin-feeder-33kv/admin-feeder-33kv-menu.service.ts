@@ -97,8 +97,8 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
     this.menus.push(this.FIRST_MENU); 
     this.menus.push(this.SECOND_MENU);
     this.menus.push(this.THIRD_MENU); 
-    this.menus.push(this.FOURTH_MENU);
-    this.menus.push(this.FIFTH_MENU); 
+    // this.menus.push(this.FOURTH_MENU);
+    // this.menus.push(this.FIFTH_MENU); 
     this.menus.push(this.SIXTH_MENU); 
     this.menus.push(this.LAST_MENU);  
 

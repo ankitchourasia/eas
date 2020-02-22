@@ -110,7 +110,7 @@ export class AdminMenuService implements MenuInterface {
     this.menus.push(this.FIRST_MENU);   //substation
     this.menus.push(this.SECOND_MENU);  //feeder/33kv
     this.menus.push(this.THIRD_MENU);   //feeder/11kv
-    this.menus.push(this.FOURTH_MENU);  //dtr
+    // this.menus.push(this.FOURTH_MENU);  //dtr
     this.menus.push(this.FIFTH_MENU);   //ht/consumer
     this.menus.push(this.SIXTH_MENU);   //bill-file
     this.menus.push(this.LAST_MENU);    //report
