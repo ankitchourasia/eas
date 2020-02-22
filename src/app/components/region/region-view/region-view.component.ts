@@ -52,7 +52,7 @@ export class RegionViewComponent implements OnInit {
     this._updateClicked = true;
       this.regionService.updateRegion(this.regionToEdit, false).subscribe(successResposne =>{
         this._updateClicked = false;
-        let alertResponse = this.globalResources.successAlert("region updated successfully");
+        let alertResponse = this.globalResources.successAlert("Region updated successfully");
         alertResponse.then(result =>{
           this.closeModal(modalCloseButtonRef);
           this.getRegionList();

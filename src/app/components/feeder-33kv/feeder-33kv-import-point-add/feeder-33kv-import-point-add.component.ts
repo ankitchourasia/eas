@@ -102,7 +102,7 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
         this.submitButtonClicked = false;
         console.log(successResponse);
         if(successResponse){
-          let alertResponse =this.globalResources.successAlert("33KV Import Added Successfully !");
+          let alertResponse =this.globalResources.successAlert("Import point added successfully !");
           alertResponse.then(result =>{
             this.setPartialData();
             this.globalResources.resetValidateForm(importPointAddForm);

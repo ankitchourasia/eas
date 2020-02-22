@@ -103,7 +103,7 @@ export class Feeder33KVExportPointAddComponent implements OnInit {
         this.submitButtonClicked = false;
         console.log(successResponse);
         if(successResponse){
-          let alertResponse =this.globalResources.successAlert("33KV Export Added Successfully !");
+          let alertResponse =this.globalResources.successAlert("Export point added successfully !");
           alertResponse.then(result =>{
             this.setPartialData()
             this.globalResources.resetValidateForm(exportPointAddForm);

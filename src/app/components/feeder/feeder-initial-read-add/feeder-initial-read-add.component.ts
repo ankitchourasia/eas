@@ -167,11 +167,12 @@ export class FeederInitialReadAddComponent implements OnInit {
     let methodName = "addFeederReading";
     this.loading = true;
     this.feederService.addFeederReading(this.feederReading, this.user.username).subscribe(success =>{
-      this.globalResources.successAlert("Reading added successfully");
       this.loading = false;
-      this.setPartialData();
-      this.globalResources.resetValidateForm(feederReadingAddForm);
-
+      let alertResponse = this.globalResources.successAlert("Reading added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
     }, errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

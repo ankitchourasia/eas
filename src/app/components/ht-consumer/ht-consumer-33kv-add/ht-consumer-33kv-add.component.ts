@@ -88,13 +88,16 @@ export class HtConsumer33KVAddComponent implements OnInit {
     this.loading = true;
     console.log(this.htConsumer);
     this.htConsumerService.add33KVHTConsumer(this.htConsumer, true).subscribe(success =>{
-      let result = <any> success;
-      console.log(result);
       this.loading = false;
+      let result = <any> success;
       if(result.status === 201){
-        this.globalResources.successAlert("Consumer Added Successfully");
-        this.setPartialData();
-        this.globalResources.resetValidateForm(htConsumerAddForm);
+        let alertResponse = this.globalResources.successAlert("Consumer added successfully");
+        alertResponse.then(result =>{
+          this.setPartialData();
+          this.globalResources.resetValidateForm(htConsumerAddForm);
+        });
+      }else{
+        this.globalResources.handleError(success, this.COMPONENT_NAME, methodName);
       }
     }, error =>{
       this.loading = false;

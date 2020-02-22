@@ -137,9 +137,13 @@ export class FeederMappingAddComponent implements OnInit {
       this._submitClicked = false;
       let result = <any> successResponse;
       if(result.status === 201){
-        this.globalResources.successAlert("Mapping inserted successfully");
-        this.setPartialData();
-        this.globalResources.resetValidateForm(feederMappingAddForm);
+        let alertResponse =this.globalResources.successAlert("Mapping inserted successfully");
+        alertResponse.then(result =>{
+          this.setPartialData();
+          this.globalResources.resetValidateForm(feederMappingAddForm);
+        });
+      }else{
+        this.globalResources.handleError(successResponse, this.COMPONENT_NAME, methodName);
       }
     }, errorResponse =>{
       this._submitClicked = false;

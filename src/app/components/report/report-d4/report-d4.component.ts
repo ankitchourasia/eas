@@ -187,8 +187,10 @@ export class ReportD4Component implements OnInit {
     this.fetchClicked = true;
     this.reportService.getD4ReportBillingDataByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(success => {
       this.fetchClicked = false;
-      this.searchClicked();
-      this.globalResources.successAlert("Data fetched successfully.");
+      let alertResponse = this.globalResources.successAlert("Data fetched successfully.");
+      alertResponse.then(result =>{
+        this.searchClicked();
+      });
     }, errorResponse => {
       this.fetchClicked = false;
       if (errorResponse.status === 417) {

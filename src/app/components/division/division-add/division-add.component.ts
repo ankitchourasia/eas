@@ -69,7 +69,7 @@ export class DivisionAddComponent implements OnInit {
     this._submitClicked = true;
     this.divisionService.addDivision(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      let alertResponse =this.globalResources.successAlert("Division add successfully !!!");
+      let alertResponse =this.globalResources.successAlert("Division added successfully");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(divisionAddForm);
         this.setPartialData();

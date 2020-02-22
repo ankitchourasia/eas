@@ -211,7 +211,7 @@ export class FeederInterruptionAddComponent implements OnInit {
     this.feederService.addFeederInterruption(this.formData, false).subscribe(successResponse =>{
       this._submitClicked = false;
       console.log(successResponse);
-      let alertResponse =this.globalResources.successAlert("Feeder interruption saved successfull !!!");
+      let alertResponse =this.globalResources.successAlert("Feeder interruption saved successfully");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(interruptionAddForm);
         this.setPartialData();

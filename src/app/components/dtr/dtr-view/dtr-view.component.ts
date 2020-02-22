@@ -106,7 +106,7 @@ export class DtrViewComponent implements OnInit {
     this._deleteClicked = true;
     this.dtrService.deleteDTRById(dtrId, deletedBy).subscribe(successResponse => {
       this._deleteClicked = false;
-      let alertResponse = this.globalResources.successAlert("dtr deleted successfully");
+      let alertResponse = this.globalResources.successAlert("DTR deleted successfully");
       alertResponse.then(result =>{
         this.getDTRByDivisionId(this.user.division.id);
       });

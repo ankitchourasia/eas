@@ -240,8 +240,10 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this._generateClicked = true;
     this.reportService.getBillingDataForZone(generateInputObject.zoneId, generateInputObject.billMonth, false).subscribe(success=>{
       this._generateClicked = false;
-      this.globalResources.successAlert("Billing data fetched successfully.");
-      this.searchFormData();
+      let alertResponse = this.globalResources.successAlert("Billing data fetched successfully.");
+      alertResponse.then(result =>{
+        this.searchFormData();
+      });
     }, error=>{
       this._generateClicked = false;
       console.log(error);

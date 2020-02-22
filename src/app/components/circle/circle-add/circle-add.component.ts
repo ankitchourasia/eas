@@ -51,7 +51,7 @@ export class CircleAddComponent implements OnInit {
     console.log(this.formData);
     this.circleService.addCircle(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      let alertResponse =this.globalResources.successAlert("Circle added successfully !!!");
+      let alertResponse =this.globalResources.successAlert("Circle added successfully");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(circleAddForm);
         this.setPartialData();

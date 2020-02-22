@@ -75,7 +75,7 @@ export class HtConsumer33KVReadingAddComponent implements OnInit {
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
-        let alertResposne = this.globalResources.successAlert("Data Added successfully");
+        let alertResposne = this.globalResources.successAlert("Data added successfully");
         alertResposne.then(result=>{
           this.setInitialData();
           this.globalResources.resetValidateForm(readAddForm);

@@ -193,12 +193,13 @@ export class FeederReadingAddComponent implements OnInit {
     let methodName = "addFeederReading";
     this.loading = true;
     this.feederService.addFeederReading(this.feederReading, this.user.username).subscribe(success =>{
-      this.globalResources.successAlert("Reading added successfully");
-      this.feederMeterReplacement = false;
       this.loading = false;
-      this.setPartialData();
-      this.globalResources.resetValidateForm(feederReadingAddForm);
-
+      this.feederMeterReplacement = false;
+      let alertResponse =this.globalResources.successAlert("Reading added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
     }, errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
@@ -208,11 +209,13 @@ export class FeederReadingAddComponent implements OnInit {
   replaceMeter(feederReadingAddForm){
     let methodName = "replaceMeter";
     this.feederService.addFeederMeterReplacement(this.feederReading, this.user.username).subscribe(success =>{
-      this.globalResources.successAlert("Meter Replaced successfully");
-      this.feederMeterReplacement = false;
       this.loading = false;
-      this.setPartialData();
-      this.globalResources.resetValidateForm(feederReadingAddForm);
+      this.feederMeterReplacement = false;
+      let alertResponse =this.globalResources.successAlert("Meter replaced successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
     },  errorResponse =>{
       this.loading = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

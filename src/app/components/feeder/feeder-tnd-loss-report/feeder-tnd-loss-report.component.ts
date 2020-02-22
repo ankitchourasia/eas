@@ -150,7 +150,7 @@ export class FeederTndLossReportComponent implements OnInit {
       let generatedReport = <any>successResponse;
       feeder.generatingSingleReport = false;
       feeder.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully");
     },errorResponse =>{
       feeder.generatingSingleReport = false;
       if(errorResponse.status === 417){

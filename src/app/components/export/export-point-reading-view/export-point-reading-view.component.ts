@@ -147,7 +147,7 @@ export class ExportPointReadingViewComponent implements OnInit {
         this._updateClicked = false;
         this.updateFormData = {};
         this.closeModal();
-        let alertResponse = this.globalResources.successAlert("11kv Export Reading updated Successfully!");
+        let alertResponse = this.globalResources.successAlert("Export point reading updated successfully");
         alertResponse.then(result =>{
           this.searchClicked();
         });

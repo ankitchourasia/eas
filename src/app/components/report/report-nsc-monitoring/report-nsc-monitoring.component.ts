@@ -166,10 +166,11 @@ export class ReportNscMonitoringComponent implements OnInit {
     this.formData.nscWithinSERCTimePercent = Number(((this.formData.nscWithinSERCTime * 100) / this.formData.currentReleasedNSC).toFixed(2));
     this.reportService.generateNscMonitoringInput(this.formData, false).subscribe(successResponse =>{
       this._submintClicked = false;
-      this.setPartialData();
-      this.globalResources.resetValidateForm(nscMonitoringInput);
-      this.globalResources.successAlert("Data saved successfully");
-      console.log(successResponse);
+      let alertResponse = this.globalResources.successAlert("Data saved successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(nscMonitoringInput);
+      });
     },errorResponse =>{
       this._submintClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

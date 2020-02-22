@@ -84,7 +84,7 @@ export class ExportPointViewComponent implements OnInit {
         this.statusChangedButtonClicked = false;  
         if(successResponse){
           let resultResponse = <any>successResponse;
-          let alertResponse = this.globalResources.successAlert("Export point status changed successfully !");
+          let alertResponse = this.globalResources.successAlert("Export point status changed successfully");
           alertResponse.then(result =>{
             exportPoint.misc1 = resultResponse.misc1;
           // this.getAll11KVExportPointsByZoneId(this.selectedZone.id);

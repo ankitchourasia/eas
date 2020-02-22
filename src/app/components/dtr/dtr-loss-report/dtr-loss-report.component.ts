@@ -308,8 +308,8 @@ export class DtrLossReportComponent implements OnInit {
       let generatedReport = <any>successResponse;
       this.generating = false;
       this.reportGenerated = true
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully for Feeder: <br><strong>" + 
-          this.searchFormData.feeder.name + " for Month : " + this.searchFormData.billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully for feeder: <br><strong>" + 
+          this.searchFormData.feeder.name + " for month : " + this.searchFormData.billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
     },errorResponse =>{
       this.generating = false;
       if(errorResponse.status === 417){
@@ -328,7 +328,7 @@ export class DtrLossReportComponent implements OnInit {
       console.log(generatedReport);
       dtr.generatingSingleReport = false;
       dtr.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully");
     },errorResponse =>{
       dtr.generatingSingleReport = false;
       if(errorResponse.status === 417){

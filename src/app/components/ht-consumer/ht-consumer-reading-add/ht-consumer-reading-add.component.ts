@@ -54,7 +54,7 @@ export class HtConsumerReadingAddComponent implements OnInit {
     });
   }
 
-  submitClicked(){
+  submitClicked(readAddForm){
     let billMonth = this.month + '-' + this.year;
     this.formData.billMonth = billMonth;
     this.formData.regionId = this.consumer.region.id;
@@ -65,18 +65,23 @@ export class HtConsumerReadingAddComponent implements OnInit {
     this.formData.feederId = this.consumer.feeder.id;
     this.formData.consumerId = this.consumer.id;
     this.formData.serviceNumber = this.serviceNumber;
-    this.addReading();
+    this.addReading(readAddForm);
   }
 
-  addReading(){
+  addReading(readAddForm){
     let methodName = "addReading";
     this._submitClicked = true;
     this.htConsumerService.addHTConsumerReading(this.formData, true).subscribe(success =>{
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
-        this.globalResources.successAlert("Data Added successfully");
-        this.setInitialData();
+        let alertResponse =this.globalResources.successAlert("Reading added successfully");
+        alertResponse.then(result =>{
+          this.setInitialData();
+          this.globalResources.resetValidateForm(readAddForm);
+        });
+      }else{
+        this.globalResources.handleError(success, this.COMPONENT_NAME, methodName);
       }
     }, errorResponse =>{
       this._submitClicked = false;
@@ -84,8 +89,9 @@ export class HtConsumerReadingAddComponent implements OnInit {
     });
   }
 
-  resetClicked(){
+  resetClicked(readAddForm){
     this.setInitialData();
+    this.globalResources.resetValidateForm(readAddForm);
   }
 
 }

@@ -30,9 +30,11 @@ export class RegionAddComponent implements OnInit {
     this._submitClicked = true;
     this.regionService.addRegion(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      this.globalResources.successAlert("Region added successfully !!!");
-      this.globalResources.resetValidateForm(regionAddForm);
-      this.setPartialData();
+      let alertResponse = this.globalResources.successAlert("Region added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(regionAddForm);
+      });
       },errorResponse=>{
         this._submitClicked = false;
         this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);

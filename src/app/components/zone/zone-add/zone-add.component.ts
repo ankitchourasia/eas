@@ -92,7 +92,7 @@ export class ZoneAddComponent implements OnInit {
     this._submitClicked = true;
     this.zoneService.addZone(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      let alertResponse =this.globalResources.successAlert("Zone add successfully !!!");
+      let alertResponse =this.globalResources.successAlert("Zone added successfully !!!");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(zoneAddForm);
         this.setPartialData();

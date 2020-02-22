@@ -203,9 +203,10 @@ export class ReportD1Component implements OnInit {
     this.fetchClicked = true;
     this.reportService.getD1ReportDataByTownIdAndBillMonth(missingData.town.id, missingData.billMonth, false).subscribe(success =>{
       this.fetchClicked = false;
-      console.log(success);
-      this.searchClicked();
-      this.globalResources.successAlert("Data fetched successfully.");
+      let alertResponse = this.globalResources.successAlert("Data fetched successfully.");
+      alertResponse.then(result =>{
+        this.searchClicked();
+      });
     }, errorResponse =>{
       this.fetchClicked = false;
       if(errorResponse.status === 417){
@@ -223,7 +224,6 @@ export class ReportD1Component implements OnInit {
     this.reportService.generateD1ReportDataByTownIdAndBillMonth(townId, billMonth, true).subscribe(successResponse =>{
       this._generateClicked = false;
       let result = <any>successResponse;
-      console.log(successResponse);
       if(result && result.status === 201){
         this.reportGenerated = true
         this.globalResources.successAlert("Report generated successfully !");
