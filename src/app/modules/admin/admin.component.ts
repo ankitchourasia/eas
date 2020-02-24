@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { sidebarTransition, sidebarAnimate, mainContainerAnimate } from 'app/animations/sidebar-animation';
+import { sidebarTransition, sidebarAnimate, mainContainerAnimate } from 'app/animations/animation';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AdminMenuService } from './admin-menu.service';
 import { GlobalResources } from '@eas-utility/global.resources';
