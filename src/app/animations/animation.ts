@@ -176,11 +176,18 @@ export const sidebarTransition = trigger('sidebarInOut', [
 
 // ##########################################################################################################################################
 
+  // export const sidebarAnimate = trigger('sidebarAnimate', [
+  //   state('out', style({flexBasis: '0', maxWidth: '0', visibility: 'hidden'})),
+  //   state('in', style({flexBasis: '20%', maxWidth: '20%'})),
+  //   transition('in => out', animate('400ms ease-in')),
+  //   transition('out => in', animate('400ms ease-out'))
+  // ]);
+
   export const sidebarAnimate = trigger('sidebarAnimate', [
-    state('out', style({flexBasis: '0', maxWidth: '0', visibility: 'hidden'})),
-    state('in', style({flexBasis: '20%', maxWidth: '20%'})),
-    transition('in => out', animate('400ms ease-in')),
-    transition('out => in', animate('400ms ease-out'))
+    state('out', style({width: '50px'})),
+    state('in', style({width: '20%'})),
+    transition('out => in', animate('500ms ease-in')),
+    transition('in => out', animate('500ms ease-in')),
   ]);
 
 // ##########################################################################################################################################
@@ -191,7 +198,15 @@ export const sidebarTransition = trigger('sidebarInOut', [
     transition('in => out', animate('400ms ease-in')),
     transition('out => in', animate('400ms ease-out'))
   ]);
+  
+// ##########################################################################################################################################
 
+  export const showHideAnimate = trigger('showHideAnimate', [
+    state('hide', style({'display': 'none', opacity: 0,})),
+    state('show', style({'display': 'block', opacity: 1,})),
+    transition('hide => show', animate('1000ms ease-in')),
+    transition('show => hide', animate('1000ms ease-out')),
+  ]);
 // ##########################################################################################################################################
 
   //Change Size Animation
@@ -291,5 +306,3 @@ export const sidebarTransition = trigger('sidebarInOut', [
     transition('active => inactive', animate('400ms ease-out')),
     transition('inactive => active', animate('400ms ease-in'))
   ]);
-  
-// ##########################################################################################################################################

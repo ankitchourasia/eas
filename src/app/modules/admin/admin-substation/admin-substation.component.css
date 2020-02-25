@@ -1,0 +1,48 @@
+/* #sidebar {
+    width: 300px;
+    background: #343a40;
+    position: relative; 
+}
+
+#sidebar.active {
+    margin-left: -300px; 
+}
+
+#sidebar .custom-menu {
+    position: absolute;
+    right: 0;
+    margin-right: -20px;
+}
+
+#sidebar .custom-menu .btn {
+    width: 60px;
+    height: 60px;
+    position: relative; 
+}
+    #sidebar .custom-menu .btn i {
+    margin-right: -40px;
+    font-size: 14px; 
+}
+#sidebar .custom-menu .btn.btn-dark {
+    background-color: transparent !important;
+    border-color: transparent !important; 
+}
+#sidebar .custom-menu .btn.btn-dark:after {
+    z-index: -999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background-color: #343a40;
+    border-radius: 10px; 
+}
+#sidebar .custom-menu .btn.btn-dark:hover,
+#sidebar .custom-menu .btn.btn-dark:focus {
+    background: transparent !important;
+    border-color: transparent !important; 
+} */
