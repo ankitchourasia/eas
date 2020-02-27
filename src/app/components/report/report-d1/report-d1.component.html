@@ -144,14 +144,17 @@
   </div>
 </div>
 
-<div class="modal fade"  id="d1ReportModal" tabindex="-1" role="dialog">
+<div class="modal fade" data-backdrop="static" id="d1ReportModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="eas-flex-end" *ngIf="viewResultList && viewResultList.length">
-          <a class="btn btn-sm btn-primary" href='javascript:void(0);' (click)="exportClicked()">
+        <div class="eas-space-between" *ngIf="viewResultList && viewResultList.length">
+          <button class="btn btn-sm btn-primary" (click)="exportClicked()">
             <i class="fa fa-download" aria-hidden="true"></i> Export
-          </a>
+          </button>
+          <button type="button" class="close text-inverse" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="table-responsive pt-1" id="d1LossReport">
           <table class="table table-sm table-bordered table-hover" border="1" style="border-collapse:collapse; text-align: center">
@@ -188,9 +191,9 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" #modalCloseButtonRef>Close</button>
+        <div class="eas-flex-center pt-1">
+          <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" #modalCloseButtonRef>Close</button>
+        </div>
       </div>
     </div>
   </div>

@@ -106,13 +106,16 @@
   </div>
 </div>
 
-<div class="modal fade"  id="d7ReportModal" tabindex="-1" role="dialog">
+<div class="modal fade"  data-backdrop="static" id="d7ReportModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-body">
-        <div class="eas-flex-end" *ngIf="viewResultList && viewResultList.length">
-          <button type="button" class="btn btn-sm btn-primary" (click)="exportClicked('d7Report')">
+        <div class="eas-space-between" *ngIf="viewResultList && viewResultList.length">
+          <button class="btn btn-sm btn-primary" (click)="exportClicked('d7Report')">
             <i class="fa fa-download" aria-hidden="true"></i> Export
+          </button>
+          <button type="button" class="close text-inverse" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="table-responsive pt-1" id="d7Report">
@@ -155,9 +158,9 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+        <div class="eas-flex-center pt-1">
+          <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>

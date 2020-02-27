@@ -173,14 +173,19 @@
   </div>
 </div>
 
-<div class="modal"  id="dtrLossReportModal" tabindex="-1" role="dialog">
+<div class="modal fade" data-backdrop="static" id="dtrLossReportModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full" role="document">
     <div class="modal-content">
       <div class="modal-body">
+        <div class="eas-space-end" *ngIf="viewResultList && viewResultList.length">
+          <button type="button" class="close text-inverse" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <eas-dtr-loss-report-view [feeder]="searchFormData.feeder" [billingMonth]="searchFormData.billingMonth"></eas-dtr-loss-report-view>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+        <div class="eas-flex-center pt-1">
+          <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
