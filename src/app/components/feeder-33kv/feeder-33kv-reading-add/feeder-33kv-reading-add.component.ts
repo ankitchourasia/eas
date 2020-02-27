@@ -129,15 +129,20 @@ export class Feeder33KVReadingAddComponent implements OnInit {
     this.loading = true;
     console.log(this.feederReading);
     this.feederService.add33KVFeederReading(this.feederReading, this.user.username, false).subscribe(success =>{
-      this.globalResources.successAlert("Reading added successfully");
       this.loading = false;
-      this.feederReading = {};
-      this.globalResources.resetValidateForm(feederReadingAddForm);
-
+      let alertResponse = this.globalResources.successAlert("Reading added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
     }, error =>{
-      console.log(error);
       this.loading = false;
-      let alertResponse = this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
+      this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(feederReadingAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederReadingAddForm);
   }
 }

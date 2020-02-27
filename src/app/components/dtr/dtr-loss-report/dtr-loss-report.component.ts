@@ -19,6 +19,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class DtrLossReportComponent implements OnInit {
 
+  COMPONENT_NAME: string = "DtrLossReportComponent";
   user : any;
   zoneList: any;
   regionList: any;
@@ -300,25 +301,26 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   generateAllDtrLossReport(){
+    let methodName ="generateAllDtrLossReport";
     this.generating = true;
     // let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.dtrService.generateAllDTRLossByFeederAndBillMonth(this.searchFormData.feeder, this.searchFormData.billingMonth, true).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       this.generating = false;
       this.reportGenerated = true
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully for Feeder: <br><strong>" + 
-          this.searchFormData.feeder.name + " for Month : " + this.searchFormData.billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully for feeder: <br><strong>" + 
+          this.searchFormData.feeder.name + " for month : " + this.searchFormData.billingMonth + " with DTR LOSS: " + generatedReport.body.dtrLoss + "%</strong>");
     },errorResponse =>{
-      console.log(errorResponse);
       this.generating = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   generateSingleDtrLossReport(dtr){
+    let methodName = "generateSingleDtrLossReport";
     dtr.generatingSingleReport = true;
     // let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.dtrService.generateDTRLossByDtrAndBillMonth(dtr, this.searchFormData.billingMonth, true).subscribe(successResponse =>{
@@ -326,15 +328,14 @@ export class DtrLossReportComponent implements OnInit {
       console.log(generatedReport);
       dtr.generatingSingleReport = false;
       dtr.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully");
     },errorResponse =>{
-      console.log(errorResponse);
       dtr.generatingSingleReport = false;
       if(errorResponse.status === 417){
         dtr.generatingSingleReport = false;
         dtr.singleReportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

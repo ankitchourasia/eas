@@ -216,6 +216,7 @@ export class ReportD7Component implements OnInit {
   }
 
   generateD7ReportForDivision(d7Object){
+    let methodName = "generateD7ReportForDivision";
     this._generateClicked = true;
     this.reportService.generateD7ReportForDivision(d7Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
@@ -224,19 +225,19 @@ export class ReportD7Component implements OnInit {
         this.reportGenerated = true;
         this.globalResources.successAlert("Report generated successfully !");
       }else{
-        console.log("success with invalid result");
+        this.globalResources.handleError(result, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     },errorResponse =>{
-      console.log(errorResponse);
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
       }
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   generateD7ReportForZone(d7Object){
+    let methodName = "generateD7ReportForZone";
     this._generateClicked = true;
     this.reportService.generateD7ReportForZone(d7Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
@@ -245,15 +246,14 @@ export class ReportD7Component implements OnInit {
         this.reportGenerated = true;
         this.globalResources.successAlert("Report generated successfully !");
       }else{
-        console.log("success with invalid result");
+        this.globalResources.handleError(result, this.COMPONENT_NAME, methodName, "Unable to generate report");
       }
     },errorResponse =>{
-      console.log(errorResponse);
       this._generateClicked = false;
       if(errorResponse.status === 417){
         this.reportGenerated = true;
       }
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

@@ -36,27 +36,27 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
   private readonly SIXTH_MENU_ACTIVE: boolean = false;
 
   public SEVENTH_MENU: any;
-  private readonly SEVENTH_MENU_NAME: string = "Absent Read View";
+  private readonly SEVENTH_MENU_NAME: string = "Read Absent View";
   private readonly SEVENTH_MENU_LINK: string = "read/view/absent";
   private readonly SEVENTH_MENU_ACTIVE: boolean = false;
 
   public EIGTH_MENU: any;
-  private readonly EIGTH_MENU_NAME: string = "Add Interruption";
+  private readonly EIGTH_MENU_NAME: string = "Interruption Add";
   private readonly EIGTH_MENU_LINK: string = "interruption/add";
   private readonly EIGTH_MENU_ACTIVE: boolean = false;
 
   public NINETH_MENU: any;
-  private readonly NINETH_MENU_NAME: string = "T&D Loss Report";
+  private readonly NINETH_MENU_NAME: string = "Report T&D Loss";
   private readonly NINETH_MENU_LINK: string = "report/tnd-loss";
   private readonly NINETH_MENU_ACTIVE: boolean = false;
 
   public TENTH_MENU: any;
-  private readonly TENTH_MENU_NAME: string = "T&D Loss Report (Without HT)";
+  private readonly TENTH_MENU_NAME: string = "Report T&D Loss (Without HT)";
   private readonly TENTH_MENU_LINK: string = "report/tnd-loss/without-ht";
   private readonly TENTH_MENU_ACTIVE: boolean = false;
 
   public ELEVENTH_MENU: any;
-  private readonly ELEVENTH_MENU_NAME: string = "AT&C Loss Report";
+  private readonly ELEVENTH_MENU_NAME: string = "Report AT&C Loss";
   private readonly ELEVENTH_MENU_LINK: string = "report/atnc-loss";
   private readonly ELEVENTH_MENU_ACTIVE: boolean = false;
 
@@ -76,6 +76,10 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
   private readonly FOURTEENTH_MENU_LINK: string = "export-point/read/add";
   private readonly FOURTEENTH_MENU_ACTIVE: boolean = false;
 
+  public FIFTEENTH_MENU: any;
+  private readonly FIFTEENTH_MENU_NAME: string = "Mapping Add";
+  private readonly FIFTEENTH_MENU_LINK: string = "mapping/add";
+  private readonly FIFTEENTH_MENU_ACTIVE: boolean = false;
 
   public LAST_MENU: any;
   private readonly LAST_MENU_NAME: string = "Export Point Read View";
@@ -176,6 +180,12 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
       link: this.FOURTEENTH_MENU_LINK
     }
 
+    this.FIFTEENTH_MENU = {
+      name: this.FIFTEENTH_MENU_NAME,
+      active: this.FIFTEENTH_MENU_ACTIVE,
+      link: this.FIFTEENTH_MENU_LINK
+    }
+
     this.LAST_MENU = {
       name: this.LAST_MENU_NAME,
       active: this.LAST_MENU_ACTIVE,
@@ -185,19 +195,20 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
     this.menus.push(this.FIRST_MENU); 
     this.menus.push(this.SECOND_MENU);
     this.menus.push(this.THIRD_MENU); 
+    this.menus.push(this.FIFTEENTH_MENU);
+    this.menus.push(this.EIGTH_MENU);
     this.menus.push(this.FOURTH_MENU);
     this.menus.push(this.FIFTH_MENU); 
     this.menus.push(this.SIXTH_MENU);
     this.menus.push(this.SEVENTH_MENU);
-    this.menus.push(this.EIGTH_MENU);
-    this.menus.push(this.NINETH_MENU);
-    this.menus.push(this.TENTH_MENU);
-    this.menus.push(this.ELEVENTH_MENU);
     this.menus.push(this.TWELFTH_MENU);
     this.menus.push(this.THIRTEENTH_MENU);
     this.menus.push(this.FOURTEENTH_MENU);
     this.menus.push(this.LAST_MENU);  
-
+    this.menus.push(this.ELEVENTH_MENU);
+    this.menus.push(this.NINETH_MENU);
+    this.menus.push(this.TENTH_MENU);
+    
   }
 
   public getMenus() {

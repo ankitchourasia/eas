@@ -1,4 +1,4 @@
-<div class="eas-space-evenly mb-2" *ngIf="!formData.selectedFeeder && !formData.SelectedBillingMonth">
+<div class="eas-space-around mb-2" *ngIf="!formData.selectedFeeder && !formData.SelectedBillingMonth">
   <div class="inner-group">
     <label class="form-text text-muted mb-0">Region</label>
     <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
@@ -111,7 +111,7 @@
   </a>
 </div>
 <div class="table-responsive pt-1" *ngIf="dtrLossReports && dtrLossReports.length && !_searchClicked">
-  <table border="1" style="border-collapse:collapse;" class="table table-sm table-bordered" id="dtrLossReport">
+  <table border="1" style="border-collapse:collapse;" class="table table-sm table-bordered table-hover" id="dtrLossReport">
     <thead class="text-sm text-center">
       <tr>
         <td class="align-middle" colspan="16"><h3 class="display-5">DTR LOSS REPORT</h3></td>

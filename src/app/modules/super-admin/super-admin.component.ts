@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { SuperAdminMenuService } from './super-admin-menu.service';
 import { GlobalResources } from '@eas-utility/global.resources';
+import { LazyLoadingScriptService } from '@eas-services/lazy-loading-script-service/lazy-loading-script.service';
 
 @Component({
   selector: 'eas-super-admin',
@@ -15,10 +16,11 @@ export class SuperAdminComponent implements OnInit {
   menus : any[] = new Array();
 
   constructor(private route: ActivatedRoute,private router: Router, private superAdminMenuService: SuperAdminMenuService,
-    public globalResources: GlobalResources) {
-  }
-
+    public globalResources: GlobalResources, private lazyLoadingScriptService: LazyLoadingScriptService) {
+    }
+  
   ngOnInit() {
+    this.lazyLoadingScriptService.loadScript('assets/js/external.js');
     this.user = this.globalResources.getUserDetails();
     this.menus = this.superAdminMenuService.menus;
   }

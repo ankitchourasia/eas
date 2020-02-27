@@ -1,5 +1,5 @@
 <form #ComplaintsMonitoringInput="ngForm" autocomplete="off">
-  <div class="eas-space-evenly">
+  <div class="eas-space-around">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
@@ -64,7 +64,7 @@
     </div>
   </div>
   <hr>
-  <div class="eas-space-evenly">
+  <div class="eas-space-around">
     <div class="inner-group">
       <small class="form-text text-muted required">Previous Pending Complaints</small>
       <input type="number" [ngClass]="{'is-valid': !prePendingComplaints.errors && (prePendingComplaints.dirty || prePendingComplaints.touched),'is-invalid': prePendingComplaints.errors && (prePendingComplaints.dirty || prePendingComplaints.touched)}"

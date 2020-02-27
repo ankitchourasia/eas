@@ -13,6 +13,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class FeederAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "FeederAddComponent";
   user : any;
   feeder:any;
   regionList: any;
@@ -77,28 +78,26 @@ export class FeederAddComponent implements OnInit {
   }
   
   submitClicked(feederAddForm){
+    let methodName = "submitClicked";
     if(this.globalResources.validateForm(feederAddForm)){
       this._submitClicked = true;
       this.feederService.addFeeder(this.feeder).subscribe(successResponese =>{
         this._submitClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder added successfully");
         alertResponse.then(result =>{
-          this.feeder = {};
+          this.setPartialData();
           this.globalResources.resetValidateForm(feederAddForm);
         });
       }, errorResponse =>{
-        console.log(errorResponse);
         this._submitClicked = false;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-        alertResponse.then(result =>{
-          console.log("alert result", result);
-        });
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       });
     }
   }
 
-  resetClicked(){
-
+  resetClicked(feederAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederAddForm);
   }
 
 }

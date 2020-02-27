@@ -77,6 +77,7 @@ export class SubstationViewComponent implements OnInit {
   }
 
   deleteSubstation(substationId, deletedBy){
+    let methodName = "deleteSubstation";
     this._deleteClicked = true;
     this.substationService.deleteSubstationById(substationId, deletedBy).subscribe(success => {
       this._deleteClicked = false;
@@ -85,13 +86,14 @@ export class SubstationViewComponent implements OnInit {
         this.getSubstations();
       });
     }, error =>{
-      console.log(error);
       this._deleteClicked = false;
+      this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
   }
 
   _updateClicked: boolean;
   updateSubstation(updateSubstationForm, modalCloseButtonRef){
+    let methodName = "updateSubstation";
     if(this.globalResources.validateForm(updateSubstationForm)){
       this._updateClicked = true;
       this.substationService.updateSubstation(this.substationToEdit, this.user.username).subscribe(success =>{
@@ -103,12 +105,8 @@ export class SubstationViewComponent implements OnInit {
           this.getSubstations();
         });
       }, error =>{
-        console.log(error);
         this._updateClicked = false;
-        let alertResponse = this.globalResources.errorAlert("Unable to update substation.");
-        alertResponse.then(result =>{
-          console.log("alert result", result);
-        });
+        this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
       })
     }
   }

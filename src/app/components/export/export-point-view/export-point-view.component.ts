@@ -13,6 +13,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ExportPointViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ExportPointViewComponent";
   user: any;
   zoneList: any;
   selectedZone: any;
@@ -76,22 +77,22 @@ export class ExportPointViewComponent implements OnInit {
   }
 
   statusChanged(exportPoint){
+    let methodName = "statusChanged";
     this.statusChangedButtonClicked = true;
     this.exportService.statusChanged(exportPoint, false).subscribe(
       successResponse =>{
         this.statusChangedButtonClicked = false;  
         if(successResponse){
           let resultResponse = <any>successResponse;
-          let alertResponse = this.globalResources.successAlert("Export point status changed successfully !");
+          let alertResponse = this.globalResources.successAlert("Export point status changed successfully");
           alertResponse.then(result =>{
             exportPoint.misc1 = resultResponse.misc1;
           // this.getAll11KVExportPointsByZoneId(this.selectedZone.id);
           });
         }
       },errorResponse =>{
-        console.log(errorResponse);
         this.statusChangedButtonClicked = false;
-        this.globalResources.errorAlert("Error while fetching Export point");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );
   }

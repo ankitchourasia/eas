@@ -14,6 +14,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class Feeder33KVExportPointAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "Feeder33KVExportPointAddComponent";
   user:any;
   formData: any;
   regionList: any;
@@ -95,24 +96,29 @@ export class Feeder33KVExportPointAddComponent implements OnInit {
   }
 
   addExportPoint(exportPointAddForm){
+    let methodName = "addExportPoint";
     this.submitButtonClicked = true;
     this.exportService.add33KVExportPoint(this.formData, false).subscribe(
       successResponse =>{
         this.submitButtonClicked = false;
         console.log(successResponse);
         if(successResponse){
-          let alertResponse =this.globalResources.successAlert("33KV Export Added Successfully !");
+          let alertResponse =this.globalResources.successAlert("Export point added successfully !");
           alertResponse.then(result =>{
-            this.clearPartialData();
+            this.setPartialData()
             this.globalResources.resetValidateForm(exportPointAddForm);
           });
         }
       },errorResponse =>{
         this.submitButtonClicked = false;
-        console.log(errorResponse);
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );
+  }
+
+  resetClicked(exportPointAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(exportPointAddForm);
   }
 
   clearPartialData(){

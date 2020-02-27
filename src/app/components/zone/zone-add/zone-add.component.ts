@@ -12,6 +12,7 @@ import { DivisionService } from '@eas-services/division-service/division.service
 })
 export class ZoneAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ZoneAddComponent";
   formData: any;
   regionList: any;
   circleList: any;
@@ -84,22 +85,21 @@ export class ZoneAddComponent implements OnInit {
   }
 
   submitClicked(zoneAddForm){
+    let methodName = "submitClicked";
+    if(!this.globalResources.validateForm(zoneAddForm)){
+      return;
+    }
     this._submitClicked = true;
     this.zoneService.addZone(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      let alertResponse =this.globalResources.successAlert("Zone add successfully !!!");
+      let alertResponse =this.globalResources.successAlert("Zone added successfully !!!");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(zoneAddForm);
         this.setPartialData();
       });
     },errorResponse=>{
       this._submitClicked = false;
-      console.log(errorResponse);
-      if(errorResponse.status == 417){
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      }else{
-        this.globalResources.errorAlert("Some error accourd. Please try again...");
-      }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

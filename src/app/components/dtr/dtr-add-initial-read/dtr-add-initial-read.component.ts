@@ -16,7 +16,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
   styleUrls: ['./dtr-add-initial-read.component.css']
 })
 export class DtrAddInitialReadComponent implements OnInit {
-
+  COMPONENT_NAME: string = "DtrAddInitialReadComponent";
   user : any;
   zoneList: any;
   regionList: any;
@@ -306,6 +306,7 @@ export class DtrAddInitialReadComponent implements OnInit {
   }
 
   addDTRInitialRead(dtrInitialReadAddForm){
+    let methodName = "addDTRInitialRead";
     this.submitButtonClicked = true;
     this.dtrService.addDTRRead(this.dtrInitialReadAdd, this.user.username).subscribe(successResponese =>{
       this.submitButtonClicked = false;
@@ -314,13 +315,9 @@ export class DtrAddInitialReadComponent implements OnInit {
         this.clearPartialData();
         this.globalResources.resetValidateForm(dtrInitialReadAddForm);
       });
-    }, errorResponse =>{
-      console.log(errorResponse);
+    },errorResponse=>{
       this.submitButtonClicked = false;
-      let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      alertResponse.then(result =>{
-        console.log("alert result", result);
-      });
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

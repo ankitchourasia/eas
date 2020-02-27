@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { AdminMenuService } from '../admin-menu.service';
 import { AdminSubstationMenuService } from './admin-substation-menu.service';
+import { AnimateService } from 'app/animations/animation.service';
+import { showHideAnimate, sidebarAnimate } from 'app/animations/animation';
 
 @Component({
   selector: 'eas-admin-substation',
   templateUrl: './admin-substation.component.html',
-  styleUrls: ['./admin-substation.component.css']
+  styleUrls: ['./admin-substation.component.css'],
+  animations: [showHideAnimate, sidebarAnimate]
 })
 export class AdminSubstationComponent implements OnInit {
 
   menus : any[] = new Array();
 
   constructor(private route: ActivatedRoute, private router: Router, private adminMenuService : AdminMenuService, 
-    private adminSubstationMenuService: AdminSubstationMenuService) {
+    private adminSubstationMenuService: AdminSubstationMenuService, public animateService: AnimateService) {
       if(!this.adminMenuService.FIRST_MENU.active){
         this.adminMenuService.menuClicked(this.adminMenuService.FIRST_MENU);
       }
@@ -21,6 +24,7 @@ export class AdminSubstationComponent implements OnInit {
 
   ngOnInit() {
     this.menus = this.adminSubstationMenuService.getMenus();
+    // this.onSinenavToggle();
   }
 
   /**
@@ -52,4 +56,13 @@ export class AdminSubstationComponent implements OnInit {
         if(element.name != menu.name) element.active = false;
       });
   }
+
+  sideNavState: boolean;
+  linkText: boolean;
+  onSinenavToggle() {
+    this.sideNavState = !this.sideNavState;
+    this.linkText = this.sideNavState;
+    this.animateService.sidebarAnimeState$.next(this.sideNavState)
+  }
+
 }

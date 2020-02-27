@@ -11,6 +11,7 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 })
 export class HtConsumer33KVReadingAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "HtConsumer33KVReadingAddComponent";
   user: any;
   formData : any;
   zoneList: any;
@@ -67,22 +68,22 @@ export class HtConsumer33KVReadingAddComponent implements OnInit {
   }
 
   add33KVHTConsumerReading(readAddForm){
+    let methodName = "add33KVHTConsumerReading";
     this._submitClicked = true;
     console.log(this.formData);
     this.htConsumerService.add33KVHTConsumerReading(this.formData, true).subscribe(success =>{
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
-        let alertResposne = this.globalResources.successAlert("Data Added successfully");
+        let alertResposne = this.globalResources.successAlert("Data added successfully");
         alertResposne.then(result=>{
           this.setInitialData();
           this.globalResources.resetValidateForm(readAddForm);
         });
       }
-    }, error =>{
+    }, errorResponse =>{
       this._submitClicked = false;
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

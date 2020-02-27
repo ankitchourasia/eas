@@ -15,6 +15,7 @@ import { ZoneService } from '@eas-services/zone/zone.service';
 })
 export class DtrViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "DtrViewComponent";
   user : any;
   dtrList: any;
   dtrToEdit: any;
@@ -101,17 +102,17 @@ export class DtrViewComponent implements OnInit {
   }
 
   deleteDTR(dtrId, deletedBy){
+    let methodName = "deleteDTR";
     this._deleteClicked = true;
     this.dtrService.deleteDTRById(dtrId, deletedBy).subscribe(successResponse => {
       this._deleteClicked = false;
-      let alertResponse = this.globalResources.successAlert("dtr deleted successfully");
+      let alertResponse = this.globalResources.successAlert("DTR deleted successfully");
       alertResponse.then(result =>{
         this.getDTRByDivisionId(this.user.division.id);
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._deleteClicked = false;
-      this.globalResources.errorAlert(errorResponse.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -172,6 +173,7 @@ export class DtrViewComponent implements OnInit {
   
   _updateClicked: boolean;
   updateClicked(updateDTRForm, modalCloseButtonRef){
+    let methodName = "updateClicked";
     if(this.globalResources.validateForm(updateDTRForm)){
       this._updateClicked = true;
       this.dtrService.updateDTR(this.dtrToEdit, this.user.username).subscribe(successResponese =>{
@@ -185,12 +187,8 @@ export class DtrViewComponent implements OnInit {
           this.dtrToEdit = null;
         });
       }, errorResponse =>{
-        console.log(errorResponse);
         this._updateClicked = false;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-        alertResponse.then(result =>{
-          console.log("alert result", result);
-        });
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       })
     }
   }

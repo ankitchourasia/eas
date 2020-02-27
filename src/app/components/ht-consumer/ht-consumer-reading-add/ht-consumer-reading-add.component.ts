@@ -10,6 +10,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 })
 export class HtConsumerReadingAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "HtConsumerReadingAddComponent";
   formData : any;
   consumer : any;
   month : string;
@@ -53,7 +54,7 @@ export class HtConsumerReadingAddComponent implements OnInit {
     });
   }
 
-  submitClicked(){
+  submitClicked(readAddForm){
     let billMonth = this.month + '-' + this.year;
     this.formData.billMonth = billMonth;
     this.formData.regionId = this.consumer.region.id;
@@ -64,28 +65,33 @@ export class HtConsumerReadingAddComponent implements OnInit {
     this.formData.feederId = this.consumer.feeder.id;
     this.formData.consumerId = this.consumer.id;
     this.formData.serviceNumber = this.serviceNumber;
-    this.addReading();
+    this.addReading(readAddForm);
   }
 
-  addReading(){
+  addReading(readAddForm){
+    let methodName = "addReading";
     this._submitClicked = true;
     this.htConsumerService.addHTConsumerReading(this.formData, true).subscribe(success =>{
       this._submitClicked = false;
       let result = <any> success;
       if(result.status === 201){
-        this.globalResources.successAlert("Data Added successfully");
-        this.consumer = null;
-        this.formData = {};
+        let alertResponse =this.globalResources.successAlert("Reading added successfully");
+        alertResponse.then(result =>{
+          this.setInitialData();
+          this.globalResources.resetValidateForm(readAddForm);
+        });
+      }else{
+        this.globalResources.handleError(success, this.COMPONENT_NAME, methodName);
       }
-    }, error =>{
+    }, errorResponse =>{
       this._submitClicked = false;
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
-  resetClicked(){
+  resetClicked(readAddForm){
     this.setInitialData();
+    this.globalResources.resetValidateForm(readAddForm);
   }
 
 }

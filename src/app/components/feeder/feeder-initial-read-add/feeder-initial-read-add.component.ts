@@ -13,6 +13,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class FeederInitialReadAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "FeederInitialReadAddComponent";
   user : any = {};
   feederReading : any = {};
   regionList: any;
@@ -105,6 +106,7 @@ export class FeederInitialReadAddComponent implements OnInit {
   }
 
   getFeederReadingByFeederId(feederId, meterNo){
+    let methodName = "getFeederReadingByFeederId";
     this.feederReading.currReading = undefined;
     this.formDates.currReadingDate = undefined;
     this.feederService.getFeederReadingsByFeederId(feederId, meterNo, true).subscribe(success =>{
@@ -114,9 +116,8 @@ export class FeederInitialReadAddComponent implements OnInit {
         this.feederReading.feeder = undefined;
         this.globalResources.errorAlert("Reading already present for selected feeder.");
       }
-    }, error =>{
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+    }, errorResponse =>{
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -163,17 +164,24 @@ export class FeederInitialReadAddComponent implements OnInit {
   }
 
   addFeederReading(feederReadingAddForm){
+    let methodName = "addFeederReading";
     this.loading = true;
     this.feederService.addFeederReading(this.feederReading, this.user.username).subscribe(success =>{
-      this.globalResources.successAlert("Reading added successfully");
       this.loading = false;
-      this.feederReading = {};
-      this.globalResources.resetValidateForm(feederReadingAddForm);
-
-    }, error =>{
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      let alertResponse = this.globalResources.successAlert("Reading added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
+    }, errorResponse =>{
+      this.loading = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(feederReadingAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederReadingAddForm);
   }
 
   clearDetails(){

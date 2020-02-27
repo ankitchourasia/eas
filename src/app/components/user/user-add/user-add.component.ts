@@ -109,7 +109,7 @@ export class UserAddComponent implements OnInit {
     this.formData.zoneId = this.formData.zone.id;
     this.userService.addUser(this.formData, true).subscribe(successResponse =>{
       this._submitClicked = false;
-      let alertResponse =this.globalResources.successAlert("User add successfully !!!");
+      let alertResponse =this.globalResources.successAlert("User added successfully !!!");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(userAddForm);
         this.setPartialData();

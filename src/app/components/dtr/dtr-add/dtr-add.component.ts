@@ -13,7 +13,8 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
   styleUrls: ['./dtr-add.component.css']
 })
 export class DtrAddComponent implements OnInit {
-
+  
+  COMPONENT_NAME: string = "DtrAddComponent";
   user : any;
   dtr:any;
   regionList: any;
@@ -108,13 +109,10 @@ export class DtrAddComponent implements OnInit {
   }
   
   submitClicked(dtrAddForm){
-    if(this.globalResources.validateForm(dtrAddForm)){
-      this.addDTR(dtrAddForm);
+    let methodName = "submitClicked"
+    if(!this.globalResources.validateForm(dtrAddForm)){
+      return;
     }
-  }
-
-  addDTR(dtrAddForm){
-    console.log(this.dtr);
     this.submitButtonClicked = true;
     this.dtrService.addDTR(this.dtr).subscribe(successResponese =>{
       this.submitButtonClicked = false;
@@ -123,13 +121,9 @@ export class DtrAddComponent implements OnInit {
         this.globalResources.resetValidateForm(dtrAddForm);
         this.setPartialData();
       });
-    }, errorResponse =>{
-      console.log(errorResponse);
+    },errorResponse=>{
       this.submitButtonClicked = false;
-      let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-      alertResponse.then(result =>{
-        console.log("alert result", result);
-      });
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

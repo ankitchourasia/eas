@@ -14,6 +14,82 @@ export class GlobalResources {
     getUserDetails(){
         return JSON.parse(sessionStorage.getItem('userDetails'));
     }
+    
+    templateAlert(templateRef, options){
+        //   this.fixBootstrapModal();
+        return alert.fire({
+            title: options.title,
+            html: "<hr>" + templateRef.innerHTML + "<hr>",
+            animation: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            focusConfirm: true,
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'OK',
+            customClass:{
+                // content: "text-left"
+            },
+            width: options.width,
+            keydownListenerCapture: true,
+        });
+    }
+
+    errorAlert( message:string){
+        // this.fixBootstrapModal();
+        return alert.fire({
+            html: "<strong>" + message + "<strong>",
+            animation: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            focusConfirm: true,
+            buttonsStyling: false,
+            confirmButtonText: 'OK',
+            confirmButtonClass: 'btn btn-danger',
+            keydownListenerCapture: true,
+        });
+    }
+
+    successAlert(message:string){
+        // this.fixBootstrapModal();
+        return alert.fire({
+            html: "<strong>" + message + "<strong>",
+            animation: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            focusConfirm: true,
+            buttonsStyling: false,
+            confirmButtonText: 'OK',
+            confirmButtonClass: 'btn btn-success',
+            keydownListenerCapture: true,
+        });
+    }
+
+    confirmAlert(message:string){
+        // this.fixBootstrapModal();
+        return alert.fire({
+            html: "<strong>" + message + "<strong>",
+            animation: true,
+            showCancelButton: true,
+            allowOutsideClick: true,
+            allowEscapeKey: true,
+            allowEnterKey: true,
+            focusConfirm: true,
+            buttonsStyling: false,
+            confirmButtonText: 'YES ',
+            confirmButtonClass: 'btn btn-success mx-3',
+            cancelButtonText: 'NO ',
+            cancelButtonClass: 'btn btn-danger',
+            keydownListenerCapture: true,
+            // reverseButtons: true,
+            // background: "black",
+            // position: "bottom",
+            // backdrop: "linear-gradient(yellow, orange, red, blue)",
+        });
+      }
 
     handleError(response: Response | any, componentName: string, methodName: string, customErrorMessage?: string) {
         console.error("error inside " + componentName + "-" + methodName, response);
@@ -102,85 +178,9 @@ export class GlobalResources {
         }
     }
 
-    errorAlert( message:string){
-        // this.fixBootstrapModal();
-        return alert.fire({
-            html: "<strong>" + message + "<strong>",
-            animation: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-            focusConfirm: true,
-            buttonsStyling: false,
-            confirmButtonText: 'OK',
-            confirmButtonClass: 'btn btn-danger',
-            keydownListenerCapture: true,
-        });
-    }
-
-    successAlert(message:string){
-        // this.fixBootstrapModal();
-        return alert.fire({
-            html: "<strong>" + message + "<strong>",
-            animation: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-            focusConfirm: true,
-            buttonsStyling: false,
-            confirmButtonText: 'OK',
-            confirmButtonClass: 'btn btn-success',
-            keydownListenerCapture: true,
-        });
-    }
-
-    confirmAlert(message:string){
-        // this.fixBootstrapModal();
-        return alert.fire({
-            html: "<strong>" + message + "<strong>",
-            animation: true,
-            showCancelButton: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-            focusConfirm: true,
-            buttonsStyling: false,
-            confirmButtonText: 'YES ',
-            confirmButtonClass: 'btn btn-success mx-3',
-            cancelButtonText: 'NO ',
-            cancelButtonClass: 'btn btn-danger',
-            keydownListenerCapture: true,
-            // reverseButtons: true,
-            // background: "black",
-            // position: "bottom",
-            // backdrop: "linear-gradient(yellow, orange, red, blue)",
-        });
-      }
-
-      templateAlert(templateRef, options){
-        //   this.fixBootstrapModal();
-        return alert.fire({
-            title: options.title,
-            html: "<hr>" + templateRef.innerHTML + "<hr>",
-            animation: true,
-            allowOutsideClick: true,
-            allowEscapeKey: true,
-            allowEnterKey: true,
-            focusConfirm: true,
-            buttonsStyling: false,
-            confirmButtonClass: 'btn btn-success',
-            confirmButtonText: 'OK',
-            customClass:{
-                // content: "text-left"
-            },
-            width: options.width,
-            keydownListenerCapture: true,
-        });
-      }
-
     // call this before showing SweetAlert:
     fixBootstrapModal() {
-        var modalNode = document.querySelector('.modal[tabindex="-1"]');
+        let modalNode = document.querySelector('.modal[tabindex="-1"]');
         if (!modalNode) return;
     
         modalNode.removeAttribute('tabindex');
@@ -189,7 +189,7 @@ export class GlobalResources {
   
   // call this before hiding SweetAlert (inside done callback):
     restoreBootstrapModal() {
-        var modalNode = document.querySelector('.modal.swal-fixed');
+        let modalNode = document.querySelector('.modal.swal-fixed');
         if (!modalNode) return;
     
         modalNode.setAttribute('tabindex', '-1');

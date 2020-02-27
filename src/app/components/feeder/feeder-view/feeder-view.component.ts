@@ -78,6 +78,7 @@ export class FeederViewComponent implements OnInit {
   }
 
   deleteFeeder(feederId, deletedBy){
+    let methodName = "deleteFeeder";
     this.deleteButtonClicked = true;
     this.feederService.deleteFeederById(feederId, deletedBy).subscribe(success => {
       this.deleteButtonClicked = false;
@@ -86,8 +87,8 @@ export class FeederViewComponent implements OnInit {
         this.getFeeders();
       });
     }, error =>{
-      console.log(error);
       this.deleteButtonClicked = false;
+      this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -126,6 +127,7 @@ export class FeederViewComponent implements OnInit {
   
   _updateClicked: boolean;
   updateClicked(updateFeederForm, modalCloseButtonRef){
+    let methodName = "updateClicked";
     if(this.globalResources.validateForm(updateFeederForm)){
       this._updateClicked = true;
       this.feederService.updateFeeder(this.feederToEdit, this.user.username).subscribe(successResponese =>{
@@ -138,12 +140,8 @@ export class FeederViewComponent implements OnInit {
           this.feederToEdit = null;
         });
       }, errorResponse =>{
-        console.log(errorResponse);
         this._updateClicked = false;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
-        alertResponse.then(result =>{
-          console.log("alert result", result);
-        });
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       })
     }
   }

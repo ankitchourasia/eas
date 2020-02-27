@@ -107,12 +107,12 @@
     </div>
     <div class="form-group row">
       <div class="col-4 offset-4">
-        <button type="button" class="btn btn-success form-control" (click)="submitClicked()" [disabled]="!readAddForm.form.valid || _submitClicked">
+        <button type="button" class="btn btn-success form-control" (click)="submitClicked(readAddForm)" [disabled]="!readAddForm.form.valid || _submitClicked">
           Submit <span class="spinner-border spinner-border-sm" *ngIf="_submitClicked"></span>
         </button>
       </div>
       <div class="col-4">
-        <button type="button" class="btn btn-danger form-control" (click)="resetClicked()">Reset</button>
+        <button type="button" class="btn btn-danger form-control" (click)="resetClicked(readAddForm)">Reset</button>
       </div>
     </div>
   </fieldset>

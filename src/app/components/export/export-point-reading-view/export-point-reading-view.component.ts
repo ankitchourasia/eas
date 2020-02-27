@@ -14,6 +14,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ExportPointReadingViewComponent implements OnInit {
 
+  COMPONENT_NAME: string = "ExportPointReadingViewComponent";
   user: any;
   zoneList: any;
   billMonth: any;
@@ -138,6 +139,7 @@ export class ExportPointReadingViewComponent implements OnInit {
   }
 
   updateExportPointReading(){
+    let methodName = "updateExportPointReading";
     this._updateClicked = true;
     let nextBillMonth = this.globalResources.getNextBillMonth(this.updateFormData.billMonth);
     this.exportService.update11KVExportPointReading(this.updateFormData, nextBillMonth, this.user.username, false).subscribe(
@@ -145,14 +147,13 @@ export class ExportPointReadingViewComponent implements OnInit {
         this._updateClicked = false;
         this.updateFormData = {};
         this.closeModal();
-        let alertResponse = this.globalResources.successAlert("11kv Export Reading updated Successfully!");
+        let alertResponse = this.globalResources.successAlert("Export point reading updated successfully");
         alertResponse.then(result =>{
           this.searchClicked();
         });
       },errorResponse =>{
-        console.log(errorResponse);
         this._updateClicked = false;
-        this.globalResources.errorAlert("Error while updating Reading.");
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );  
   }

@@ -2,9 +2,6 @@
   <div class="form-group row">
     <label class="col-4 col-form-label">Region</label>
     <div class="col-8">
-      <!-- <select class="form-control" id="region" name="region">
-        <option selected>{{user?.region?.name | uppercase}}</option>
-      </select> -->
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control" [(ngModel)]="htConsumer.region" #region="ngModel" id="region"  name="region" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -18,9 +15,6 @@
   <div class="form-group row">
     <label class="col-4 col-form-label">Circle</label>
     <div class="col-8">
-      <!-- <select class="form-control" id="circle"  name="circle" required>
-        <option selected>{{user?.circle?.name | uppercase}}</option>
-      </select> -->
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control" [(ngModel)]="htConsumer.circle" #circle="ngModel" id="circle"  name="circle" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -34,9 +28,6 @@
   <div class="form-group row">
     <label class="col-4 col-form-label">Division</label>
     <div class="col-8">
-      <!-- <select class="form-control" id="division"  name="division" required>
-        <option selected>{{user?.division?.name | uppercase}}</option>
-      </select> -->
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control" [(ngModel)]="htConsumer.division" #division="ngModel" id="division"  name="division" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -110,7 +101,7 @@
       </button>
     </div>
     <div class="col-4">
-      <button type="reset" class="btn btn-danger form-control">Reset</button>
+      <button type="button" class="btn btn-danger form-control" (click)="resetClicked(htConsumerAddForm)">Reset</button>
     </div>
   </div>
 </form>

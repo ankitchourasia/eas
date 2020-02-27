@@ -16,6 +16,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class ReportD5Component implements OnInit {
 
+  COMPONENT_NAME: string = "ReportD5Component";
   searchFormData: any;
   regionList: any;
   circleList: any;
@@ -169,6 +170,7 @@ export class ReportD5Component implements OnInit {
   }
 
   generateD5ReportForDivision(d5Object){
+    let methodName = "generateD5ReportForDivision";
     this._generateClicked = true;
     this.reportService.generateD5ReportForDivision(d5Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
@@ -186,14 +188,15 @@ export class ReportD5Component implements OnInit {
       if(errorResponse.status === 417){
         this.reportGenerated = true;
         this.viewClicked();
-        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        // let alertResponse = this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     });
   }
 
   generateD5ReportForZone(d5Object){
+    let methodName = "generateD5ReportForZone";
     this._generateClicked = true;
     this.reportService.generateD5ReportForZone(d5Object, true).subscribe(successResponse =>{
       this._generateClicked = false;
@@ -211,9 +214,9 @@ export class ReportD5Component implements OnInit {
       if(errorResponse.status === 417){
         this.reportGenerated = true;
         this.viewClicked();
-        // let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        // let alertResponse = this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }else{
-        this.globalResources.errorAlert(errorResponse.error.errorMessage);
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     });
   }

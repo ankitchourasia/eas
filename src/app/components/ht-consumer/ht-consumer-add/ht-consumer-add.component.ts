@@ -13,6 +13,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class HtConsumerAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "HtConsumerAddComponent";
   user : any = {};
   htConsumer : any = {};
   regionList: any;
@@ -95,21 +96,30 @@ export class HtConsumerAddComponent implements OnInit {
   }
 
   addHTConsumer(htConsumerAddForm){
+    let methodName = "addHTConsumer";
     this.loading = true;
     console.log(this.htConsumer);
     this.htConsumerService.addHTConsumer(this.htConsumer, true).subscribe(success =>{
+      this.loading = false;
       let result = <any> success;
-      console.log(result);
-      this.loading = false;
       if(result.status === 201){
-        this.globalResources.successAlert("Consumer Added Successfully");
-        this.htConsumer = {};
-        this.globalResources.resetValidateForm(htConsumerAddForm);
+        let alertResponse =this.globalResources.successAlert("Consumer added successfully");
+        alertResponse.then(result =>{
+          this.setPartialData();
+          this.globalResources.resetValidateForm(htConsumerAddForm);
+        });
+      }else{
+        this.globalResources.handleError(success, this.COMPONENT_NAME, methodName);
       }
-    }, error =>{
+    }, errorResponse =>{
       this.loading = false;
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(htConsumerAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(htConsumerAddForm);
   }
 
 }

@@ -183,18 +183,18 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
       this._submitClicked = false;
       let alertResponse = this.globalResources.successAlert("Export point read added successfully");
       alertResponse.then(result =>{
-        this.clearPartialData();
+        this.setPartialData();
         this.globalResources.resetValidateForm(exportPointReadAddForm);
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._submitClicked = false;
-      let alertResponse = this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
-  resetClicked(){
+  resetClicked(exportPointReadAddForm){
     this.setPartialData();
+    this.globalResources.resetValidateForm(exportPointReadAddForm);
   }
 
   clearPartialData(){

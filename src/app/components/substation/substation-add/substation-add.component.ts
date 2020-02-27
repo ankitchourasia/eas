@@ -12,6 +12,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class SubstationAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "SubstationAddComponent";
   substation : any;
   user : any;
   regionList: any;
@@ -56,6 +57,7 @@ export class SubstationAddComponent implements OnInit {
   }
 
   submitClicked(substationAddForm){
+    let methodName = "submitClicked";
     if(this.globalResources.validateForm(substationAddForm)){
       this.submitButtonClicked = true;
       this.substation.zoneId = this.substation.zone.id;
@@ -68,7 +70,7 @@ export class SubstationAddComponent implements OnInit {
         });
       }, error =>{
         this.submitButtonClicked = false;
-        console.log(error);
+        this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
       })
     }
   }

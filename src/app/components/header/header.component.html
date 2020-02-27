@@ -1,7 +1,7 @@
-
-<nav class="navbar bg-dark" id="navbarHeader">
+<nav class="navbar bg-inverse" id="navbarHeader">
   <div class="navbar-header ">
-    <img src="assets/images/mppkvvcl1.png" class="img-fluid">
+    <img class="img-fluid" src="/assets/images/mppkvvcl1.png" alt="..." onerror="this.style.display='none'">
+    <!-- <img class="img-fluid" src="/assets/images/mppkvvcl1.png" alt="..." onerror="this.src='/assets/images/mppkvvcl.png'"/> -->
     <a class="navbar-brand mb-0 h1 text-warning" href="JavaScript:void(0);" (click)="titleClicked()">
       <span class="d-none d-lg-block">ENERGY AUDIT SYSTEM</span>
       <span class="d-lg-none ml-auto ">EAS</span>
@@ -9,15 +9,18 @@
   </div>
   <div id="welcomeMessage">
       <div class="dropdown">
-        <a class="badge badge-pill badge-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
-          {{user?.name | uppercase}} <span class="fa fa-user-circle" aria-hidden="true"></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <h6 class="dropdown-header"><span class="fa fa-user-circle" aria-hidden="true"></span> {{user?.name | uppercase}}</h6>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="javascript:void(0);" (click)="settingClicked()"><span class="fa fa-wrench" aria-hidden="true">&nbsp;&nbsp;</span>Settings</a>
-          <a class="dropdown-item" href="javascript:void(0);" (click)="logoutClicked()"><span class="fa fa-sign-out" aria-hidden="true">&nbsp;&nbsp;</span>Logout</a>
-        </div>
+          <!-- <a class="dropdown-toggle text-inverse m-1" role="button" id="dropdownMenuLink" data-toggle="dropdown" href="javascript:void(0);">
+            <span class="fa fa-user" aria-hidden="true"></span>
+          </a> -->
+          <a class="badge badge-pill badge-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+            {{user?.name | uppercase}} <span class="fa fa-user-circle" aria-hidden="true"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <h6 class="dropdown-header"><span class="fa fa-user-circle" aria-hidden="true"></span> {{user?.name | uppercase}}</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="javascript:void(0);" (click)="settingClicked()"><span class="fa fa-wrench" aria-hidden="true">&nbsp;&nbsp;</span>Settings</a>
+            <a class="dropdown-item" href="javascript:void(0);" (click)="logoutClicked()"><span class="fa fa-sign-out" aria-hidden="true">&nbsp;&nbsp;</span>Logout</a>
+          </div>
       </div>
   </div>
 </nav>

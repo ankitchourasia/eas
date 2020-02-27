@@ -143,21 +143,21 @@ export class FeederTndLossReportComponent implements OnInit {
   }
 
   generateSingleFeederLossReport(feeder){
+    let methodName = "generateSingleFeederLossReport";
     feeder.generatingSingleReport = true;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.feederService.generateFeedertndLossReport(feeder, billingMonth.toUpperCase(), this.user.username).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       feeder.generatingSingleReport = false;
       feeder.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully");
     },errorResponse =>{
-      console.log(errorResponse);
       feeder.generatingSingleReport = false;
       if(errorResponse.status === 417){
         feeder.generatingSingleReport = false;
         feeder.singleReportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 

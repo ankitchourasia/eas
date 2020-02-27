@@ -14,6 +14,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class FeederMappingAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "FeederMappingAddComponent";
   user : any = {};
   regionList: any;
   circleList: any;
@@ -116,29 +117,43 @@ export class FeederMappingAddComponent implements OnInit {
     });
   }
 
-  submitClicked(){
+  submitClicked(feederMappingAddForm){
+    if(!this.globalResources.validateForm(feederMappingAddForm)){
+      return;
+    }
     this._submitClicked = true;
     this.feederMapping.feederId = this.feederMapping.feeder.id;
     this.feederMapping.originalFeederId = this.feederMapping.originalFeeder.id;
     this.feederMapping.originalFeederSubstationId = this.feederMapping.originalFeeder.substationId;
     console.log(this.feederMapping);
     this._submitClicked = false;
-    this.addMapping();
+    this.addMapping(feederMappingAddForm);
   }
 
-  addMapping(){
+  addMapping(feederMappingAddForm){
+    let methodName = "addMapping";
     this._submitClicked = true;
     this.feederService.addFeederMapping(this.feederMapping, true).subscribe(successResponse =>{
       this._submitClicked = false;
       let result = <any> successResponse;
       if(result.status === 201){
-        this.globalResources.successAlert("Mapping inserted successfully");
-        this.feederMapping = {};
+        let alertResponse =this.globalResources.successAlert("Mapping inserted successfully");
+        alertResponse.then(result =>{
+          this.setPartialData();
+          this.globalResources.resetValidateForm(feederMappingAddForm);
+        });
+      }else{
+        this.globalResources.handleError(successResponse, this.COMPONENT_NAME, methodName);
       }
     }, errorResponse =>{
       this._submitClicked = false;
-      console.log(errorResponse)
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(feederMappingAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederMappingAddForm);
   }
 
 }

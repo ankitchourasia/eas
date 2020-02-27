@@ -12,6 +12,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 })
 export class FeederReadingAddComponent implements OnInit {
 
+  COMPONENT_NAME: string = "FeederReadingAddComponent";
   user : any = {};
   feederReading : any = {};
   regionList: any;
@@ -97,6 +98,7 @@ export class FeederReadingAddComponent implements OnInit {
   }
 
   getPreviousFeederReadingByFeederId(feederId){
+    let methodName = "getPreviousFeederReadingByFeederId";
     this.feederReading.currReading = undefined;
     this.formDates.currReadingDate = undefined;
     this.feederService.getPreviousReadingByFeederId(feederId).subscribe(success =>{
@@ -106,9 +108,8 @@ export class FeederReadingAddComponent implements OnInit {
       this.feederReading.prevReadingDateInString = this.previousReading.currReadingDateInString;
       this.feederReading.prevBillMonth = this.previousReading.billMonth;
       this.feederReading.billMonth = this.globalResources.getNextBillMonth(this.previousReading.billMonth);
-    }, error =>{
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+    }, errorResponse =>{
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
@@ -189,30 +190,40 @@ export class FeederReadingAddComponent implements OnInit {
   }
 
   addFeederReading(feederReadingAddForm){
+    let methodName = "addFeederReading";
     this.loading = true;
     this.feederService.addFeederReading(this.feederReading, this.user.username).subscribe(success =>{
-      this.globalResources.successAlert("Reading added successfully");
-      this.feederMeterReplacement = false;
       this.loading = false;
-      this.feederReading = {};
-      this.globalResources.resetValidateForm(feederReadingAddForm);
-
-    }, error =>{
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.feederMeterReplacement = false;
+      let alertResponse =this.globalResources.successAlert("Reading added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
+    }, errorResponse =>{
+      this.loading = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   replaceMeter(feederReadingAddForm){
+    let methodName = "replaceMeter";
     this.feederService.addFeederMeterReplacement(this.feederReading, this.user.username).subscribe(success =>{
-      this.globalResources.successAlert("Meter Replaced successfully");
-      this.feederMeterReplacement = false;
       this.loading = false;
-      this.feederReading = {};
-      this.globalResources.resetValidateForm(feederReadingAddForm);
-    }, error=>{
-      console.log(error);
-      this.globalResources.errorAlert(error.error.errorMessage);
+      this.feederMeterReplacement = false;
+      let alertResponse =this.globalResources.successAlert("Meter replaced successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(feederReadingAddForm);
+      });
+    },  errorResponse =>{
+      this.loading = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
+  }
+
+  resetClicked(feederReadingAddForm){
+    this.setPartialData();
+    this.globalResources.resetValidateForm(feederReadingAddForm);
   }
 }

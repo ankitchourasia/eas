@@ -143,27 +143,27 @@ export class FeederAtncLossReportComponent implements OnInit {
   }
 
   generateSingleFeederLossReport(feeder){
+    let methodName = "generateSingleFeederLossReport";
     feeder.generatingSingleReport = true;
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.feederService.generateFeederATnCLossReport(feeder, billingMonth.toUpperCase(), this.user.username).subscribe(successResponse =>{
       let generatedReport = <any>successResponse;
       feeder.generatingSingleReport = false;
       feeder.singleReportGenerated = true;
-      let alertResponse = this.globalResources.successAlert("Report Generated Successfully");
+      let alertResponse = this.globalResources.successAlert("Report generated successfully");
     },errorResponse =>{
-      console.log(errorResponse);
       feeder.generatingSingleReport = false;
       if(errorResponse.status === 417){
         feeder.generatingSingleReport = false;
         feeder.singleReportGenerated = true;
-        let alertResponse = this.globalResources.errorAlert(errorResponse.error.errorMessage);
       }
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   viewFeederLossReport(){
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.getFeederATnCLossReportBySubstationId(this.userDetails.substation.id, billingMonth)
+    this.getFeederATnCLossReportBySubstationId(this.userDetails.substation.id, billingMonth);
   }
 
   getFeederATnCLossReportBySubstationId(substationnId, billMonth){
