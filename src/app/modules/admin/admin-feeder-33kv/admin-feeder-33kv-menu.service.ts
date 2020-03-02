@@ -34,10 +34,31 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
   private readonly SIXTH_MENU_LINK: string = "export-point/add";
   private readonly SIXTH_MENU_ACTIVE: boolean = false;
 
-  public LAST_MENU: any;
-  private readonly LAST_MENU_NAME: string = "Export Point Read Add";
-  private readonly LAST_MENU_LINK: string = "export-point/reading/add";
-  private readonly LAST_MENU_ACTIVE: boolean = false;
+  public SEVENTH_MENU: any;
+  private readonly SEVENTH_MENU_NAME: string = "Feeder View";
+  private readonly SEVENTH_MENU_LINK: string = "view";
+  private readonly SEVENTH_MENU_ACTIVE: boolean = false;
+
+  public EIGHT_MENU: any;
+  private readonly EIGHT_MENU_NAME: string = "Feeder Read View";
+  private readonly EIGHT_MENU_LINK: string = "reading/view";
+  private readonly EIGHT_MENU_ACTIVE: boolean = false;
+
+  public NINETH_MENU: any;
+  private readonly NINETH_MENU_NAME: string = "Export Point View";
+  private readonly NINETH_MENU_LINK: string = "export-point/view";
+  private readonly NINETH_MENU_ACTIVE: boolean = false;
+
+  public TENTH_MENU: any;
+  private readonly TENTH_MENU_NAME: string = "Export Point Read Add";
+  private readonly TENTH_MENU_LINK: string = "export-point/reading/add";
+  private readonly TENTH_MENU_ACTIVE: boolean = false;
+
+
+  public ELEVENTH_MENU: any;
+  private readonly ELEVENTH_MENU_NAME: string = "Export Point Read View";
+  private readonly ELEVENTH_MENU_LINK: string = "export-point/reading/view";
+  private readonly ELEVENTH_MENU_ACTIVE: boolean = false;
 
   menus: any[] = new Array();
 
@@ -88,20 +109,45 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
       link: this.SIXTH_MENU_LINK
     }
 
-    this.LAST_MENU = {
-      name: this.LAST_MENU_NAME,
-      active: this.LAST_MENU_ACTIVE,
-      link: this.LAST_MENU_LINK
+    this.SEVENTH_MENU = {
+      name: this.SEVENTH_MENU_NAME,
+      active: this.SEVENTH_MENU_ACTIVE,
+      link: this.SEVENTH_MENU_LINK
+    }
+    this.EIGHT_MENU = {
+      name: this.EIGHT_MENU_NAME,
+      active: this.EIGHT_MENU_ACTIVE,
+      link: this.EIGHT_MENU_LINK
+    }
+    this.NINETH_MENU = {
+      name: this.NINETH_MENU_NAME,
+      active: this.NINETH_MENU_ACTIVE,
+      link: this.NINETH_MENU_LINK
+    }
+
+    this.TENTH_MENU = {
+      name: this.TENTH_MENU_NAME,
+      active: this.TENTH_MENU_ACTIVE,
+      link: this.TENTH_MENU_LINK
+    }
+
+    this.ELEVENTH_MENU = {
+      name: this.ELEVENTH_MENU_NAME,
+      active: this.ELEVENTH_MENU_ACTIVE,
+      link: this.ELEVENTH_MENU_LINK
     }
 
     this.menus.push(this.FIRST_MENU); 
     this.menus.push(this.SECOND_MENU);
+    this.menus.push(this.SEVENTH_MENU);
     this.menus.push(this.THIRD_MENU); 
+    this.menus.push(this.EIGHT_MENU);
     // this.menus.push(this.FOURTH_MENU);
     // this.menus.push(this.FIFTH_MENU); 
     this.menus.push(this.SIXTH_MENU); 
-    this.menus.push(this.LAST_MENU);  
-
+    this.menus.push(this.NINETH_MENU);
+    this.menus.push(this.TENTH_MENU);  
+    this.menus.push(this.ELEVENTH_MENU);
   }
 
   public getMenus() {

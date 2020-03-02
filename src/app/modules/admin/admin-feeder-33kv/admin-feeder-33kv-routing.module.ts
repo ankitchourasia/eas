@@ -9,6 +9,10 @@ import { AdminFeeder33KVImportPointAddComponent } from './admin-feeder-33kv-impo
 import { AdminFeeder33KVImportPointReadingAddComponent } from './admin-feeder-33kv-import-point-reading-add/admin-feeder-33kv-import-point-reading-add.component';
 import { AdminFeeder33KVExportPointAddComponent } from './admin-feeder-33kv-export-point-add/admin-feeder-33kv-export-point-add.component';
 import { AdminFeeder33KVExportPointReadingAddComponent } from './admin-feeder-33kv-export-point-reading-add/admin-feeder-33kv-export-point-reading-add.component';
+import { AdminFeeder33KVViewComponent } from './admin-feeder-33kv-view/admin-feeder-33kv-view.component';
+import { AdminFeeder33KVReadViewComponent } from './admin-feeder-33kv-read-view/admin-feeder-33kv-read-view.component';
+import { AdminFeeder33KVExportPointViewComponent } from './admin-feeder-33kv-export-point-view/admin-feeder-33kv-export-point-view.component';
+import { AdminFeeder33KVExportPointReadViewComponent } from './admin-feeder-33kv-export-point-read-view/admin-feeder-33kv-export-point-read-view.component';
 
 const routes: Routes = [
   {
@@ -22,7 +26,13 @@ const routes: Routes = [
         path: 'add',component: AdminFeeder33KVAddComponent,
       },
       {
+        path: 'view',component: AdminFeeder33KVViewComponent,
+      },
+      {
         path: 'reading/add',component: AdminFeeder33KVReadingAddComponent,
+      },
+      {
+        path: 'reading/view',component: AdminFeeder33KVReadViewComponent,
       },
       {
         path: 'import-point/add',component: AdminFeeder33KVImportPointAddComponent,
@@ -34,7 +44,13 @@ const routes: Routes = [
         path: 'export-point/add',component: AdminFeeder33KVExportPointAddComponent,
       },
       {
+        path: 'export-point/view',component: AdminFeeder33KVExportPointViewComponent,
+      },
+      {
         path: 'export-point/reading/add',component: AdminFeeder33KVExportPointReadingAddComponent,
+      },
+      {
+        path: 'export-point/reading/view',component: AdminFeeder33KVExportPointReadViewComponent,
       },
       { 
         path: '', redirectTo: 'home',

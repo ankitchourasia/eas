@@ -215,6 +215,33 @@ export class FeederService {
       return this.http.get(this.URL_PREFIX + 'feeder-33kv/zone/' + zoneId);
     }
   }
+
+  get33KVFeederByDivisionId(divisionId, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/division/' + divisionId,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/division/' + divisionId);
+    }
+  }
+
+  delete33KVFeederById(feederId, deletedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("deletedBy", deletedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.delete(this.URL_PREFIX + 'feeder-33kv/' + feederId, options);
+  }
+
+  update33KVFeeder(feeder, updatedBy){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("updatedBy", updatedBy);
+    let options = {
+      params: httpParams
+    };
+    return this.http.put(this.URL_PREFIX + 'feeder-33kv/' + feeder.id, feeder, options);
+  }
   
   getPreviousReadingBy33KVFeederId(feederId, response){
     if(response){

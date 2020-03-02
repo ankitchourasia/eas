@@ -9,8 +9,8 @@ import { AdminFeeder33KVMenuService } from '../admin-feeder-33kv-menu.service';
 export class AdminFeeder33KVExportPointReadingAddComponent implements OnInit {
 
   constructor(private adminFeeder33KVMenuService: AdminFeeder33KVMenuService) { 
-    if(!this.adminFeeder33KVMenuService.LAST_MENU.active){
-      this.adminFeeder33KVMenuService.menuClicked(this.adminFeeder33KVMenuService.LAST_MENU);
+    if(!this.adminFeeder33KVMenuService.TENTH_MENU.active){
+      this.adminFeeder33KVMenuService.menuClicked(this.adminFeeder33KVMenuService.TENTH_MENU);
     }
   }
 
