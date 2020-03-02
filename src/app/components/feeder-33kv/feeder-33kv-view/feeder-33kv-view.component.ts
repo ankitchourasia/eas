@@ -17,6 +17,7 @@ export class Feeder33KVViewComponent implements OnInit {
 
   COMPONENT_NAME: "Feeder33KVViewComponent";
   user : any;
+  zone: any;
   zoneList: any;
   feederToEdit: any;
   feederList: any;
@@ -32,15 +33,59 @@ export class Feeder33KVViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
-    this.getFeeders();
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.getZoneListByDivisionId(this.user.division.id);
+      this.getFeederByDivisionId(this.user.division.id);
+    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
+      this.zoneList.push(this.user.zone);
+      this.getFeederByZoneId(this.user.zone.id);
+    }
   }
 
-  getFeeders(){
-    let methodName = "getFeeders";
+  zoneChanged(){
+    this.pagedFeederList = [];
+    if(this.zone === "ALL"){
+      this.getFeederByDivisionId(this.user.division.id);
+    }else{
+      this.getFeederByZoneId(this.zone.id);
+    }
+  }
+
+    
+  getZoneListByDivisionId(divisionId){
+    this.zoneList = [];
+    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
+      this.zoneList = <any>successResponse;
+    },errorResponse =>{
+      console.log(errorResponse);
+    });
+  }
+
+  getFeederByDivisionId(divisionId){
+    let methodName = "getFeederByDivisionId";
     this.feederList = [];
     if(this.user && this.user.division){
       this.loading = true;
-      this.feederService.get33KVFeederByDivisionId(this.user.division.id, false).subscribe(successResponese =>{
+      this.feederService.get33KVFeederByDivisionId(divisionId, false).subscribe(successResponese =>{
+        this.loading = false;
+        this.feederList = successResponese;
+        this.initializePaginationVariables();
+        if(this.feederList && this.feederList.length){
+          this.setPage(1);
+        }
+      }, errorResponse =>{
+        this.loading = false;
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      });
+    }
+  }
+
+  getFeederByZoneId(zoneId){
+    let methodName = "getFeederByZoneId";
+    this.feederList = [];
+    if(this.user && this.user.division){
+      this.loading = true;
+      this.feederService.get33KVFeederByZoneId(zoneId, false).subscribe(successResponese =>{
         this.loading = false;
         this.feederList = successResponese;
         this.initializePaginationVariables();
@@ -58,9 +103,9 @@ export class Feeder33KVViewComponent implements OnInit {
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
     if(this.user.role === this.ROLE_ADMIN){
-			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder/division/" + this.user.division.id;
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/division/" + this.user.division.id;
 		}else{
-			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder/zone/" + this.user.zone.id;
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/zone/" + this.user.zone.id;
 		}
     this.globalResources.downloadFile(fileUrl, params)
   }
@@ -84,70 +129,14 @@ export class Feeder33KVViewComponent implements OnInit {
       this.deleteButtonClicked = false;
       let alertResponse = this.globalResources.successAlert("feeder deleted successfully");
       alertResponse.then(result =>{
-        this.getFeeders();
+        this.zoneChanged();
       });
     }, error =>{
       this.deleteButtonClicked = false;
       this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
   }
-
   
-  editButtonClicked(feeder){
-    this.feederToEdit = Object.assign({}, feeder);
-    this.getZoneListByDivisionId(this.feederToEdit.zone.division.id);
-  }
-
-  getZoneListByDivisionId(divisionId){
-    this.zoneList = [];
-    this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
-      this.zoneList = <any>successResponse;
-      this.get33KVFeedersByZoneId(this.feederToEdit.zone.id);
-    },errorResponse =>{
-      console.log(errorResponse);
-    });
-  }
-
-  zoneChanged(){
-    this.feederList = null;
-    this.feederToEdit.id = undefined;
-    this.get33KVFeedersByZoneId(this.feederToEdit.zoneId);
-  }
-
-  get33KVFeedersByZoneId(zoneId){
-    this.feederList = [];
-    this.feederService.get33KVFeederByZoneId(zoneId, false).subscribe(successResponese =>{
-      this.feederList = <any>successResponese;
-    }, errorResponse =>{
-      console.log(errorResponse);
-    });
-  }
-
-  feederChanged(){
-  console.log("feederChanged");
-  }
-  
-  _updateClicked: boolean;
-  updateClicked(updateFeederForm, modalCloseButtonRef){
-    let methodName = "updateClicked";
-    if(this.globalResources.validateForm(updateFeederForm)){
-      this._updateClicked = true;
-      this.feederService.update33KVFeeder(this.feederToEdit, this.user.username).subscribe(successResponese =>{
-        this._updateClicked = false;
-        let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
-        alertResponse.then(result =>{
-          console.log("alert result", result);
-          this.closeModal(modalCloseButtonRef);
-          this.getFeeders();
-          this.feederToEdit = null;
-        });
-      }, errorResponse =>{
-        this._updateClicked = false;
-        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
-      })
-    }
-  }
-
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
