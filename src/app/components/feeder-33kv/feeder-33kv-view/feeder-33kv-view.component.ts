@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { FeederService } from '@eas-services/feeder/feeder.service';
-import { SubstationService } from '@eas-services/substation/substation.service';
-import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
@@ -25,8 +23,7 @@ export class Feeder33KVViewComponent implements OnInit {
   pageSize: number;
   pagedFeederList : any;
   loading : boolean;
-  public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
-  public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
+  
   constructor(private feederService : FeederService, private globalResources : GlobalResources, 
     private paginationService : PaginationService, private zoneService: ZoneService, 
     public globalConstants: GlobalConstants) { }
@@ -34,6 +31,7 @@ export class Feeder33KVViewComponent implements OnInit {
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.zone = "ALL";
       this.getZoneListByDivisionId(this.user.division.id);
       this.getFeederByDivisionId(this.user.division.id);
     }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
@@ -102,7 +100,7 @@ export class Feeder33KVViewComponent implements OnInit {
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
-    if(this.user.role === this.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/division/" + this.user.division.id;
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/zone/" + this.user.zone.id;

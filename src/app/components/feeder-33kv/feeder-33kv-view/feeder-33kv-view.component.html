@@ -2,8 +2,8 @@
   <div class="inner-group">
     <select [ngClass]="{'is-valid': !selectedZone.errors && (selectedZone.dirty || selectedZone.touched),'is-invalid': selectedZone.errors && (selectedZone.dirty || selectedZone.touched)}"
       class="form-control form-control-sm" [(ngModel)]="zone" #selectedZone="ngModel" id="selectedZone"  name="selectedZone" required (change)="zoneChanged()">
-      <option disabled [ngValue]='undefined'>Select</option>
-      <option selected>ALL</option>
+      <option selected disabled [ngValue]='undefined'>Select</option>
+      <option>ALL</option>
       <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
     </select>
     <div class="invalid-feedback" *ngIf="selectedZone.errors && (selectedZone.dirty || selectedZone.touched)">
