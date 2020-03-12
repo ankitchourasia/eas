@@ -92,9 +92,9 @@ export class GlobalResources {
       }
 
     handleError(response: Response | any, componentName: string, methodName: string, customErrorMessage?: string) {
-        console.error("error inside " + componentName + "-" + methodName, response);
+        console.error("Error inside " + componentName + "-" + methodName, response);
         let alertResponse: any = null;
-        try{
+        if(response){
             switch (response.status) {
                 case 0:{
                     alertResponse = this.errorAlert("Frontend Server error");
@@ -116,10 +116,10 @@ export class GlobalResources {
                     }
                 }
             }
-        }catch(exception){
-            console.log(exception);
-            alertResponse = this.errorAlert("Exception occurred inside " + methodName + " of " + componentName);
+        }else{
+            alertResponse = this.errorAlert("Some error occurred. Try again..."); 
         }
+        
         return alertResponse;
     }
     

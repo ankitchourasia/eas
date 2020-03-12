@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConfiguration } from '@eas-utility/global-configuration';
-import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
 
 @Component({
-  selector: 'eas-feeder-33kv-view',
-  templateUrl: './feeder-33kv-view.component.html',
-  styleUrls: ['./feeder-33kv-view.component.css']
+  selector: 'eas-ht-consumer-33kv-view',
+  templateUrl: './ht-consumer-33kv-view.component.html',
+  styleUrls: ['./ht-consumer-33kv-view.component.css']
 })
-export class Feeder33KVViewComponent implements OnInit {
+export class HtConsumer33KVViewComponent implements OnInit {
 
-  COMPONENT_NAME: "Feeder33KVViewComponent";
+  COMPONENT_NAME: "HtConsumer33KVViewComponent";
   user : any;
   zone: any;
   zoneList: any;
-  feederList: any;
+  htConsumerList: any;
   pager: any;
   pageSize: number;
-  pagedFeederList : any;
+  pagedHTConsumerList : any;
   loading : boolean;
   
-  constructor(private feederService : FeederService, private globalResources : GlobalResources, 
+  constructor(private htConsumerService: HtConsumerService, private globalResources : GlobalResources, 
     private paginationService : PaginationService, private zoneService: ZoneService, 
     public globalConstants: GlobalConstants) { }
 
@@ -34,19 +34,18 @@ export class Feeder33KVViewComponent implements OnInit {
     }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zone = this.user.zone;
       this.zoneList.push(this.user.zone);
-      this.getFeederByZoneId(this.user.zone.id);
+      this.getHTConsumerByZoneId(this.user.zone.id);
     }
   }
 
   zoneChanged(){
-    this.pagedFeederList = [];
+    this.pagedHTConsumerList = [];
     if(this.zone === "ALL"){
-      this.getFeederByDivisionId(this.user.division.id);
+      this.getHTConsumerByDivisionId(this.user.division.id);
     }else{
-      this.getFeederByZoneId(this.zone.id);
+      this.getHTConsumerByZoneId(this.zone.id);
     }
   }
-
     
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];
@@ -57,16 +56,16 @@ export class Feeder33KVViewComponent implements OnInit {
     });
   }
 
-  getFeederByDivisionId(divisionId){
-    let methodName = "getFeederByDivisionId";
-    this.feederList = [];
+  getHTConsumerByDivisionId(divisionId){
+    let methodName = "getHTConsumerByDivisionId";
+    this.htConsumerList = [];
     if(this.user && this.user.division){
       this.loading = true;
-      this.feederService.get33KVFeederByDivisionId(divisionId, false).subscribe(successResponese =>{
+      this.htConsumerService.getHTConsumer33KVListByDivisionId(divisionId, false).subscribe(successResponese =>{
         this.loading = false;
-        this.feederList = successResponese;
+        this.htConsumerList = successResponese;
         this.initializePaginationVariables();
-        if(this.feederList && this.feederList.length){
+        if(this.htConsumerList && this.htConsumerList.length){
           this.setPage(1);
         }
       }, errorResponse =>{
@@ -76,16 +75,16 @@ export class Feeder33KVViewComponent implements OnInit {
     }
   }
 
-  getFeederByZoneId(zoneId){
-    let methodName = "getFeederByZoneId";
-    this.feederList = [];
+  getHTConsumerByZoneId(zoneId){
+    let methodName = "getHTConsumerByZoneId";
+    this.htConsumerList = [];
     if(this.user && this.user.division){
       this.loading = true;
-      this.feederService.get33KVFeederByZoneId(zoneId, false).subscribe(successResponese =>{
+      this.htConsumerService.getHTConsumer33KVListByZoneId(zoneId, false).subscribe(successResponese =>{
         this.loading = false;
-        this.feederList = successResponese;
+        this.htConsumerList = successResponese;
         this.initializePaginationVariables();
-        if(this.feederList && this.feederList.length){
+        if(this.htConsumerList && this.htConsumerList.length){
           this.setPage(1);
         }
       }, errorResponse =>{
@@ -94,7 +93,7 @@ export class Feeder33KVViewComponent implements OnInit {
       });
     }
   }
-
+  
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
@@ -104,9 +103,7 @@ export class Feeder33KVViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.feederList.length, page, this.pageSize);
-    this.pagedFeederList = this.feederList.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedFeederList);
+    this.pager = this.paginationService.getPager(this.htConsumerList.length, page, this.pageSize);
+    this.pagedHTConsumerList = this.htConsumerList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-
 }

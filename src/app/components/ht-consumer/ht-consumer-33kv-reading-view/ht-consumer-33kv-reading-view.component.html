@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<div *ngIf="exportPointReadingList">
+<div *ngIf="htConsumerReadingList">
   <div class="table-responsive mb-2">
     <table class="table table-sm table-bordered table-hover text-center">
       <thead class="bg-inverse text-default">
@@ -44,44 +44,38 @@
           <td class="align-middle">S.No</td>
           <td class="align-middle">Zone</td>
           <td class="align-middle">Feeder</td>
-          <td class="align-middle">MF</td>
-          <td class="align-middle">Previous Read</td>
-          <td class="align-middle">Previous Read Date</td>
+          <td class="align-middle">Service No</td>
+          <td class="align-middle">Consumer Name</td>
           <td class="align-middle">Bill Month</td>
-          <td class="align-middle">Current Read</td>
-          <td class="align-middle">Current Read Date</td>
-          <td class="align-middle">Difference</td>
-          <td class="align-middle">Assessment</td>
           <td class="align-middle">Consumption</td>
-          <td class="align-middle">Total Consumption</td>
+          <td class="align-middle">Billed Unit</td>
+          <td class="align-middle">Billed Amount</td>
+          <td class="align-middle">Collected Amount</td>
         </tr>
       </thead>
       <tbody>
-        <ng-template [ngIf]="exportPointReadingList.length">
-        <tr *ngFor="let reading of pagedExportPointReadingList; let i = index">
+        <ng-template [ngIf]="htConsumerReadingList.length">
+        <tr *ngFor="let reading of pagedHTConsumerReadingList; let i = index">
           <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td class="align-middle">{{reading.export33kvPoint?.feeder33KV?.zone?.name | uppercase}}</td>
-          <td class="align-middle">{{reading.export33kvPoint?.feeder33KV?.name}}</td>
-          <td class="align-middle">{{reading.mf}}</td>
-          <td class="align-middle">{{reading.previousRead}}</td>
-          <td class="align-middle">{{reading.previousReadDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+          <td class="align-middle">{{reading.htConsumer33KV?.feeder33KV?.zone?.name | uppercase}}</td>
+          <td class="align-middle">{{reading.htConsumer33KV?.feeder33KV?.name}}</td>
+          <td class="align-middle">{{reading.htConsumer33KV?.serviceNo}}</td>
+          <td class="align-middle">{{reading.htConsumer33KV?.name}}</td>
           <td class="align-middle">{{reading.billMonth}}</td>
-          <td class="align-middle">{{reading.currentRead}}</td>
-          <td class="align-middle">{{reading.currentReadDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-          <td class="align-middle">{{reading.difference}}</td>
-          <td class="align-middle">{{reading.assessment}}</td>
           <td class="align-middle">{{reading.consumption}}</td>
-          <td class="align-middle">{{reading.totalConsumption}}</td>
+          <td class="align-middle">{{reading.billedUnit}}</td>
+          <td class="align-middle">{{reading.amountBilled}}</td>
+          <td class="align-middle">{{reading.amountCollected}}</td>
         </tr>
         </ng-template>
         <tr>
-          <td class="align-middle" colspan="13" *ngIf="!exportPointReadingList.length && !loading">No Records Found</td>
-          <td class="align-middle" colspan="13" *ngIf="loading"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
+          <td class="align-middle" colspan="10" *ngIf="!htConsumerReadingList.length && !loading">No Records Found</td>
+          <td class="align-middle" colspan="10" *ngIf="loading"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div id="pagination" *ngIf="exportPointReadingList && exportPointReadingList.length > pageSize" class="eas-flex-center">
+  <div id="pagination" *ngIf="htConsumerReadingList && htConsumerReadingList.length > pageSize" class="eas-flex-center">
     <nav>
       <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">

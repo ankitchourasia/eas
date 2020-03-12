@@ -40,6 +40,17 @@ export class AdminHTConsumerMenuService implements MenuInterface {
   private readonly SEVENTH_MENU_LINK: string = "33kv/add";
   private readonly SEVENTH_MENU_ACTIVE: boolean = false;
 
+  public EIGHT_MENU: any;
+  private readonly EIGHT_MENU_NAME: string = "33KV Consumer View";
+  private readonly EIGHT_MENU_LINK: string = "33kv/view";
+  private readonly EIGHT_MENU_ACTIVE: boolean = false;
+
+
+  public NINETH_MENU: any;
+  private readonly NINETH_MENU_NAME: string = "33KV Consumer Read View";
+  private readonly NINETH_MENU_LINK: string = "33kv/read/view";
+  private readonly NINETH_MENU_ACTIVE: boolean = false;
+
   public LAST_MENU: any;
   private readonly LAST_MENU_NAME: string = "33KV Consumer Read Add";
   private readonly LAST_MENU_LINK: string = "33kv/read/add";
@@ -100,6 +111,18 @@ export class AdminHTConsumerMenuService implements MenuInterface {
       link: this.SEVENTH_MENU_LINK
     }
 
+    this.EIGHT_MENU = {
+      name: this.EIGHT_MENU_NAME,
+      active: this.EIGHT_MENU_ACTIVE,
+      link: this.EIGHT_MENU_LINK
+    }
+
+    this.NINETH_MENU = {
+      name: this.NINETH_MENU_NAME,
+      active: this.NINETH_MENU_ACTIVE,
+      link: this.NINETH_MENU_LINK
+    }
+
     this.LAST_MENU = {
       name: this.LAST_MENU_NAME,
       active: this.LAST_MENU_ACTIVE,
@@ -113,7 +136,9 @@ export class AdminHTConsumerMenuService implements MenuInterface {
     this.menus.push(this.FIFTH_MENU); 
     this.menus.push(this.SIXTH_MENU);
     this.menus.push(this.SEVENTH_MENU);
+    this.menus.push(this.EIGHT_MENU);
     this.menus.push(this.LAST_MENU);  
+    this.menus.push(this.NINETH_MENU);
 
   }
 

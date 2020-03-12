@@ -1,7 +1,7 @@
 <div class="eas-space-between mb-2">
   <div class="inner-group">
     <select [ngClass]="{'is-valid': !selectedZone.errors && (selectedZone.dirty || selectedZone.touched),'is-invalid': selectedZone.errors && (selectedZone.dirty || selectedZone.touched)}"
-      class="form-control form-control-sm" [(ngModel)]="zone" #selectedZone="ngModel" id="selectedZone"  name="selectedZone" required (change)="zoneChanged()">
+      class="form-control form-control-sm" [(ngModel)]="zone" #selectedZone="ngModel" id="selectedZone"  name="selectedZone" required [disabled]="loading" (change)="zoneChanged()">
       <option selected disabled [ngValue]='undefined'>Select</option>
       <option>ALL</option>
       <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
@@ -9,11 +9,6 @@
     <div class="invalid-feedback" *ngIf="selectedZone.errors && (selectedZone.dirty || selectedZone.touched)">
       <div [hidden]="!selectedZone.errors.required">required field</div>
     </div>
-  </div>
-  <div class="inner-group">
-    <button class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="feederList && !feederList.length">
-      <span class="fa fa-download"> Export</span>
-    </button>
   </div>
 </div>
 
