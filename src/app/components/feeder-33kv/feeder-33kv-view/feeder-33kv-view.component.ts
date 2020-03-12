@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { FeederService } from '@eas-services/feeder/feeder.service';
-import { SubstationService } from '@eas-services/substation/substation.service';
-import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
@@ -33,6 +31,7 @@ export class Feeder33KVViewComponent implements OnInit {
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+      this.zone = "ALL";
       this.getZoneListByDivisionId(this.user.division.id);
       this.getFeederByDivisionId(this.user.division.id);
     }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
