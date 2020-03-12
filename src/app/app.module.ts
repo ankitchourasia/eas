@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { GlobalDOMUtility } from '@eas-utility/global-dom-utility';
 // import { appRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ManageHttpInterceptor } from './interceptors/managehttp.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,11 +36,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     GlobalDOMUtility,
     GlobalConfiguration,
     CanActivateAuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthorizationInterceptor,
-      multi: true
-    }
+    { provide: HTTP_INTERCEPTORS, useClass: ManageHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
