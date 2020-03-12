@@ -32,11 +32,11 @@ body{
 }
 
 #navbarHeader{
-    padding: 0.1rem 1rem !important;
+    padding: 0.1rem 10px !important;
 }
 
 #horizontalNavBar{
-    padding: 0.1rem 1rem !important;
+    padding: 0.1rem 10px !important;
 }
 
 #verticalNavBar{
