@@ -17,7 +17,6 @@ export class Feeder33KVViewComponent implements OnInit {
   user : any;
   zone: any;
   zoneList: any;
-  feederToEdit: any;
   feederList: any;
   pager: any;
   pageSize: number;
@@ -31,10 +30,9 @@ export class Feeder33KVViewComponent implements OnInit {
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
-      this.zone = "ALL";
       this.getZoneListByDivisionId(this.user.division.id);
-      this.getFeederByDivisionId(this.user.division.id);
     }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
+      this.zone = this.user.zone;
       this.zoneList.push(this.user.zone);
       this.getFeederByZoneId(this.user.zone.id);
     }
@@ -97,6 +95,7 @@ export class Feeder33KVViewComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
@@ -108,6 +107,8 @@ export class Feeder33KVViewComponent implements OnInit {
     this.globalResources.downloadFile(fileUrl, params)
   }
   
+=======
+>>>>>>> cfb16eb3d9e611bd9774750d6b02ea13b7ca1a31
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
@@ -121,8 +122,5 @@ export class Feeder33KVViewComponent implements OnInit {
     this.pagedFeederList = this.feederList.slice(this.pager.startIndex, this.pager.endIndex + 1);
     console.log(this.pagedFeederList);
   }
-  
-  closeModal(modalCloseButtonRef){
-    modalCloseButtonRef.click();
-  }
+
 }

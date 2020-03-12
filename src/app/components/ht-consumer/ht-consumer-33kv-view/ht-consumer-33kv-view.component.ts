@@ -4,26 +4,26 @@ import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
-import { ExportService } from '@eas-services/export-service/export.service';
+import { HtConsumerService } from '@eas-services/ht-consumer-service/ht-consumer.service';
 
 @Component({
-  selector: 'eas-feeder-33kv-export-point-view',
-  templateUrl: './feeder-33kv-export-point-view.component.html',
-  styleUrls: ['./feeder-33kv-export-point-view.component.css']
+  selector: 'eas-ht-consumer-33kv-view',
+  templateUrl: './ht-consumer-33kv-view.component.html',
+  styleUrls: ['./ht-consumer-33kv-view.component.css']
 })
-export class Feeder33KVExportPointViewComponent implements OnInit {
+export class HtConsumer33KVViewComponent implements OnInit {
 
-  COMPONENT_NAME: "Feeder33KVExportPointViewComponent";
+  COMPONENT_NAME: "HtConsumer33KVViewComponent";
   user : any;
   zone: any;
   zoneList: any;
-  exportPointList: any;
+  htConsumerList: any;
   pager: any;
   pageSize: number;
-  pagedExportPointList : any;
+  pagedHTConsumerList : any;
   loading : boolean;
   
-  constructor(private exportService : ExportService, private globalResources : GlobalResources, 
+  constructor(private htConsumerService: HtConsumerService, private globalResources : GlobalResources, 
     private paginationService : PaginationService, private zoneService: ZoneService, 
     public globalConstants: GlobalConstants) { }
 
@@ -34,16 +34,16 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
     }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
       this.zone = this.user.zone;
       this.zoneList.push(this.user.zone);
-      this.getExportPointByZoneId(this.user.zone.id);
+      this.getHTConsumerByZoneId(this.user.zone.id);
     }
   }
 
   zoneChanged(){
-    this.pagedExportPointList = [];
+    this.pagedHTConsumerList = [];
     if(this.zone === "ALL"){
-      this.getExportPointByDivisionId(this.user.division.id);
+      this.getHTConsumerByDivisionId(this.user.division.id);
     }else{
-      this.getExportPointByZoneId(this.zone.id);
+      this.getHTConsumerByZoneId(this.zone.id);
     }
   }
     
@@ -56,16 +56,16 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
     });
   }
 
-  getExportPointByDivisionId(divisionId){
-    let methodName = "getExportPointByDivisionId";
-    this.exportPointList = [];
+  getHTConsumerByDivisionId(divisionId){
+    let methodName = "getHTConsumerByDivisionId";
+    this.htConsumerList = [];
     if(this.user && this.user.division){
       this.loading = true;
-      this.exportService.get33KVExportPointsByDivisionId(divisionId, false).subscribe(successResponese =>{
+      this.htConsumerService.getHTConsumer33KVListByDivisionId(divisionId, false).subscribe(successResponese =>{
         this.loading = false;
-        this.exportPointList = successResponese;
+        this.htConsumerList = successResponese;
         this.initializePaginationVariables();
-        if(this.exportPointList && this.exportPointList.length){
+        if(this.htConsumerList && this.htConsumerList.length){
           this.setPage(1);
         }
       }, errorResponse =>{
@@ -75,16 +75,16 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
     }
   }
 
-  getExportPointByZoneId(zoneId){
-    let methodName = "getExportPointByZoneId";
-    this.exportPointList = [];
+  getHTConsumerByZoneId(zoneId){
+    let methodName = "getHTConsumerByZoneId";
+    this.htConsumerList = [];
     if(this.user && this.user.division){
       this.loading = true;
-      this.exportService.get33KVExportPointsByZoneId(zoneId, false).subscribe(successResponese =>{
+      this.htConsumerService.getHTConsumer33KVListByZoneId(zoneId, false).subscribe(successResponese =>{
         this.loading = false;
-        this.exportPointList = successResponese;
+        this.htConsumerList = successResponese;
         this.initializePaginationVariables();
-        if(this.exportPointList && this.exportPointList.length){
+        if(this.htConsumerList && this.htConsumerList.length){
           this.setPage(1);
         }
       }, errorResponse =>{
@@ -103,7 +103,7 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
-    this.pager = this.paginationService.getPager(this.exportPointList.length, page, this.pageSize);
-    this.pagedExportPointList = this.exportPointList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.pager = this.paginationService.getPager(this.htConsumerList.length, page, this.pageSize);
+    this.pagedHTConsumerList = this.htConsumerList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }

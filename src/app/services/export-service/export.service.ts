@@ -157,4 +157,40 @@ export class ExportService {
       return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading);
     }
   }
+
+  get33KVExportPointsByZoneId(zoneId, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/zone/' + zoneId,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/zone/' + zoneId);
+    }
+  }
+
+  get33KVExportPointsByDivisionId(divisionId, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/division/' + divisionId,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/division/' + divisionId);
+    }
+  }
+
+  get33KVFeederExportPointReadsByZoneIdAndbillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/zone/' + zoneId +'/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/zone/' + zoneId +'/bill-month/' + billMonth);
+    }
+  }
+
+  get33KVFeederExportPointReadsByDivisionIdAndbillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/division/' + divisionId +'/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/division/' + divisionId +'/bill-month/' + billMonth);
+    }
+  }
 }

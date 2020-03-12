@@ -12,6 +12,8 @@ import { AdminHTConsumerHomeComponent } from './admin-ht-consumer-home/admin-ht-
 import { AdminHTConsumerComponent } from './admin-ht-consumer.component';
 import { AdminHTConsumerRoutingModule } from './admin-ht-consumer-routing.module';
 import { AdminHTConsumerMenuService } from './admin-ht-consumer-menu.service';
+import { AdminHTConsumer33KVReadingViewComponent } from './admin-ht-consumer-33kv-reading-view/admin-ht-consumer-33kv-reading-view.component';
+import { AdminHTConsumer33KVViewComponent } from './admin-ht-consumer-33kv-view/admin-ht-consumer-33kv-view.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { AdminHTConsumerMenuService } from './admin-ht-consumer-menu.service';
     AdminHTConsumer11KVReadingViewComponent, 
     AdminHTConsumer11KVReadingViewAbsentComponent,
     AdminHTConsumer33KVReadingAddComponent,
+    AdminHTConsumer33KVReadingViewComponent,
+    AdminHTConsumer33KVViewComponent,
   ],
   providers: [
     AdminHTConsumerMenuService

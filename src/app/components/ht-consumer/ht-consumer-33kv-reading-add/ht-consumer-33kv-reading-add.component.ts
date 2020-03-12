@@ -49,7 +49,7 @@ export class HtConsumer33KVReadingAddComponent implements OnInit {
 
   getHTConsumerListByZoneId(zoneId){
     this.consumerList = [];
-    this.htConsumerService.getHTConsumerListByZoneId(zoneId, false).subscribe(success =>{
+    this.htConsumerService.getHTConsumer33KVListByZoneId(zoneId, false).subscribe(success =>{
       console.log(success);
       this.consumerList = success;
     }, error =>{

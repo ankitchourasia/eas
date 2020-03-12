@@ -72,7 +72,15 @@ export class HtConsumerService {
     }
   }
 
-  getHTConsumerListByZoneId(zoneId, response){
+  getHTConsumer33KVListByDivisionId(divisionId, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/division/' + divisionId, options);
+    } else {
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/division/' + divisionId);
+    }
+  }
+  getHTConsumer33KVListByZoneId(zoneId, response){
     if(response){
       let options : any = { observe : "response" };
       return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/zone/' + zoneId, options);
@@ -81,7 +89,7 @@ export class HtConsumerService {
     }
   }
 
-  getHTConsumerListByFeederId(feederId, response){
+  getHTConsumer33KVListByFeederId(feederId, response){
     if(response){
       let options : any = { observe : "response" };
       return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/feeder-33kv/' + feederId, options);
@@ -105,6 +113,25 @@ export class HtConsumerService {
       return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/reading/', reading, options);
     } else {
       return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/reading/', reading);
+    }
+  }
+
+  
+  get33KVHTConsumerReadsByZoneIdAndbillMonth(zoneId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/reading/zone/' + zoneId +'/bill-month/' + billMonth,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/reading/zone/' + zoneId +'/bill-month/' + billMonth);
+    }
+  }
+
+  get33KVHTConsumerReadsByDivisionIdAndbillMonth(divisionId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/reading/division/' + divisionId +'/bill-month/' + billMonth,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/reading/division/' + divisionId +'/bill-month/' + billMonth);
     }
   }
 }

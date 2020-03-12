@@ -69,17 +69,17 @@ export class Feeder33KVReadViewComponent implements OnInit {
   searchClicked(){
     this.pagedFeederReadingList = [];
     if(this.zone === "ALL"){
-      this.getFeederReadingsByDivisionId(this.user.division.id);
+      this.getFeederReadingsByDivisionIdAndBillMonth(this.user.division.id, this.billMonth);
     }else{
-      this.getFeederByZoneId(this.zone.id);
+      this.getFeederByZoneIdAndBillMonth(this.zone.id, this.billMonth);
     }
   }
   
-  getFeederReadingsByDivisionId(divisionId){
-    let methodName = "getFeederReadingsByDivisionId";
+  getFeederReadingsByDivisionIdAndBillMonth(divisionId, billMonth){
+    let methodName = "getFeederReadingsByDivisionIdAndBillMonth";
     this.loading =true;
     this.feederReadingList = [];
-    this.feederService.get33KVFeederReadingsByDivisionIdAndbillMonth(divisionId, this.billMonth, false).subscribe(successResponse =>{
+    this.feederService.get33KVFeederReadingsByDivisionIdAndbillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
       this.loading = false;
       this.feederReadingList = successResponse;
       this.initializePaginationVariables();
@@ -93,11 +93,11 @@ export class Feeder33KVReadViewComponent implements OnInit {
   }
 
   
-  getFeederByZoneId(zoneId){
-    let methodName = "getFeederByZoneId";
+  getFeederByZoneIdAndBillMonth(zoneId, billMonth){
+    let methodName = "getFeederByZoneIdAndBillMonth";
     this.loading = true;
     this.feederReadingList = [];
-    this.feederService.get33KVFeederReadingsByZoneIdAndBillMonth(zoneId, this.billMonth, false).subscribe(successResponse =>{
+    this.feederService.get33KVFeederReadingsByZoneIdAndBillMonth(zoneId, billMonth, false).subscribe(successResponse =>{
       this.loading = false;
       this.feederReadingList = successResponse;
       this.initializePaginationVariables();
