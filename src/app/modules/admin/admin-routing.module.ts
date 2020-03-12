@@ -20,14 +20,14 @@ const routes: Routes = [
             path: 'substation',
             loadChildren: 'app/modules/admin/admin-substation/admin-substation.module#AdminSubstationModule'
           },
-          {
-            path: 'bill-file',
-            loadChildren: 'app/modules/admin/admin-bill-file/admin-bill-file.module#AdminBillFileModule'
-          },
-          {
-            path: 'dtr',
-            loadChildren: 'app/modules/admin/admin-dtr/admin-dtr.module#AdminDtrModule'
-          },
+          // {
+          //   path: 'bill-file',
+          //   loadChildren: 'app/modules/admin/admin-bill-file/admin-bill-file.module#AdminBillFileModule'
+          // },
+          // {
+          //   path: 'dtr',
+          //   loadChildren: 'app/modules/admin/admin-dtr/admin-dtr.module#AdminDtrModule'
+          // },
           {
             path: 'feeder/33kv',
             loadChildren: 'app/modules/admin/admin-feeder-33kv/admin-feeder-33kv.module#AdminFeeder33KVModule'
