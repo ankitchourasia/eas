@@ -25,8 +25,7 @@ export class Feeder33KVViewComponent implements OnInit {
   pageSize: number;
   pagedFeederList : any;
   loading : boolean;
-  public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
-  public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
+  
   constructor(private feederService : FeederService, private globalResources : GlobalResources, 
     private paginationService : PaginationService, private zoneService: ZoneService, 
     public globalConstants: GlobalConstants) { }
@@ -102,39 +101,12 @@ export class Feeder33KVViewComponent implements OnInit {
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
     let fileUrl = null;
-    if(this.user.role === this.ROLE_ADMIN){
+    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/division/" + this.user.division.id;
 		}else{
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/zone/" + this.user.zone.id;
 		}
     this.globalResources.downloadFile(fileUrl, params)
-  }
-
-  deleteButtonClicked: boolean;
-  deleteClicked(feeder){
-    let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this feeder ?")
-    confirmAlertResponse.then((result) => {
-      if(result.value) {
-        this.deleteFeeder(feeder.id, this.user.username);
-      }else{
-        console.log("confirm alert else");
-      }
-    });
-  }
-
-  deleteFeeder(feederId, deletedBy){
-    let methodName = "deleteFeeder";
-    this.deleteButtonClicked = true;
-    this.feederService.deleteFeederById(feederId, deletedBy).subscribe(success => {
-      this.deleteButtonClicked = false;
-      let alertResponse = this.globalResources.successAlert("feeder deleted successfully");
-      alertResponse.then(result =>{
-        this.zoneChanged();
-      });
-    }, error =>{
-      this.deleteButtonClicked = false;
-      this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
-    });
   }
   
   initializePaginationVariables(){

@@ -83,7 +83,7 @@
       <thead class="bg-inverse text-default">
         <tr>
           <td class="align-middle">S.No</td>
-          <td class="align-middle">town Name</td>
+          <td class="align-middle">Feeder Name</td>
           <td class="align-middle">Bill Month</td>
           <td class="align-middle">Read Inserted</td>
           <td class="align-middle">Export Read Inserted</td>
@@ -95,7 +95,7 @@
         <ng-template [ngIf]="searchResultList && searchResultList.length">
           <tr *ngFor="let searchResult of pagedSearchResultList; let i = index">
             <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td class="align-middle">{{searchResult?.town?.name | uppercase}}</td>
+            <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
             <td class="align-middle">{{searchResult?.billMonth | uppercase}}</td>
             <td class="align-middle">
               <span class="text-success" *ngIf="searchResult?.feederReadingInserted"><span class="fa fa-check"></span></span> 
