@@ -53,7 +53,7 @@
 </div>
 <div *ngIf="missingBillFileRefFeederList && !searchButtonClicked">
   <div class="table-responsive mb-2">
-    <table class="table table-sm table-bordered table-hover text-center">
+    <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
         <tr>
           <td>S.No</td>
@@ -101,8 +101,8 @@
 </div>
 
 <div #fileUploadResultTemplate id="fileUploadResult" hidden>
-  <div class="table-responsive">
-    <table class="table table-sm table-borderless pt-auto pb-auto text-left">
+  <div class="table-responsive mb-2">
+    <table class="table table-sm table-borderless pt-auto pb-auto mb-0 text-left">
       <tr>
         <td>DIVISION NAME</td>
         <td><strong>{{file?.upload?.divisionName | uppercase}}</strong></td>

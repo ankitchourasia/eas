@@ -1,6 +1,6 @@
 <div class="eas-space-between mb-2">
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Zone</label>
+    <small class="form-text text-muted mb-0">Zone</small>
     <div class="input-group">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control form-control-sm" [(ngModel)]="selectedZone" #zone="ngModel" id="zone"  name="zone" required>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Bill Month</label>
+    <small class="form-text text-muted mb-0">Bill Month</small>
     <div class="input-group">
       <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
         class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
@@ -32,8 +32,8 @@
 </div>
 
 <div *ngIf="exportPointReadingList && !_searchClicked">
-  <div class="table-responsive mb-2 text-center">
-    <table class="table table-sm table-bordered table-hover" id="dtrs">
+  <div class="table-responsive mb-2">
+    <table class="table table-sm table-bordered table-hover text-center mb-0" id="dtrs">
       <thead class="bg-inverse text-default">
         <tr>
           <td class="align-middle">S.No</td>
@@ -102,7 +102,7 @@
   </div>
 </div>
 
-<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal-backdrop" [ngStyle]="{'display':display}"></div>
 <div class="modal"  id="exportPointReadingModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">

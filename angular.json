@@ -24,6 +24,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/assets/css/font.css",
               "src/assets/css/print.css",
               "src/assets/css/layout.css",
               "node_modules/bootstrap/scss/bootstrap.scss",

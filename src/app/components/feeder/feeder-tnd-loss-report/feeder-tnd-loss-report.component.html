@@ -1,6 +1,6 @@
 <div class="eas-space-around mb-2">
   <!-- <div class="inner-group">
-    <label class="form-text text-muted mb-0">Region</label>
+    <small class="form-text text-muted mb-0">Region</small>
     <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
       class="form-control form-control-sm" [(ngModel)]="userDetails.region" #region="ngModel" id="region"  name="region" required (change)="!region.errors && regionChanged(userDetails.region)">
       <option disabled selected [ngValue]='undefined'>Select</option>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Circle</label>
+    <small class="form-text text-muted mb-0">Circle</small>
     <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
       class="form-control form-control-sm" [(ngModel)]="userDetails.circle" #circle="ngModel" id="circle"  name="circle" required (change)="!circle.errors && circleChanged(userDetails.circle)">
       <option disabled selected [ngValue]='undefined'>Select</option>
@@ -22,7 +22,7 @@
     </div>
   </div> -->
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Division</label>
+    <small class="form-text text-muted mb-0">Division</small>
     <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
       class="form-control form-control-sm" [(ngModel)]="userDetails.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(userDetails.division)">
       <option disabled selected [ngValue]='undefined'>Select</option>
@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Zone</label>
+    <small class="form-text text-muted mb-0">Zone</small>
     <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
       class="form-control form-control-sm" [(ngModel)]="userDetails.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(userDetails.zone)">
       <option disabled selected [ngValue]='undefined'>Select</option>
@@ -44,7 +44,7 @@
     </div>
   </div>
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Substation</label>
+    <small class="form-text text-muted mb-0">Substation</small>
     <select [ngClass]="{'is-valid': !substationName.errors && (substationName.dirty || substationName.touched),'is-invalid': substationName.errors && (substationName.dirty || substationName.touched)}"
       class="form-control form-control-sm" [(ngModel)]="userDetails.substation" #substationName="ngModel" id="substationName"  name="substationName" required (change)="!substationName.errors && substationChanged(userDetails.substation)">
       <option disabled selected [ngValue]='undefined'>Select</option>
@@ -55,7 +55,7 @@
     </div>
   </div>
   <!-- <div class="inner-group">
-    <label class="form-text text-muted mb-0">Feeder</label>
+    <small class="form-text text-muted mb-0">Feeder</small>
     <select [ngClass]="{'is-valid': !feederName.errors && (feederName.dirty || feederName.touched),'is-invalid': feederName.errors && (feederName.dirty || feederName.touched)}"
       class="form-control form-control-sm" [(ngModel)]="userDetails.feeder" #feederName="ngModel" id="feederName"  name="feederName" required (change)="!feederName.errors && feederChanged(userDetails.feeder)">
       <option disabled selected [ngValue]='undefined'>Select</option>
@@ -66,7 +66,7 @@
     </div>
   </div> -->
   <div class="inner-group">
-    <label class="form-text text-muted mb-0">Bill Month</label>
+    <small class="form-text text-muted mb-0">Bill Month</small>
     <div class="input-group">
       <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
         class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required>
@@ -106,8 +106,8 @@
 </div>
 
 <div *ngIf="feederList && !_searchClicked">
-  <div class="table-responsive mb-2 text-center">
-    <table class="table table-sm table-bordered table-hover" id="feeders">
+  <div class="table-responsive mb-2">
+    <table class="table table-sm table-bordered table-hover text-center mb-0" id="feeders">
       <thead class="bg-inverse text-default">
         <tr>
           <td class="align-middle">S.No</td>
@@ -182,7 +182,7 @@
   </div>
 </div>
 
-<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal-backdrop" [ngStyle]="{'display':display}"></div>
 <div class="modal"  id="feederTnDLossReportModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-full" role="document">
     <div class="modal-content">
