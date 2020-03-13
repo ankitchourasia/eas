@@ -180,8 +180,7 @@ export class DtrViewComponent implements OnInit {
         this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("DTR updated successfully");
         alertResponse.then(result =>{
-          console.log("alert result", result);
-          this.closeModal(modalCloseButtonRef);
+          this.closeModal(updateDTRForm, modalCloseButtonRef);
           this._editClicked = false;
           this.getDTRByDivisionId(this.user.division.id);
           this.dtrToEdit = null;
@@ -206,13 +205,10 @@ export class DtrViewComponent implements OnInit {
     this.pagedDtrList = this.dtrList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(updateDTRForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(updateDTRForm);
     modalCloseButtonRef.click();
-  }
-
-  dtrUpdateModalCancel(dtrUpdateForm){
     this._editClicked = false;
-    this.globalResources.resetValidateForm(dtrUpdateForm);
   }
 
 }

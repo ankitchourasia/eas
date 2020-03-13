@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
@@ -26,7 +26,6 @@ export class FeederReadingViewComponent implements OnInit {
   pager: any;
   pageSize: number;
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
-  @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private feederService: FeederService, public globalConstants: GlobalConstants,
     private globalResources: GlobalResources, private paginationService: PaginationService) { }
 
@@ -61,12 +60,11 @@ export class FeederReadingViewComponent implements OnInit {
     this.readingToEdit.currReadingDate = this.globalResources.getDateFromDatetimestamp(this.readingToEdit.currReadingDate);
   }
 
-  updateClicked(updateForm){
+  updateClicked(updateForm, closeButtonRef){
     if(this.globalResources.validateForm(updateForm)){
       this.readingToEdit.currReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.readingToEdit.currReadingDate);
       this.calculateConsumption();
-      let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
-      this.updateReading(nextBillMonth);
+      this.updateReading(updateForm, closeButtonRef);
     }
   }
 
@@ -92,14 +90,15 @@ export class FeederReadingViewComponent implements OnInit {
     }
   }
 
-  updateReading(nextBillMonth){
+  updateReading(updateForm, closeButtonRef){
     let methodName = "updateReading";
     this.updateButtonClicked = true;
+    let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
     this.feederService.updateFeederReading(this.readingToEdit, nextBillMonth, this.user.username).subscribe(success =>{
       this.updateButtonClicked = false;
       let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
       aletResponse.then(result =>{
-        this.closeModal(this.closeButtonRef);
+        this.closeModal(updateForm, closeButtonRef);
         this.readingToEdit = undefined;
       });
     }, errorResponse =>{
@@ -124,7 +123,8 @@ export class FeederReadingViewComponent implements OnInit {
     console.log(this.pagedFeederReadingList);
   }
 
-  closeModal(closeButtonRef: ElementRef){
-    closeButtonRef.nativeElement.click();
+  closeModal(updateForm, closeButtonRef){
+    this.globalResources.resetValidateForm(updateForm);
+    closeButtonRef.click();
   }
 }

@@ -3,7 +3,6 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
-import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { ZoneService } from '@eas-services/zone/zone.service';
 
@@ -27,8 +26,8 @@ export class FeederViewComponent implements OnInit {
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
-    private dtrService : DtrService, private globalResources : GlobalResources, 
-    private paginationService : PaginationService, private zoneService: ZoneService) { }
+    private globalResources : GlobalResources, private paginationService : PaginationService, 
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
@@ -135,7 +134,7 @@ export class FeederViewComponent implements OnInit {
         let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
-          this.closeModal(modalCloseButtonRef);
+          this.closeModal(updateFeederForm, modalCloseButtonRef);
           this.getFeeders();
           this.feederToEdit = null;
         });
@@ -159,7 +158,8 @@ export class FeederViewComponent implements OnInit {
     this.pagedFeederList = this.feederList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(updateFeederForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(updateFeederForm);
     modalCloseButtonRef.click();
   }
 }

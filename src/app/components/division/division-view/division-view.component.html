@@ -64,7 +64,8 @@
     <div class="modal-content">
       <div class="modal-header bg-inverse text-default">
         <h5 class="modal-title">Edit Division</h5>
-        <button type="button" class="close text-default" data-dismiss="modal" aria-label="Close" [disabled]="_updateClicked">
+        <button type="button" class="close text-default" data-dismiss="modal" aria-label="Close" 
+          (click)="closeModal(divisionEditForm, modalCloseButtonRef)" [disabled]="_updateClicked">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -100,12 +101,15 @@
           </div>
           <div class="form-group row">
             <div class="col-4 offset-4">
-              <button type="button" class="btn btn-success form-control" (click)=updateClicked(modalCloseButtonRef) [disabled]="!divisionEditForm.form.valid || _updateClicked">
+              <button type="button" class="btn btn-success form-control" (click)="updateClicked(divisionEditForm, modalCloseButtonRef)" [disabled]="!divisionEditForm.form.valid || _updateClicked">
                 Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
               </button>
             </div>
             <div class="col-4">
-              <button type="reset" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef [disabled]="_updateClicked">Cancel</button>
+              <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef 
+                (click)="closeModal(divisionEditForm, modalCloseButtonRef)" [disabled]="_updateClicked">
+                Cancel
+              </button>
             </div>
           </div>
         </form>

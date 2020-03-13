@@ -48,19 +48,18 @@ export class CircleViewComponent implements OnInit {
 
   editClicked(circle){
     this.circleToEdit = Object.assign({}, circle);
-    console.log(this.circleToEdit);
     this.circleToEdit.oldName = circle.name;
   }
 
   _updateClicked: boolean;
-  updateClicked(modalCloseButtonRef){
+  updateClicked(circleEditForm, modalCloseButtonRef){
     let methodName = "updateClicked"
     this._updateClicked = true;
     this.circleService.updateCircle(this.circleToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("Circle updated successfully");
       alertResponse.then(result =>{
-        this.closeModal(modalCloseButtonRef);
+        this.closeModal(circleEditForm, modalCloseButtonRef);
         this.getCircleList();
       });
     }, errorResponse =>{
@@ -82,7 +81,8 @@ export class CircleViewComponent implements OnInit {
     this.pagedCircleList = this.circleList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  closeModal(modalCloseButtonRef){
+  closeModal(circleEditForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(circleEditForm);
     modalCloseButtonRef.click();
   }
 }

@@ -101,7 +101,7 @@
       <div class="modal-content">
         <div class="modal-header bg-inverse text-default">
           <h5 class="modal-title">Edit Reading</h5>
-          <button type="button" class="close text-default" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close text-default" data-dismiss="modal" (click)="closeModal(updateReadingForm, closeButtonRef)" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -210,12 +210,13 @@
               </div>                 
               <div class="form-group row">
                 <div class="col-4 offset-4">
-                  <button type="button" class="btn btn-success form-control" (click)=updateClicked(updateReadingForm)>
+                  <button type="button" class="btn btn-success form-control" (click)="updateClicked(updateReadingForm, closeButtonRef)">
                     Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="updateButtonClicked"></span>
                   </button>
                 </div>
                 <div class="col-4">
-                  <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef>Cancel</button>
+                  <!-- <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef>Cancel</button> -->
+                  <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #closeButtonRef (click)="closeModal(updateReadingForm, closeButtonRef)">Cancel</button>
                 </div>
               </div>
             </form>

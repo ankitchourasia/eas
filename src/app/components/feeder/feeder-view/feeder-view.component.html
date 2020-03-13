@@ -92,7 +92,7 @@
       <div class="modal-content">
         <div class="modal-header bg-inverse text-default">
           <h5 class="modal-title">Edit feeder</h5>
-          <button type="button" class="close text-default" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close text-default" data-dismiss="modal" (click)="closeModal(feederUpdateForm, modalCloseButtonRef)" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -270,7 +270,8 @@
                   </button>
                 </div>
                 <div class="col-4">
-                  <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef>Cancel</button>
+                  <!-- <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef>Cancel</button> -->
+                  <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="closeModal(feederUpdateForm, modalCloseButtonRef)">Cancel</button>
                 </div>
               </div>
             </form>

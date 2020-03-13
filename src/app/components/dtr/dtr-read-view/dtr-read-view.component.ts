@@ -152,8 +152,7 @@ export class DtrReadViewComponent implements OnInit {
       this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read updated successfully");
       alertResponse.then(result =>{
-        this.globalResources.resetValidateForm(dtrReadingUpdateForm);
-        this.closeModal(modalCloseButtonRef);
+        this.closeModal(dtrReadingUpdateForm, modalCloseButtonRef);
       });
     },errorResponse=>{
       this._updateClicked = false;
@@ -161,13 +160,10 @@ export class DtrReadViewComponent implements OnInit {
     });
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(dtrReadingUpdateForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(dtrReadingUpdateForm);
     modalCloseButtonRef.click();
-  }
-
-  dtrUpdateModalCancel(dtrUpdateForm){
     this._editClicked = false;
-    this.globalResources.resetValidateForm(dtrUpdateForm);
   }
 
   exportClicked(){

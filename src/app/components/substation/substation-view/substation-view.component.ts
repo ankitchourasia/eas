@@ -100,8 +100,7 @@ export class SubstationViewComponent implements OnInit {
         this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation updated successfully");
         alertResponse.then(result =>{
-          console.log("alert result", result);
-          this.closeModal(modalCloseButtonRef);
+          this.closeModal(updateSubstationForm, modalCloseButtonRef);
           this.getSubstations();
         });
       }, error =>{
@@ -129,7 +128,8 @@ export class SubstationViewComponent implements OnInit {
     this.pagedSubstationList = this.substationList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(updateSubstationForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(updateSubstationForm);
     modalCloseButtonRef.click();
   }
 
