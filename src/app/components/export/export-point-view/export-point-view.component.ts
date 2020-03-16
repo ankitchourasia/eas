@@ -28,7 +28,13 @@ export class ExportPointViewComponent implements OnInit {
     private zoneService: ZoneService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.setPartialData();
+  }
+
+  setInitialValue(){
+    this.exportPointList = [];
+    this.pagedExportPointList = [];
   }
 
   setPartialData(){
@@ -54,6 +60,7 @@ export class ExportPointViewComponent implements OnInit {
   }
 
   searchClicked(){
+    this.setInitialValue();
     this.getAll11KVExportPointsByZoneId(this.selectedZone.id);
   }
 
@@ -101,6 +108,7 @@ export class ExportPointViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 5;
+    this.pagedExportPointList = [];
   }
 
   setPage(page: number) {

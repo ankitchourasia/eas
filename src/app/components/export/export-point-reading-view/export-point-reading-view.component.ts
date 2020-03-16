@@ -32,11 +32,19 @@ export class ExportPointReadingViewComponent implements OnInit {
      private zoneService: ZoneService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.setPartialData();
+  }
+
+  setInitialValue(){
+    this.exportPointReadingList = [];
+    this.pagedExportPointReadingList = [];
   }
 
   setPartialData(){
     this.zoneList = [];
+    this.exportPointReadingList = [];
+    this.pagedExportPointReadingList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.getZoneListByDivisionId(this.user.division.id);
@@ -56,7 +64,7 @@ export class ExportPointReadingViewComponent implements OnInit {
   }
 
   searchClicked(){
-    this.pagedExportPointReadingList = [];
+    this.setInitialValue();
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.get11KVExportPointReadingsByZoneIdAndBillMonth(this.user.zone.id, billingMonth);
   }
@@ -166,6 +174,7 @@ export class ExportPointReadingViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedExportPointReadingList = [];
   }
 
   setPage(page: number) {

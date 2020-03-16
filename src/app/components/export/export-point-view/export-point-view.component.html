@@ -2,93 +2,96 @@
   <div class="form-inline align-items-baseline">
     <div class="input-group mx-sm-2">
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="selectedZone" #zone="ngModel" id="zone"  name="zone" required>
+        class="form-control form-control-sm" [(ngModel)]="selectedZone" #zone="ngModel" id="zone"  name="zone" required [disabled]="_searchClicked">
         <option disabled selected [ngValue]='undefined'>Select Zone</option>
         <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
       </select>
       <div class="input-group-append">
         <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="zone.errors || _searchClicked">
-          Search <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_searchClicked"></span>
+          Search
         </button>
       </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="exportPointList && !_searchClicked">
-  <div class="table-responsive mb-2">
-    <table class="table table-sm table-bordered table-hover text-center mb-0" id="dtrs">
-      <thead class="bg-inverse text-default">
-        <tr>
-          <td class="align-middle">S.No</td>
-          <td class="align-middle">Region</td>
-          <td class="align-middle">Circle</td>
-          <td class="align-middle">Division</td>
-          <td class="align-middle">Zone</td>
-          <td class="align-middle">Substation</td>
-          <td class="align-middle">Feeder</td>
-          <td class="align-middle">Export On</td>
-          <td class="align-middle">Location</td>
-          <td class="align-middle">Meter Make</td>
-          <td class="align-middle">Meter No.</td>
-          <td class="align-middle">Meter Capacity</td>
-          <td class="align-middle">Start Reading</td>
-          <td class="align-middle">Start Reading Date</td>
-          <td class="align-middle">Reading Month</td>
-          <td class="align-middle">Overall MF</td>
-          <td class="align-middle">Status</td>
-          <td class="align-middle">Action</td>
+<div class="table-responsive mb-2">
+  <table class="table table-sm table-bordered table-hover text-center mb-0" id="dtrs">
+    <thead class="bg-inverse text-default">
+      <tr>
+        <td class="align-middle">S.No</td>
+        <!-- <td class="align-middle">Region</td>
+        <td class="align-middle">Circle</td>
+        <td class="align-middle">Division</td> -->
+        <td class="align-middle">Zone</td>
+        <td class="align-middle">Substation</td>
+        <td class="align-middle">Feeder</td>
+        <td class="align-middle">Export On</td>
+        <td class="align-middle">Location</td>
+        <td class="align-middle">Meter Make</td>
+        <td class="align-middle">Meter No.</td>
+        <td class="align-middle">Meter Capacity</td>
+        <td class="align-middle">Start Reading</td>
+        <td class="align-middle">Start Reading Date</td>
+        <td class="align-middle">Reading Month</td>
+        <td class="align-middle">Overall MF</td>
+        <td class="align-middle">Status</td>
+        <td class="align-middle">Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template [ngIf]="exportPointList && exportPointList.length && !_searchClicked">
+      <tr *ngFor="let exportPoint of pagedExportPointList; let i = index">
+          <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+          <!-- <td class="align-middle">{{exportPoint?.region?.name | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.circle?.name | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.division?.name | uppercase}}</td> -->
+          <td class="align-middle">{{exportPoint?.zone?.name | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.substation?.name | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.feeder?.name | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.exportOn | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.locationName | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.meterMake | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.meterNo | uppercase}}</td>	
+          <td class="align-middle">{{exportPoint?.meterCapacity | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.startReading | uppercase}}</td>
+          <td class="align-middle">{{exportPoint.readingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.billMonth | uppercase}}</td>
+          <td class="align-middle">{{exportPoint?.overallMf }}</td>
+          <td class="align-middle">{{exportPoint?.misc1 | uppercase}}</td>
+          <td class="align-middle">
+            <button type="button" class="btn btn-danger btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_ACTIVE"  (click)="statusChanged(exportPoint)">INACTIVE</button>
+            <button type="button" class="btn btn-success btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_INACTIVE"  (click)="statusChanged(exportPoint)">ACTIVE</button>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let exportPoint of pagedExportPointList; let i = index">
-            <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-            <td class="align-middle">{{exportPoint?.region?.name | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.circle?.name | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.division?.name | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.zone?.name | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.substation?.name | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.feeder?.name | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.exportOn | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.locationName | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.meterMake | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.meterNo | uppercase}}</td>	
-						<td class="align-middle">{{exportPoint?.meterCapacity | uppercase}}</td>
-						<td class="align-middle">{{exportPoint?.startReading | uppercase}}</td>
-            <td class="align-middle">{{exportPoint.readingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-            <td class="align-middle">{{exportPoint?.billMonth | uppercase}}</td>
-            <td class="align-middle">{{exportPoint?.overallMf }}</td>
-            <td class="align-middle">{{exportPoint?.misc1 | uppercase}}</td>
-						<td class="align-middle">
-              <button type="button" class="btn btn-danger btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_ACTIVE"  (click)="statusChanged(exportPoint)">INACTIVE</button>
-              <button type="button" class="btn btn-success btn-sm" *ngIf="exportPoint.misc1 === globalConstants.STATUS_INACTIVE"  (click)="statusChanged(exportPoint)">ACTIVE</button>
-            </td>
-          </tr>
-          <tr *ngIf="exportPointList && exportPointList.length <= 0">
-            <td class="align-middle" colspan="18">No Records found</td>
-          </tr>
-      </tbody>
-    </table>
-  </div>
-  <div id="pagination" *ngIf="exportPointList && exportPointList.length > pageSize" class="eas-flex-center">
-    <nav>
-      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-          <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-        </li>
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-        </li>
-        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-          <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
-        </li>
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-        </li>
-        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-          <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+        </ng-template>
+        <tr *ngIf="exportPointList && !exportPointList.length && !_searchClicked">
+          <td class="align-middle" colspan="18">No Records found</td>
+        </tr>
+        <tr *ngIf="_searchClicked">
+          <td class="align-middle" colspan="18">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_searchClicked"></span> Loading...
+          </td>
+        </tr>
+    </tbody>
+  </table>
 </div>
+<nav id="pagination" *ngIf="exportPointList && exportPointList.length > pageSize" class="eas-flex-center">
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    </li>
+    <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+    </li>
+  </ul>
+</nav>

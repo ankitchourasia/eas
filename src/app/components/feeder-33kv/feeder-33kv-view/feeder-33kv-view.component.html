@@ -11,39 +11,40 @@
     </div>
   </div>
 </div>
-
-<table class="table table-sm table-bordered table-hover text-center mb-0">
-  <thead class="bg-inverse text-default">
-    <tr>
-      <td class="align-middle">SNo</td>
-      <td class="align-middle">Zone</td>
-      <td class="align-middle">Feeder Name</td>
-      <td class="align-middle">Feeder Code</td>
-      <td class="align-middle">Meter No.</td>
-      <td class="align-middle">MF</td>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-template [ngIf]="feederList && feederList.length && !loading">
-    <tr *ngFor="let feeder of pagedFeederList; let i = index">
-      <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-      <td class="align-middle">{{feeder.zone.name | uppercase}}</td>
-      <td class="align-middle">{{feeder.name}}</td>
-      <td class="align-middle">{{feeder.code}}</td>
-      <td class="align-middle">{{feeder.meterNo}}</td>
-      <td class="align-middle">{{feeder.mf}}</td>
-    </tr>
-    </ng-template>
-    <tr *ngIf="feederList && !feederList.length && !loading">
-      <td class="align-middle" colspan="6">No Records Found</td>
-    </tr>
-    <tr *ngIf="loading">
-      <td class="align-middle" colspan="6">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive mb-2">
+  <table class="table table-sm table-bordered table-hover text-center mb-0">
+    <thead class="bg-inverse text-default">
+      <tr>
+        <td class="align-middle">SNo</td>
+        <td class="align-middle">Zone</td>
+        <td class="align-middle">Feeder Name</td>
+        <td class="align-middle">Feeder Code</td>
+        <td class="align-middle">Meter No.</td>
+        <td class="align-middle">MF</td>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template [ngIf]="feederList && feederList.length && !loading">
+      <tr *ngFor="let feeder of pagedFeederList; let i = index">
+        <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+        <td class="align-middle">{{feeder.zone.name | uppercase}}</td>
+        <td class="align-middle">{{feeder.name}}</td>
+        <td class="align-middle">{{feeder.code}}</td>
+        <td class="align-middle">{{feeder.meterNo}}</td>
+        <td class="align-middle">{{feeder.mf}}</td>
+      </tr>
+      </ng-template>
+      <tr *ngIf="feederList && !feederList.length && !loading">
+        <td class="align-middle" colspan="6">No Records Found</td>
+      </tr>
+      <tr *ngIf="loading">
+        <td class="align-middle" colspan="6">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <nav id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
   <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
     <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
