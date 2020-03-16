@@ -222,12 +222,12 @@
     </div>
     <div class="form-group row">
       <div class="col-4 offset-4">
-        <button type="button" class="btn btn-success form-control" (click)=submitClicked(dtrInitialReadAddForm) [disabled]="errorInReading">
+        <button type="button" class="btn btn-success btn-block" (click)=submitClicked(dtrInitialReadAddForm) [disabled]="errorInReading">
           Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span>
         </button>
       </div>
       <div class="col-4">
-        <button type="button" class="btn btn-danger form-control" (click)="resetClicked(dtrInitialReadAddForm)">Reset</button>
+        <button type="button" class="btn btn-danger btn-block" (click)="resetClicked(dtrInitialReadAddForm)">Reset</button>
       </div>
     </div>
   </form>

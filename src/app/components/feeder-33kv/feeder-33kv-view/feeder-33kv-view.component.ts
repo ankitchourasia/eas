@@ -28,6 +28,7 @@ export class Feeder33KVViewComponent implements OnInit {
     public globalConstants: GlobalConstants) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.getZoneListByDivisionId(this.user.division.id);
@@ -38,8 +39,13 @@ export class Feeder33KVViewComponent implements OnInit {
     }
   }
 
-  zoneChanged(){
+  setInitialValue(){
     this.pagedFeederList = [];
+    this.feederList = [];
+  }
+
+  zoneChanged(){
+    this.setInitialValue();
     if(this.zone === "ALL"){
       this.getFeederByDivisionId(this.user.division.id);
     }else{
@@ -98,6 +104,7 @@ export class Feeder33KVViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederList = [];
   }
 
   setPage(page: number) {

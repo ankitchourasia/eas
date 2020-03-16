@@ -19,16 +19,23 @@ export class HtConsumerViewAbsentConsumptionComponent implements OnInit {
   billMonth: any;
   billMonthYear: any;
   htConsumerAbsentConsumptionList:any;
-  searchButtonClicked: boolean;
+  loading: boolean;
   
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService : PaginationService, private htConsumerService: HtConsumerService) { }
 
     ngOnInit() {
       this.user = this.globalResources.getUserDetails();
+      this.setInitailValue();
+    }
+
+    setInitailValue(){
+      this.pagedList = [];
+      this.htConsumerAbsentConsumptionList = [];
     }
   
     searchClicked(){
+      this.setInitailValue();
       if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
         this.getHTConsumerAbsentConsumptionByDivisionIdAndBillMonth(this.user.division.id);
       }else if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN){
@@ -39,18 +46,18 @@ export class HtConsumerViewAbsentConsumptionComponent implements OnInit {
     }
 
     getHTConsumerAbsentConsumptionByDivisionIdAndBillMonth(divisionId){
-      this.searchButtonClicked = true;
-      this.htConsumerAbsentConsumptionList = null;
+      this.loading = true;
+      this.htConsumerAbsentConsumptionList = [];
       let billingMonth = this.billMonth + "-" + this.billMonthYear;
       this.htConsumerService.getHTConsumerAbsentConsumptionByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
-        this.searchButtonClicked = false;
+        this.loading = false;
         this.htConsumerAbsentConsumptionList = successResponse;
         this.initializePaginationVariables();
         if(this.htConsumerAbsentConsumptionList && this.htConsumerAbsentConsumptionList.length){
           this.setPage(1);
         }
       },errorResponse =>{
-        this.searchButtonClicked = false;
+        this.loading = false;
         console.log(errorResponse);
       });
     }
@@ -58,6 +65,7 @@ export class HtConsumerViewAbsentConsumptionComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedList = [];
   }
 
   setPage(page: number) {

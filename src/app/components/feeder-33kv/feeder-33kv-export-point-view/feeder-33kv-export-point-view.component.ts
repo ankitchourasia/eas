@@ -28,6 +28,7 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
     public globalConstants: GlobalConstants) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.getZoneListByDivisionId(this.user.division.id);
@@ -38,8 +39,13 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
     }
   }
 
-  zoneChanged(){
+  setInitialValue(){
+    this.exportPointList = [];
     this.pagedExportPointList = [];
+  }
+
+  zoneChanged(){
+    this.setInitialValue();
     if(this.zone === "ALL"){
       this.getExportPointByDivisionId(this.user.division.id);
     }else{
@@ -97,6 +103,7 @@ export class Feeder33KVExportPointViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedExportPointList = [];
   }
 
   setPage(page: number) {

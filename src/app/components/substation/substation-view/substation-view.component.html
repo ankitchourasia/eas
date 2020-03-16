@@ -28,9 +28,11 @@
             <td class="align-middle"><a href="javascript:void(0)" (click)="deleteClicked(substation)"><span class="fa fa-trash"></span></a></td>
           </tr>
           </ng-template>
-          <tr>
-            <td class="align-middle" colspan="6" *ngIf="substationList && !substationList.length && !loading">No Records Found</td>
-            <td class="align-middle" colspan="6" *ngIf="loading"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...</td>
+          <tr *ngIf="substationList && !substationList.length && !loading">
+            <td class="align-middle" colspan="6" >No Records Found</td>
+          </tr>
+          <tr *ngIf="loading">
+            <td class="align-middle" colspan="6"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...</td>
           </tr>
         </tbody>
       </table>

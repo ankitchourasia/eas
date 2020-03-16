@@ -21,7 +21,7 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
   divisionList: any;
   zoneList: any;
   feederList:any;
-  submitButtonClicked: boolean;
+  _submitClicked: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
     private feederService : FeederService, private importService: ImportService, private zoneService: ZoneService) { }
 
@@ -67,7 +67,6 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    console.log("zone changed");
     this.formData.feeder = undefined;
     this.get33KVFeederByZoneId(zone.id);
   }
@@ -83,23 +82,23 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
 
   submitClicked(importPointAddForm){
     if(this.globalResources.validateForm(importPointAddForm)){
-      this.submitButtonClicked = true;
+      this._submitClicked = true;
       this.formData.regionId = this.formData.region.id;
       this.formData.circleId = this.formData.circle.id;
       this.formData.divisionId = this.formData.division.id;
       this.formData.zoneId = this.formData.zone.id;
       this.formData.feeder33KVId = this.formData.feeder.id;
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.addImportPoint(importPointAddForm);
     }
   }
 
   addImportPoint(importPointAddForm){
     let methodName = "addImportPoint";
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.importService.add33KVImportPoint(this.formData, false).subscribe(
       successResponse =>{
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         console.log(successResponse);
         if(successResponse){
           let alertResponse =this.globalResources.successAlert("Import point added successfully !");
@@ -109,7 +108,7 @@ export class Feeder33KVImportPointAddComponent implements OnInit {
           });
         }
       },errorResponse =>{
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );

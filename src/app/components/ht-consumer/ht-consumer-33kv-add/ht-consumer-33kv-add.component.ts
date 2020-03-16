@@ -27,10 +27,10 @@ export class HtConsumer33KVAddComponent implements OnInit {
 
 
   ngOnInit() {
-    this.setPartialData();
+    this.setInitialValue();
   }
 
-  setPartialData(){
+  setInitialValue(){
     this.htConsumer = {};
     this.regionList = [];
     this.circleList = [];
@@ -85,15 +85,17 @@ export class HtConsumer33KVAddComponent implements OnInit {
 
   add33KVHTConsumer(htConsumerAddForm){
     let methodName = "add33KVHTConsumer";
+    if(!this.globalResources.validateForm(htConsumerAddForm)){
+      return
+    }
     this.loading = true;
-    console.log(this.htConsumer);
     this.htConsumerService.add33KVHTConsumer(this.htConsumer, true).subscribe(success =>{
       this.loading = false;
       let result = <any> success;
       if(result.status === 201){
         let alertResponse = this.globalResources.successAlert("Consumer added successfully");
         alertResponse.then(result =>{
-          this.setPartialData();
+          this.setInitialValue();
           this.globalResources.resetValidateForm(htConsumerAddForm);
         });
       }else{
@@ -106,7 +108,7 @@ export class HtConsumer33KVAddComponent implements OnInit {
   }
 
   resetClicked(htConsumerAddForm){
-    this.setPartialData();
+    this.setInitialValue();
     this.globalResources.resetValidateForm(htConsumerAddForm);
   }
 

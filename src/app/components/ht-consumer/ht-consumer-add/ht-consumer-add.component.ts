@@ -28,10 +28,10 @@ export class HtConsumerAddComponent implements OnInit {
     private zoneService: ZoneService) { }
 
   ngOnInit() {
-    this.setPartialData();
+    this.setInitialValue();
   }
 
-  setPartialData(){
+  setInitialValue(){
     this.htConsumer = {};
     this.regionList = [];
     this.circleList = [];
@@ -89,23 +89,24 @@ export class HtConsumerAddComponent implements OnInit {
   }
 
   submitClicked(htConsumerAddForm){
-    this.htConsumer.regionId = this.user.region.id;
-    this.htConsumer.circleId = this.user.circle.id;
-    this.htConsumer.divisionId = this.user.division.id;
-    this.addHTConsumer(htConsumerAddForm);
+    if(this.globalResources.validateForm(htConsumerAddForm)){
+      this.htConsumer.regionId = this.user.region.id;
+      this.htConsumer.circleId = this.user.circle.id;
+      this.htConsumer.divisionId = this.user.division.id;
+      this.addHTConsumer(htConsumerAddForm);
+    }
   }
 
   addHTConsumer(htConsumerAddForm){
     let methodName = "addHTConsumer";
     this.loading = true;
-    console.log(this.htConsumer);
     this.htConsumerService.addHTConsumer(this.htConsumer, true).subscribe(success =>{
       this.loading = false;
       let result = <any> success;
       if(result.status === 201){
         let alertResponse =this.globalResources.successAlert("Consumer added successfully");
         alertResponse.then(result =>{
-          this.setPartialData();
+          this.setInitialValue();
           this.globalResources.resetValidateForm(htConsumerAddForm);
         });
       }else{
@@ -118,7 +119,7 @@ export class HtConsumerAddComponent implements OnInit {
   }
 
   resetClicked(htConsumerAddForm){
-    this.setPartialData();
+    this.setInitialValue();
     this.globalResources.resetValidateForm(htConsumerAddForm);
   }
 

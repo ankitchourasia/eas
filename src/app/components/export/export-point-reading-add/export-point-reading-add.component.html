@@ -113,7 +113,7 @@
         </div>
         <div class="col-7">
           <button type="button" class="btn btn-warning form-control" (click)="meterReplacementClicked()" *ngIf="!_meterReplacementClicked">Click for Meter Replacement</button>
-          <button type="button" class="btn btn-danger form-control" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancle for Meter Replacement</button>
+          <button type="button" class="btn btn-danger btn-block" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancle for Meter Replacement</button>
         </div>
       </div>
     </div>
@@ -303,12 +303,12 @@
   </div>
   <div class="form-group row">
     <div class="col-4 offset-4">
-      <button type="button" class="btn btn-success form-control" (click)=submitClicked(exportPointReadAddForm) [disabled]="_submitClicked">
+      <button type="button" class="btn btn-success btn-block" (click)=submitClicked(exportPointReadAddForm) [disabled]="_submitClicked">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
     <div class="col-4">
-      <button type="button" class="btn btn-danger form-control" (click)="resetClicked(exportPointReadAddForm)">Reset</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="resetClicked(exportPointReadAddForm)">Reset</button>
     </div>
   </div>
 </form>
