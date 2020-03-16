@@ -17,16 +17,19 @@ export class DivisionViewComponent implements OnInit {
   divisionList: any;
   circleList: any;
   regionList: any;
-  divisionToEdit: any = {};
+  divisionToEdit: any;
   pagedDivisionList: any;
   constructor(private globalResources : GlobalResources, private paginationService : PaginationService,
     private divisionService: DivisionService) { }
 
   ngOnInit() {
-    this.getPartialData();
+    this.setInitialValue();
   }
 
-  getPartialData(){
+  setInitialValue(){
+    this.divisionToEdit = undefined;
+    this.divisionList = [];
+    this.pagedDivisionList = [];
     this.getDivisionList();
   }
 
@@ -48,13 +51,17 @@ export class DivisionViewComponent implements OnInit {
 
   editClicked(circle){
     this.divisionToEdit = Object.assign({}, circle);
-    console.log(this.divisionToEdit);
     this.divisionToEdit.oldName = circle.name;
   }
 
   _updateClicked: boolean;
   updateClicked(divisionEditForm, modalCloseButtonRef){
     let methodName = "updateClicked";
+    
+    if(!this.globalResources.validateForm(divisionEditForm)){
+      return;
+    }
+
     this._updateClicked = true;
     this.divisionService.updateDivision(this.divisionToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
@@ -72,6 +79,7 @@ export class DivisionViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedDivisionList = [];
   }
 
   setPage(page: number) {
@@ -85,5 +93,7 @@ export class DivisionViewComponent implements OnInit {
   closeModal(divisionEditForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(divisionEditForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.divisionToEdit = undefined;
   }
 }

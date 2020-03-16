@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
@@ -23,10 +23,13 @@ export class CircleViewComponent implements OnInit {
     private circleService: CircleService) { }
 
   ngOnInit() {
-    this.getPartialData();
+    this.setInintialValue();
   }
 
-  getPartialData(){
+  setInintialValue(){
+    this.circleToEdit = undefined;
+    this.circleList = [];
+    this.pagedCircleList = [];
     this.getCircleList();
   }
 
@@ -54,6 +57,11 @@ export class CircleViewComponent implements OnInit {
   _updateClicked: boolean;
   updateClicked(circleEditForm, modalCloseButtonRef){
     let methodName = "updateClicked"
+    
+    if(!this.globalResources.validateForm(circleEditForm)){
+      return;
+    }
+
     this._updateClicked = true;
     this.circleService.updateCircle(this.circleToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
@@ -71,6 +79,7 @@ export class CircleViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedCircleList = [];
   }
 
   setPage(page: number) {
@@ -84,5 +93,7 @@ export class CircleViewComponent implements OnInit {
   closeModal(circleEditForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(circleEditForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.circleToEdit = undefined;
   }
 }

@@ -21,7 +21,7 @@ export class FeederReadingViewComponent implements OnInit {
   year: string;
   loading: boolean;
   readingToEdit: any;
-  updateButtonClicked: boolean;
+  _updateClicked: boolean;
 
   pager: any;
   pageSize: number;
@@ -33,7 +33,15 @@ export class FeederReadingViewComponent implements OnInit {
     this.user = this.globalResources.getUserDetails();
   }
 
-  
+  setInitialValues(){
+    this.readingToEdit = undefined;
+    this.pagedFeederReadingList = [];
+  } 
+
+  searchClicked(){
+    this.setInitialValues();
+    this.getFeederReadings();
+  }
   
   getFeederReadings(){
     let methodName = "getFeederReading";
@@ -92,17 +100,17 @@ export class FeederReadingViewComponent implements OnInit {
 
   updateReading(updateForm, closeButtonRef){
     let methodName = "updateReading";
-    this.updateButtonClicked = true;
+    this._updateClicked = true;
     let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
     this.feederService.updateFeederReading(this.readingToEdit, nextBillMonth, this.user.username).subscribe(success =>{
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
       aletResponse.then(result =>{
         this.closeModal(updateForm, closeButtonRef);
         this.readingToEdit = undefined;
       });
     }, errorResponse =>{
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
@@ -120,11 +128,12 @@ export class FeederReadingViewComponent implements OnInit {
     }
     this.pager = this.paginationService.getPager(this.feederReadingList.length, page, this.pageSize);
     this.pagedFeederReadingList = this.feederReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedFeederReadingList);
   }
 
   closeModal(updateForm, closeButtonRef){
     this.globalResources.resetValidateForm(updateForm);
     closeButtonRef.click();
+    this._updateClicked = false;
+    this.readingToEdit = undefined;
   }
 }

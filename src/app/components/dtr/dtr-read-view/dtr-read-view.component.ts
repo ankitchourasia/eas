@@ -86,10 +86,8 @@ export class DtrReadViewComponent implements OnInit {
     this.pagedDtrReadingList = this.dtrReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  _editClicked: boolean;
   editClicked(dtr){
     this.dtrReadingToEdit = Object.assign({}, dtr);
-    this._editClicked = true;
   }
 
   dtrCurrentReadingChanged(){
@@ -98,8 +96,8 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   calculateDifference(){
-    let currentReading = Number.parseFloat(this.dtrReadingToEdit.currReading);
-		let previousReading = Number.parseFloat(this.dtrReadingToEdit.prevReading);
+    let currentReading = Number(this.dtrReadingToEdit.currReading);
+		let previousReading = Number(this.dtrReadingToEdit.prevReading);
     if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
 			this.dtrReadingToEdit.readingDiff = currentReading - previousReading;
 			this.dtrReadingToEdit.readingDiff = Math.round(this.dtrReadingToEdit.readingDiff * 100) / 100;
@@ -123,13 +121,13 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   readingConvertStringToNumber(dtrReadingToEdit){
-    dtrReadingToEdit.mf = Number.parseFloat(this.dtrReadingToEdit.mf);
-    dtrReadingToEdit.prevReading = Number.parseFloat(this.dtrReadingToEdit.prevReading);
-    dtrReadingToEdit.currReading = Number.parseFloat(this.dtrReadingToEdit.currReading);
-    dtrReadingToEdit.readingDiff = Number.parseFloat(this.dtrReadingToEdit.readingDiff);
-    dtrReadingToEdit.meterConsumption = Number.parseFloat(this.dtrReadingToEdit.meterConsumption);
-    dtrReadingToEdit.assUnit = Number.parseFloat(this.dtrReadingToEdit.assUnit);
-    dtrReadingToEdit.totalConsumption = Number.parseFloat(this.dtrReadingToEdit.totalConsumption);
+    dtrReadingToEdit.mf = Number(this.dtrReadingToEdit.mf);
+    dtrReadingToEdit.prevReading = Number(this.dtrReadingToEdit.prevReading);
+    dtrReadingToEdit.currReading = Number(this.dtrReadingToEdit.currReading);
+    dtrReadingToEdit.readingDiff = Number(this.dtrReadingToEdit.readingDiff);
+    dtrReadingToEdit.meterConsumption = Number(this.dtrReadingToEdit.meterConsumption);
+    dtrReadingToEdit.assUnit = Number(this.dtrReadingToEdit.assUnit);
+    dtrReadingToEdit.totalConsumption = Number(this.dtrReadingToEdit.totalConsumption);
   }
 
   _updateClicked: boolean;
@@ -139,7 +137,6 @@ export class DtrReadViewComponent implements OnInit {
       this.readingConvertStringToNumber(this.dtrReadingToEdit);
       this.calculateDifference();
       this._updateClicked = false;
-      console.log(this.dtrReadingToEdit);
       this.updateDTRRead(dtrReadingUpdateForm, modalCloseButtonRef);
     }
   }
@@ -163,7 +160,8 @@ export class DtrReadViewComponent implements OnInit {
   closeModal(dtrReadingUpdateForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(dtrReadingUpdateForm);
     modalCloseButtonRef.click();
-    this._editClicked = false;
+    this._updateClicked = false;
+    this.dtrReadingToEdit = undefined;
   }
 
   exportClicked(){

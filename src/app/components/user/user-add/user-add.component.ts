@@ -26,20 +26,20 @@ export class UserAddComponent implements OnInit {
     private zoneService: ZoneService, private userService: UserService) { }
 
   ngOnInit() {
-    this.setPartialData();
+    this.setInitialValue();
   }
 
-  setPartialData(){
+  setInitialValue(){
     this.formData = {};
-    this.regionList = null;
-    this.circleList = null;
-    this.divisionList = null;
-    this.zoneList = null;
+    this.regionList = [];
+    this.circleList = [];
+    this.divisionList = [];
+    this.zoneList = [];
     this.getRegionList();
   }
 
   getRegionList(){
-    this.regionList = null;
+    this.regionList = [];
     this.regionService.getRegions(false).subscribe(successResponse =>{
       this.regionList = successResponse;
       console.log(this.regionList);
@@ -56,7 +56,7 @@ export class UserAddComponent implements OnInit {
   }
 
   getCircleList(regionId){
-    this.circleList = null;
+    this.circleList = [];
     this.circleService.getCirclesByRegionId(regionId, false).subscribe(successResponse =>{
       this.circleList = successResponse;
       console.log(this.circleList);
@@ -72,7 +72,7 @@ export class UserAddComponent implements OnInit {
   }
 
   getDivisionList(circleId){
-    this.divisionList = null;
+    this.divisionList = [];
     this.divisionService.getDivisionsByCircleId(circleId, false).subscribe(successRespose =>{
       this.divisionList = successRespose;
       console.log(successRespose);
@@ -87,7 +87,7 @@ export class UserAddComponent implements OnInit {
   }
 
   getZoneList(divisionId){
-    this.zoneList = null;
+    this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successRespose =>{
       this.zoneList = successRespose;
       console.log(successRespose);
@@ -112,7 +112,7 @@ export class UserAddComponent implements OnInit {
       let alertResponse =this.globalResources.successAlert("User added successfully !!!");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(userAddForm);
-        this.setPartialData();
+        this.setInitialValue();
       });
     },errorResponse=>{
       this._submitClicked = false;
@@ -122,7 +122,7 @@ export class UserAddComponent implements OnInit {
 
   resetClicked(userAddForm){
     this.globalResources.resetValidateForm(userAddForm);
-    this.setPartialData();
+    this.setInitialValue();
   }
 
 }

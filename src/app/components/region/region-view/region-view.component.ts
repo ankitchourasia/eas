@@ -23,6 +23,13 @@ export class RegionViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    this.setInitailValue();
+  }
+
+  setInitailValue(){
+    this.regionToEdit = undefined;
+    this.regionList = [];
+    this.pagedRegionList = [];
     this.getRegionList();
   }
 
@@ -49,6 +56,9 @@ export class RegionViewComponent implements OnInit {
   _updateClicked: boolean;
   updateClicked(updateRegionForm, modalCloseButtonRef){
     let methodName = "updateClicked";
+    if(!this.globalResources.validateForm(updateRegionForm)){
+      return;
+    }
     this._updateClicked = true;
       this.regionService.updateRegion(this.regionToEdit, false).subscribe(successResposne =>{
         this._updateClicked = false;
@@ -67,6 +77,7 @@ export class RegionViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedRegionList = [];
   }
 
   setPage(page: number) {
@@ -80,5 +91,7 @@ export class RegionViewComponent implements OnInit {
   closeModal(updateRegionForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(updateRegionForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.regionToEdit = undefined;
   }
 }

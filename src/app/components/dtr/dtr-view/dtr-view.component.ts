@@ -80,7 +80,7 @@ export class DtrViewComponent implements OnInit {
 
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
-    let fileUrl = null;
+    let fileUrl = undefined;
     if(this.user.role === this.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/dtr/division/" + this.user.division.id;
 		}else{
@@ -116,18 +116,18 @@ export class DtrViewComponent implements OnInit {
     });
   }
 
-  _editClicked: boolean;
   editClicked(dtr){
-    console.log(dtr);
     this.dtrToEdit = Object.assign({}, dtr);
     this.dtrToEdit.srDate = this.globalResources.getDateFromDatetimestamp(this.dtrToEdit.srDate);
     this.getZoneListByDivisionId(this.dtrToEdit.zone.division.id);
     this.getSubstationByZoneId(this.dtrToEdit.zoneId);
     this.getFeederBySubstationId(this.dtrToEdit.substationId);
-    this._editClicked = true;
   }
 
   getZoneListByDivisionId(divisionId){
+    if(this.zoneList && this.zoneList.length > 0){
+      return;
+    }
     this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       this.zoneList = successResponse;
@@ -137,7 +137,7 @@ export class DtrViewComponent implements OnInit {
   }
 
   zoneChanged(){
-    this.substationList = null;
+    this.substationList = undefined;
     this.dtrToEdit.feederId = undefined;
     this.dtrToEdit.substationId = undefined;
     this.getSubstationByZoneId(this.dtrToEdit.zoneId);
@@ -153,7 +153,7 @@ export class DtrViewComponent implements OnInit {
   }
 
   substationChanged(){
-    this.feederList = null;
+    this.feederList = undefined;
     this.dtrToEdit.feederId = undefined;
     this.getFeederBySubstationId(this.dtrToEdit.substationId);  
   }
@@ -181,9 +181,8 @@ export class DtrViewComponent implements OnInit {
         let alertResponse = this.globalResources.successAlert("DTR updated successfully");
         alertResponse.then(result =>{
           this.closeModal(updateDTRForm, modalCloseButtonRef);
-          this._editClicked = false;
           this.getDTRByDivisionId(this.user.division.id);
-          this.dtrToEdit = null;
+          this.dtrToEdit = undefined;
         });
       }, errorResponse =>{
         this._updateClicked = false;
@@ -208,7 +207,8 @@ export class DtrViewComponent implements OnInit {
   closeModal(updateDTRForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(updateDTRForm);
     modalCloseButtonRef.click();
-    this._editClicked = false;
+    this._updateClicked = false;
+    this.dtrToEdit = undefined;
   }
 
 }

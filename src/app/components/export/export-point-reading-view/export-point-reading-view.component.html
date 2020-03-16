@@ -70,7 +70,7 @@
 						<td>{{exportPointReading?.totalConsumption}}</td>
 						<td>{{exportPointReading?.billMonth | uppercase}}</td>
             <td class="align-middle">
-                <a href="javascript:void(0);" (click)="editClicked(exportPointReading)"><span class="fa fa-pencil"></span></a>
+                <a href="javascript:void(0);" (click)="editClicked(exportPointReading)" data-toggle="modal" data-target="#exportPointReadingModal"><span class="fa fa-pencil"></span></a>
             </td>
           </tr>
           <tr *ngIf="exportPointReadingList && exportPointReadingList.length <= 0">
@@ -102,123 +102,122 @@
   </div>
 </div>
 
-<div class="modal-backdrop" [ngStyle]="{'display':display}"></div>
-<div class="modal"  id="exportPointReadingModal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+<!-- <div class="modal-backdrop"></div> -->
+<fieldset class="modal fade"  data-backdrop="static" data-keyboard="false" id="exportPointReadingModal" tabindex="-1" role="dialog"
+  #exportPointReadingUpdateForm="ngForm" ngForm autocomplete="off" [disabled]="_updateClicked" *ngIf="updateFormData">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header bg-inverse text-default">
         <h5 class="modal-title">Update 11KV Export Point Readings</h5>
-        <button type="button" class="close text-default" data-dismiss="modal" aria-label="Close" (click)="cancelClicked(exportPointReadingUpdateForm)">
+        <button type="button" class="close text-default" data-dismiss="modal" aria-label="Close" (click)="closeModal(exportPointReadingUpdateForm, modalCloseButtonRef)">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #exportPointReadingUpdateForm="ngForm" autocomplete="off">
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Zone</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="(updateFormData?.zone?.name | uppercase)" disabled>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Zone</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="(updateFormData?.zone?.name | uppercase)" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Location Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="(updateFormData?.feeder?.locationName | uppercase)" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Meter No</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="(updateFormData?.meterNo | uppercase)" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Meter MF</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="updateFormData?.mf" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Bill Month</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="(updateFormData?.billMonth | uppercase)" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Previous Reading</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="updateFormData?.prevReading" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Previous Reading Date</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="(updateFormData?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Current Reading</label>
+          <div class="col-sm-8">
+            <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
+              class="form-control" [(ngModel)]="updateFormData.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="(updateFormData?.prevReading)" step="0.001" required (change)="!currentReading.errors && currentReadingChanged()">
+            <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
+              <div [hidden]="!currentReading.errors.required">required field</div>
+              <div [hidden]="!currentReading.errors.min || currentReading.errors.required">can not be less than {{updateFormData.prevReading}}</div>
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Location Name</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="(updateFormData?.feeder?.locationName | uppercase)" disabled>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Current Reading Date</label>
+          <div class="col-sm-8">
+            <input type="date" [ngClass]="{'is-valid': !currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched),'is-invalid': currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)}"
+              class="form-control" [(ngModel)]="updateFormData.currReadingDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate" [min]="(updateFormData?.prevReadingDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
+            <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
+              <div [hidden]="!currentReadingDate.errors.required">required field</div>
+              <div [hidden]="!currentReadingDate.errors.min || currentReadingDate.errors.required">can not be less than {{updateFormData.prevReadingDate | date: globalConstants.DATE_FORMAT | uppercase}}</div>
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Meter No</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="(updateFormData?.meterNo | uppercase)" disabled>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Reading Difference</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="updateFormData?.readingDiff" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Metered Consumption</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="updateFormData?.meterConsumption" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Assessment Units</label>
+          <div class="col-sm-8">
+            <input type="number" [ngClass]="{'is-valid': !assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched),'is-invalid': assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)}"
+              class="form-control" [(ngModel)]="updateFormData.assUnit" #assessmentUnit="ngModel" id="assessmentUnit"  name="assessmentUnit" [min]="0" step="0" required (change)="!assessmentUnit.errors && assessmentUnitChanged()">
+            <div class="invalid-feedback" *ngIf="assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)">
+              <div [hidden]="!assessmentUnit.errors.required">required field</div>
+              <div [hidden]="!assessmentUnit.errors.min || assessmentUnit.errors.required">can not be less than 0</div>
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Meter MF</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="updateFormData?.mf" disabled>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Total Consumption</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" [value]="updateFormData?.totalConsumption" disabled>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Bill Month</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="(updateFormData?.billMonth | uppercase)" disabled>
-            </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-4 offset-4">
+            <button type="button" class="btn btn-success btn-block" (click)="updateClicked(exportPointReadingUpdateForm, modalCloseButtonRef)">
+              Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
+            </button>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Previous Reading</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="updateFormData?.prevReading" disabled>
-            </div>
+          <div class="col-4">
+              <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" #modalCloseButtonRef (click)="closeModal(exportPointReadingUpdateForm, modalCloseButtonRef)">Cancel</button>
           </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Previous Reading Date</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="(updateFormData?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Current Reading</label>
-            <div class="col-sm-8">
-              <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
-                class="form-control" [(ngModel)]="updateFormData.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="(updateFormData?.prevReading)" step="0.001" required (change)="!currentReading.errors && currentReadingChanged()">
-              <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
-                <div [hidden]="!currentReading.errors.required">required field</div>
-                <div [hidden]="!currentReading.errors.min || currentReading.errors.required">can not be less than {{updateFormData.prevReading}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Current Reading Date</label>
-            <div class="col-sm-8">
-              <input type="date" [ngClass]="{'is-valid': !currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched),'is-invalid': currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)}"
-                class="form-control" [(ngModel)]="updateFormData.currReadingDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate" [min]="(updateFormData?.prevReadingDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
-              <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
-                <div [hidden]="!currentReadingDate.errors.required">required field</div>
-                <div [hidden]="!currentReadingDate.errors.min || currentReadingDate.errors.required">can not be less than {{updateFormData.prevReadingDate | date: globalConstants.DATE_FORMAT | uppercase}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Reading Difference</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="updateFormData?.readingDiff" disabled>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Metered Consumption</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="updateFormData?.meterConsumption" disabled>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Assessment Units</label>
-            <div class="col-sm-8">
-              <input type="number" [ngClass]="{'is-valid': !assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched),'is-invalid': assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)}"
-                class="form-control" [(ngModel)]="updateFormData.assUnit" #assessmentUnit="ngModel" id="assessmentUnit"  name="assessmentUnit" [min]="0" step="0" required (change)="!assessmentUnit.errors && assessmentUnitChanged()">
-              <div class="invalid-feedback" *ngIf="assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)">
-                <div [hidden]="!assessmentUnit.errors.required">required field</div>
-                <div [hidden]="!assessmentUnit.errors.min || assessmentUnit.errors.required">can not be less than 0</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Total Consumption</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" [value]="updateFormData?.totalConsumption" disabled>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-4 offset-4">
-              <button type="button" class="btn btn-success form-control" (click)=updateClicked(exportPointReadingUpdateForm)>
-                Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
-              </button>
-            </div>
-            <div class="col-4">
-                <button type="button" class="btn btn-danger form-control" data-dismiss="modal" #modalCloseButtonRef (click)="cancelClicked(exportPointReadingUpdateForm)">Cancel</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</fieldset>

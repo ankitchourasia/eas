@@ -22,20 +22,20 @@ export class ZoneAddComponent implements OnInit {
     private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService) { }
 
   ngOnInit() {
-    this.setPartialData();
+    this.setInitialValue();
   }
 
-  setPartialData(){
+  setInitialValue(){
     this.formData = {};
     this.formData.baselineLoss = {}
-    this.regionList = null;
-    this.circleList = null;
-    this.divisionList = null;
+    this.regionList = [];
+    this.circleList = [];
+    this.divisionList = [];
     this.getRegionList();
   }
 
   getRegionList(){
-    this.regionList = null;
+    this.regionList = [];
     this.regionService.getRegions(false).subscribe(successResponse =>{
       this.regionList = successResponse;
       console.log(this.regionList);
@@ -54,7 +54,7 @@ export class ZoneAddComponent implements OnInit {
   }
 
   getCircleList(){
-    this.circleList = null;
+    this.circleList = [];
     this.circleService.getCirclesByRegionId(this.formData.regionId, false).subscribe(successResponse =>{
       this.circleList = successResponse;
       console.log(this.circleList);
@@ -71,7 +71,7 @@ export class ZoneAddComponent implements OnInit {
   }
 
   getDivisionList(){
-    this.divisionList = null;
+    this.divisionList = [];
     this.divisionService.getDivisionsByCircleId(this.formData.circleId, false).subscribe(successRespose =>{
       this.divisionList = successRespose;
       console.log(successRespose);
@@ -95,7 +95,7 @@ export class ZoneAddComponent implements OnInit {
       let alertResponse =this.globalResources.successAlert("Zone added successfully !!!");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(zoneAddForm);
-        this.setPartialData();
+        this.setInitialValue();
       });
     },errorResponse=>{
       this._submitClicked = false;
@@ -105,7 +105,7 @@ export class ZoneAddComponent implements OnInit {
 
   resetClicked(zoneAddForm){
     this.globalResources.resetValidateForm(zoneAddForm);
-    this.setPartialData();
+    this.setInitialValue();
   }
 
 }

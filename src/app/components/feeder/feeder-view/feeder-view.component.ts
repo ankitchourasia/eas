@@ -55,7 +55,7 @@ export class FeederViewComponent implements OnInit {
 
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
-    let fileUrl = null;
+    let fileUrl = undefined;
     if(this.user.role === this.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder/division/" + this.user.division.id;
 		}else{
@@ -94,12 +94,14 @@ export class FeederViewComponent implements OnInit {
   
   editButtonClicked(feeder){
     this.feederToEdit = Object.assign({}, feeder);
-    console.log(this.feederToEdit);
     this.getZoneListByDivisionId(this.feederToEdit.zone.division.id);
     this.getSubstationByZoneId(this.feederToEdit.zoneId);
   }
 
   getZoneListByDivisionId(divisionId){
+    if(this.zoneList && this.zoneList.length > 0){
+      return;
+    }
     this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       this.zoneList = successResponse;
@@ -110,7 +112,7 @@ export class FeederViewComponent implements OnInit {
 
   zoneChanged(){
     console.log("zoneChanged");
-    this.substationList = null;
+    this.substationList = undefined;
     this.feederToEdit.substationId = undefined;
     this.getSubstationByZoneId(this.feederToEdit.zoneId);
   }
@@ -136,7 +138,7 @@ export class FeederViewComponent implements OnInit {
           console.log("alert result", result);
           this.closeModal(updateFeederForm, modalCloseButtonRef);
           this.getFeeders();
-          this.feederToEdit = null;
+          this.feederToEdit = undefined;
         });
       }, errorResponse =>{
         this._updateClicked = false;
@@ -161,5 +163,7 @@ export class FeederViewComponent implements OnInit {
   closeModal(updateFeederForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(updateFeederForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.feederToEdit = undefined;
   }
 }

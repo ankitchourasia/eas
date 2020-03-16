@@ -23,16 +23,19 @@ export class ZoneViewComponent implements OnInit {
     private zoneService: ZoneService) { }
 
   ngOnInit() {
-    this.getPartialData();
+    this.setInitialValue();
   }
 
-  getPartialData(){
+  setInitialValue(){
+    this.zoneToEdit = undefined;
+    this.zoneList = [];
+    this.pagedZoneList = [];
     this.getZoneList();
   }
 
   getZoneList(){
     this.loading = true;
-    this.zoneList = null;
+    this.zoneList = [];
     this.zoneService.getZones(false).subscribe(successResponse =>{
       this.loading = false;
       this.zoneList = successResponse;
@@ -54,6 +57,9 @@ export class ZoneViewComponent implements OnInit {
   _updateClicked: boolean;
   updateClicked(zoneEditForm, modalCloseButtonRef){
     let methodName = "updateClicked";
+    if(!this.globalResources.validateForm(zoneEditForm)){
+      return;
+    }
     this._updateClicked = true;
     this.zoneService.updateZone(this.zoneToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
@@ -71,6 +77,7 @@ export class ZoneViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedZoneList = [];
   }
 
   setPage(page: number) {
@@ -84,5 +91,7 @@ export class ZoneViewComponent implements OnInit {
   closeModal(zoneEditForm, modalCloseButtonRef){
     this.globalResources.resetValidateForm(zoneEditForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.zoneToEdit = undefined;
   }
 }
