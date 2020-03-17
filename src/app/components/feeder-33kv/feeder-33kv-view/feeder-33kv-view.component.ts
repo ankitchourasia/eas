@@ -95,20 +95,6 @@ export class Feeder33KVViewComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  exportClicked(){
-    var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
-    let fileUrl = null;
-    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
-			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/division/" + this.user.division.id;
-		}else{
-			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-33kv/zone/" + this.user.zone.id;
-		}
-    this.globalResources.downloadFile(fileUrl, params)
-  }
-  
-=======
->>>>>>> cfb16eb3d9e611bd9774750d6b02ea13b7ca1a31
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
