@@ -56,9 +56,9 @@
     <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
         <tr>
-          <td>S.No</td>
-          <td>Feeder Name</td>
-          <td>Group No</td>
+          <td nowrap>S.No</td>
+          <td nowrap>Feeder Name</td>
+          <td nowrap>Group No</td>
           <!-- <td>Bill Month</td> -->
           <td>Uploaded</td>
         </tr>
@@ -104,31 +104,31 @@
   <div class="table-responsive mb-2">
     <table class="table table-sm table-borderless pt-auto pb-auto mb-0 text-left">
       <tr>
-        <td>DIVISION NAME</td>
+        <td nowrap>DIVISION NAME</td>
         <td><strong>{{file?.upload?.divisionName | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td>LOCATION CODE</td>
+        <td nowrap>LOCATION CODE</td>
         <td><strong>{{file?.upload?.locationCode | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td>ZONE</td>
+        <td nowrap>ZONE</td>
         <td><strong>{{file?.upload?.zone?.name ? (file?.upload?.zone?.name | uppercase ) : "NA"}}</strong></td>
       </tr>
       <tr>
-        <td>BILL MONTH</td>
+        <td nowrap>BILL MONTH</td>
         <td><strong>{{file?.upload?.billMonth | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td>GROUP NO</td>
+        <td nowrap>GROUP NO</td>
         <td><strong>{{file?.upload?.groupNo | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td>TOTAL FILE RECORDS</td>
+        <td nowrap>TOTAL FILE RECORDS</td>
         <td><strong>{{file?.upload?.totalRecords}}</strong></td>
       </tr>
       <tr>
-        <td>TOTAL INSERTED RECORDS</td>
+        <td nowrap>TOTAL INSERTED RECORDS</td>
         <td><strong>{{file?.upload?.totalInsertedRecords}}</strong></td>
       </tr>
     </table>

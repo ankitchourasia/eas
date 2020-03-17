@@ -55,24 +55,24 @@
     <tbody>
       <ng-template [ngIf]="dtrReadingList && dtrReadingList.length && !_searchClicked">
       <tr *ngFor="let dtrReading of pagedDtrReadingList; let i = index">
-        <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-        <td class="align-middle">{{dtrReading?.zone?.name | uppercase}}</td>
-        <td class="align-middle">{{dtrReading?.feeder?.name}}</td>
-        <td class="align-middle">{{dtrReading?.dtr?.dtrName}}</td>
-        <td class="align-middle">{{dtrReading?.groupNo1}}</td>
-        <td class="align-middle">{{dtrReading?.dtr?.billingRDNo}}</td>
-        <td class="align-middle">{{dtrReading?.meterNo}}</td>
-        <td class="align-middle">{{dtrReading?.mf}}</td>
-        <td class="align-middle">{{dtrReading?.billMonth}}</td>
-        <td class="align-middle">{{dtrReading?.prevReading}}</td>
-        <td class="align-middle">{{dtrReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-        <td class="align-middle">{{dtrReading?.currReading}}</td>
-        <td class="align-middle">{{dtrReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-        <td class="align-middle">{{dtrReading?.readingDiff}}</td>
-        <td class="align-middle">{{dtrReading?.meterConsumption}}</td>
-        <td class="align-middle">{{dtrReading?.assUnit}}</td>
-        <td class="align-middle">{{dtrReading?.totalConsumption}}</td>
-        <td class="align-middle">
+        <td nowrap class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.zone?.name | uppercase}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.feeder?.name}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.dtr?.dtrName}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.groupNo1}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.dtr?.billingRDNo}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.meterNo}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.mf}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.billMonth}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.prevReading}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.currReading}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.readingDiff}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.meterConsumption}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.assUnit}}</td>
+        <td nowrap class="align-middle">{{dtrReading?.totalConsumption}}</td>
+        <td nowrap class="align-middle">
           <a href="javascript:void(0)" (click)="editClicked(dtrReading)" data-toggle="modal" data-target="#updateDtrReadingModal">
             <span class="fa fa-pencil"></span>
           </a>

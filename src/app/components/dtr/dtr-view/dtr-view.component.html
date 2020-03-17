@@ -30,28 +30,28 @@
     <tbody>
       <ng-template [ngIf]="dtrList && dtrList.length && !loading">
       <tr *ngFor="let dtr of pagedDtrList; let i = index">
-        <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-        <td class="align-middle">{{dtr?.zone?.name | uppercase}}</td>
-        <td class="align-middle">{{dtr?.substation?.name}}</td>
-        <td class="align-middle">{{dtr?.feeder?.name}}</td>
-        <td class="align-middle">{{dtr?.dtrName}}</td>
-        <td class="align-middle">{{dtr?.billingRDNo}}</td>
-        <td class="align-middle">{{dtr?.overallMF}}</td>
-        <td class="align-middle">{{dtr?.dtrMeterMake}}</td>
-        <td class="align-middle">{{dtr?.dtrMeterNo}}</td>
-        <td class="align-middle">{{dtr?.dtrCapacity}}</td>
-        <td class="align-middle">{{dtr?.dtrCode}}</td>
-        <td class="align-middle">{{dtr?.noOfDTRMeters}}</td>
-        <td class="align-middle">{{dtr?.dtrMeterCapacity}}</td>
-        <td class="align-middle">{{dtr?.dtrMeterSR}}</td>
-        <td class="align-middle">{{dtr?.srDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-        <td class="align-middle">{{dtr?.ltFeeders}}</td>
-        <td class="align-middle">
+        <td nowrap class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+        <td nowrap class="align-middle">{{dtr?.zone?.name | uppercase}}</td>
+        <td nowrap class="align-middle">{{dtr?.substation?.name}}</td>
+        <td nowrap class="align-middle">{{dtr?.feeder?.name}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrName}}</td>
+        <td nowrap class="align-middle">{{dtr?.billingRDNo}}</td>
+        <td nowrap class="align-middle">{{dtr?.overallMF}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrMeterMake}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrMeterNo}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrCapacity}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrCode}}</td>
+        <td nowrap class="align-middle">{{dtr?.noOfDTRMeters}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrMeterCapacity}}</td>
+        <td nowrap class="align-middle">{{dtr?.dtrMeterSR}}</td>
+        <td nowrap class="align-middle">{{dtr?.srDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+        <td nowrap class="align-middle">{{dtr?.ltFeeders}}</td>
+        <td nowrap class="align-middle">
           <a href="javascript:void(0)" (click)="editClicked(dtr)" data-toggle="modal" data-target="#updateDTRModal">
             <span class="fa fa-pencil"></span>
           </a>
         </td>
-        <td class="align-middle" *ngIf="user.role === ROLE_ADMIN || user.role === ROLE_HTM_ADMIN">
+        <td nowrap class="align-middle" *ngIf="user.role === ROLE_ADMIN || user.role === ROLE_HTM_ADMIN">
           <a href="javascript:void(0)" (click)="deleteClicked(dtr)">
             <span class="fa fa-trash"></span>
           </a>

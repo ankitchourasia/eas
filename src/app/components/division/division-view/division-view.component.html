@@ -3,11 +3,11 @@
     <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
         <tr>
-          <td>SNo</td>
-          <td>Region Name</td>
-          <td>Circle Name</td>
-          <td>Division Name</td>
-          <td>Edit</td>
+          <td nowrap>SNo</td>
+          <td nowrap>Region Name</td>
+          <td nowrap>Circle Name</td>
+          <td nowrap>Division Name</td>
+          <td nowrap>Edit</td>
         </tr>
       </thead>
       <tbody>
@@ -55,7 +55,7 @@
     </ul>
   </nav>
 </div>
-<fieldset class="modal fade"  data-backdrop="static" id="updateDivisionModal" tabindex="-1" role="dialog" 
+<fieldset class="modal fade" data-backdrop="static" data-keyboard="false" id="updateDivisionModal" tabindex="-1" role="dialog" 
   #divisionEditForm = "ngForm" ngForm autocomplete="off" [disabled]="_updateClicked" *ngIf="divisionToEdit">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
