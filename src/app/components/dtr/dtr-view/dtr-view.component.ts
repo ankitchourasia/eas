@@ -34,11 +34,23 @@ export class DtrViewComponent implements OnInit {
     private zoneService: ZoneService) { }
 
     ngOnInit() {
+      this.setInitialValue();
       this.user = this.globalResources.getUserDetails();
       this.searchClicked();
     }
+
+    setInitialValue(){
+      this.dtrToEdit = undefined;
+      this.dtrList = [];
+      this.pagedDtrList = [];
+      this.zoneList = [];
+      this.feederList = [];
+      this.substationList = [];
+
+    }
   
     searchClicked(){
+      this.setInitialValue();
       if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.getDTRByDivisionId(this.user.division.id);
       }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
@@ -194,6 +206,7 @@ export class DtrViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedDtrList = [];
   }
 
   setPage(page: number) {

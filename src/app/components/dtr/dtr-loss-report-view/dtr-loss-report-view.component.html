@@ -84,7 +84,7 @@
         <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
       </select>
       <div class="input-group-append">
-        <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="feederName.errors || month.errors || year.errors || _searchClicked">
+        <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="feederName.errors || month.errors || year.errors || _searchClicked">
           Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
         </button>
       </div>

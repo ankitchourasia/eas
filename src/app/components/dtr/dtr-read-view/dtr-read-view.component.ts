@@ -26,10 +26,18 @@ export class DtrReadViewComponent implements OnInit {
     private dtrService : DtrService, private paginationService : PaginationService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
   }
 
+  setInitialValue(){
+    this.dtrReadingList = [];
+    this.pagedDtrReadingList = [];
+    this.dtrReadingToEdit = undefined;
+  }
+
   searchClicked(){
+    this.setInitialValue();
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
     this.getAllDtrReadingByDivisionIdAndBillMonth(this.user.division.id, billingMonth);
@@ -76,6 +84,7 @@ export class DtrReadViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedDtrReadingList = [];
   }
 
   setPage(page: number) {

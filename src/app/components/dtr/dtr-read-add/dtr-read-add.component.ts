@@ -27,7 +27,7 @@ export class DtrReadAddComponent implements OnInit {
   feederList: any;
   substationList: any;
   dtrReadAdd: any;
-  submitButtonClicked : boolean;
+  _submitClicked : boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
     private feederService : FeederService, private substationService: SubstationService, private regionService: RegionService, 
@@ -43,7 +43,7 @@ export class DtrReadAddComponent implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.substationList = null;
+    this.substationList = [];
     this.meterReplacementButtonClicked = false;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
@@ -80,17 +80,17 @@ export class DtrReadAddComponent implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.dtrReadAdd.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.dtrReadAdd.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.dtrReadAdd.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.dtrReadAdd.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.dtrReadAdd.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.dtrReadAdd.dtr = undefined;
       this.dtrPreviousReading = null;
       this.setPreviousReadingData(this.dtrPreviousReading);
@@ -109,15 +109,15 @@ export class DtrReadAddComponent implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.dtrReadAdd.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.dtrReadAdd.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.dtrReadAdd.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.dtrReadAdd.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.dtrReadAdd.dtr = undefined;
       this.dtrPreviousReading = null;
       this.setPreviousReadingData(this.dtrPreviousReading);
@@ -136,13 +136,13 @@ export class DtrReadAddComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.dtrReadAdd.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.dtrReadAdd.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.dtrReadAdd.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.dtrReadAdd.dtr = undefined;
       this.dtrPreviousReading = null;
       this.setPreviousReadingData(this.dtrPreviousReading);
@@ -162,11 +162,11 @@ export class DtrReadAddComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = null;
+    this.substationList = [];
     this.dtrReadAdd.substation = undefined;
-    this.feederList = null;
+    this.feederList = [];
     this.dtrReadAdd.feeder = undefined;
-    this.dtrList = null;
+    this.dtrList = [];
     this.dtrReadAdd.dtr = undefined;
     this.dtrPreviousReading = null;
     this.setPreviousReadingData(this.dtrPreviousReading);
@@ -183,9 +183,9 @@ export class DtrReadAddComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = null;
+    this.feederList = [];
     this.dtrReadAdd.feeder = undefined;
-    this.dtrList = null;
+    this.dtrList = [];
     this.dtrReadAdd.dtr = undefined;
     this.dtrPreviousReading = null;
     this.setPreviousReadingData(this.dtrPreviousReading);
@@ -202,7 +202,7 @@ export class DtrReadAddComponent implements OnInit {
   }
 
   feederChanged(feeder){
-    this.dtrList = null;
+    this.dtrList = [];
     this.dtrReadAdd.dtr = undefined;
     this.dtrPreviousReading = null;
     this.setPreviousReadingData(this.dtrPreviousReading);
@@ -321,7 +321,7 @@ export class DtrReadAddComponent implements OnInit {
   submitClicked(dtrReadAddForm){
     console.log(this.dtrReadAdd);
     if(this.globalResources.validateForm(dtrReadAddForm)){
-      this.submitButtonClicked = true;
+      this._submitClicked = true;
       this.dtrReadAdd.dtrId = this.dtrReadAdd.dtr.id;
       this.dtrReadAdd.zoneId = this.dtrReadAdd.zone.id;
       this.dtrReadAdd.feederId = this.dtrReadAdd.feeder.id;
@@ -330,7 +330,7 @@ export class DtrReadAddComponent implements OnInit {
       this.dtrReadAdd.meterNo = this.dtrReadAdd.dtr.dtrMeterNo;
       this.dtrReadAdd.readerNo1 = this.dtrReadAdd.dtr.billingRDNo;
       this.calculateDifference();
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       if(this.meterReplacementButtonClicked){
         this.addDtrReadWithMeterReplacement(dtrReadAddForm);
       }else{
@@ -403,32 +403,32 @@ export class DtrReadAddComponent implements OnInit {
 
   addDtrReadWithMeterReplacement(dtrReadAddForm){
     let methodName = "addDtrReadWithMeterReplacement";
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.dtrService.addDtrReadWithMeterReplacement(this.dtrReadAdd, this.user.username).subscribe(successResponese =>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read added successfully");
       alertResponse.then(result =>{
         this.setPartialData();
         this.globalResources.resetValidateForm(dtrReadAddForm);
       });
     }, errorResponse=>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
 
   addDtrRead(dtrReadAddForm){
     let methodName = "addDtrRead";
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.dtrService.addDTRRead(this.dtrReadAdd, this.user.username).subscribe(successResponese =>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read added successfully");
       alertResponse.then(result =>{
         this.setPartialData();
         this.globalResources.resetValidateForm(dtrReadAddForm);
       });
     },errorResponse=>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }

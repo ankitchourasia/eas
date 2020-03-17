@@ -29,11 +29,11 @@ const routes: Routes = [
           //   loadChildren: 'app/modules/admin/admin-dtr/admin-dtr.module#AdminDtrModule'
           // },
           {
-            path: 'feeder/33kv',
+            path: 'feeder-33kv',
             loadChildren: 'app/modules/admin/admin-feeder-33kv/admin-feeder-33kv.module#AdminFeeder33KVModule'
           },
           {
-            path: 'feeder/11kv',
+            path: 'feeder-11kv',
             loadChildren: 'app/modules/admin/admin-feeder-11kv/admin-feeder-11kv.module#AdminFeeder11KVModule'
           },
           {

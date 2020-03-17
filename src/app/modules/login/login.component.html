@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div>
-                <form #loginForm="ngForm" autocomplete="off">
+                <fieldset #loginForm="ngForm" ngForm autocomplete="off" [disabled]="_submitClicked">
                     <div class="form-group">
                         <label class="sr-only">Username</label>
                         <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username" placeholder="Enter Your Username" #username="ngModel" 
@@ -32,12 +32,12 @@
                         </div>
                     </div>
                     <div class="eas-space-around">
-                        <button type="submit" class="btn btn-success" (click)="loginClicked(loginForm)" [disabled]="submitButtonClicked">
-                            login <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="submitButtonClicked"></span>
+                        <button type="submit" class="btn btn-success" (click)="loginClicked(loginForm)">
+                            login <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
                         </button>
                         <button type="reset" class="btn btn-danger">clear</button>
                     </div>
-                </form>
+                </fieldset>
             </div>
         </div>
         <div class="card-footer text-muted">

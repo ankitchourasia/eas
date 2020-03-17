@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   user : any;
   loginErrorText: any;
   loginError: boolean;
-  submitButtonClicked : boolean;
+  _submitClicked : boolean;
 
   constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService, private zoneService : ZoneService) { }
 
@@ -26,36 +26,33 @@ export class LoginComponent implements OnInit {
   }
 
   processLoginForm(){
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.loginService.authenticate(this.user).subscribe((successResponse) =>{
-      console.log(this.user, successResponse);
       if(successResponse && successResponse.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
         let user = successResponse.json();
         sessionStorage.setItem('userDetails', JSON.stringify(user));
         if(user.role === GlobalConfiguration.ROLE_ADMIN){
-          console.log("inside admin");
           this.router.navigate(["/admin"]);
-          // this.submitButtonClicked = false;
+          // this._submitClicked = false;
         }else if(user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
           this.router.navigate(["/super_admin"]);
-          this.submitButtonClicked = false;
+          this._submitClicked = false;
           // console.log("inside super-admin");
         }
         else if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
           this.router.navigate(["/admin"]);
-          this.submitButtonClicked = false;
+          this._submitClicked = false;
           // console.log("inside field-admin");
         }
       }else{
         this.loginError= true;
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         this.loginErrorText = "Invalid username/password. Try again!";
       }
     }, errorResponse =>{
-      console.log(errorResponse);
       this.loginError= true;
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.loginErrorText = "Invalid username/password. Try again!";
       // alert("Invalid credentials");
     });
