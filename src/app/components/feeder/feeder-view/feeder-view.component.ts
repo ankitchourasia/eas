@@ -23,6 +23,7 @@ export class FeederViewComponent implements OnInit {
   pageSize: number;
   pagedFeederList : any;
   loading : boolean;
+  _deleteClicked: boolean;
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
@@ -30,8 +31,17 @@ export class FeederViewComponent implements OnInit {
     private zoneService: ZoneService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
     this.getFeeders();
+  }
+
+  setInitialValue(){
+    this.feederToEdit = undefined;
+    this.zoneList = [];
+    this.feederList = [];
+    this.substationList = [];
+    this.pagedFeederList = [];
   }
 
   getFeeders(){
@@ -64,7 +74,6 @@ export class FeederViewComponent implements OnInit {
     this.globalResources.downloadFile(fileUrl, params)
   }
 
-  deleteButtonClicked: boolean;
   deleteClicked(feeder){
     let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this feeder ?")
     confirmAlertResponse.then((result) => {
@@ -78,15 +87,15 @@ export class FeederViewComponent implements OnInit {
 
   deleteFeeder(feederId, deletedBy){
     let methodName = "deleteFeeder";
-    this.deleteButtonClicked = true;
+    this._deleteClicked = true;
     this.feederService.deleteFeederById(feederId, deletedBy).subscribe(success => {
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       let alertResponse = this.globalResources.successAlert("feeder deleted successfully");
       alertResponse.then(result =>{
         this.getFeeders();
       });
     }, error =>{
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
   }
@@ -150,6 +159,7 @@ export class FeederViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederList = [];
   }
 
   setPage(page: number) {

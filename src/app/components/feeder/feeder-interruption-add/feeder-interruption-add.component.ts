@@ -40,7 +40,7 @@ export class FeederInterruptionAddComponent implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.substationList = null;
+    this.substationList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -76,15 +76,15 @@ export class FeederInterruptionAddComponent implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.formData.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.formData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.formData.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.formData.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.formData.feeder = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -100,13 +100,13 @@ export class FeederInterruptionAddComponent implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.formData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.formData.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.formData.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.formData.feeder = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -122,11 +122,11 @@ export class FeederInterruptionAddComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.formData.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.formData.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.formData.feeder = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -143,9 +143,9 @@ export class FeederInterruptionAddComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = null;
+    this.substationList = [];
     this.formData.substation = undefined;
-    this.feederList = null;
+    this.feederList = [];
     this.formData.feeder = undefined;
     this.getSubstationByZoneId(zone.id);
   }
@@ -159,7 +159,7 @@ export class FeederInterruptionAddComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = null;
+    this.feederList = [];
     this.formData.feeder = undefined;
     this.getFeederBySubstationId(substation.id);  
   }
@@ -189,19 +189,22 @@ export class FeederInterruptionAddComponent implements OnInit {
   }
 
   minutesChanged(){
-    if(this.formData.minutes !== null && this.formData.minutes !== undefined && this.formData.seconds !== null && this.formData.seconds !== undefined){
+    if(this.formData.minutes && this.formData.seconds){
       this.formData.interruptionDuration = (this.formData.minutes * 60) + this.formData.seconds;
     }
   }
 
   secondsChanged(){
-    if(this.formData.minutes !== null && this.formData.minutes !== undefined && this.formData.seconds !== null && this.formData.seconds !== undefined){
+    if(this.formData.minutes && this.formData.seconds){
       this.formData.interruptionDuration = (this.formData.minutes * 60) + this.formData.seconds;
     }
   }
 
   submitClicked(interruptionAddForm){
     let methodName = "submitClicked";
+    if(!this.globalResources.validateForm(interruptionAddForm)){
+      return;
+    }
     this._submitClicked = true;
     this.formData.feederId = this.formData.feeder.id;
     this.formData.groupNo = this.formData.feeder.groupNo;

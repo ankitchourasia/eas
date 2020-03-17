@@ -1,10 +1,7 @@
-<form #feederMappingAddForm="ngForm" autocomplete="off">
+<fieldset #feederMappingAddForm="ngForm" ngForm autocomplete="off" [disabled]="_submitClicked">
   <div class="form-group row">
     <label class="col-4 col-form-label">Region</label>
     <div class="col-8">
-      <!-- <select class="form-control" id="region" name="region">
-        <option selected>{{user?.region?.name | uppercase}}</option>
-      </select> -->
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
         class="form-control" [(ngModel)]="feederMapping.region" #region="ngModel" id="region"  name="region" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -18,9 +15,6 @@
   <div class="form-group row">
     <label class="col-4 col-form-label">Circle</label>
     <div class="col-8">
-      <!-- <select class="form-control" id="circle"  name="circle" required>
-        <option selected>{{user?.circle?.name | uppercase}}</option>
-      </select> -->
       <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
         class="form-control" [(ngModel)]="feederMapping.circle" #circle="ngModel" id="circle"  name="circle" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -34,9 +28,6 @@
   <div class="form-group row">
     <label class="col-4 col-form-label">Division</label>
     <div class="col-8">
-      <!-- <select class="form-control" id="division"  name="division" required>
-        <option selected>{{user?.division?.name | uppercase}}</option>
-      </select> -->
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control" [(ngModel)]="feederMapping.division" #division="ngModel" id="division"  name="division" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
@@ -89,7 +80,11 @@
   <div class="form-group row">
     <label class="col-4 col-form-label">Feeder Type</label>
     <div class="col-8">
-      <input type="text" class="form-control" [ngModel]="feederMapping.feeder?.type" id="mf" name="mf" disabled>
+      <input type="text" [ngClass]="{'is-valid': !feederType.errors && (feederType.dirty || feederType.touched),'is-invalid': feederType.errors && (feederType.dirty || feederType.touched)}"
+        class="form-control" [ngModel]="feederMapping.feeder?.type" #feederType="ngModel" id="feederType" name="feederType" required readonly>
+      <div class="invalid-feedback" *ngIf="feederType.errors && (feederType.dirty || feederType.touched)">
+        <div *ngIf="feederType.errors.required">required field</div>
+      </div>
     </div>
   </div>
   <fieldset *ngIf="feederMapping.feeder?.type && (feederMapping.feeder.type === globalConstants.FEEDER_TYPE_INTER_ZONE || feederMapping.feeder.type === globalConstants.FEEDER_TYPE_INTER_DIVISION)">
@@ -122,7 +117,7 @@
   </fieldset>
   <div class="form-group row">
     <div class="col-4 offset-4">
-      <button type="button" class="btn btn-success btn-block" (click)="submitClicked(feederMappingAddForm)" [disabled]="!feederMappingAddForm.form.valid || feederMapping.feeder?.type === globalConstants.FEEDER_TYPE_PARENTAL || _submitClicked">
+      <button type="button" class="btn btn-success btn-block" (click)="submitClicked(feederMappingAddForm)" [disabled]="feederMapping.feeder?.type === globalConstants.FEEDER_TYPE_PARENTAL">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
@@ -130,4 +125,4 @@
       <button type="button" class="btn btn-danger btn-block" (click)="resetClicked(feederMappingAddForm)">Reset</button>
     </div>
   </div>
-</form>
+</fieldset>

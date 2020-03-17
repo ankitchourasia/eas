@@ -33,23 +33,29 @@ export class FeederAtncLossReportComponent implements OnInit {
   reportGenerated: boolean;
   _searchClicked: boolean;
   display: any = 'none';
-  feederLossReportView : any = {};
+  feederLossReportView : any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private feederService : FeederService, 
     private substationService: SubstationService, private zoneService: ZoneService, private paginationService : PaginationService) { }
 
   ngOnInit() {
-    this.userDetails = {};
-    this.substationList = null;
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
     this.checkUserRoll(this.user);
   }
 
-  checkUserRoll(user){
+  setInitialValue(){
+    this.userDetails = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-   if(user.role === GlobalConfiguration.ROLE_ADMIN){
+    this.substationList = [];
+    this.feederList = [];
+    this.pagedFeederList = [];
+  }
+
+  checkUserRoll(user){
+     if(user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = (user.zoneList);
       this.getZoneListByDivisionId(this.user.division.id);
       this.regionList.push(user.region);
@@ -73,11 +79,11 @@ export class FeederAtncLossReportComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.userDetails.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.userDetails.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.userDetails.feeder = undefined;
       this.userDetails.dtr = undefined;
       this.getZoneListByDivisionId(division.id);
@@ -95,9 +101,9 @@ export class FeederAtncLossReportComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = null;
+    this.substationList = [];
     this.userDetails.substation = undefined;
-    this.feederList = null;
+    this.feederList = [];
     this.userDetails.feeder = undefined;
     this.userDetails.dtr = undefined;
     this.getSubstationByZoneId(zone.id);
@@ -112,7 +118,7 @@ export class FeederAtncLossReportComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = null;
+    this.feederList = [];
     this.userDetails.feeder = undefined; 
   }
 
@@ -162,13 +168,13 @@ export class FeederAtncLossReportComponent implements OnInit {
   }
 
   viewFeederLossReport(){
+    this.feederLossReportView = {};
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.getFeederATnCLossReportBySubstationId(this.userDetails.substation.id, billingMonth);
   }
 
   getFeederATnCLossReportBySubstationId(substationnId, billMonth){
     this.feederService.getFeederATnCLossBySubstationId(substationnId, billMonth).subscribe(success =>{
-      //console.log(success);
       this.feederLossReportView.feederLossReports = success;
       this.intializeGrossValues();
       this.feederLossReportView.feederLossReports.forEach(report => {
@@ -193,10 +199,10 @@ export class FeederAtncLossReportComponent implements OnInit {
 
   calculateTotal(report){
     report.generatedOn = new Date(report.generatedOn).toDateString();
-    this.feederLossReportView.grossInput = this.feederLossReportView.grossInput + parseFloat(report.netFeederInput);
-    this.feederLossReportView.grossSoldUnit = this.feederLossReportView.grossSoldUnit + parseFloat(report.totalSoldUnit);
-    this.feederLossReportView.grossCurrentDemand = this.feederLossReportView.grossCurrentDemand + parseFloat(report.totalCurrentDemand);
-    this.feederLossReportView.grossCollection = this.feederLossReportView.grossCollection + parseFloat(report.totalCollection);
+    this.feederLossReportView.grossInput = this.feederLossReportView.grossInput + Number(report.netFeederInput);
+    this.feederLossReportView.grossSoldUnit = this.feederLossReportView.grossSoldUnit + Number(report.totalSoldUnit);
+    this.feederLossReportView.grossCurrentDemand = this.feederLossReportView.grossCurrentDemand + Number(report.totalCurrentDemand);
+    this.feederLossReportView.grossCollection = this.feederLossReportView.grossCollection + Number(report.totalCollection);
   }
 
   calculateGrossLoss(){
@@ -221,6 +227,7 @@ export class FeederAtncLossReportComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederList = [];
   }
 
   setPage(page: number) {

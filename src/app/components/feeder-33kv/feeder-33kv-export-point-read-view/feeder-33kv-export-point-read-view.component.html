@@ -73,9 +73,11 @@
         <td class="align-middle">{{reading.totalConsumption}}</td>
       </tr>
       </ng-template>
-      <tr>
-        <td class="align-middle" colspan="13" *ngIf="!exportPointReadingList.length && !loading">No Records Found</td>
-        <td class="align-middle" colspan="13" *ngIf="loading"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
+      <tr *ngIf="exportPointReadingList && !exportPointReadingList.length && !loading">
+        <td class="align-middle" colspan="13" >No Records Found</td>
+      </tr>
+      <tr *ngIf="loading">
+        <td class="align-middle" colspan="13"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
       </tr>
     </tbody>
   </table>

@@ -30,8 +30,19 @@ export class FeederAbsentReadingViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    this.setInitialValue();
   }
 
+  setInitialValue(){
+    this.readingToEdit = undefined;
+    this.feederAbsentReadingList = [];
+    this.pagedFeederAbsentReadingList = [];
+  }
+
+  searchClicked(){
+    this.setInitialValue();
+    this.getFeederAbsentReadings();
+  }
   getFeederAbsentReadings(){
     let methodName = "getFeederAbsentReadings"
     this.loading =true;
@@ -53,6 +64,7 @@ export class FeederAbsentReadingViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederAbsentReadingList = [];
   }
 
   setPage(page: number) {

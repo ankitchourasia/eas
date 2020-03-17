@@ -30,11 +30,13 @@ export class FeederReadingViewComponent implements OnInit {
     private globalResources: GlobalResources, private paginationService: PaginationService) { }
 
   ngOnInit() {
+    this.setInitialValues();
     this.user = this.globalResources.getUserDetails();
   }
 
   setInitialValues(){
     this.readingToEdit = undefined;
+    this.feederReadingList = [];
     this.pagedFeederReadingList = [];
   } 
 
@@ -119,6 +121,7 @@ export class FeederReadingViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederReadingList = [];
   }
 
   setPage(page: number) {
