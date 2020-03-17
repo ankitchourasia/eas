@@ -74,9 +74,9 @@ export class ReportD1Component implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.townList = null;
+      this.townList = [];
       this.searchFormData.town = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -92,25 +92,25 @@ export class ReportD1Component implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.townList = null;
+      this.townList = [];
       this.searchFormData.town = undefined;
       this.getTownListByCircleId(circle.id);
     }
   }
   
   townChanged(town){
-    this.searchResultList = null;
+    this.searchResultList = [];
   }
 
   billMonthChanged(){
-    this.searchResultList = null;
+    this.searchResultList = [];
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
   billMonthYearChanged(){
-    this.searchResultList = null;
+    this.searchResultList = [];
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
@@ -126,7 +126,7 @@ export class ReportD1Component implements OnInit {
   lossGenerationStatus: boolean;
 
   getByTownIdAndBillMonth(){
-    this.searchResultList = null;
+    this.searchResultList = [];
     this._searchClicked = true;
     this.reportService.getD1GenerationStatusByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(successResponse =>{
       this._searchClicked = false;
@@ -187,6 +187,7 @@ export class ReportD1Component implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 12;
+    this.pagedSearchResultList = [];
   }
 
   setPage(page: number) {
