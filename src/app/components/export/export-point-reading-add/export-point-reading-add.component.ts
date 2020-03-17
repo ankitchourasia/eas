@@ -355,8 +355,9 @@ export class ExportPointReadingAddComponent implements OnInit {
     });
   }
 
-  resetClicked(){
+  resetClicked(exportPointReadAddForm){
     this.setPartialData();
+    this.globalResources.resetValidateForm(exportPointReadAddForm);
   }
 
   clearPartialData(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
@@ -21,20 +21,29 @@ export class FeederReadingViewComponent implements OnInit {
   year: string;
   loading: boolean;
   readingToEdit: any;
-  updateButtonClicked: boolean;
+  _updateClicked: boolean;
 
   pager: any;
   pageSize: number;
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
-  @ViewChild('closeButtonRef') closeButtonRef: ElementRef;
   constructor(private feederService: FeederService, public globalConstants: GlobalConstants,
     private globalResources: GlobalResources, private paginationService: PaginationService) { }
 
   ngOnInit() {
+    this.setInitialValues();
     this.user = this.globalResources.getUserDetails();
   }
 
-  
+  setInitialValues(){
+    this.readingToEdit = undefined;
+    this.feederReadingList = [];
+    this.pagedFeederReadingList = [];
+  } 
+
+  searchClicked(){
+    this.setInitialValues();
+    this.getFeederReadings();
+  }
   
   getFeederReadings(){
     let methodName = "getFeederReading";
@@ -61,12 +70,11 @@ export class FeederReadingViewComponent implements OnInit {
     this.readingToEdit.currReadingDate = this.globalResources.getDateFromDatetimestamp(this.readingToEdit.currReadingDate);
   }
 
-  updateClicked(updateForm){
+  updateClicked(updateForm, closeButtonRef){
     if(this.globalResources.validateForm(updateForm)){
       this.readingToEdit.currReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.readingToEdit.currReadingDate);
       this.calculateConsumption();
-      let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
-      this.updateReading(nextBillMonth);
+      this.updateReading(updateForm, closeButtonRef);
     }
   }
 
@@ -92,18 +100,19 @@ export class FeederReadingViewComponent implements OnInit {
     }
   }
 
-  updateReading(nextBillMonth){
+  updateReading(updateForm, closeButtonRef){
     let methodName = "updateReading";
-    this.updateButtonClicked = true;
+    this._updateClicked = true;
+    let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
     this.feederService.updateFeederReading(this.readingToEdit, nextBillMonth, this.user.username).subscribe(success =>{
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
       aletResponse.then(result =>{
-        this.closeModal(this.closeButtonRef);
+        this.closeModal(updateForm, closeButtonRef);
         this.readingToEdit = undefined;
       });
     }, errorResponse =>{
-      this.updateButtonClicked = false;
+      this._updateClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }
@@ -112,6 +121,7 @@ export class FeederReadingViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederReadingList = [];
   }
 
   setPage(page: number) {
@@ -121,10 +131,12 @@ export class FeederReadingViewComponent implements OnInit {
     }
     this.pager = this.paginationService.getPager(this.feederReadingList.length, page, this.pageSize);
     this.pagedFeederReadingList = this.feederReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    console.log(this.pagedFeederReadingList);
   }
 
-  closeModal(closeButtonRef: ElementRef){
-    closeButtonRef.nativeElement.click();
+  closeModal(updateForm, closeButtonRef){
+    this.globalResources.resetValidateForm(updateForm);
+    closeButtonRef.click();
+    this._updateClicked = false;
+    this.readingToEdit = undefined;
   }
 }

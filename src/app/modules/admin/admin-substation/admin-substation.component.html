@@ -1,19 +1,9 @@
 <div class="wrapper" id="contentBody">
     <nav id="verticalNavBar" class="accordion d-flex flex-column justify-content-between">
         <ul class="list-group list-group-flush">
-            <a class="sticky-top list-group-item list-group-item-action bg-inverse text-default" data-toggle="collapse" href="#substationCollapseMenu">
-                <div class="d-flex flex-row align-items-baseline">
-                    <!-- <span class="fa fa-th mr-3"></span> -->
-                    <span class="text-center">33/11KV SUBSTATION MENU</span>
-                </div>
-            </a>
+            <a class="sticky-top list-group-item list-group-item-action bg-inverse text-default" data-toggle="collapse" href="#substationCollapseMenu">33/11KV SUBSTATION MENU</a>
             <div class="collapse show" id="substationCollapseMenu" data-parent="#verticalNavBar">
-                <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">
-                    <div class="d-flex flex-row align-items-baseline">
-                        <!-- <span class="fa fa-th-list mr-3"></span> -->
-                        <span class="text-center">{{menu.name}}</span>
-                    </div>
-                </a>
+                <a class="list-group-item list-group-item-action" [ngClass]="{'active': menu.active}" *ngFor="let menu of menus" (click)="menuClicked(menu)" href="javascript:void(0);">{{menu.name}}</a>
             </div>
         </ul>
         <div class="footer">

@@ -23,7 +23,7 @@ export class DtrAddComponent implements OnInit {
   zoneList: any;
   feederList: any;
   substationList: any;
-  submitButtonClicked : boolean;
+  _submitClicked : boolean;
 
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private dtrService : DtrService, private feederService : FeederService, 
@@ -74,7 +74,7 @@ export class DtrAddComponent implements OnInit {
   }
   
   zoneChanged(){
-    this.substationList = null;
+    this.substationList = [];
     this.dtr.feederId = undefined;
     this.dtr.substationId = undefined;
     this.dtr.zoneId = this.dtr.zone.id;
@@ -91,7 +91,7 @@ export class DtrAddComponent implements OnInit {
   }
 
   substationChanged(){
-    this.feederList = null;
+    this.feederList = [];
     this.dtr.feederId = undefined;
     this.getFeederBySubstationId(this.dtr.substationId);  
   }
@@ -113,16 +113,16 @@ export class DtrAddComponent implements OnInit {
     if(!this.globalResources.validateForm(dtrAddForm)){
       return;
     }
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.dtrService.addDTR(this.dtr).subscribe(successResponese =>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR added successfully");
       alertResponse.then(result =>{
         this.globalResources.resetValidateForm(dtrAddForm);
         this.setPartialData();
       });
     },errorResponse=>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }

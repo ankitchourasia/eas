@@ -18,21 +18,29 @@ export class SubstationViewComponent implements OnInit {
   substationList : any;
   substationToEdit : any;
   pagedSubstationList : any;
-
   pager: any ;
   pageSize: number;
   loading : boolean;
+
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   constructor(private substationService : SubstationService, private globalResources : GlobalResources,
     private paginationService : PaginationService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.user = this.globalResources.getUserDetails();
+    // this.setInitialValues();
     this.getSubstations();
+  }
+
+  setInitialValues(){
+    this.substationList = [];
+    this.pagedSubstationList = [];
+    this.substationToEdit = undefined;
   }
 
   getSubstations(){
     let methodName = "getSubstations"
+    this.setInitialValues();
     this.substationList = [];
     if(this.user && this.user.division){
       this.loading = true;
@@ -56,6 +64,9 @@ export class SubstationViewComponent implements OnInit {
   }
 
   getZoneListByDivisionId(divisionId){
+    if(this.zoneList && this.zoneList.length > 0){
+      return;
+    }
     this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       this.zoneList = successResponse;
@@ -100,8 +111,7 @@ export class SubstationViewComponent implements OnInit {
         this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("Substation updated successfully");
         alertResponse.then(result =>{
-          console.log("alert result", result);
-          this.closeModal(modalCloseButtonRef);
+          this.closeModal(updateSubstationForm, modalCloseButtonRef);
           this.getSubstations();
         });
       }, error =>{
@@ -119,6 +129,7 @@ export class SubstationViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedSubstationList = [];
   }
 
   setPage(page: number) {
@@ -129,8 +140,11 @@ export class SubstationViewComponent implements OnInit {
     this.pagedSubstationList = this.substationList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(updateSubstationForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(updateSubstationForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.substationToEdit = undefined;
   }
 
   

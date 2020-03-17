@@ -26,10 +26,18 @@ export class DtrReadViewComponent implements OnInit {
     private dtrService : DtrService, private paginationService : PaginationService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
   }
 
+  setInitialValue(){
+    this.dtrReadingList = [];
+    this.pagedDtrReadingList = [];
+    this.dtrReadingToEdit = undefined;
+  }
+
   searchClicked(){
+    this.setInitialValue();
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
     this.getAllDtrReadingByDivisionIdAndBillMonth(this.user.division.id, billingMonth);
@@ -76,6 +84,7 @@ export class DtrReadViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedDtrReadingList = [];
   }
 
   setPage(page: number) {
@@ -86,10 +95,8 @@ export class DtrReadViewComponent implements OnInit {
     this.pagedDtrReadingList = this.dtrReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  _editClicked: boolean;
   editClicked(dtr){
     this.dtrReadingToEdit = Object.assign({}, dtr);
-    this._editClicked = true;
   }
 
   dtrCurrentReadingChanged(){
@@ -98,8 +105,8 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   calculateDifference(){
-    let currentReading = Number.parseFloat(this.dtrReadingToEdit.currReading);
-		let previousReading = Number.parseFloat(this.dtrReadingToEdit.prevReading);
+    let currentReading = Number(this.dtrReadingToEdit.currReading);
+		let previousReading = Number(this.dtrReadingToEdit.prevReading);
     if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
 			this.dtrReadingToEdit.readingDiff = currentReading - previousReading;
 			this.dtrReadingToEdit.readingDiff = Math.round(this.dtrReadingToEdit.readingDiff * 100) / 100;
@@ -123,13 +130,13 @@ export class DtrReadViewComponent implements OnInit {
   }
 
   readingConvertStringToNumber(dtrReadingToEdit){
-    dtrReadingToEdit.mf = Number.parseFloat(this.dtrReadingToEdit.mf);
-    dtrReadingToEdit.prevReading = Number.parseFloat(this.dtrReadingToEdit.prevReading);
-    dtrReadingToEdit.currReading = Number.parseFloat(this.dtrReadingToEdit.currReading);
-    dtrReadingToEdit.readingDiff = Number.parseFloat(this.dtrReadingToEdit.readingDiff);
-    dtrReadingToEdit.meterConsumption = Number.parseFloat(this.dtrReadingToEdit.meterConsumption);
-    dtrReadingToEdit.assUnit = Number.parseFloat(this.dtrReadingToEdit.assUnit);
-    dtrReadingToEdit.totalConsumption = Number.parseFloat(this.dtrReadingToEdit.totalConsumption);
+    dtrReadingToEdit.mf = Number(this.dtrReadingToEdit.mf);
+    dtrReadingToEdit.prevReading = Number(this.dtrReadingToEdit.prevReading);
+    dtrReadingToEdit.currReading = Number(this.dtrReadingToEdit.currReading);
+    dtrReadingToEdit.readingDiff = Number(this.dtrReadingToEdit.readingDiff);
+    dtrReadingToEdit.meterConsumption = Number(this.dtrReadingToEdit.meterConsumption);
+    dtrReadingToEdit.assUnit = Number(this.dtrReadingToEdit.assUnit);
+    dtrReadingToEdit.totalConsumption = Number(this.dtrReadingToEdit.totalConsumption);
   }
 
   _updateClicked: boolean;
@@ -139,7 +146,6 @@ export class DtrReadViewComponent implements OnInit {
       this.readingConvertStringToNumber(this.dtrReadingToEdit);
       this.calculateDifference();
       this._updateClicked = false;
-      console.log(this.dtrReadingToEdit);
       this.updateDTRRead(dtrReadingUpdateForm, modalCloseButtonRef);
     }
   }
@@ -152,8 +158,7 @@ export class DtrReadViewComponent implements OnInit {
       this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR read updated successfully");
       alertResponse.then(result =>{
-        this.globalResources.resetValidateForm(dtrReadingUpdateForm);
-        this.closeModal(modalCloseButtonRef);
+        this.closeModal(dtrReadingUpdateForm, modalCloseButtonRef);
       });
     },errorResponse=>{
       this._updateClicked = false;
@@ -161,13 +166,11 @@ export class DtrReadViewComponent implements OnInit {
     });
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(dtrReadingUpdateForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(dtrReadingUpdateForm);
     modalCloseButtonRef.click();
-  }
-
-  dtrUpdateModalCancel(dtrUpdateForm){
-    this._editClicked = false;
-    this.globalResources.resetValidateForm(dtrUpdateForm);
+    this._updateClicked = false;
+    this.dtrReadingToEdit = undefined;
   }
 
   exportClicked(){

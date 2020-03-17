@@ -1,4 +1,4 @@
-<form #interruptionAddForm = "ngForm" id="interruptionAddForm">
+<fieldset #interruptionAddForm="ngForm" ngForm id="interruptionAddForm" [disabled]="_submitClicked">
   <div class="form-group row">
     <label class="col-4 col-form-label">Region Name</label>
     <div class="col-8">
@@ -158,12 +158,12 @@
   </div>
   <div class="form-group row">
     <div class="col-4 offset-4">
-      <button type="button" class="btn btn-success form-control" (click)=submitClicked(interruptionAddForm) [disabled]="!interruptionAddForm.form.valid || _submitClicked">
+      <button type="button" class="btn btn-success btn-block" (click)="submitClicked(interruptionAddForm)">
         Submit <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
       </button>
     </div>
     <div class="col-4">
-      <button type="button" class="btn btn-danger form-control" (click)="resetClicked(interruptionAddForm)" [disabled]="_submitClicked">Reset</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="resetClicked(interruptionAddForm)">Reset</button>
     </div>
   </div>
-</form>
+</fieldset>

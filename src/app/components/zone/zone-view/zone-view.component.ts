@@ -23,16 +23,19 @@ export class ZoneViewComponent implements OnInit {
     private zoneService: ZoneService) { }
 
   ngOnInit() {
-    this.getPartialData();
+    this.setInitialValue();
   }
 
-  getPartialData(){
+  setInitialValue(){
+    this.zoneToEdit = undefined;
+    this.zoneList = [];
+    this.pagedZoneList = [];
     this.getZoneList();
   }
 
   getZoneList(){
     this.loading = true;
-    this.zoneList = null;
+    this.zoneList = [];
     this.zoneService.getZones(false).subscribe(successResponse =>{
       this.loading = false;
       this.zoneList = successResponse;
@@ -52,18 +55,20 @@ export class ZoneViewComponent implements OnInit {
   }
 
   _updateClicked: boolean;
-  updateClicked(modalCloseButtonRef){
+  updateClicked(zoneEditForm, modalCloseButtonRef){
     let methodName = "updateClicked";
+    if(!this.globalResources.validateForm(zoneEditForm)){
+      return;
+    }
     this._updateClicked = true;
     this.zoneService.updateZone(this.zoneToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("Zone updated successfully");
       alertResponse.then(result =>{
-        this.closeModal(modalCloseButtonRef);
+        this.closeModal(zoneEditForm, modalCloseButtonRef);
         this.getZoneList();
       });
     }, errorResponse =>{
-      console.log(errorResponse);
       this._updateClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);;
     })
@@ -72,6 +77,7 @@ export class ZoneViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedZoneList = [];
   }
 
   setPage(page: number) {
@@ -82,7 +88,10 @@ export class ZoneViewComponent implements OnInit {
     this.pagedZoneList = this.zoneList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  closeModal(modalCloseButtonRef){
+  closeModal(zoneEditForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(zoneEditForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.zoneToEdit = undefined;
   }
 }

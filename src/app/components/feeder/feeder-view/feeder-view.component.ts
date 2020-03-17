@@ -3,7 +3,6 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
-import { DtrService } from '@eas-services/dtr-service/dtr.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { ZoneService } from '@eas-services/zone/zone.service';
 
@@ -24,15 +23,25 @@ export class FeederViewComponent implements OnInit {
   pageSize: number;
   pagedFeederList : any;
   loading : boolean;
+  _deleteClicked: boolean;
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
-    private dtrService : DtrService, private globalResources : GlobalResources, 
-    private paginationService : PaginationService, private zoneService: ZoneService) { }
+    private globalResources : GlobalResources, private paginationService : PaginationService, 
+    private zoneService: ZoneService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
     this.getFeeders();
+  }
+
+  setInitialValue(){
+    this.feederToEdit = undefined;
+    this.zoneList = [];
+    this.feederList = [];
+    this.substationList = [];
+    this.pagedFeederList = [];
   }
 
   getFeeders(){
@@ -56,7 +65,7 @@ export class FeederViewComponent implements OnInit {
 
   exportClicked(){
     var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
-    let fileUrl = null;
+    let fileUrl = undefined;
     if(this.user.role === this.ROLE_ADMIN){
 			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder/division/" + this.user.division.id;
 		}else{
@@ -65,7 +74,6 @@ export class FeederViewComponent implements OnInit {
     this.globalResources.downloadFile(fileUrl, params)
   }
 
-  deleteButtonClicked: boolean;
   deleteClicked(feeder){
     let confirmAlertResponse : any = this.globalResources.confirmAlert("Are you sure to delete this feeder ?")
     confirmAlertResponse.then((result) => {
@@ -79,15 +87,15 @@ export class FeederViewComponent implements OnInit {
 
   deleteFeeder(feederId, deletedBy){
     let methodName = "deleteFeeder";
-    this.deleteButtonClicked = true;
+    this._deleteClicked = true;
     this.feederService.deleteFeederById(feederId, deletedBy).subscribe(success => {
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       let alertResponse = this.globalResources.successAlert("feeder deleted successfully");
       alertResponse.then(result =>{
         this.getFeeders();
       });
     }, error =>{
-      this.deleteButtonClicked = false;
+      this._deleteClicked = false;
       this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
     });
   }
@@ -95,12 +103,14 @@ export class FeederViewComponent implements OnInit {
   
   editButtonClicked(feeder){
     this.feederToEdit = Object.assign({}, feeder);
-    console.log(this.feederToEdit);
     this.getZoneListByDivisionId(this.feederToEdit.zone.division.id);
     this.getSubstationByZoneId(this.feederToEdit.zoneId);
   }
 
   getZoneListByDivisionId(divisionId){
+    if(this.zoneList && this.zoneList.length > 0){
+      return;
+    }
     this.zoneList = [];
     this.zoneService.getZonesByDivisionId(divisionId, false).subscribe(successResponse =>{
       this.zoneList = successResponse;
@@ -111,7 +121,7 @@ export class FeederViewComponent implements OnInit {
 
   zoneChanged(){
     console.log("zoneChanged");
-    this.substationList = null;
+    this.substationList = undefined;
     this.feederToEdit.substationId = undefined;
     this.getSubstationByZoneId(this.feederToEdit.zoneId);
   }
@@ -135,9 +145,9 @@ export class FeederViewComponent implements OnInit {
         let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
         alertResponse.then(result =>{
           console.log("alert result", result);
-          this.closeModal(modalCloseButtonRef);
+          this.closeModal(updateFeederForm, modalCloseButtonRef);
           this.getFeeders();
-          this.feederToEdit = null;
+          this.feederToEdit = undefined;
         });
       }, errorResponse =>{
         this._updateClicked = false;
@@ -149,6 +159,7 @@ export class FeederViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederList = [];
   }
 
   setPage(page: number) {
@@ -159,7 +170,10 @@ export class FeederViewComponent implements OnInit {
     this.pagedFeederList = this.feederList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   
-  closeModal(modalCloseButtonRef){
+  closeModal(updateFeederForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(updateFeederForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.feederToEdit = undefined;
   }
 }

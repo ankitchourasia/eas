@@ -45,16 +45,25 @@ export class DtrPreBillingComponent implements OnInit {
     private billFileService: BillFileService, private paginationService : PaginationService) { }
 
     ngOnInit() {
+      this.setInitialValue();
       this.checkUserRoll();
     }
-  
-    checkUserRoll(){
+
+    setInitialValue(){
       this.userDetails = {};
+      this.dtrList = [];
+      this.pagedDtrList = [];
+      this.dtrReadingList = [];
+      this.feederList = [];
       this.zoneList = [];
       this.regionList = [];
       this.circleList = [];
       this.divisionList = [];
-      this.substationList = null;
+      this.substationList = [];
+    }
+  
+    checkUserRoll(){
+      
       this.user = this.globalResources.getUserDetails();
       if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
         this.getRegionList();
@@ -90,17 +99,17 @@ export class DtrPreBillingComponent implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.userDetails.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.userDetails.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.userDetails.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.userDetails.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.userDetails.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.userDetails.dtr = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -116,15 +125,15 @@ export class DtrPreBillingComponent implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.userDetails.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.userDetails.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.userDetails.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.userDetails.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.userDetails.dtr = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -140,13 +149,13 @@ export class DtrPreBillingComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.userDetails.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.userDetails.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.userDetails.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.userDetails.dtr = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -163,11 +172,11 @@ export class DtrPreBillingComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = null;
+    this.substationList = [];
     this.userDetails.substation = undefined;
-    this.feederList = null;
+    this.feederList = [];
     this.userDetails.feeder = undefined;
-    this.dtrList = null;
+    this.dtrList = [];
     this.userDetails.dtr = undefined;
     this.getSubstationByZoneId(zone.id);
   }
@@ -181,9 +190,9 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = null;
+    this.feederList = [];
     this.userDetails.feeder = undefined;
-    this.dtrList = null;
+    this.dtrList = [];
     this.userDetails.dtr = undefined;
     this.getFeederBySubstationId(substation.id);  
   }
@@ -197,13 +206,13 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   feederChanged(feeder){
-    this.dtrList = null;
+    this.dtrList = [];
     this.userDetails.dtr = undefined;
     // this.getDTRByFeederId(feeder.id);
   }
 
   searchClicked(){
-    this.dtrReadingList = null;
+    this.dtrReadingList = [];
     this.showError = false;
     this.allDtrReadingInserted = false;
     // this.reportGenerated = false;
@@ -453,6 +462,7 @@ export class DtrPreBillingComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 5;
+    this.pagedDtrList = [];
   }
 
   setPage(page: number) {

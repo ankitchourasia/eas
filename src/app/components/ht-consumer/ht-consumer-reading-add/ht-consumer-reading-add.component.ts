@@ -55,17 +55,21 @@ export class HtConsumerReadingAddComponent implements OnInit {
   }
 
   submitClicked(readAddForm){
-    let billMonth = this.month + '-' + this.year;
-    this.formData.billMonth = billMonth;
-    this.formData.regionId = this.consumer.region.id;
-    this.formData.circleId = this.consumer.circle.id;
-    this.formData.divisionId = this.consumer.division.id;
-    this.formData.substationId = this.consumer.substation.id;
-    this.formData.zoneId = this.consumer.zone.id;
-    this.formData.feederId = this.consumer.feeder.id;
-    this.formData.consumerId = this.consumer.id;
-    this.formData.serviceNumber = this.serviceNumber;
-    this.addReading(readAddForm);
+    if(this.globalResources.validateForm(readAddForm)){
+      this._submitClicked = true;
+      let billMonth = this.month + '-' + this.year;
+      this.formData.billMonth = billMonth;
+      this.formData.regionId = this.consumer.region.id;
+      this.formData.circleId = this.consumer.circle.id;
+      this.formData.divisionId = this.consumer.division.id;
+      this.formData.substationId = this.consumer.substation.id;
+      this.formData.zoneId = this.consumer.zone.id;
+      this.formData.feederId = this.consumer.feeder.id;
+      this.formData.consumerId = this.consumer.id;
+      this.formData.serviceNumber = this.serviceNumber;
+      this._submitClicked = false;
+      this.addReading(readAddForm);
+    }
   }
 
   addReading(readAddForm){

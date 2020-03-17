@@ -11,9 +11,8 @@
     </div>
   </div>
 </div>
-
-<div class="table-responsive mb-2" *ngIf="feederList">
-  <table class="table table-sm table-bordered table-hover text-center">
+<div class="table-responsive mb-2">
+  <table class="table table-sm table-bordered table-hover text-center mb-0">
     <thead class="bg-inverse text-default">
       <tr>
         <td class="align-middle">SNo</td>
@@ -25,6 +24,7 @@
       </tr>
     </thead>
     <tbody>
+      <ng-template [ngIf]="feederList && feederList.length && !loading">
       <tr *ngFor="let feeder of pagedFeederList; let i = index">
         <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
         <td class="align-middle">{{feeder.zone.name | uppercase}}</td>
@@ -33,6 +33,7 @@
         <td class="align-middle">{{feeder.meterNo}}</td>
         <td class="align-middle">{{feeder.mf}}</td>
       </tr>
+      </ng-template>
       <tr *ngIf="feederList && !feederList.length && !loading">
         <td class="align-middle" colspan="6">No Records Found</td>
       </tr>
@@ -44,24 +45,22 @@
     </tbody>
   </table>
 </div>
-<div id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
-  <nav>
-    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-      </li>
-    </ul>
-  </nav>
-</div>
+<nav id="pagination" *ngIf="feederList && feederList.length > pageSize" class="eas-flex-center">
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    </li>
+    <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+    </li>
+  </ul>
+</nav>

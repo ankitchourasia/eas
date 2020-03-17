@@ -33,22 +33,29 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
   reportGenerated: boolean;
   _searchClicked: boolean;
   display: any = 'none';
-  feederLossReportView : any = {};
+  feederLossReportView : any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private feederService : FeederService, 
     private substationService: SubstationService, private zoneService: ZoneService, private paginationService : PaginationService) { }
 
   ngOnInit() {
-    this.userDetails = {};
-    this.substationList = null;
+    this.setInitialValue();
     this.user = this.globalResources.getUserDetails();
     this.checkUserRoll(this.user);
   }
 
-  checkUserRoll(user){
+  setInitialValue(){
+    this.userDetails = {};
+    this.pagedFeederList =[];
+    this.feederList = [];
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
+    this.substationList = [];
+  }
+
+  checkUserRoll(user){
+    
    if(user.role === GlobalConfiguration.ROLE_ADMIN){
       // this.zoneList = (user.zoneList);
       this.getZoneListByDivisionId(this.user.division.id);
@@ -73,11 +80,11 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.userDetails.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.userDetails.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.userDetails.feeder = undefined;
       this.userDetails.dtr = undefined;
       this.getZoneListByDivisionId(division.id);
@@ -95,9 +102,9 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = null;
+    this.substationList = [];
     this.userDetails.substation = undefined;
-    this.feederList = null;
+    this.feederList = [];
     this.userDetails.feeder = undefined;
     this.userDetails.dtr = undefined;
     this.getSubstationByZoneId(zone.id);
@@ -112,7 +119,7 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = null;
+    this.feederList = [];
     this.userDetails.feeder = undefined; 
   }
 
@@ -162,6 +169,7 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
   }
 
   viewFeederLossReport(){
+    this.feederLossReportView = {};
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
     this.getFeederTnDLossReportBySubstationId(this.userDetails.substation.id, billingMonth)
   }
@@ -246,6 +254,7 @@ export class FeederTndLossReportWithoutHtComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedFeederList =[];
   }
 
   setPage(page: number) {

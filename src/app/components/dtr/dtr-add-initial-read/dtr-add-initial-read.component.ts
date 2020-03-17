@@ -26,8 +26,9 @@ export class DtrAddInitialReadComponent implements OnInit {
   feederList: any;
   substationList: any;
   dtrInitialReadAdd: any;
-  submitButtonClicked : boolean;
-
+  _submitClicked : boolean;
+  errorInReading: boolean;
+  
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, private dtrService : DtrService, 
     private feederService : FeederService, private substationService: SubstationService, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService, private zoneService: ZoneService) { }
@@ -247,12 +248,11 @@ export class DtrAddInitialReadComponent implements OnInit {
     this.calculateDifference();
   }
 
-  errorInReading: boolean;
   calculateDifference(){
-    let currentReading = Number.parseFloat(this.dtrInitialReadAdd.currReading);
+    let currentReading = Number(this.dtrInitialReadAdd.currReading);
 		this.dtrInitialReadAdd.prevReading = currentReading;
-    let previousReading = Number.parseFloat(this.dtrInitialReadAdd.prevReading);
-    if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
+    let previousReading = Number(this.dtrInitialReadAdd.prevReading);
+    if(currentReading && previousReading && currentReading >= previousReading){
 			this.errorInReading = false;
 			let difference = currentReading - previousReading;
 			this.dtrInitialReadAdd.readingDiff = difference;
@@ -287,7 +287,7 @@ export class DtrAddInitialReadComponent implements OnInit {
 
   submitClicked(dtrInitialReadAddForm){
     if(this.globalResources.validateForm(dtrInitialReadAddForm)){
-      this.submitButtonClicked = true;
+      this._submitClicked = true;
       this.calculateDifference();
       this.makeCustomReadingDate(this.dtrInitialReadAdd.currReadingDate);
       // new flow in which prev reading & its date is same as current reading
@@ -299,7 +299,7 @@ export class DtrAddInitialReadComponent implements OnInit {
       this.dtrInitialReadAdd.meterNo = this.dtrInitialReadAdd.dtr.dtrMeterNo;
       this.dtrInitialReadAdd.readerNo1 = this.dtrInitialReadAdd.dtr.billingRDNo;
       this.dtrInitialReadAdd.prevReadingDateInString = this.dtrInitialReadAdd.currReadingDateInString;
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       console.log(this.dtrInitialReadAdd);
       this.addDTRInitialRead(dtrInitialReadAddForm);
     }
@@ -307,16 +307,16 @@ export class DtrAddInitialReadComponent implements OnInit {
 
   addDTRInitialRead(dtrInitialReadAddForm){
     let methodName = "addDTRInitialRead";
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.dtrService.addDTRRead(this.dtrInitialReadAdd, this.user.username).subscribe(successResponese =>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       let alertResponse = this.globalResources.successAlert("DTR initial read added successfully");
       alertResponse.then(result =>{
         this.clearPartialData();
         this.globalResources.resetValidateForm(dtrInitialReadAddForm);
       });
     },errorResponse=>{
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
   }

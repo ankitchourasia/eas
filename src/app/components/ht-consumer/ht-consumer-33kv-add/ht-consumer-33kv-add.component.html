@@ -1,4 +1,4 @@
-<form #htConsumerAddForm="ngForm" autocomplete="off">
+<fieldset #htConsumerAddForm="ngForm" ngForm autocomplete="off"  [disabled]="loading">
   <div class="form-group row">
     <label class="col-4 col-form-label">Region</label>
     <div class="col-8">
@@ -84,24 +84,14 @@
       </div>
     </div>
   </div>
-  <!-- <div class="form-group row">
-    <label class="col-4 col-form-label">Contract Demand</label>
-    <div class="col-8">
-      <input type="text" [ngClass]="{'is-valid': !contractDemand.errors && (contractDemand.dirty || contractDemand.touched),'is-invalid': contractDemand.errors && (contractDemand.dirty || contractDemand.touched)}"
-        class="form-control" [(ngModel)]="htConsumer.contractDemand" #contractDemand="ngModel" id="contractDemand"  name="contractDemand" required>
-      <div class="invalid-feedback" *ngIf="contractDemand.errors && (contractDemand.dirty || contractDemand.touched)">
-        <div *ngIf="contractDemand.errors.required">required field</div>
-      </div>
-    </div>
-  </div> -->
   <div class="form-group row">
     <div class="col-4 offset-4">
-      <button type="button" class="btn btn-success form-control" (click)=submitClicked(htConsumerAddForm) [disabled]="!htConsumerAddForm.form.valid || loading">
+      <button type="button" class="btn btn-success btn-block" (click)="submitClicked(htConsumerAddForm)">
         Submit <span class="spinner-border spinner-border-sm" *ngIf="loading"></span>
       </button>
     </div>
     <div class="col-4">
-      <button type="button" class="btn btn-danger form-control" (click)="resetClicked(htConsumerAddForm)">Reset</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="resetClicked(htConsumerAddForm)">Reset</button>
     </div>
   </div>
-</form>
+</fieldset>

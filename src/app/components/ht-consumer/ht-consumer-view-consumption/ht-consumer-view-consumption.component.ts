@@ -19,7 +19,7 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
   billMonth: any;
   billMonthYear: any;
   htConsumerConsumptionList:any;
-  searchButtonClicked: boolean;
+  loading: boolean;
 
   public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   
@@ -28,9 +28,16 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
 
     ngOnInit() {
       this.user = this.globalResources.getUserDetails();
+      this.setInitialValue();
     }
   
+    setInitialValue(){
+      this.pagedList = [];
+      this.htConsumerConsumptionList = [];
+    }
+
     searchClicked(){
+      this.setInitialValue();
       if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
         this.getHTConsumerConsumptionByDivisionIdAndBillMonth(this.user.division.id);
       }else if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN){
@@ -41,18 +48,18 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
     }
 
     getHTConsumerConsumptionByDivisionIdAndBillMonth(divisionId){
-      this.searchButtonClicked = true;
-      this.htConsumerConsumptionList = null;
+      this.loading = true;
+      this.htConsumerConsumptionList = [];
       let billingMonth = this.billMonth + "-" + this.billMonthYear;
       this.htConsumerService.getHTConsumerConsumptionByDivisionIdAndBillMonth(divisionId, billingMonth, false).subscribe(successResponse =>{
-        this.searchButtonClicked = false;
+        this.loading = false;
         this.htConsumerConsumptionList = successResponse;
         this.initializePaginationVariables();
         if(this.htConsumerConsumptionList && this.htConsumerConsumptionList.length){
           this.setPage(1);
         }
       },errorResponse =>{
-        this.searchButtonClicked = false;
+        this.loading = false;
         console.log(errorResponse);
       });
     }
@@ -60,6 +67,7 @@ export class HtConsumerViewConsumptionComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedList = [];
   }
 
   setPage(page: number) {

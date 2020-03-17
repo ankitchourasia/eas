@@ -23,7 +23,7 @@ export class ExportPointAddComponent implements OnInit {
   zoneList: any;
   feederList:any;
   substationList: any;
-  submitButtonClicked: boolean;
+  _submitClicked: boolean;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants, 
     private substationService: SubstationService, private feederService : FeederService,
     private exportService: ExportService, private zoneService: ZoneService) { }
@@ -108,7 +108,7 @@ export class ExportPointAddComponent implements OnInit {
 
   submitClicked(exportPointAddForm){
     if(this.globalResources.validateForm(exportPointAddForm)){
-      this.submitButtonClicked = true;
+      this._submitClicked = true;
       this.formData.regionId = this.formData.region.id;
       this.formData.circleId = this.formData.circle.id;
       this.formData.divisionId = this.formData.division.id;
@@ -116,17 +116,17 @@ export class ExportPointAddComponent implements OnInit {
       this.formData.substationId = this.formData.substation.id;
       this.formData.feederId = this.formData.feeder.id;
       this.formData.billMonth = this.formData.month + "-" +  this.formData.year;
-      this.submitButtonClicked = false;
+      this._submitClicked = false;
       this.addExportPoint(exportPointAddForm);
     }
   }
 
   addExportPoint(exportPointAddForm){
     let methodName = "addExportPoint";
-    this.submitButtonClicked = true;
+    this._submitClicked = true;
     this.exportService.add11KVExportPoint(this.formData,this.user.username, false).subscribe(
       successResponse =>{
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         console.log(successResponse);
         if(successResponse){
           let alertResponse =this.globalResources.successAlert("Export point added successfully");
@@ -136,7 +136,7 @@ export class ExportPointAddComponent implements OnInit {
           });
         }
       },errorResponse =>{
-        this.submitButtonClicked = false;
+        this._submitClicked = false;
         this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       });
   }

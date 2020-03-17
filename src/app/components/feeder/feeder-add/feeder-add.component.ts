@@ -62,8 +62,7 @@ export class FeederAddComponent implements OnInit {
   }
 
   zoneChanged(){
-    console.log("zoneChanged");
-    this.substationList = null;
+    this.substationList = [];
     this.feeder.substationId = undefined;
     this.getSubstationByZoneId(this.feeder.zoneId);
   }

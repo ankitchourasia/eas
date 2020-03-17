@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
@@ -23,10 +23,13 @@ export class CircleViewComponent implements OnInit {
     private circleService: CircleService) { }
 
   ngOnInit() {
-    this.getPartialData();
+    this.setInintialValue();
   }
 
-  getPartialData(){
+  setInintialValue(){
+    this.circleToEdit = undefined;
+    this.circleList = [];
+    this.pagedCircleList = [];
     this.getCircleList();
   }
 
@@ -48,19 +51,23 @@ export class CircleViewComponent implements OnInit {
 
   editClicked(circle){
     this.circleToEdit = Object.assign({}, circle);
-    console.log(this.circleToEdit);
     this.circleToEdit.oldName = circle.name;
   }
 
   _updateClicked: boolean;
-  updateClicked(modalCloseButtonRef){
+  updateClicked(circleEditForm, modalCloseButtonRef){
     let methodName = "updateClicked"
+    
+    if(!this.globalResources.validateForm(circleEditForm)){
+      return;
+    }
+
     this._updateClicked = true;
     this.circleService.updateCircle(this.circleToEdit, false).subscribe(successResposne =>{
       this._updateClicked = false;
       let alertResponse = this.globalResources.successAlert("Circle updated successfully");
       alertResponse.then(result =>{
-        this.closeModal(modalCloseButtonRef);
+        this.closeModal(circleEditForm, modalCloseButtonRef);
         this.getCircleList();
       });
     }, errorResponse =>{
@@ -72,6 +79,7 @@ export class CircleViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedCircleList = [];
   }
 
   setPage(page: number) {
@@ -82,7 +90,10 @@ export class CircleViewComponent implements OnInit {
     this.pagedCircleList = this.circleList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  closeModal(modalCloseButtonRef){
+  closeModal(circleEditForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(circleEditForm);
     modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.circleToEdit = undefined;
   }
 }

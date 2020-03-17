@@ -16,12 +16,12 @@ export class AdminMenuService implements MenuInterface {
 
   public SECOND_MENU: any;
   private readonly SECOND_MENU_NAME: string = "33KV Feeder";
-  private readonly SECOND_MENU_LINK: string = "feeder/33kv";
+  private readonly SECOND_MENU_LINK: string = "feeder-33kv";
   private readonly SECOND_MENU_ACTIVE: boolean = false;
 
   public THIRD_MENU: any;
   private readonly THIRD_MENU_NAME: string = "11KV Feeder";
-  private readonly THIRD_MENU_LINK: string = "feeder/11kv";
+  private readonly THIRD_MENU_LINK: string = "feeder-11kv";
   private readonly THIRD_MENU_ACTIVE: boolean = false;
 
   public FOURTH_MENU: any;
@@ -112,7 +112,7 @@ export class AdminMenuService implements MenuInterface {
     this.menus.push(this.THIRD_MENU);   //feeder/11kv
     // this.menus.push(this.FOURTH_MENU);  //dtr
     this.menus.push(this.FIFTH_MENU);   //ht/consumer
-    this.menus.push(this.SIXTH_MENU);   //bill-file
+    // this.menus.push(this.SIXTH_MENU);   //bill-file
     this.menus.push(this.LAST_MENU);    //report
     
     

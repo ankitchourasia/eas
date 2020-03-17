@@ -45,16 +45,24 @@ export class DtrLossReportComponent implements OnInit {
     private billFileService: BillFileService, private paginationService : PaginationService) { }
 
   ngOnInit() {
+    this.setInitialValue();
     this.checkUserRoll();
   }
 
-  checkUserRoll(){
+  setInitialValue(){
     this.searchFormData = {};
+    this.dtrList = [];
+    this.pagedDtrList = [];
+    this.dtrReadingList = [];
+    this.feederList = [];
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
-    this.substationList = null;
+    this.substationList = [];
+  }
+
+  checkUserRoll(){
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -90,17 +98,17 @@ export class DtrLossReportComponent implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.searchFormData.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.searchFormData.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.searchFormData.dtr = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -116,15 +124,15 @@ export class DtrLossReportComponent implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.searchFormData.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.searchFormData.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.searchFormData.dtr = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -140,13 +148,13 @@ export class DtrLossReportComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
-      this.substationList = null;
+      this.substationList = [];
       this.searchFormData.substation = undefined;
-      this.feederList = null;
+      this.feederList = [];
       this.searchFormData.feeder = undefined;
-      this.dtrList = null;
+      this.dtrList = [];
       this.searchFormData.dtr = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -163,11 +171,11 @@ export class DtrLossReportComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.substationList = null;
+    this.substationList = [];
     this.searchFormData.substation = undefined;
-    this.feederList = null;
+    this.feederList = [];
     this.searchFormData.feeder = undefined;
-    this.dtrList = null;
+    this.dtrList = [];
     this.searchFormData.dtr = undefined;
     this.getSubstationByZoneId(zone.id);
   }
@@ -181,9 +189,9 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   substationChanged(substation){
-    this.feederList = null;
+    this.feederList = [];
     this.searchFormData.feeder = undefined;
-    this.dtrList = null;
+    this.dtrList = [];
     this.searchFormData.dtr = undefined;
     this.getFeederBySubstationId(substation.id);  
   }
@@ -197,7 +205,7 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   feederChanged(feeder){
-    this.dtrList = null;
+    this.dtrList = [];
     this.searchFormData.dtr = undefined;
     // this.getDTRByFeederId(feeder.id);
   }
@@ -215,7 +223,7 @@ export class DtrLossReportComponent implements OnInit {
   }
 
   searchClicked(){
-    this.dtrReadingList = null;
+    this.dtrReadingList = [];
     this.showError = false;
     this.allDtrReadingInserted = false;
     this.reportGenerated = false;
@@ -342,6 +350,7 @@ export class DtrLossReportComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedDtrList = [];
   }
 
   setPage(page: number) {
