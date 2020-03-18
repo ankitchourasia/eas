@@ -45,11 +45,11 @@
         <td>{{report.feederName}}</td>
         <td>{{report.feeder.type}}</td>
         <td *ngIf="report.feeder.type === 'PARENTAL'">
-          {{report.feeder.link}}
+          {{report.feeder.feederLink}}
         </td>
         <td *ngIf="report.feeder.type === 'INTER_ZONE' || report.feeder.type === 'INTER_DIVISION'" >
           <span *ngFor="let mapping of report.feeder?.mappings">
-            {{mapping.feeder.link}}
+            {{mapping.feeder.feederLink}}
           </span>
         </td>
         <td *ngIf="report.feeder.type === 'PARENTAL'">
