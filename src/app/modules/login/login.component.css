@@ -1,5 +1,6 @@
 #cover{
-    background-image: url('../../../assets/images/grid2.jpg');
+    background-image: url('/assets/images/lamp-bulb.jpg');
+    background-attachment: fixed;
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -7,6 +8,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.form-control{
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+}
+
+#login-container{
+    /* background: dimgrey; */
+    background: transparent;
+    box-shadow: -1px 1px 50px 10px black;
 }
 
 .spaceAround{

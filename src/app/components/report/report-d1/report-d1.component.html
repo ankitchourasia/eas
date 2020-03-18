@@ -1,4 +1,4 @@
-<form #searchForm="ngForm" id="searchForm">
+<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_searchClicked">
   <div class="eas-space-around mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
@@ -48,7 +48,7 @@
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid || _searchClicked">
+          <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="!searchForm.form.valid">
             Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
           </button>
         </div>
@@ -58,8 +58,8 @@
       </div>
     </div>
   </div>
-</form>
-<div *ngIf="searchResultList && !_searchClicked">
+</fieldset>
+<div *ngIf="searchResultList && searchResultList.length && !_searchClicked">
   <hr>
   <div class="eas-flex-end mb-2">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" (click)="generateClicked()" 
@@ -71,19 +71,18 @@
       data-toggle="modal" data-target="#d1ReportModal" >
         View 
     </button>
-    
   </div>
   <div class="table-responsive mb-2">
     <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
         <tr>
-          <td class="align-middle">S.No</td>
-          <td class="align-middle">Town Name</td>
-          <td class="align-middle">Bill Month</td>
-          <td class="align-middle">Read Inserted</td>
-          <td class="align-middle">Export Read Inserted</td>
-          <td class="align-middle">HT Read Inserted</td>
-          <td class="align-middle">Billing Data</td>
+          <td nowrap class="align-middle">S.No</td>
+          <td nowrap class="align-middle">Town</td>
+          <td nowrap class="align-middle">Bill Month</td>
+          <td nowrap class="align-middle">Read Inserted</td>
+          <td nowrap class="align-middle">Export Read Inserted</td>
+          <td nowrap class="align-middle">HT Read Inserted</td>
+          <td nowrap class="align-middle">Billing Data</td>
         </tr>
       </thead>
       <tbody>

@@ -27,17 +27,17 @@
   <table class="table table-sm table-bordered table-hover text-center mb-0">
     <thead class="bg-inverse text-default">
       <tr>
-        <td class="align-middle">S.No</td>
-        <td class="align-middle">Zone</td>
-        <td class="align-middle">Substation</td>
-        <td class="align-middle">Feeder Name</td>
-        <td class="align-middle">Group no</td>
-        <td class="align-middle">STM ID</td>
-        <td class="align-middle">GIS ID</td>
-        <td class="align-middle">Feeder Type</td>
-        <td class="align-middle">Meter No</td>
-        <td class="align-middle">MF</td>
-        <td class="align-middle">Meter Make</td>
+        <td nowrap class="align-middle">S.No</td>
+        <td nowrap class="align-middle">Zone</td>
+        <td nowrap class="align-middle">Substation</td>
+        <td nowrap class="align-middle">Feeder</td>
+        <td nowrap class="align-middle">GR No</td>
+        <td nowrap class="align-middle">STM ID</td>
+        <td nowrap class="align-middle">GIS ID</td>
+        <td nowrap class="align-middle">Feeder Type</td>
+        <td nowrap class="align-middle">Mtr No</td>
+        <td nowrap class="align-middle">Mtr Make</td>
+        <td nowrap class="align-middle">MF</td>
       </tr>
     </thead>
     <tbody>
@@ -52,8 +52,8 @@
         <td class="align-middle">{{reading.feederGISId}}</td>
         <td class="align-middle">{{reading.type}}</td>
         <td class="align-middle">{{reading.meterNo}}</td>
-        <td class="align-middle">{{reading.mf}}</td>
         <td class="align-middle">{{reading.meterMake}}</td>
+        <td class="align-middle">{{reading.mf}}</td>
       </tr>
       </ng-template>
       <tr *ngIf="feederAbsentReadingList && !feederAbsentReadingList.length && !loading">

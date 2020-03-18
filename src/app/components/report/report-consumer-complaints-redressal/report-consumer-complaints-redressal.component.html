@@ -1,4 +1,4 @@
-<form #ComplaintsMonitoringInput="ngForm" autocomplete="off">
+<fieldset #ComplaintsMonitoringInput="ngForm" ngForm autocomplete="off"[disabled]="_submintClicked">
   <div class="eas-space-around">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
@@ -142,8 +142,8 @@
   </div>
   <hr>
   <div class="eas-flex-center">
-    <button class="btn btn-sm btn-success" [disabled]="!ComplaintsMonitoringInput.form.valid || _submintClicked" (click)="submitClicked(ComplaintsMonitoringInput)">
+    <button class="btn btn-sm btn-success" [disabled]="!ComplaintsMonitoringInput.form.valid" (click)="submitClicked(ComplaintsMonitoringInput)">
       Submit <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_submintClicked"></span>
     </button>
   </div>
-</form>
+</fieldset>

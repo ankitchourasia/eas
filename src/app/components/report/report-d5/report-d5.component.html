@@ -1,4 +1,4 @@
-<form #searchForm="ngForm" id="searchForm">
+<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_generateClicked">
   <div class="eas-space-around mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
@@ -59,7 +59,7 @@
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=generateClicked() [disabled]="!searchForm.form.valid || _generateClicked">
+          <button type="button" class="btn btn-sm btn-primary" (click)="generateClicked()" [disabled]="!searchForm.form.valid">
             Generate <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
           </button>
         </div>
@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-</form>
+</fieldset>
 <div *ngIf="!_generateClicked && reportGenerated && viewResultList">
   <hr>
   <div class="eas-flex-end">
@@ -84,14 +84,14 @@
           <td colspan="8" class="align-middle"><h4>D-7 REPORT ({{searchFormData.billingMonth}})</h4></td>
         </tr>
         <tr>
-          <td class="align-middle">Sr. No.</td>
-          <td class="align-middle">Zone/DC Name</td>
-          <td class="align-middle">Feeder Count</td>
-          <td class="align-middle">Total Consumers</td>
-          <td class="align-middle">SAIFI</td>
-          <td class="align-middle">SAIDI (SEC.)</td>
-          <td class="align-middle">SAIDI (MIN.)</td>
-          <td class="align-middle">SAIDI (HUR.)</td>
+          <td nowrap class="align-middle">S.No</td>
+          <td nowrap class="align-middle">Zone/DC</td>
+          <td nowrap class="align-middle">Feeder Count</td>
+          <td nowrap class="align-middle">Total Cons</td>
+          <td nowrap class="align-middle">SAIFI</td>
+          <td nowrap class="align-middle">SAIDI (SEC.)</td>
+          <td nowrap class="align-middle">SAIDI (MIN.)</td>
+          <td nowrap class="align-middle">SAIDI (HUR.)</td>
         </tr>
       </thead>
       <tbody>

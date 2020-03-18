@@ -40,19 +40,19 @@
   <table class="table table-sm table-bordered table-hover text-center mb-0">
     <thead class="bg-inverse text-default">
       <tr>
-        <td class="align-middle">S.No</td>
-        <td class="align-middle">Zone</td>
-        <td class="align-middle">Feeder</td>
-        <td class="align-middle">MF</td>
-        <td class="align-middle">Previous Read</td>
-        <td class="align-middle">Previous Read Date</td>
-        <td class="align-middle">Bill Month</td>
-        <td class="align-middle">Current Read</td>
-        <td class="align-middle">Current Read Date</td>
-        <td class="align-middle">Difference</td>
-        <td class="align-middle">Assessment</td>
-        <td class="align-middle">Consumption</td>
-        <td class="align-middle">Total Consumption</td>
+        <td nowrap class="align-middle">S.No</td>
+        <td nowrap class="align-middle">Zone</td>
+        <td nowrap class="align-middle">Feeder</td>
+        <td nowrap class="align-middle">MF</td>
+        <td nowrap class="align-middle">Prev Read</td>
+        <td nowrap class="align-middle">Prev Read Date</td>
+        <td nowrap class="align-middle">Bill Month</td>
+        <td nowrap class="align-middle">Curr Read</td>
+        <td nowrap class="align-middle">Curr Read Date</td>
+        <td nowrap class="align-middle">Difference</td>
+        <td nowrap class="align-middle">Assessment</td>
+        <td nowrap class="align-middle">Consumption</td>
+        <td nowrap class="align-middle">Total Consumption</td>
       </tr>
     </thead>
     <tbody>
@@ -73,9 +73,11 @@
         <td class="align-middle">{{reading.totalConsumption}}</td>
       </tr>
       </ng-template>
-      <tr>
-        <td class="align-middle" colspan="13" *ngIf="!feederReadingList.length && !loading">No Records Found</td>
-        <td class="align-middle" colspan="13" *ngIf="loading"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
+      <tr *ngIf="!feederReadingList.length && !loading">
+        <td class="align-middle" colspan="13">No Records Found</td>
+      </tr>
+      <tr *ngIf="loading">
+        <td class="align-middle" colspan="13"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
       </tr>
     </tbody>
   </table>

@@ -1,4 +1,4 @@
-<form #searchForm="ngForm" id="searchForm">
+<fieldset #searchForm="ngForm" ngForm id="searchForm" autocomplete="off" [disabled]="_searchClicked || _generateClicked">
   <div class="eas-space-around mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
@@ -48,7 +48,7 @@
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid || _generateClicked">
+          <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid">
             Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
           </button>
         </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
   </div>
-</form>
+</fieldset>
 
 <div *ngIf="searchResultList && !_searchClicked">
   <hr>
@@ -82,13 +82,13 @@
     <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
         <tr>
-          <td class="align-middle">S.No</td>
-          <td class="align-middle">Feeder Name</td>
-          <td class="align-middle">Bill Month</td>
-          <td class="align-middle">Read Inserted</td>
-          <td class="align-middle">Export Read Inserted</td>
-          <td class="align-middle">HT Read Inserted</td>
-          <td class="align-middle">Billing Data</td>
+          <td nowrap class="align-middle">S.No</td>
+          <td nowrap class="align-middle">Feeder</td>
+          <td nowrap class="align-middle">Bill Month</td>
+          <td nowrap class="align-middle">Read Inserted</td>
+          <td nowrap class="align-middle">Export Read Inserted</td>
+          <td nowrap class="align-middle">HT Read Inserted</td>
+          <td nowrap class="align-middle">Billing Data</td>
         </tr>
       </thead>
       <tbody>
@@ -164,12 +164,12 @@
           <td colspan="6" class="align-middle"><h4>D-4 REPORT ({{searchFormData.billingMonth}})</h4></td>
         </tr>
         <tr>
-          <td class="align-middle">Sr. No.</td>
-          <td class="align-middle">Feeder Name</td>
-          <td class="align-middle">Bill Month</td>
-          <td class="align-middle">Billing Efficiency</td>
-          <td class="align-middle">Collection Efficiency</td>
-          <td class="align-middle">AT&C Loss</td>
+          <td nowrap class="align-middle">Sr. No.</td>
+          <td nowrap class="align-middle">Feeder Name</td>
+          <td nowrap class="align-middle">Bill Month</td>
+          <td nowrap class="align-middle">Billing Efficiency</td>
+          <td nowrap class="align-middle">Collection Efficiency</td>
+          <td nowrap class="align-middle">AT&C Loss</td>
         </tr>
       </thead>
       <tbody>

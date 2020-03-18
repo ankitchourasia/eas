@@ -205,6 +205,7 @@ export class ReportD4Component implements OnInit {
   initializePaginationVariables() {
     this.pager = {};
     this.pageSize = 12;
+    this.pagedSearchResultList = [];
   }
 
   setPage(page: number) {

@@ -1,4 +1,4 @@
-<form #searchForm="ngForm" id="searchForm">
+<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_viewClicked">
   <div class="eas-space-around">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
@@ -59,7 +59,7 @@
           <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
         </select>
         <div class="input-group-append">
-          <button type="button" class="btn btn-sm btn-primary" (click)=viewClicked() [disabled]="!searchForm.form.valid || _viewClicked">
+          <button type="button" class="btn btn-sm btn-primary" (click)="viewClicked()" [disabled]="!searchForm.form.valid">
             View <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_viewClicked"></span>
           </button>
         </div>
@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-</form>
+</fieldset>
 <div *ngIf="!_viewClicked && viewResultList">
   <hr>
   <div class="eas-flex-end">

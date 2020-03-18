@@ -35,21 +35,21 @@
   <table class="table table-sm table-bordered table-hover text-center mb-0" id="dtrs">
     <thead class="bg-inverse text-default">
       <tr>
-        <td class="align-middle">S.No</td>
-        <td class="align-middle">Zone</td>
-        <td class="align-middle">Location Name</td>
-        <td class="align-middle">Meter No</td>
-        <td class="align-middle">MF</td>
-        <td class="align-middle">Previous Reading</td>
-        <td class="align-middle">Previous Reading Date</td>
-        <td class="align-middle">Current Reading</td>
-        <td class="align-middle">Current Reading Date</td>
-        <td class="align-middle">Reading Difference</td>
-        <td class="align-middle">Assessment Unit</td>
-        <td class="align-middle">Metered Consumption</td>
-        <td class="align-middle">Total Consumption</td>
-        <td class="align-middle">Bill Month</td>
-        <td class="align-middle">Edit</td>
+        <td nowrap class="align-middle">S.No</td>
+        <td nowrap class="align-middle">Zone</td>
+        <td nowrap class="align-middle">Location Name</td>
+        <td nowrap class="align-middle">Mtr No</td>
+        <td nowrap class="align-middle">MF</td>
+        <td nowrap class="align-middle">Prev Read</td>
+        <td nowrap class="align-middle">Prev Read Date</td>
+        <td nowrap class="align-middle">Curr Read</td>
+        <td nowrap class="align-middle">Curr Read Date</td>
+        <td nowrap class="align-middle">Difference</td>
+        <td nowrap class="align-middle">Assessment</td>
+        <td nowrap class="align-middle">Consumption</td>
+        <td nowrap class="align-middle">Total Consumption</td>
+        <td nowrap class="align-middle">Bill Month</td>
+        <td nowrap class="align-middle">Edit</td>
       </tr>
     </thead>
     <tbody>
@@ -118,50 +118,50 @@
       </div>
       <div class="modal-body">
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Zone</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Zone</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="(updateFormData?.zone?.name | uppercase)" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Location Name</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Location Name</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="(updateFormData?.feeder?.locationName | uppercase)" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Meter No</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Meter No</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="(updateFormData?.meterNo | uppercase)" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Meter MF</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Meter MF</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="updateFormData?.mf" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Bill Month</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Bill Month</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="(updateFormData?.billMonth | uppercase)" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Previous Reading</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Previous Reading</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="updateFormData?.prevReading" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Previous Reading Date</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Previous Reading Date</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="(updateFormData?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase)" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Current Reading</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Current Reading</label>
+          <div class="col-8">
             <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
               class="form-control" [(ngModel)]="updateFormData.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="(updateFormData?.prevReading)" step="0.001" required (change)="!currentReading.errors && currentReadingChanged()">
             <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
@@ -171,8 +171,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Current Reading Date</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Current Reading Date</label>
+          <div class="col-8">
             <input type="date" [ngClass]="{'is-valid': !currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched),'is-invalid': currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)}"
               class="form-control" [(ngModel)]="updateFormData.currReadingDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate" [min]="(updateFormData?.prevReadingDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
             <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
@@ -182,20 +182,20 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Reading Difference</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Reading Difference</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="updateFormData?.readingDiff" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Metered Consumption</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Metered Consumption</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="updateFormData?.meterConsumption" disabled>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Assessment Units</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Assessment Units</label>
+          <div class="col-8">
             <input type="number" [ngClass]="{'is-valid': !assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched),'is-invalid': assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)}"
               class="form-control" [(ngModel)]="updateFormData.assUnit" #assessmentUnit="ngModel" id="assessmentUnit"  name="assessmentUnit" [min]="0" step="0" required (change)="!assessmentUnit.errors && assessmentUnitChanged()">
             <div class="invalid-feedback" *ngIf="assessmentUnit.errors && (assessmentUnit.dirty || assessmentUnit.touched)">
@@ -205,8 +205,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Total Consumption</label>
-          <div class="col-sm-8">
+          <label class="col-4 col-form-label">Total Consumption</label>
+          <div class="col-8">
             <input type="text" class="form-control" [value]="updateFormData?.totalConsumption" disabled>
           </div>
         </div>

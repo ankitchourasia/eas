@@ -151,8 +151,13 @@ export class ReportConsumerComplaintsRedressalComponent implements OnInit {
     }
   }
 
-  submitClicked(nscMonitoringInput){
+  submitClicked(nscMonitoringInputForm){
     let methodName = "submitClicked"
+
+    if(this.globalResources.validateForm(nscMonitoringInputForm)){
+      return;
+    }
+
     this._submintClicked = true;
     
     this.formData.regionId = this.formData.region.id;
@@ -169,7 +174,7 @@ export class ReportConsumerComplaintsRedressalComponent implements OnInit {
       let alertResponse = this.globalResources.successAlert("Data saved successfully");
       alertResponse.then(result =>{
         this.setPartialData();
-        this.globalResources.resetValidateForm(nscMonitoringInput);
+        this.globalResources.resetValidateForm(nscMonitoringInputForm);
       });
     },errorResponse =>{
       this._submintClicked = false;

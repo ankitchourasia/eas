@@ -103,19 +103,17 @@
   <div class="form-group row">
     <label class="col-4">Meter No</label>
     <div class="col-8">
-      <div class="row">
-        <div class="col-5">
-          <input type="text" [ngClass]="{'is-valid': !meterNo.errors && (meterNo.dirty || meterNo.touched),'is-invalid': meterNo.errors && (meterNo.dirty || meterNo.touched)}"
-            class="form-control" [ngModel]="formData.exportPointLocation?.meterNo" #meterNo="ngModel" id="meterNo"  name="meterNo" required readonly>
-          <div class="invalid-feedback" *ngIf="meterNo.errors && (meterNo.dirty || meterNo.touched)">
-            <div [hidden]="!meterNo.errors.required">required field</div>
-          </div>
-        </div>
-        <div class="col-7">
-          <button type="button" class="btn btn-warning btn-block" (click)="meterReplacementClicked()" *ngIf="!_meterReplacementClicked">Click for Meter Replacement</button>
-          <button type="button" class="btn btn-danger btn-block" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancle for Meter Replacement</button>
-        </div>
+      <input type="text" [ngClass]="{'is-valid': !meterNo.errors && (meterNo.dirty || meterNo.touched),'is-invalid': meterNo.errors && (meterNo.dirty || meterNo.touched)}"
+        class="form-control" [ngModel]="formData.exportPointLocation?.meterNo" #meterNo="ngModel" id="meterNo"  name="meterNo" required readonly>
+      <div class="invalid-feedback" *ngIf="meterNo.errors && (meterNo.dirty || meterNo.touched)">
+        <div [hidden]="!meterNo.errors.required">required field</div>
       </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="offset-4 col-8">
+      <button type="button" class="btn btn-warning btn-block" (click)="meterReplacementClicked()" *ngIf="!_meterReplacementClicked">Click for Meter Replacement</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancle for Meter Replacement</button>
     </div>
   </div>
   <div class="form-group row">
