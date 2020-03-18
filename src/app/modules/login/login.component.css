@@ -1,5 +1,5 @@
 #cover{
-    background-image: url('/assets/images/grid2.jpg');
+    background-image: url('/assets/images/lamp-bulb.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -16,8 +16,8 @@
 }
 
 #login-container{
-    background: dimgrey;
-    /* background: transparent; */
+    /* background: dimgrey; */
+    background: transparent;
     box-shadow: -1px 1px 50px 10px black;
 }
 
