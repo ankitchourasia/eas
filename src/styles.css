@@ -76,3 +76,16 @@
 .swal2-content.text-align-left{
     text-align: left;
 }
+
+.was-validated .form-control:valid, .form-control.is-valid, .form-control:invalid, .form-control.is-invalid{
+    padding-right: 0.75rem !important;
+    background-image: none !important
+}
+
+.footer{
+    padding-bottom: 3rem !important;
+}
+
+.footer p{
+    display: none !important;
+}
