@@ -90,12 +90,14 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-4 col-form-label">Meter No</label>
-    <div class="col-4">
+    <label class="col-4">Meter No</label>
+    <div class="col-8">
       <input type="text" class="form-control" [ngModel]="feederReading.meterNo" id="meterNo" name="meterNo" disabled>
     </div>
-    <div class="col-4">
-      <Button type="button" class="btn btn-warning btn-block" id="ReplacementButton" name="ReplacementButton" (click)="replaceButtonClicked()">Click for Meter Replacement</Button>
+  </div>
+  <div class="form-group row">
+    <div class="offset-4 col-8">
+      <button type="button" class="btn btn-warning btn-block" id="ReplacementButton" name="ReplacementButton" (click)="replaceButtonClicked()">Click for Meter Replacement</button>
     </div>
   </div>
   <div class="form-group row">
