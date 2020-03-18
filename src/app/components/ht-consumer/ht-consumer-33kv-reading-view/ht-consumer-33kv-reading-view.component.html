@@ -45,7 +45,7 @@
           <td nowrap class="align-middle">Zone</td>
           <td nowrap class="align-middle">Feeder</td>
           <td nowrap class="align-middle">Service No</td>
-          <td nowrap class="align-middle">Consumer Name</td>
+          <td nowrap class="align-middle">Cons Name</td>
           <td nowrap class="align-middle">Bill Month</td>
           <td nowrap class="align-middle">Consumption</td>
           <td nowrap class="align-middle">Billed Unit</td>
@@ -68,9 +68,11 @@
           <td class="align-middle">{{reading.amountCollected}}</td>
         </tr>
         </ng-template>
-        <tr>
-          <td class="align-middle" colspan="10" *ngIf="!htConsumerReadingList.length && !loading">No Records Found</td>
-          <td class="align-middle" colspan="10" *ngIf="loading"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
+        <tr *ngIf="!htConsumerReadingList.length && !loading">
+          <td class="align-middle" colspan="10">No Records Found</td>
+        </tr>
+        <tr *ngIf="loading">
+          <td class="align-middle" colspan="10"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
         </tr>
       </tbody>
     </table>

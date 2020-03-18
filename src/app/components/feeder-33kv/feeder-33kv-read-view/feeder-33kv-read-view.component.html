@@ -44,11 +44,11 @@
         <td nowrap class="align-middle">Zone</td>
         <td nowrap class="align-middle">Feeder</td>
         <td nowrap class="align-middle">MF</td>
-        <td nowrap class="align-middle">Previous Read</td>
-        <td nowrap class="align-middle">Previous Read Date</td>
+        <td nowrap class="align-middle">Prev Read</td>
+        <td nowrap class="align-middle">Prev Read Date</td>
         <td nowrap class="align-middle">Bill Month</td>
-        <td nowrap class="align-middle">Current Read</td>
-        <td nowrap class="align-middle">Current Read Date</td>
+        <td nowrap class="align-middle">Curr Read</td>
+        <td nowrap class="align-middle">Curr Read Date</td>
         <td nowrap class="align-middle">Difference</td>
         <td nowrap class="align-middle">Assessment</td>
         <td nowrap class="align-middle">Consumption</td>
@@ -73,9 +73,11 @@
         <td class="align-middle">{{reading.totalConsumption}}</td>
       </tr>
       </ng-template>
-      <tr>
-        <td class="align-middle" colspan="13" *ngIf="!feederReadingList.length && !loading">No Records Found</td>
-        <td class="align-middle" colspan="13" *ngIf="loading"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
+      <tr *ngIf="!feederReadingList.length && !loading">
+        <td class="align-middle" colspan="13">No Records Found</td>
+      </tr>
+      <tr *ngIf="loading">
+        <td class="align-middle" colspan="13"><span class="spinner-border spinner-border-sm"></span> Loading...</td>
       </tr>
     </tbody>
   </table>

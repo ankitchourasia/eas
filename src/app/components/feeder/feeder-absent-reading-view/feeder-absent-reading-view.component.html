@@ -30,14 +30,14 @@
         <td nowrap class="align-middle">S.No</td>
         <td nowrap class="align-middle">Zone</td>
         <td nowrap class="align-middle">Substation</td>
-        <td nowrap class="align-middle">Feeder Name</td>
-        <td nowrap class="align-middle">Group no</td>
+        <td nowrap class="align-middle">Feeder</td>
+        <td nowrap class="align-middle">GR No</td>
         <td nowrap class="align-middle">STM ID</td>
         <td nowrap class="align-middle">GIS ID</td>
         <td nowrap class="align-middle">Feeder Type</td>
-        <td nowrap class="align-middle">Meter No</td>
+        <td nowrap class="align-middle">Mtr No</td>
+        <td nowrap class="align-middle">Mtr Make</td>
         <td nowrap class="align-middle">MF</td>
-        <td nowrap class="align-middle">Meter Make</td>
       </tr>
     </thead>
     <tbody>
@@ -52,8 +52,8 @@
         <td class="align-middle">{{reading.feederGISId}}</td>
         <td class="align-middle">{{reading.type}}</td>
         <td class="align-middle">{{reading.meterNo}}</td>
-        <td class="align-middle">{{reading.mf}}</td>
         <td class="align-middle">{{reading.meterMake}}</td>
+        <td class="align-middle">{{reading.mf}}</td>
       </tr>
       </ng-template>
       <tr *ngIf="feederAbsentReadingList && !feederAbsentReadingList.length && !loading">

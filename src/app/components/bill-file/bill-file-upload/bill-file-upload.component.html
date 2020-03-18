@@ -57,10 +57,10 @@
       <thead class="bg-inverse text-default">
         <tr>
           <td nowrap>S.No</td>
-          <td nowrap>Feeder Name</td>
-          <td nowrap>Group No</td>
-          <!-- <td>Bill Month</td> -->
-          <td>Uploaded</td>
+          <td nowrap>Feeder</td>
+          <td nowrap>GR No</td>
+          <!-- <td nowrap>Bill Month</td> -->
+          <td nowrap>Uploaded</td>
         </tr>
       </thead>
       <tbody>
@@ -104,11 +104,11 @@
   <div class="table-responsive mb-2">
     <table class="table table-sm table-borderless pt-auto pb-auto mb-0 text-left">
       <tr>
-        <td nowrap>DIVISION NAME</td>
+        <td nowrap>DIVISION</td>
         <td><strong>{{file?.upload?.divisionName | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td nowrap>LOCATION CODE</td>
+        <td nowrap>CODE</td>
         <td><strong>{{file?.upload?.locationCode | uppercase}}</strong></td>
       </tr>
       <tr>
@@ -120,15 +120,15 @@
         <td><strong>{{file?.upload?.billMonth | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td nowrap>GROUP NO</td>
+        <td nowrap>GR NO</td>
         <td><strong>{{file?.upload?.groupNo | uppercase}}</strong></td>
       </tr>
       <tr>
-        <td nowrap>TOTAL FILE RECORDS</td>
+        <td nowrap>TOTAL RECORDS</td>
         <td><strong>{{file?.upload?.totalRecords}}</strong></td>
       </tr>
       <tr>
-        <td nowrap>TOTAL INSERTED RECORDS</td>
+        <td nowrap>INSERTED RECORDS</td>
         <td><strong>{{file?.upload?.totalInsertedRecords}}</strong></td>
       </tr>
     </table>
