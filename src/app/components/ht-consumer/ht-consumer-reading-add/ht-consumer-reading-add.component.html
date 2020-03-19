@@ -1,4 +1,4 @@
-<fieldset #readAddForm="ngForm" ngForm autocomplete="off" [disabled]="loading">
+<fieldset #readAddForm="ngForm" ngForm autocomplete="off" [disabled]="loading || _submitClicked">
   <div class="form-group row">
     <label class="col-4 col-form-label">Service No</label>
     <div class="col-8">
