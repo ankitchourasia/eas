@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminBillFileMenuService } from '../admin-bill-file-menu.service';
 
 @Component({
   selector: 'eas-admin-bill-file-upload',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminBillFileUploadComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminBillFileMenuService: AdminBillFileMenuService) { 
+    if(!this.adminBillFileMenuService.SECOND_MENU.active){
+      this.adminBillFileMenuService.menuClicked(this.adminBillFileMenuService.SECOND_MENU);
+    }
+  }
 
   ngOnInit() {
   }
