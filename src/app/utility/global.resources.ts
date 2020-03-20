@@ -427,4 +427,14 @@ export class GlobalResources {
         anchorElement.click();
         anchorElement.remove();
     }
+
+    getValueAsNumberWithFixed(value:any, decimalRoundingScale?: number): any{
+        if(isNaN(Number(value))){
+            return value;
+        }
+        if(value && decimalRoundingScale >= 0 && decimalRoundingScale <= 100){
+            return Number(Number(value).toFixed(decimalRoundingScale));
+        }
+        return Number(value);
+    }
 }

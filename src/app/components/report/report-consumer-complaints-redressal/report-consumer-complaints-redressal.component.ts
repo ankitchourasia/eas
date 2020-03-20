@@ -165,10 +165,10 @@ export class ReportConsumerComplaintsRedressalComponent implements OnInit {
     this.formData.divisionId = this.formData.division.id;
     this.formData.zoneId = this.formData.zone.id;
 
-    this.formData.totalPendingComplaints = this.formData.previousPendingComplaints + this.formData.currentComplaints;
-    this.formData.pendingComplaints = this.formData.totalPendingComplaints - this.formData.closedComplaints;
-    this.formData.closedBeyondSERCTime = this.formData.closedComplaints - this.formData.closedWithinSERCTime;
-    this.formData.closedWithinTimePercent = Number(((this.formData.closedWithinSERCTime * 100) / this.formData.closedComplaints).toFixed(2));
+    this.formData.totalPendingComplaints = this.globalResources.getValueAsNumberWithFixed((this.formData.previousPendingComplaints + this.formData.currentComplaints), 3);
+    this.formData.pendingComplaints = this.globalResources.getValueAsNumberWithFixed((this.formData.totalPendingComplaints - this.formData.closedComplaints), 3);
+    this.formData.closedBeyondSERCTime = this.globalResources.getValueAsNumberWithFixed((this.formData.closedComplaints - this.formData.closedWithinSERCTime), 3);
+    this.formData.closedWithinTimePercent = this.globalResources.getValueAsNumberWithFixed(((this.formData.closedWithinSERCTime * 100) / this.formData.closedComplaints), 3);
     this.reportService.generateConsumerComplaintsRedressal(this.formData, false).subscribe(successResponse =>{
       this._submintClicked = false;
       let alertResponse = this.globalResources.successAlert("Data saved successfully");

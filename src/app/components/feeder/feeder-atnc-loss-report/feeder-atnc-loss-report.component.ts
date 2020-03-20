@@ -199,16 +199,16 @@ export class FeederAtncLossReportComponent implements OnInit {
 
   calculateTotal(report){
     report.generatedOn = new Date(report.generatedOn).toDateString();
-    this.feederLossReportView.grossInput = this.feederLossReportView.grossInput + Number(report.netFeederInput);
-    this.feederLossReportView.grossSoldUnit = this.feederLossReportView.grossSoldUnit + Number(report.totalSoldUnit);
-    this.feederLossReportView.grossCurrentDemand = this.feederLossReportView.grossCurrentDemand + Number(report.totalCurrentDemand);
-    this.feederLossReportView.grossCollection = this.feederLossReportView.grossCollection + Number(report.totalCollection);
+    this.feederLossReportView.grossInput = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossInput + report.netFeederInput), 3);
+    this.feederLossReportView.grossSoldUnit = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossSoldUnit + report.totalSoldUnit), 3);
+    this.feederLossReportView.grossCurrentDemand = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossCurrentDemand + report.totalCurrentDemand), 3);
+    this.feederLossReportView.grossCollection = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossCollection + report.totalCollection), 3);
   }
 
   calculateGrossLoss(){
-    var loss = this.feederLossReportView.grossInput - this.feederLossReportView.grossConsumption;
-    loss = loss / this.feederLossReportView.grossInput;
-    loss = loss * 100;
+    var loss = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossInput - this.feederLossReportView.grossConsumption), 3);
+    loss = this.globalResources.getValueAsNumberWithFixed((loss / this.feederLossReportView.grossInput), 3);
+    loss = this.globalResources.getValueAsNumberWithFixed((loss * 100), 3);
     this.feederLossReportView.grossLoss = Math.round(loss*100)/100;
   }
   

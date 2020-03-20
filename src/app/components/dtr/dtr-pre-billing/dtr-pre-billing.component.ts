@@ -304,11 +304,11 @@ export class DtrPreBillingComponent implements OnInit {
       dtrToFind.prebilling = matchedDtrPreBillingReport;
       //Converting database values in float since input type on form is number
 			// database values have string type
-			dtrToFind.prebilling.preConsumption = parseFloat(dtrToFind.prebilling.preConsumption);
-			dtrToFind.prebilling.assUnit = parseFloat(dtrToFind.prebilling.assUnit);
-			dtrToFind.prebilling.assUnitConsumption = parseFloat(dtrToFind.prebilling.assUnitConsumption);
-			dtrToFind.prebilling.theftUnit = parseFloat(dtrToFind.prebilling.theftUnit);
-			dtrToFind.prebilling.theftUnitConsumption = parseFloat(dtrToFind.prebilling.theftUnitConsumption);
+			dtrToFind.prebilling.preConsumption = Number(dtrToFind.prebilling.preConsumption);
+			dtrToFind.prebilling.assUnit = Number(dtrToFind.prebilling.assUnit);
+			dtrToFind.prebilling.assUnitConsumption = Number(dtrToFind.prebilling.assUnitConsumption);
+			dtrToFind.prebilling.theftUnit = Number(dtrToFind.prebilling.theftUnit);
+			dtrToFind.prebilling.theftUnitConsumption = Number(dtrToFind.prebilling.theftUnitConsumption);
     }else{
       dtrToFind.prebillingInsertedForBillMonth = false;
       if(dtrToFind.reading){
@@ -335,7 +335,6 @@ export class DtrPreBillingComponent implements OnInit {
         this.userDetails.feeder.billFileUploaded = false;
         this.userDetails.feeder.billFileNotUploaded = true;
       }
-      console.log(this.dtrList);
       this._searchClicked = false;
     },errorResponse =>{
       this._searchClicked = false;
@@ -359,34 +358,29 @@ export class DtrPreBillingComponent implements OnInit {
     if(dtr.prebilling.netDTRInput !== null && dtr.prebilling.netDTRInput !== undefined){
       // let preConsumption = dtr.prebilling.preConsumption;
       if(dtr.prebilling.preConsumption !== null && dtr.prebilling.preConsumption !== undefined){
-				let input = parseFloat(dtr.prebilling.netDTRInput);
-				let soldUnit = parseFloat(dtr.prebilling.preConsumption);
-				let difference = input - soldUnit;
-				let temp = difference/input;
-				let loss = temp * 100;
-				console.log("Actual Loss : " + loss);
+				let input = Number(dtr.prebilling.netDTRInput);
+				let soldUnit = Number(dtr.prebilling.preConsumption);
+				let difference = this.globalResources.getValueAsNumberWithFixed((input - soldUnit), 3);
+				let temp = this.globalResources.getValueAsNumberWithFixed((difference/input), 3);
+				let loss = this.globalResources.getValueAsNumberWithFixed((temp * 100), 3);
 				let precisedLoss = Number(loss.toPrecision(4));
 				precisedLoss = Math.round(precisedLoss * 100) / 100;
-				console.log("Precised Loss : " + precisedLoss);
 				dtr.prebilling.preBillingLoss = precisedLoss;
 			}else{
-				console.log("DTR ccnb consumption is null");
 				dtr.prebilling.preBillingLoss = null;
 			}
 		}else{
-			console.log("DTR Consumption is null");
 			dtr.prebilling.preBillingLoss = null;
     }
   }
 
   newUnitConsumptionChanged(dtr){
-    console.log("New Unit Consumption Changed for dtr " + dtr.dtrName);
-    let temp = parseFloat(dtr.prebilling.preConsumption);
+    let temp = Number(dtr.prebilling.preConsumption);
     if(dtr.prebilling.assUnitConsumption !== null && dtr.prebilling.assUnitConsumption !== undefined){
-      temp = temp + parseFloat(dtr.prebilling.assUnitConsumption);
+      temp = temp + Number(dtr.prebilling.assUnitConsumption);
     }
     if(dtr.prebilling.theftUnitConsumption !== null && dtr.prebilling.theftUnitConsumption !== undefined){
-      temp = temp + parseFloat(dtr.prebilling.theftUnitConsumption);
+      temp = temp + Number(dtr.prebilling.theftUnitConsumption);
 		}
 		if((dtr.prebilling.assUnitConsumption === null || dtr.prebilling.assUnitConsumption === undefined) &&
       (dtr.prebilling.theftUnitConsumption === null || dtr.prebilling.theftUnitConsumption === undefined)){
@@ -400,20 +394,16 @@ export class DtrPreBillingComponent implements OnInit {
   }
 
   calculateNewPreBillingLoss(dtr){
-    console.log("Calculating new pre billing loss for dtr: " + dtr.dtrName);
     if(dtr.prebilling.newPreConsumption !== null && dtr.prebilling.newPreConsumption !== undefined){
-			let input = parseFloat(dtr.prebilling.netDTRInput);
-			let soldUnit = parseFloat(dtr.prebilling.newPreConsumption);
-			let difference = input - soldUnit;
-			let temp = difference/input;
-      let loss = temp * 100;
-      console.log("New Actual Loss : " + loss);
-			let precisedLoss = Number(loss.toPrecision(4));
+			let input = Number(dtr.prebilling.netDTRInput);
+			let soldUnit = Number(dtr.prebilling.newPreConsumption);
+			let difference = this.globalResources.getValueAsNumberWithFixed((input - soldUnit), 3);
+			let temp = this.globalResources.getValueAsNumberWithFixed((difference/input), 3);
+      let loss = this.globalResources.getValueAsNumberWithFixed((temp * 100), 3);
+      let precisedLoss = Number(loss.toPrecision(4));
 			precisedLoss = Math.round(precisedLoss * 100) / 100
-			console.log("New Precised Loss : " + precisedLoss);
 			dtr.prebilling.newPreBillingLoss = precisedLoss;
 		}else{
-			console.log("New sold unit is null hence setting new pre billing loss as null");
 			dtr.prebilling.newPreBillingLoss = null;
 		}
   }
@@ -431,8 +421,6 @@ export class DtrPreBillingComponent implements OnInit {
             dtr.prebilling.readerNo = dtr.billingRDNo;
             dtr.prebilling.lossMonth = this.billMonth + "-" + this.billMonthYear;
             dtr.prebilling.savedBy = this.user.username;
-            console.log("Saving Pre billing data for dtr as: ");
-            console.log(dtr.prebilling);
             this.savePreBillingReport(dtr);
           }else{
             console.log("DTR Prebilling data is null cannot save.");

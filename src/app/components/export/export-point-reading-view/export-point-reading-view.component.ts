@@ -111,26 +111,23 @@ export class ExportPointReadingViewComponent implements OnInit {
 
   assessmentUnitChanged(){
     if(this.updateFormData.assUnit){
-      this.updateFormData.totalConsumption = this.updateFormData.meterConsumption + this.updateFormData.assUnit;
+      this.updateFormData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.updateFormData.meterConsumption + this.updateFormData.assUnit), 3);
     }else{
       this.updateFormData.totalConsumption = this.updateFormData.meterConsumption;
     }
   }
 
   calculateDifference(){
-    console.log("inside calculate difference");
     let currentReading = Number(this.updateFormData.currReading);
     let previousReading = Number(this.updateFormData.prevReading);
     if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
-      let difference = currentReading - previousReading;
+      let difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
       this.updateFormData.readingDiff = difference;
       this.updateFormData.readingDiff = Math.round(this.updateFormData.readingDiff * 100) / 100;
-      this.updateFormData.meterConsumption = difference * this.updateFormData.mf;
-      console.log("feeder consumption before rounding: "+this.updateFormData.meterConsumption);
+      this.updateFormData.meterConsumption = this.globalResources.getValueAsNumberWithFixed((difference * this.updateFormData.mf), 3);
       this.updateFormData.meterConsumption = Math.round(this.updateFormData.meterConsumption * 100) / 100;
-      console.log("feeder consumption after rounding: "+this.updateFormData.meterConsumption);
       if(this.updateFormData.assUnit){
-        this.updateFormData.totalConsumption = this.updateFormData.meterConsumption + this.updateFormData.assUnit;
+        this.updateFormData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.updateFormData.meterConsumption + this.updateFormData.assUnit), 3);
       }else{
         this.updateFormData.totalConsumption = this.updateFormData.meterConsumption;
       }

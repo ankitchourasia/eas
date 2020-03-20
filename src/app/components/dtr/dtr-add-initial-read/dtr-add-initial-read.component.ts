@@ -252,15 +252,15 @@ export class DtrAddInitialReadComponent implements OnInit {
     let currentReading = Number(this.dtrInitialReadAdd.currReading);
 		this.dtrInitialReadAdd.prevReading = currentReading;
     let previousReading = Number(this.dtrInitialReadAdd.prevReading);
-    if(currentReading && previousReading && currentReading >= previousReading){
+    if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined &&  currentReading >= previousReading){
 			this.errorInReading = false;
-			let difference = currentReading - previousReading;
+			let difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
 			this.dtrInitialReadAdd.readingDiff = difference;
 			this.dtrInitialReadAdd.readingDiff = Math.round(this.dtrInitialReadAdd.readingDiff * 100) / 100;
-			this.dtrInitialReadAdd.meterConsumption = difference * this.dtrInitialReadAdd.dtr.overallMF;
+			this.dtrInitialReadAdd.meterConsumption = this.globalResources.getValueAsNumberWithFixed((difference * this.dtrInitialReadAdd.dtr.overallMF), 3);
       this.dtrInitialReadAdd.meterConsumption = Math.round(this.dtrInitialReadAdd.meterConsumption * 100) / 100;
       if(this.dtrInitialReadAdd.assUnit){
-        this.dtrInitialReadAdd.totalConsumption = this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit;
+        this.dtrInitialReadAdd.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit), 3);
       }else{
         this.dtrInitialReadAdd.totalConsumption = this.dtrInitialReadAdd.meterConsumption;
       }
@@ -279,7 +279,7 @@ export class DtrAddInitialReadComponent implements OnInit {
 
   dtrAssessmentUnitChanged(){
     if(this.dtrInitialReadAdd.assUnit){
-      this.dtrInitialReadAdd.totalConsumption = this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit;
+      this.dtrInitialReadAdd.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit), 3);
     }else{
       this.dtrInitialReadAdd.totalConsumption = this.dtrInitialReadAdd.meterConsumption;
     }

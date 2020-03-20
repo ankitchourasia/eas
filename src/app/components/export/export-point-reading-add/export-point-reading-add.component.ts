@@ -234,7 +234,7 @@ export class ExportPointReadingAddComponent implements OnInit {
   assessmentUnitChanged(){
     this.formData.assessmentUnit = this.formData.assUnit;
     if(this.formData.assUnit){
-      this.formData.totalConsumption = this.formData.meterConsumption + this.formData.assUnit;
+      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), 3);
     }else{
       this.formData.totalConsumption = this.formData.meterConsumption;
     }
@@ -242,18 +242,16 @@ export class ExportPointReadingAddComponent implements OnInit {
   
   calculateDifference(){
     if( !this._meterReplacementClicked){
-      let currentReading = Number.parseFloat(this.formData.currReading);
-      let previousReading = Number.parseFloat(this.formData.prevReading);
+      let currentReading = Number(this.formData.currReading);
+      let previousReading = Number(this.formData.prevReading);
       if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
-        this.formData.readingDiff = currentReading - previousReading;
+        this.formData.readingDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
         this.formData.readingDiff = Math.round(this.formData.readingDiff * 100) / 100;
-        this.formData.meterConsumption = this.formData.readingDiff * this.formData.exportPointLocation.overallMf;
-        console.log("consumption before rounding: "+this.formData.meterConsumption);
+        this.formData.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.readingDiff * this.formData.exportPointLocation.overallMf), 3);
         this.formData.meterConsumption = Math.round(this.formData.meterConsumption * 100) / 100;
-        console.log("consumption after rounding: "+this.formData.meterConsumption);
         this.formData.totalMeterConsumption = this.formData.meterConsumption;
         if(this.formData.assUnit){
-          this.formData.totalConsumption = this.formData.meterConsumption + this.formData.assUnit;
+          this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), 3);
         }else{
           this.formData.totalConsumption = this.formData.meterConsumption;
         }
@@ -261,19 +259,16 @@ export class ExportPointReadingAddComponent implements OnInit {
         this.setDefaultReadingCalculation();
       }
     }else if(this._meterReplacementClicked){
-      let currentReading = Number.parseFloat(this.formData.currReading);
-      let previousReading = Number.parseFloat(this.formData.prevReading);
-      let finalRead = Number.parseFloat(this.formData.finalRead);
-      let startRead = Number.parseFloat(this.formData.newMeterStartRead);
+      let currentReading = Number(this.formData.currReading);
+      let previousReading = Number(this.formData.prevReading);
+      let finalRead = Number(this.formData.finalRead);
+      let startRead = Number(this.formData.newMeterStartRead);
       if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && 
         finalRead !== null && finalRead !== undefined && startRead !== null && startRead !== undefined && currentReading >= startRead && finalRead >= previousReading){
-        console.log("going into new meter replacement flow");
-        let oldDiff = finalRead - previousReading;
-        console.log("Old diff before rounding: " + oldDiff);
+        let oldDiff = this.globalResources.getValueAsNumberWithFixed((finalRead - previousReading), 3);
         this.formData.oldReadingDifference = Math.round(oldDiff * 100)/100;
-        console.log("Old diff after rounding: " + this.formData.oldReadingDifference);
         this.formData.oldMeterConsumption = Math.round((this.formData.oldReadingDifference * this.formData.exportPointLocation.overallMf)*100)/100;
-        let newDiff = currentReading - startRead;
+        let newDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - startRead), 3);
         this.formData.newReadingDifference = Math.round(newDiff * 100)/100;
         this.formData.newMeterConsumption = Math.round((this.formData.newReadingDifference * this.formData.newMf)*100)/100;
         //setting this to reflect on form
@@ -281,7 +276,7 @@ export class ExportPointReadingAddComponent implements OnInit {
         this.formData.meterConsumption = Math.round((this.formData.oldMeterConsumption + this.formData.newMeterConsumption) * 100)/100;
         this.formData.totalMeterConsumption = this.formData.meterConsumption;
         if(this.formData.assUnit){
-          this.formData.totalConsumption = this.formData.meterConsumption + this.formData.assUnit;
+          this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), 3);
         }else{
           this.formData.totalConsumption = this.formData.meterConsumption;
         }

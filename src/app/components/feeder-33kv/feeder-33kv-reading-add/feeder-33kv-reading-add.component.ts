@@ -100,17 +100,16 @@ export class Feeder33KVReadingAddComponent implements OnInit {
 
   calculateTotalConsumption(){
     if(this.feederReading.assessment){
-      this.feederReading.totalConsumption = this.feederReading.consumption + this.feederReading.assessment;
+      this.feederReading.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.consumption + this.feederReading.assessment), 3);
     } else{
       this.feederReading.totalConsumption = this.feederReading.consumption;
     }
   }
 
   calculateConsumption(){
-    if(this.feederReading.currentRead >= 0 && this.feederReading.previousRead >= 0 && 
-      this.feederReading.mf && this.feederReading.currentRead >= this.feederReading.previousRead){
-        this.feederReading.difference = (Number(this.feederReading.currentRead) - Number(this.feederReading.previousRead)).toFixed(2);
-        this.feederReading.consumption = this.feederReading.difference * Number(this.feederReading.mf);
+    if(this.feederReading.currentRead >= 0 && this.feederReading.previousRead >= 0 && this.feederReading.mf && this.feederReading.currentRead >= this.feederReading.previousRead){
+        this.feederReading.difference = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currentRead - this.feederReading.previousRead), 3);
+        this.feederReading.consumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.difference * this.feederReading.mf), 3);
         this.calculateTotalConsumption();
     }
   }

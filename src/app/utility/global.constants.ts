@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GlobalResources } from './global.resources';
+
 @Injectable()
 export class GlobalConstants {   
     // public static readonly URL_PREFIX = "/ROOT/backend/";
@@ -15,7 +15,6 @@ export class GlobalConstants {
     public readonly FEEDER_TYPE_INTER_ZONE = "INTER_ZONE";
     public readonly FEEDER_TYPE_INTER_DIVISION = "INTER_DIVISION";
     
-
     constructor(){ }
 
     getYearList(){

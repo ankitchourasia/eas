@@ -160,10 +160,10 @@ export class ReportNscMonitoringComponent implements OnInit {
     this.formData.divisionId = this.formData.division.id;
     this.formData.zoneId = this.formData.zone.id;
 
-    this.formData.totalPendingNSC = this.formData.previousPendingNSC + this.formData.currentAppliedNSC;
-    this.formData.currentPendingNSC = this.formData.totalPendingNSC - this.formData.currentReleasedNSC;
-    this.formData.nscBeyondSERCTime = this.formData.currentReleasedNSC - this.formData.nscWithinSERCTime;
-    this.formData.nscWithinSERCTimePercent = Number(((this.formData.nscWithinSERCTime * 100) / this.formData.currentReleasedNSC).toFixed(2));
+    this.formData.totalPendingNSC = this.globalResources.getValueAsNumberWithFixed((this.formData.previousPendingNSC + this.formData.currentAppliedNSC), 3);
+    this.formData.currentPendingNSC = this.globalResources.getValueAsNumberWithFixed((this.formData.totalPendingNSC - this.formData.currentReleasedNSC), 3);
+    this.formData.nscBeyondSERCTime = this.globalResources.getValueAsNumberWithFixed((this.formData.currentReleasedNSC - this.formData.nscWithinSERCTime), 3);
+    this.formData.nscWithinSERCTimePercent = this.globalResources.getValueAsNumberWithFixed(((this.formData.nscWithinSERCTime * 100) / this.formData.currentReleasedNSC), 3);
     this.reportService.generateNscMonitoringInput(this.formData, false).subscribe(successResponse =>{
       this._submintClicked = false;
       let alertResponse = this.globalResources.successAlert("Data saved successfully");
