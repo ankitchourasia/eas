@@ -51,7 +51,7 @@ body{
 }
 
 #mainContent{
-    height: calc(100vh - var(--header-navbar-height) - var(--horizontal-navbar-height));
+    height: calc(100vh - var(--header-navbar-height) - var(--horizontal-navbar-height)) !important;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s; 
