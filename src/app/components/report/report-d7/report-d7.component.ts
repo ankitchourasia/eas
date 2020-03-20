@@ -23,6 +23,8 @@ export class ReportD7Component implements OnInit {
   divisionList: any;
   zoneList: any;
   user: any;
+  billingStatusList: any;
+  _searchClicked: boolean;
   _generateClicked: boolean;
   viewResultList: any;
   reportGenerated: boolean;
@@ -32,15 +34,16 @@ export class ReportD7Component implements OnInit {
     private zoneService: ZoneService, private reportService: ReportService) { }
 
   ngOnInit() {
-    this.searchFormData = {};
     this.setPartialData()
   }
 
   setPartialData(){
+    this.searchFormData = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
+    this.billingStatusList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -76,11 +79,11 @@ export class ReportD7Component implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -97,9 +100,9 @@ export class ReportD7Component implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -116,7 +119,7 @@ export class ReportD7Component implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -133,28 +136,27 @@ export class ReportD7Component implements OnInit {
   }
   
   zoneChanged(zone){
-    this.billingStatusList = null;
+    this.billingStatusList = [];
     console.log(zone);
   }
 
     billMonthChanged(){
-      this.billingStatusList = null;
+      this.billingStatusList = [];
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
   billMonthYearChanged(){
-    this.billingStatusList = null;
+    this.billingStatusList = [];
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
-  _searchClicked: boolean;
   searchClicked(){
     this.reportGenerated = false;
-    this.billingStatusList = null;
+    this.billingStatusList = [];
     if(this.searchFormData.zone === "ALL"){
       this.getNGBBillingStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth);
     }else{
@@ -162,7 +164,6 @@ export class ReportD7Component implements OnInit {
     }
   }
 
-  billingStatusList: any;
   getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth){
     let methodName = "getNGBBillingStatusByDivisionIdAndBillMonth";
     this._searchClicked = true;

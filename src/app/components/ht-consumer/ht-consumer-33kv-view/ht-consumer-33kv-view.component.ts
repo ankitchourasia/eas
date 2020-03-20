@@ -28,6 +28,8 @@ export class HtConsumer33KVViewComponent implements OnInit {
     public globalConstants: GlobalConstants) { }
 
   ngOnInit() {
+    this.htConsumerList = [];
+    this.pagedHTConsumerList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
       this.getZoneListByDivisionId(this.user.division.id);
@@ -97,6 +99,7 @@ export class HtConsumer33KVViewComponent implements OnInit {
   initializePaginationVariables(){
     this.pager = {};
     this.pageSize = 10;
+    this.pagedHTConsumerList = [];
   }
 
   setPage(page: number) {

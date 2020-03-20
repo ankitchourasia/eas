@@ -42,6 +42,8 @@ export class ReportD1Component implements OnInit {
     this.townList = [];
     this.regionList = [];
     this.circleList = [];
+    this.searchResultList = [];
+    this.pagedSearchResultList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();

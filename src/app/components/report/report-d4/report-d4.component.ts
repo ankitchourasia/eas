@@ -24,23 +24,32 @@ export class ReportD4Component implements OnInit {
   viewResultList: any;
   reportGenerated: boolean;
   billingDataAvailable: boolean;
+  _searchClicked: boolean;
+  lossGenerationStatus: boolean;
+  
   pager: any;
   pageSize: number;
   searchResultList: any;
   pagedSearchResultList: any;
+
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService: PaginationService, private regionService: RegionService,
     private circleService: CircleService, private reportService: ReportService) { }
 
   ngOnInit() {
-    this.searchFormData = {};
     this.setPartialData()
   }
 
   setPartialData() {
+    this.searchFormData = {};
     this.townList = [];
     this.regionList = [];
     this.circleList = [];
+    this.searchResultList = [];
+    this.pagedSearchResultList = [];
+    this.lossGenerationStatus = false;
+    this.billingDataAvailable = false;
+    this.reportGenerated = false;
     this.user = this.globalResources.getUserDetails();
     if (this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN) {
       this.getRegionList();
@@ -64,9 +73,9 @@ export class ReportD4Component implements OnInit {
 
   regionChanged(region) {
     if (this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN) {
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.townList = null;
+      this.townList = [];
       this.searchFormData.town = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -82,7 +91,7 @@ export class ReportD4Component implements OnInit {
 
   circleChanged(circle) {
     if (this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN) {
-      this.townList = null;
+      this.townList = [];
       this.searchFormData.town = undefined;
       this.getTownListByCircleId(circle.id);
     }
@@ -98,25 +107,24 @@ export class ReportD4Component implements OnInit {
   }
 
   townChanged(town) {
-    this.viewResultList = null;
+    this.viewResultList = [];
     console.log(town);
   }
 
   billMonthChanged() {
-    this.viewResultList = null;
+    this.viewResultList = [];
     if (this.searchFormData.billMonth && this.searchFormData.billMonthYear) {
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
   billMonthYearChanged() {
-    this.viewResultList = null;
+    this.viewResultList = [];
     if (this.searchFormData.billMonth && this.searchFormData.billMonthYear) {
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
   }
 
-  _searchClicked: boolean;
   searchClicked() {
     this._searchClicked = true;
     this.lossGenerationStatus = false;
@@ -125,10 +133,8 @@ export class ReportD4Component implements OnInit {
     this.getByTownIdAndBillMonth();
   }
 
-  lossGenerationStatus: boolean;
-
   getByTownIdAndBillMonth() {
-    this.searchResultList = null;
+    this.searchResultList = [];
     this._searchClicked = true;
     this.billingDataAvailable = false;
     this.reportService.getD4GenerationStatusByTownIdAndBillMonth(this.searchFormData.town.id, this.searchFormData.billingMonth, false).subscribe(successResponse => {
@@ -150,7 +156,6 @@ export class ReportD4Component implements OnInit {
     this.readingData;
     for (let element of this.searchResultList) {
       this.readingData = !!(this.readingData * element.feederReadingInserted * element.exportReadingInserted * element.htReadingInserted);
-      // console.log(this.readingData);
       if (!element.billingData) {
         this.billingDataAvailable = false;
         break;

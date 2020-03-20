@@ -1,5 +1,5 @@
 <fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_viewClicked">
-  <div class="eas-space-around">
+  <div class="eas-space-between">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
@@ -60,7 +60,7 @@
         </select>
         <div class="input-group-append">
           <button type="button" class="btn btn-sm btn-primary" (click)="viewClicked()" [disabled]="!searchForm.form.valid">
-            View <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_viewClicked"></span>
+            View
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -70,7 +70,7 @@
     </div>
   </div>
 </fieldset>
-<div *ngIf="!_viewClicked && viewResultList">
+<div>
   <hr>
   <div class="eas-flex-end">
     <button  type="button" class="btn btn-sm btn-primary" (click)="exportClicked('d2Report')" [disabled]="viewResultList && !viewResultList.length">
@@ -98,7 +98,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-template [ngIf]="viewResultList && viewResultList.length">
+        <ng-template [ngIf]="viewResultList && viewResultList.length && !_viewClicked">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
             <td class="align-middle">{{viewResult.zone?.name | uppercase}}</td>
@@ -113,8 +113,13 @@
             <td class="align-middle">{{viewResult.itReleasedNSC}}</td>
           </tr>
         </ng-template>
-        <tr *ngIf="viewResultList && !viewResultList.length">
+        <tr *ngIf="viewResultList && !viewResultList.length && !_viewClicked">
           <td class="align-middle" colspan="11">No Record Found</td>
+        </tr>
+        <tr *ngIf="_viewClicked">
+          <td class="align-middle" colspan="11">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...
+          </td>
         </tr>
       </tbody>
     </table>

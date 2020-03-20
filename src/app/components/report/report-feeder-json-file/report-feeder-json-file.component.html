@@ -1,5 +1,5 @@
-<form #searchForm="ngForm" id="searchForm">
-  <div class="eas-space-around mb-2">
+<fieldset #searchForm="ngForm" ngForm id="searchForm" [disabled]="_searchClicked">
+  <div class="eas-space-between mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
@@ -38,7 +38,7 @@
       <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
         class="form-control form-control-sm" [(ngModel)]="searchFormData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(searchFormData.zone)">
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngIf="zoneList && zoneList.length > 1">ALL</option>
+        <!-- <option *ngIf="zoneList && zoneList.length > 1">ALL</option> -->
         <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
@@ -63,7 +63,7 @@
             Generate <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
           </button> -->
           <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid || _searchClicked">
-            Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
+            Search
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -76,15 +76,15 @@
       <button type="button" class="btn btn-sm btn-primary" (click)="viewClicked()">View</button>
     </div> -->
   </div>
-</form>
+</fieldset>
 
-<div *ngIf="billingStatusList && billingStatusList.length && !_searchClicked">
+<div>
   <hr>
   <div class="eas-flex-end mb-2">
-    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && !billingData" [disabled]="_generateClicked || !readingData" (click)="generateClicked()">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && !billingData" [disabled]="_searchClicked || _generateClicked || !readingData" (click)="generateClicked()">
       Fetch Billing Data<span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
-    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && billingData" [disabled]="_generateClicked || !billingData" (click)="generateJsonInputForZone()">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && billingData" [disabled]="_searchClicked || _generateClicked || !billingData" (click)="generateJsonInputForZone()">
       Generate Report<span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked && reportGenerated" (click)="viewClicked()">
@@ -105,6 +105,7 @@
         </tr>
       </thead>
       <tbody>
+        <ng-template [ngIf]="billingStatusList && billingStatusList.length > 0 && !_searchClicked">
         <tr *ngFor="let generationStatus of billingStatusList; let i = index">
             <td class="align-middle">1</td>
           <td class="align-middle">{{generationStatus?.feeder?.name | uppercase}}</td>
@@ -130,6 +131,13 @@
             </span> 
             <span class="text-danger" *ngIf="!generationStatus?.billingData"><span class="fa fa-times"></span></span>
           </td>
+        </tr>
+        </ng-template>
+        <tr *ngIf="billingStatusList && !billingStatusList.length && !_searchClicked">
+          <td colspan="7">No records found</td>
+        </tr>
+        <tr *ngIf="_searchClicked">
+          <td colspan="7"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</td>
         </tr>
       </tbody>
     </table>

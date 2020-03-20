@@ -48,6 +48,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
+    this.billingStatusList = [];
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -82,11 +83,11 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -102,9 +103,9 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -120,7 +121,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -137,14 +138,14 @@ export class ReportFeederJsonFileComponent implements OnInit {
   }
   
   zoneChanged(zone){
-    this.viewResultList = null;
+    this.viewResultList = [];
     this.reportGenerated = false;
     console.log(zone);
   }
 
   billMonthChanged(){
     this.reportGenerated = false;
-    this.billingStatusList = null;
+    this.billingStatusList = [];
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
@@ -152,7 +153,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   billMonthYearChanged(){
     this.reportGenerated = false;
-    this.billingStatusList = null;
+    this.billingStatusList = [];
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
     }
@@ -160,7 +161,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
 
   searchClicked(){
     this.reportGenerated = false;
-    this.billingStatusList = null;
+    this.billingStatusList = [];
     if(this.searchFormData.zone === "ALL"){
       // this.getNGBBillingStatusByDivisionIdAndBillMonth(this.searchFormData.division.id, this.searchFormData.billingMonth);
     }else{

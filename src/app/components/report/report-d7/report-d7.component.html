@@ -1,5 +1,5 @@
-<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_searchClicked">
-  <div class="eas-space-around mb-2">
+<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_searchClicked || _generateClicked">
+  <div class="eas-space-between mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
@@ -60,7 +60,7 @@
         </select>
         <div class="input-group-append">
           <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="!searchForm.form.valid">
-            Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
+            Search
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -71,9 +71,9 @@
   </div>
 </fieldset>
 
-<div *ngIf="billingStatusList && billingStatusList.length && !_searchClicked">
+<div>
   <hr>
-  <div class="eas-flex-end mb-2">
+  <div class="eas-flex-end mb-2" *ngIf="billingStatusList && billingStatusList.length > 0 && !_searchClicked">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_generateClicked" (click)="generateClicked()">
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
@@ -92,6 +92,7 @@
         </tr>
       </thead>
       <tbody>
+        <ng-template [ngIf]="billingStatusList && billingStatusList.length > 0 && !_searchClicked">
         <tr *ngFor="let billingStatus of billingStatusList; let i = index">
           <td class="align-middle">{{i + 1}}</td>
           <td class="align-middle">{{billingStatus?.zone?.name | uppercase}}</td>
@@ -99,6 +100,17 @@
           <td class="align-middle">
             <span class="text-success" *ngIf="billingStatus?.billingStatus"><span class="fa fa-check"></span></span> 
             <span class="text-danger" *ngIf="!billingStatus?.billingStatus"><span class="fa fa-times"></span></span>
+          </td>
+        </tr>
+        </ng-template>
+        <tr *ngIf="billingStatusList && !billingStatusList.length  && !_searchClicked">
+          <td colspan="4">
+            No records found
+          </td>
+        </tr>
+        <tr *ngIf="_searchClicked">
+          <td  colspan="4">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...
           </td>
         </tr>
       </tbody>

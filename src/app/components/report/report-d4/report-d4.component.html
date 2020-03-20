@@ -1,5 +1,5 @@
-<fieldset #searchForm="ngForm" ngForm id="searchForm" autocomplete="off" [disabled]="_searchClicked || _generateClicked">
-  <div class="eas-space-around mb-2">
+<fieldset #searchForm="ngForm" ngForm id="searchForm" autocomplete="off" [disabled]="_searchClicked || fetchClicked || _generateClicked">
+  <div class="eas-space-between mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
       <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
@@ -49,7 +49,7 @@
         </select>
         <div class="input-group-append">
           <button type="button" class="btn btn-sm btn-primary" (click)=searchClicked() [disabled]="!searchForm.form.valid">
-            Search <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_searchClicked"></span>
+            Search
           </button>
         </div>
         <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
@@ -60,9 +60,9 @@
   </div>
 </fieldset>
 
-<div *ngIf="searchResultList && !_searchClicked">
+<div>
   <hr>
-  <div class="eas-flex-end mb-2">
+  <div class="eas-flex-end mb-2" *ngIf="searchResultList && searchResultList.length > 0 && !_searchClicked">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!billingDataAvailable && !reportGenerated"  (click)="fetchButtonClicked()" 
       [disabled]="!readingData || fetchClicked">
       Fetch Billing Data <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
@@ -92,7 +92,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-template [ngIf]="searchResultList && searchResultList.length">
+        <ng-template [ngIf]="searchResultList && searchResultList.length > 0 && !_searchClicked">
           <tr *ngFor="let searchResult of pagedSearchResultList; let i = index">
             <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
             <td class="align-middle">{{searchResult?.feeder?.name | uppercase}}</td>
@@ -120,8 +120,13 @@
             </td>
           </tr>
         </ng-template>
-        <tr *ngIf="searchResultList && !searchResultList.length">
+        <tr *ngIf="searchResultList && !searchResultList.length && !_searchClicked">
           <td class="align-middle" colspan="8">No Records found</td>
+        </tr>
+        <tr *ngIf="_searchClicked">
+          <td class="align-middle" colspan="8">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...
+          </td>
         </tr>
       </tbody>
     </table>

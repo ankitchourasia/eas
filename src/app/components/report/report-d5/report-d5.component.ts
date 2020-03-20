@@ -32,15 +32,17 @@ export class ReportD5Component implements OnInit {
     private zoneService: ZoneService, private reportService: ReportService) { }
 
   ngOnInit() {
-    this.searchFormData = {};
     this.setPartialData()
   }
 
   setPartialData(){
+    this.searchFormData = {};
     this.zoneList = [];
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
+    this.viewResultList = [];
+    this.reportGenerated = false;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -75,11 +77,11 @@ export class ReportD5Component implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -95,9 +97,9 @@ export class ReportD5Component implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -113,7 +115,7 @@ export class ReportD5Component implements OnInit {
 
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -130,13 +132,13 @@ export class ReportD5Component implements OnInit {
   }
   
   zoneChanged(zone){
-    this.viewResultList = null;
+    this.viewResultList = [];
     this.reportGenerated = false;
     console.log(zone);
   }
 
     billMonthChanged(){
-      this.viewResultList = null;
+      this.viewResultList = [];
       this.reportGenerated = false;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;
@@ -144,7 +146,7 @@ export class ReportD5Component implements OnInit {
   }
 
   billMonthYearChanged(){
-    this.viewResultList = null;
+    this.viewResultList = [];
     this.reportGenerated = false;
     if(this.searchFormData.billMonth && this.searchFormData.billMonthYear){
       this.searchFormData.billingMonth = this.searchFormData.billMonth + "-" + this.searchFormData.billMonthYear;

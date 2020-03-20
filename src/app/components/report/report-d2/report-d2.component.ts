@@ -38,6 +38,7 @@ export class ReportD2Component implements OnInit {
     this.regionList = [];
     this.circleList = [];
     this.divisionList = [];
+    this.viewResultList = [];
     this.searchFormData = {};
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
@@ -76,11 +77,11 @@ export class ReportD2Component implements OnInit {
 
   regionChanged(region){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.circleList = null;
+      this.circleList = [];
       this.searchFormData.circle = undefined;
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getCircleListByRegionId(region.id);
     }
@@ -99,9 +100,9 @@ export class ReportD2Component implements OnInit {
 
   circleChanged(circle){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.divisionList = null;
+      this.divisionList = [];
       this.searchFormData.division = undefined;
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getDivisionListByCircleId(circle.id);
     }
@@ -120,7 +121,7 @@ export class ReportD2Component implements OnInit {
   
   divisionChanged(division){
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-      this.zoneList = null;
+      this.zoneList = [];
       this.searchFormData.zone = undefined;
       this.getZoneListByDivisionId(division.id);
     }
@@ -139,18 +140,18 @@ export class ReportD2Component implements OnInit {
   }
   
   zoneChanged(zone){
-    this.viewResultList = null;
+    this.viewResultList = [];
   }
 
   billMonthChanged(){
-    this.viewResultList = null;
+    this.viewResultList = [];
     if(this.searchFormData.month && this.searchFormData.year){
       this.searchFormData.billMonth = this.searchFormData.month + "-" + this.searchFormData.year;
     }
   }
 
   billMonthYearChanged(){
-    this.viewResultList = null;
+    this.viewResultList = [];
     if(this.searchFormData.month && this.searchFormData.year){
       this.searchFormData.billMonth = this.searchFormData.month + "-" + this.searchFormData.year;
     }
