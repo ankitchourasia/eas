@@ -104,7 +104,7 @@
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
             </td>
             <td class="align-middle">
-              <span class="text-success" *ngIf="searchResult?.billingData"><span class="fa fa-check"></span></span>
+              <span class="text-success" *ngIf="searchResult?.billingData && (searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted)"><span class="fa fa-check"></span></span>
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted || !searchResult?.exportReadingInserted || !searchResult?.feederReadingInserted">
                 <span class="fa fa-times"></span>
               </span>
