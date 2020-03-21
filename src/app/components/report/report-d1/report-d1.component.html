@@ -1,4 +1,4 @@
-<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_searchClicked">
+<fieldset #searchForm="ngForm" ngForm autocomplete="off" id="searchForm" [disabled]="_searchClicked || fetchClicked || _generateClicked">
   <div class="eas-space-between mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>

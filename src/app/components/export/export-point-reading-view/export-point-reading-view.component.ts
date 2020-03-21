@@ -148,17 +148,22 @@ export class ExportPointReadingViewComponent implements OnInit {
     this.exportService.update11KVExportPointReading(this.updateFormData, nextBillMonth, this.user.username, false).subscribe(
       successResponse =>{
         this._updateClicked = false;
-        this.updateFormData = undefined;
-        this.closeModal(exportPointReadingUpdateForm, modalCloseButtonRef);
         let alertResponse = this.globalResources.successAlert("Export point reading updated successfully");
         alertResponse.then(result =>{
-          this.searchClicked();
+          this.updateExportPointReadingList();
+          this.closeModal(exportPointReadingUpdateForm, modalCloseButtonRef);
         });
       },errorResponse =>{
         this._updateClicked = false;
         this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
       }
     );  
+  }
+
+  updateExportPointReadingList(){
+    let itemIndex = this.exportPointReadingList.findIndex((reading) => (reading.id === this.updateFormData.id));
+    this.exportPointReadingList[itemIndex] = this.updateFormData;
+    this.setPage(this.pager.currentPage);
   }
 
   closeModal(exportPointReadingUpdateForm, modalCloseButtonRef){

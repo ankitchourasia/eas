@@ -31,34 +31,34 @@
   <table class="table table-sm table-bordered table-hover text-center mb-0">
     <thead class="bg-inverse text-default">
       <tr>
-        <td nowrap>S.No</td>
-        <td nowrap>Zone</td>
-        <td nowrap>Substation</td>
-        <td nowrap>Feeder</td>
-        <td nowrap>Service No</td>
-        <td nowrap>Cons Name</td>
-        <!-- <td nowrap>Address</td> -->
-        <td nowrap>Contract Demand</td>
+        <td class="align-middle" nowrap>S.No</td>
+        <td class="align-middle" nowrap>Zone</td>
+        <td class="align-middle" nowrap>Substation</td>
+        <td class="align-middle" nowrap>Feeder</td>
+        <td class="align-middle" nowrap>Service No</td>
+        <td class="align-middle" nowrap>Cons Name</td>
+        <!-- <td class="align-middle" nowrap>Address</td> -->
+        <td class="align-middle" nowrap>Contract Demand</td>
       </tr>
     </thead>
     <tbody>
       <ng-template [ngIf]="htConsumerAbsentConsumptionList && htConsumerAbsentConsumptionList.length && !loading">
       <tr *ngFor="let htConsumerAbsentConsumption of pagedList; let i = index">
-        <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-        <td>{{htConsumerAbsentConsumption.zone?.name | uppercase}}</td>
-        <td>{{htConsumerAbsentConsumption.substation?.name | uppercase}}</td>
-        <td>{{htConsumerAbsentConsumption.feeder?.name | uppercase}}</td>
-        <td>{{htConsumerAbsentConsumption.serviceNumber}}</td>
-        <td>{{htConsumerAbsentConsumption.consumerName}}</td>
-        <!-- <td>{{htConsumerAbsentConsumption.address}}</td> -->
-        <td>{{htConsumerAbsentConsumption.contractDemand}}</td>
+        <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+        <td class="align-middle">{{htConsumerAbsentConsumption.zone?.name | uppercase}}</td>
+        <td class="align-middle">{{htConsumerAbsentConsumption.substation?.name | uppercase}}</td>
+        <td class="align-middle">{{htConsumerAbsentConsumption.feeder?.name | uppercase}}</td>
+        <td class="align-middle">{{htConsumerAbsentConsumption.serviceNumber}}</td>
+        <td class="align-middle">{{htConsumerAbsentConsumption.consumerName}}</td>
+        <!-- <td class="align-middle">{{htConsumerAbsentConsumption.address}}</td> -->
+        <td class="align-middle">{{htConsumerAbsentConsumption.contractDemand}}</td>
       </tr>
       </ng-template>
       <tr *ngIf="htConsumerAbsentConsumptionList && !htConsumerAbsentConsumptionList.length && !loading">
-        <td colspan="7">No Records Found</td>
+        <td class="align-middle" colspan="7">No Records Found</td>
       </tr>
       <tr *ngIf="loading">
-        <td colspan="7"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...</td>
+        <td class="align-middle" colspan="7"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...</td>
       </tr>
     </tbody>
   </table>

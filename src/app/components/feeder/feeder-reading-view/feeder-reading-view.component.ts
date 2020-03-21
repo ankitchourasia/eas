@@ -108,8 +108,8 @@ export class FeederReadingViewComponent implements OnInit {
       this._updateClicked = false;
       let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
       aletResponse.then(result =>{
+        this.updateFeederReadingList();
         this.closeModal(updateForm, closeButtonRef);
-        this.readingToEdit = undefined;
       });
     }, errorResponse =>{
       this._updateClicked = false;
@@ -117,6 +117,11 @@ export class FeederReadingViewComponent implements OnInit {
     });
   }
 
+  updateFeederReadingList(){
+    let itemIndex = this.feederReadingList.findIndex((reading) => (reading.id === this.readingToEdit.id));
+    this.feederReadingList[itemIndex] = this.readingToEdit;
+    this.setPage(this.pager.currentPage);
+  }
     
   initializePaginationVariables(){
     this.pager = {};

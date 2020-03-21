@@ -29,6 +29,8 @@ export class ReportD1Component implements OnInit {
   _generateClicked: boolean;
   viewResultList: any;
   reportGenerated: boolean;
+  lossGenerationStatus: boolean;
+
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private paginationService: PaginationService, private regionService: RegionService, 
     private circleService: CircleService, private reportService: ReportService) { }
@@ -44,6 +46,8 @@ export class ReportD1Component implements OnInit {
     this.circleList = [];
     this.searchResultList = [];
     this.pagedSearchResultList = [];
+    this.reportGenerated = false;
+    this.lossGenerationStatus = false;
     this.user = this.globalResources.getUserDetails();
     if(this.user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
       this.getRegionList();
@@ -124,8 +128,6 @@ export class ReportD1Component implements OnInit {
     this.lossGenerationStatus = false;
     this.getByTownIdAndBillMonth(); 
   }
-
-  lossGenerationStatus: boolean;
 
   getByTownIdAndBillMonth(){
     this.searchResultList = [];

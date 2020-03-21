@@ -56,23 +56,23 @@
     <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
         <tr>
-          <td nowrap>S.No</td>
-          <td nowrap>Feeder</td>
-          <td nowrap>GR No</td>
-          <!-- <td nowrap>Bill Month</td> -->
-          <td nowrap>Uploaded</td>
+          <td class="align-middle" nowrap>S.No</td>
+          <td class="align-middle" nowrap>Feeder</td>
+          <td class="align-middle" nowrap>GR No</td>
+          <!-- <td class="align-middle" nowrap>Bill Month</td> -->
+          <td class="align-middle" nowrap>Uploaded</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let missingBillFileRefFeeder of pagedMissingBillFileRefFeederList; let i = index">
-          <td>{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td>{{missingBillFileRefFeeder.name | uppercase}}</td>
-          <td>{{missingBillFileRefFeeder.groupNo | uppercase}}</td>
-          <!-- <td>{{billMonth | uppercase}}-{{billMonthYear}}</td> -->
-          <td>NO</td>
+          <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+          <td class="align-middle">{{missingBillFileRefFeeder.name | uppercase}}</td>
+          <td class="align-middle">{{missingBillFileRefFeeder.groupNo | uppercase}}</td>
+          <!-- <td class="align-middle">{{billMonth | uppercase}}-{{billMonthYear}}</td> -->
+          <td class="align-middle">NO</td>
         </tr>
         <tr *ngIf="missingBillFileRefFeederList && missingBillFileRefFeederList.length <= 0">
-          <td colspan="5">No Records Found</td>
+          <td class="align-middle" colspan="5">No Records Found</td>
         </tr>
       </tbody>
     </table>

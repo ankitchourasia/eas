@@ -56,19 +56,19 @@
       <ng-template [ngIf]="exportPointReadingList && exportPointReadingList.length && !_searchClicked">
       <tr *ngFor="let exportPointReading of pagedExportPointReadingList; let i = index">
           <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
-          <td>{{exportPointReading?.zone?.name | uppercase}}</td>
-          <td>{{exportPointReading?.feeder?.locationName | uppercase}}</td>
-          <td>{{exportPointReading?.meterNo | uppercase}}</td>
-          <td>{{exportPointReading?.mf}}</td>
-          <td>{{exportPointReading?.prevReading}}</td>
-          <td>{{exportPointReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-          <td>{{exportPointReading?.currReading}}</td>
-          <td>{{exportPointReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
-          <td>{{exportPointReading?.readingDiff}}</td>
-          <td>{{exportPointReading?.assUnit}}</td>
-          <td>{{exportPointReading?.meterConsumption}}</td>
-          <td>{{exportPointReading?.totalConsumption}}</td>
-          <td>{{exportPointReading?.billMonth | uppercase}}</td>
+          <td class="align-middle">{{exportPointReading?.zone?.name | uppercase}}</td>
+          <td class="align-middle">{{exportPointReading?.feeder?.locationName | uppercase}}</td>
+          <td class="align-middle">{{exportPointReading?.meterNo | uppercase}}</td>
+          <td class="align-middle">{{exportPointReading?.mf}}</td>
+          <td class="align-middle">{{exportPointReading?.prevReading}}</td>
+          <td class="align-middle">{{exportPointReading?.prevReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+          <td class="align-middle">{{exportPointReading?.currReading}}</td>
+          <td class="align-middle">{{exportPointReading?.currReadingDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>
+          <td class="align-middle">{{exportPointReading?.readingDiff}}</td>
+          <td class="align-middle">{{exportPointReading?.assUnit}}</td>
+          <td class="align-middle">{{exportPointReading?.meterConsumption}}</td>
+          <td class="align-middle">{{exportPointReading?.totalConsumption}}</td>
+          <td class="align-middle">{{exportPointReading?.billMonth | uppercase}}</td>
           <td class="align-middle">
               <a href="javascript:void(0);" (click)="editClicked(exportPointReading)" data-toggle="modal" data-target="#exportPointReadingModal"><span class="fa fa-pencil"></span></a>
           </td>

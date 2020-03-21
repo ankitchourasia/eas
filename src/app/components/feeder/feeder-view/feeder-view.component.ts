@@ -144,10 +144,8 @@ export class FeederViewComponent implements OnInit {
         this._updateClicked = false;
         let alertResponse = this.globalResources.successAlert("Feeder updated successfully");
         alertResponse.then(result =>{
-          console.log("alert result", result);
           this.closeModal(updateFeederForm, modalCloseButtonRef);
           this.getFeeders();
-          this.feederToEdit = undefined;
         });
       }, errorResponse =>{
         this._updateClicked = false;
