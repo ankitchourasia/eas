@@ -243,19 +243,19 @@ export class DtrLossReportViewComponent implements OnInit {
   }
 
   calculateTotal(report,index){
-    this.grossInput = this.globalResources.getValueAsNumberWithFixed((this.grossInput + report.netDTRInput), 3);
-    this.grossConsumer = this.globalResources.getValueAsNumberWithFixed((this.grossConsumer + report.totalConsumer), 3);
-    this.grossConsumption = this.globalResources.getValueAsNumberWithFixed((this.grossConsumption + report.totalSoldUnit), 3);
-    this.grossAssessment = this.globalResources.getValueAsNumberWithFixed((this.grossAssessment + report.assessmentUnit), 3);
+    this.grossInput = this.globalResources.getValueAsNumberWithFixed((this.grossInput + report.netDTRInput), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.grossConsumer = this.globalResources.getValueAsNumberWithFixed((this.grossConsumer + report.totalConsumer), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.grossConsumption = this.globalResources.getValueAsNumberWithFixed((this.grossConsumption + report.totalSoldUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.grossAssessment = this.globalResources.getValueAsNumberWithFixed((this.grossAssessment + report.assessmentUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
   }
 
   calculateGrossLoss(){
     if(this.grossInput == 0){
       this.grossLoss = '###';
     }else{
-      let loss = this.globalResources.getValueAsNumberWithFixed((this.grossInput - this.grossConsumption), 3);
-      loss = this.globalResources.getValueAsNumberWithFixed((loss / this.grossInput), 3);
-      loss = this.globalResources.getValueAsNumberWithFixed((loss * 100), 3);
+      let loss = this.globalResources.getValueAsNumberWithFixed((this.grossInput - this.grossConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+      loss = this.globalResources.getValueAsNumberWithFixed((loss / this.grossInput), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+      loss = this.globalResources.getValueAsNumberWithFixed((loss * 100), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       this.grossLoss = Math.round(loss*100)/100;
     }
   }

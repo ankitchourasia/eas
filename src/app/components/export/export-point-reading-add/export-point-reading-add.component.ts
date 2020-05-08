@@ -234,7 +234,7 @@ export class ExportPointReadingAddComponent implements OnInit {
   assessmentUnitChanged(){
     this.formData.assessmentUnit = this.formData.assUnit;
     if(this.formData.assUnit){
-      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), 3);
+      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     }else{
       this.formData.totalConsumption = this.formData.meterConsumption;
     }
@@ -245,13 +245,13 @@ export class ExportPointReadingAddComponent implements OnInit {
       let currentReading = Number(this.formData.currReading);
       let previousReading = Number(this.formData.prevReading);
       if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
-        this.formData.readingDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
+        this.formData.readingDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         this.formData.readingDiff = Math.round(this.formData.readingDiff * 100) / 100;
-        this.formData.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.readingDiff * this.formData.exportPointLocation.overallMf), 3);
+        this.formData.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.readingDiff * this.formData.exportPointLocation.overallMf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         this.formData.meterConsumption = Math.round(this.formData.meterConsumption * 100) / 100;
         this.formData.totalMeterConsumption = this.formData.meterConsumption;
         if(this.formData.assUnit){
-          this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), 3);
+          this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         }else{
           this.formData.totalConsumption = this.formData.meterConsumption;
         }
@@ -265,10 +265,10 @@ export class ExportPointReadingAddComponent implements OnInit {
       let startRead = Number(this.formData.newMeterStartRead);
       if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && 
         finalRead !== null && finalRead !== undefined && startRead !== null && startRead !== undefined && currentReading >= startRead && finalRead >= previousReading){
-        let oldDiff = this.globalResources.getValueAsNumberWithFixed((finalRead - previousReading), 3);
+        let oldDiff = this.globalResources.getValueAsNumberWithFixed((finalRead - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         this.formData.oldReadingDifference = Math.round(oldDiff * 100)/100;
         this.formData.oldMeterConsumption = Math.round((this.formData.oldReadingDifference * this.formData.exportPointLocation.overallMf)*100)/100;
-        let newDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - startRead), 3);
+        let newDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - startRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         this.formData.newReadingDifference = Math.round(newDiff * 100)/100;
         this.formData.newMeterConsumption = Math.round((this.formData.newReadingDifference * this.formData.newMf)*100)/100;
         //setting this to reflect on form
@@ -276,7 +276,7 @@ export class ExportPointReadingAddComponent implements OnInit {
         this.formData.meterConsumption = Math.round((this.formData.oldMeterConsumption + this.formData.newMeterConsumption) * 100)/100;
         this.formData.totalMeterConsumption = this.formData.meterConsumption;
         if(this.formData.assUnit){
-          this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), 3);
+          this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.meterConsumption + this.formData.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         }else{
           this.formData.totalConsumption = this.formData.meterConsumption;
         }

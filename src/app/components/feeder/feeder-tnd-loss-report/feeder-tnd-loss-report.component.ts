@@ -203,22 +203,22 @@ export class FeederTndLossReportComponent implements OnInit {
 
   calculateTotal(report){
     report.generatedOn = new Date(report.generatedOn).toDateString();
-    report.totalConsumption = this.globalResources.getValueAsNumberWithFixed((report.netHTConsumption + report.totalSoldUnit), 3);
-    this.feederLossReportView.grossAssessment = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossAssessment + report.assessmentUnit), 3);
-    this.feederLossReportView.grossInput = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossInput + report.netFeederInput), 3);
-    this.feederLossReportView.grossHTConsumer = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossHTConsumer + report.totalHTConsumer), 3);
-    this.feederLossReportView.grossHTConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossHTConsumption + report.netHTConsumption), 3);
-    this.feederLossReportView.grossConsumer = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossConsumer + report.totalConsumer), 3);
-    this.feederLossReportView.grossLTConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossConsumption + report.totalSoldUnit), 3);
-    this.feederLossReportView.grossConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossConsumption + report.totalConsumption), 3);	
-    this.feederLossReportView.grossExportPoints = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossExportPoints + report.exportPoint), 3) 
-    this.feederLossReportView.grossExportUnits = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossExportUnits + report.exportConsumption), 3);
+    report.totalConsumption = this.globalResources.getValueAsNumberWithFixed((report.netHTConsumption + report.totalSoldUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossAssessment = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossAssessment + report.assessmentUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossInput = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossInput + report.netFeederInput), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossHTConsumer = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossHTConsumer + report.totalHTConsumer), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossHTConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossHTConsumption + report.netHTConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossConsumer = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossConsumer + report.totalConsumer), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossLTConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossConsumption + report.totalSoldUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.feederLossReportView.grossConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossConsumption + report.totalConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);	
+    this.feederLossReportView.grossExportPoints = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossExportPoints + report.exportPoint), GlobalConstants.CALCULATION_ROUNDING_SCALE) 
+    this.feederLossReportView.grossExportUnits = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossExportUnits + report.exportConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);
   }
 
   calculateGrossLoss(){
-    var loss = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossInput - this.feederLossReportView.grossConsumption), 3);
-    loss = this.globalResources.getValueAsNumberWithFixed((loss / this.feederLossReportView.grossInput), 3);
-    loss = this.globalResources.getValueAsNumberWithFixed((loss * 100), 3);
+    var loss = this.globalResources.getValueAsNumberWithFixed((this.feederLossReportView.grossInput - this.feederLossReportView.grossConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    loss = this.globalResources.getValueAsNumberWithFixed((loss / this.feederLossReportView.grossInput), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    loss = this.globalResources.getValueAsNumberWithFixed((loss * 100), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     this.feederLossReportView.grossLoss = Math.round(loss*100)/100;
   }
   

@@ -14,6 +14,8 @@ export class GlobalConstants {
     public readonly FEEDER_TYPE_PARENTAL = "PARENTAL";
     public readonly FEEDER_TYPE_INTER_ZONE = "INTER_ZONE";
     public readonly FEEDER_TYPE_INTER_DIVISION = "INTER_DIVISION";
+
+    public static readonly CALCULATION_ROUNDING_SCALE: number = 3;
     
     constructor(){ }
 

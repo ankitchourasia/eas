@@ -360,9 +360,9 @@ export class DtrPreBillingComponent implements OnInit {
       if(dtr.prebilling.preConsumption !== null && dtr.prebilling.preConsumption !== undefined){
 				let input = Number(dtr.prebilling.netDTRInput);
 				let soldUnit = Number(dtr.prebilling.preConsumption);
-				let difference = this.globalResources.getValueAsNumberWithFixed((input - soldUnit), 3);
-				let temp = this.globalResources.getValueAsNumberWithFixed((difference/input), 3);
-				let loss = this.globalResources.getValueAsNumberWithFixed((temp * 100), 3);
+				let difference = this.globalResources.getValueAsNumberWithFixed((input - soldUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+				let temp = this.globalResources.getValueAsNumberWithFixed((difference/input), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+				let loss = this.globalResources.getValueAsNumberWithFixed((temp * 100), GlobalConstants.CALCULATION_ROUNDING_SCALE);
 				let precisedLoss = Number(loss.toPrecision(4));
 				precisedLoss = Math.round(precisedLoss * 100) / 100;
 				dtr.prebilling.preBillingLoss = precisedLoss;
@@ -397,9 +397,9 @@ export class DtrPreBillingComponent implements OnInit {
     if(dtr.prebilling.newPreConsumption !== null && dtr.prebilling.newPreConsumption !== undefined){
 			let input = Number(dtr.prebilling.netDTRInput);
 			let soldUnit = Number(dtr.prebilling.newPreConsumption);
-			let difference = this.globalResources.getValueAsNumberWithFixed((input - soldUnit), 3);
-			let temp = this.globalResources.getValueAsNumberWithFixed((difference/input), 3);
-      let loss = this.globalResources.getValueAsNumberWithFixed((temp * 100), 3);
+			let difference = this.globalResources.getValueAsNumberWithFixed((input - soldUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+			let temp = this.globalResources.getValueAsNumberWithFixed((difference/input), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+      let loss = this.globalResources.getValueAsNumberWithFixed((temp * 100), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       let precisedLoss = Number(loss.toPrecision(4));
 			precisedLoss = Math.round(precisedLoss * 100) / 100
 			dtr.prebilling.newPreBillingLoss = precisedLoss;

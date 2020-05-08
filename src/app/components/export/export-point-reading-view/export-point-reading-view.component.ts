@@ -111,7 +111,7 @@ export class ExportPointReadingViewComponent implements OnInit {
 
   assessmentUnitChanged(){
     if(this.updateFormData.assUnit){
-      this.updateFormData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.updateFormData.meterConsumption + this.updateFormData.assUnit), 3);
+      this.updateFormData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.updateFormData.meterConsumption + this.updateFormData.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     }else{
       this.updateFormData.totalConsumption = this.updateFormData.meterConsumption;
     }
@@ -121,13 +121,13 @@ export class ExportPointReadingViewComponent implements OnInit {
     let currentReading = Number(this.updateFormData.currReading);
     let previousReading = Number(this.updateFormData.prevReading);
     if(currentReading !== null && currentReading !== undefined && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
-      let difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
+      let difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       this.updateFormData.readingDiff = difference;
       this.updateFormData.readingDiff = Math.round(this.updateFormData.readingDiff * 100) / 100;
-      this.updateFormData.meterConsumption = this.globalResources.getValueAsNumberWithFixed((difference * this.updateFormData.mf), 3);
+      this.updateFormData.meterConsumption = this.globalResources.getValueAsNumberWithFixed((difference * this.updateFormData.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       this.updateFormData.meterConsumption = Math.round(this.updateFormData.meterConsumption * 100) / 100;
       if(this.updateFormData.assUnit){
-        this.updateFormData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.updateFormData.meterConsumption + this.updateFormData.assUnit), 3);
+        this.updateFormData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.updateFormData.meterConsumption + this.updateFormData.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       }else{
         this.updateFormData.totalConsumption = this.updateFormData.meterConsumption;
       }

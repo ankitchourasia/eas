@@ -194,7 +194,7 @@ export class ReportD3Component implements OnInit {
     });
   }
 
-  exportClicked(){
+  exportClicked(exportElementId){
     let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     let params = {
       Authorization: "Basic " + encodedCredentials,

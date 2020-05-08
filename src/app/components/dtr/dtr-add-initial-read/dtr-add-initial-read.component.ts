@@ -254,13 +254,13 @@ export class DtrAddInitialReadComponent implements OnInit {
     let previousReading = Number(this.dtrInitialReadAdd.prevReading);
     if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined &&  currentReading >= previousReading){
 			this.errorInReading = false;
-			let difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
+			let difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
 			this.dtrInitialReadAdd.readingDiff = difference;
 			this.dtrInitialReadAdd.readingDiff = Math.round(this.dtrInitialReadAdd.readingDiff * 100) / 100;
-			this.dtrInitialReadAdd.meterConsumption = this.globalResources.getValueAsNumberWithFixed((difference * this.dtrInitialReadAdd.dtr.overallMF), 3);
+			this.dtrInitialReadAdd.meterConsumption = this.globalResources.getValueAsNumberWithFixed((difference * this.dtrInitialReadAdd.dtr.overallMF), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       this.dtrInitialReadAdd.meterConsumption = Math.round(this.dtrInitialReadAdd.meterConsumption * 100) / 100;
       if(this.dtrInitialReadAdd.assUnit){
-        this.dtrInitialReadAdd.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit), 3);
+        this.dtrInitialReadAdd.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       }else{
         this.dtrInitialReadAdd.totalConsumption = this.dtrInitialReadAdd.meterConsumption;
       }
@@ -279,7 +279,7 @@ export class DtrAddInitialReadComponent implements OnInit {
 
   dtrAssessmentUnitChanged(){
     if(this.dtrInitialReadAdd.assUnit){
-      this.dtrInitialReadAdd.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit), 3);
+      this.dtrInitialReadAdd.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrInitialReadAdd.meterConsumption + this.dtrInitialReadAdd.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     }else{
       this.dtrInitialReadAdd.totalConsumption = this.dtrInitialReadAdd.meterConsumption;
     }

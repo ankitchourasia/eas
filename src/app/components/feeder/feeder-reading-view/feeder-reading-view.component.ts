@@ -87,14 +87,14 @@ export class FeederReadingViewComponent implements OnInit {
   }
 
   calculateConsumption(){
-    this.readingToEdit.readingDiff = this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.currReading - this.readingToEdit.prevReading), 3);
-    this.readingToEdit.meterConsumption =  this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.readingDiff * this.readingToEdit.mf), 3);
+    this.readingToEdit.readingDiff = this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.currReading - this.readingToEdit.prevReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.readingToEdit.meterConsumption =  this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.readingDiff * this.readingToEdit.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     this.calculateTotalConsumption();
   }
 
   calculateTotalConsumption(){
     if(this.readingToEdit.assUnit){
-      this.readingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.meterConsumption + this.readingToEdit.assUnit), 3);
+      this.readingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.meterConsumption + this.readingToEdit.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     } else{
       this.readingToEdit.totalConsumption = this.readingToEdit.meterConsumption;
     }

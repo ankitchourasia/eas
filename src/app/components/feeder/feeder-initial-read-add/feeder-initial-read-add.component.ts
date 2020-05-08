@@ -124,7 +124,7 @@ export class FeederInitialReadAddComponent implements OnInit {
   calculateTotalConsumption(){
     if(this.feederReading.assUnit){
       // this.feederReading.totalConsumption = this.feederReading.meterConsumption + this.feederReading.assUnit;
-      this.feederReading.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.meterConsumption + this.feederReading.assUnit), 3);
+      this.feederReading.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.meterConsumption + this.feederReading.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     } else{
       this.feederReading.totalConsumption = this.feederReading.meterConsumption;
     }
@@ -146,9 +146,9 @@ export class FeederInitialReadAddComponent implements OnInit {
     if(this.feederReading.currReading >= 0 && this.feederReading.prevReading >= 0 && 
       this.feederReading.mf && this.feederReading.currReading >= this.feederReading.prevReading){
         // this.feederReading.readingDiff = (Number(this.feederReading.currReading) - Number(this.feederReading.prevReading)).toFixed(2);
-        this.feederReading.readingDiff = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currReading - this.feederReading.prevReading), 3);
+        this.feederReading.readingDiff = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currReading - this.feederReading.prevReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         // this.feederReading.meterConsumption = this.feederReading.readingDiff * Number(this.feederReading.mf);
-        this.feederReading.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.readingDiff * this.feederReading.mf), 3);
+        this.feederReading.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.readingDiff * this.feederReading.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         this.calculateTotalConsumption();
     }
   }

@@ -205,7 +205,7 @@ export class ReportD2Component implements OnInit {
     // this.globalResources.downloadFile(fileUrl,params);
   //}
 
-  exportClicked(){
+  exportClicked(exportElementId){
     let encodedCredentials = sessionStorage.getItem('encodedCredentials');
     let params = {
       Authorization: "Basic " + encodedCredentials,

@@ -108,12 +108,12 @@ export class DtrReadViewComponent implements OnInit {
     let currentReading = Number(this.dtrReadingToEdit.currReading);
 		let previousReading = Number(this.dtrReadingToEdit.prevReading);
     if(currentReading !== null && currentReading !== undefined  && previousReading !== null && previousReading !== undefined && currentReading >= previousReading){
-			this.dtrReadingToEdit.readingDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), 3);
+			this.dtrReadingToEdit.readingDiff = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
 			this.dtrReadingToEdit.readingDiff = Math.round(this.dtrReadingToEdit.readingDiff * 100) / 100;
-			this.dtrReadingToEdit.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrReadingToEdit.readingDiff * this.dtrReadingToEdit.mf), 3);
+			this.dtrReadingToEdit.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrReadingToEdit.readingDiff * this.dtrReadingToEdit.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       this.dtrReadingToEdit.meterConsumption = Math.round(this.dtrReadingToEdit.meterConsumption * 100) / 100;
       if(this.dtrReadingToEdit.assUnit){
-        this.dtrReadingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrReadingToEdit.meterConsumption + this.dtrReadingToEdit.assUnit), 3);
+        this.dtrReadingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrReadingToEdit.meterConsumption + this.dtrReadingToEdit.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       }else{
         this.dtrReadingToEdit.totalConsumption = this.dtrReadingToEdit.meterConsumption;
       }
@@ -123,7 +123,7 @@ export class DtrReadViewComponent implements OnInit {
   dtrAssessmentUnitChanged(){
     this.readingConvertStringToNumber(this.dtrReadingToEdit);
     if(this.dtrReadingToEdit.assUnit){
-      this.dtrReadingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrReadingToEdit.meterConsumption + this.dtrReadingToEdit.assUnit), 3);
+      this.dtrReadingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.dtrReadingToEdit.meterConsumption + this.dtrReadingToEdit.assUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     }else{
       this.dtrReadingToEdit.totalConsumption = this.dtrReadingToEdit.meterConsumption;
     }

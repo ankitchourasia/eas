@@ -147,15 +147,15 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.formData.mf = Number(this.formData.exportPointLocation.mf);
     
     if(this.formData.currentRead >= 0 && this.formData.previousRead >= 0 && this.formData.mf && this.formData.currentRead >= this.formData.previousRead){
-      this.formData.difference = this.globalResources.getValueAsNumberWithFixed((this.formData.currentRead - this.formData.previousRead), 3);
-      this.formData.consumption = this.globalResources.getValueAsNumberWithFixed((this.formData.difference * this.formData.mf), 3);
+      this.formData.difference = this.globalResources.getValueAsNumberWithFixed((this.formData.currentRead - this.formData.previousRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+      this.formData.consumption = this.globalResources.getValueAsNumberWithFixed((this.formData.difference * this.formData.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
       this.calculateTotalConsumption();
     }
   }
 
   calculateTotalConsumption(){
     if(this.formData.assessment){
-      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.consumption + this.formData.assessment), 3);
+      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.consumption + this.formData.assessment), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     } else{
       this.formData.totalConsumption = this.formData.consumption;
     }

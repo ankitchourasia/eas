@@ -4,6 +4,7 @@ import { SubstationService } from '@eas-services/substation/substation.service';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { GlobalConstants } from '@eas-utility/global.constants';
 
 @Component({
   selector: 'eas-feeder-33kv-reading-add',
@@ -100,7 +101,7 @@ export class Feeder33KVReadingAddComponent implements OnInit {
 
   calculateTotalConsumption(){
     if(this.feederReading.assessment){
-      this.feederReading.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.consumption + this.feederReading.assessment), 3);
+      this.feederReading.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.consumption + this.feederReading.assessment), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     } else{
       this.feederReading.totalConsumption = this.feederReading.consumption;
     }
@@ -108,8 +109,8 @@ export class Feeder33KVReadingAddComponent implements OnInit {
 
   calculateConsumption(){
     if(this.feederReading.currentRead >= 0 && this.feederReading.previousRead >= 0 && this.feederReading.mf && this.feederReading.currentRead >= this.feederReading.previousRead){
-        this.feederReading.difference = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currentRead - this.feederReading.previousRead), 3);
-        this.feederReading.consumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.difference * this.feederReading.mf), 3);
+        this.feederReading.difference = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currentRead - this.feederReading.previousRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.feederReading.consumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.difference * this.feederReading.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
         this.calculateTotalConsumption();
     }
   }
