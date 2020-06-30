@@ -209,9 +209,7 @@
             <select [ngClass]="{'is-valid': !feederType.errors && (feederType.dirty || feederType.touched),'is-invalid': feederType.errors && (feederType.dirty || feederType.touched)}"
               class="form-control" [(ngModel)]="feederToEdit.type" #feederType="ngModel" id="feederType"  name="feederType" required>
               <option disabled selected [ngValue]='undefined'>Select</option>
-              <option [ngValue]="'INTER_DIVISION'">INTER DIVISION</option>
-              <option [ngValue]="'INTER_ZONE'">INTER ZONE</option>
-              <option [ngValue]="'PARENTAL'">PARENTAL</option>
+              <option *ngFor="let feederType of globalConstants.FEEDER_TYPES" [ngValue]="feederType.name">{{feederType.value}}</option>
             </select>
             <div class="invalid-feedback" *ngIf="feederType.errors && (feederType.dirty || feederType.touched)">
               <div *ngIf="feederType.errors.required">required field</div>
@@ -246,11 +244,7 @@
             <select [ngClass]="{'is-valid': !feederMeterMake.errors && (feederMeterMake.dirty || feederMeterMake.touched),'is-invalid': feederMeterMake.errors && (feederMeterMake.dirty || feederMeterMake.touched)}"
             class="form-control rm-control-sm" [(ngModel)]="feederToEdit.meterMake" #feederMeterMake="ngModel" id="feederMeterMake"  name="feederMeterMake" required>
             <option disabled selected [ngValue]='undefined'>Select</option>
-            <option>GENUS</option>
-            <option>HPL</option>
-            <option>OMINI</option>
-            <option>SECURE</option>
-            <option>OTHER</option>
+            <option *ngFor="let meter of globalConstants.METER_MAKES" [ngValue]="meter.name">{{meter.value}}</option>
           </select>
           <div class="invalid-feedback" *ngIf="feederMeterMake.errors && (feederMeterMake.dirty || feederMeterMake.touched)">
             <div *ngIf="feederMeterMake.errors.required">required field</div>

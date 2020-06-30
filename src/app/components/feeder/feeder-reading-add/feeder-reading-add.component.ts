@@ -15,7 +15,7 @@ export class FeederReadingAddComponent implements OnInit {
 
   COMPONENT_NAME: string = "FeederReadingAddComponent";
   user : any = {};
-  feederReading : any = {};
+  feederReading : any;
   regionList: any;
   circleList: any;
   divisionList: any;
@@ -26,8 +26,8 @@ export class FeederReadingAddComponent implements OnInit {
   feederMeterReplacement : boolean;
   loading : boolean;
   formDates : any = {};
-  constructor(private globalResources : GlobalResources, private substationService : SubstationService, 
-    private feederService : FeederService, private zoneService: ZoneService) { }
+  constructor(private globalResources : GlobalResources, private globalConstants: GlobalConstants,
+    private substationService : SubstationService, private feederService : FeederService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setPartialData();
