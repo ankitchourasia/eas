@@ -1,4 +1,4 @@
-<fieldset #searchForm="ngForm" ngForm id="searchForm" [disabled]="_searchClicked">
+<fieldset #searchForm="ngForm" ngForm id="searchForm" [disabled]="_searchClicked || _generateClicked">
   <div class="eas-space-between mb-2">
     <div class="inner-group">
       <small class="form-text text-muted required">Region</small>
@@ -82,10 +82,10 @@
   <hr>
   <div class="eas-flex-end mb-2">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && !billingData" [disabled]="_searchClicked || _generateClicked || !readingData" (click)="generateClicked()">
-      Fetch Billing Data<span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+      Fetch Billing Data <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && billingData" [disabled]="_searchClicked || _generateClicked || !billingData" (click)="generateJsonInputForZone()">
-      Generate Report<span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+      Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked && reportGenerated" (click)="viewClicked()">
       <span class="fa fa-download"> Export </span>

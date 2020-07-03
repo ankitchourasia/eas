@@ -208,7 +208,6 @@ export class ReportFeederJsonFileComponent implements OnInit {
     generateInput.circleId = this.searchFormData.circle.id;
     generateInput.divisionId = this.searchFormData.division.id;
     generateInput.billMonth = this.searchFormData.billingMonth;
-    this._generateClicked = false;
     generateInput.zoneId = this.searchFormData.zone.id;
     generateInput.zoneName = this.searchFormData.zone.name;
     this.getReportDataClicked(generateInput);
