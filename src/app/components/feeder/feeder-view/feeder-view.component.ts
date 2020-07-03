@@ -5,6 +5,7 @@ import { FeederService } from '@eas-services/feeder/feeder.service';
 import { SubstationService } from '@eas-services/substation/substation.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { ZoneService } from '@eas-services/zone/zone.service';
+import { GlobalConstants } from '@eas-utility/global.constants';
 
 @Component({
   selector: 'eas-feeder-view',
@@ -27,8 +28,8 @@ export class FeederViewComponent implements OnInit {
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   public readonly ROLE_HTM_ADMIN = GlobalConfiguration.ROLE_HTM_ADMIN;
   constructor(private feederService : FeederService,  private substationService : SubstationService, 
-    private globalResources : GlobalResources, private paginationService : PaginationService, 
-    private zoneService: ZoneService) { }
+    private globalResources : GlobalResources, private globalConstants : GlobalConstants,
+    private paginationService : PaginationService, private zoneService: ZoneService) { }
 
   ngOnInit() {
     this.setInitialValue();

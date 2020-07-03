@@ -63,7 +63,7 @@ body{
 .overlay{
     background-color :var(--color-inverse) !important;
     opacity: 0.7;
-    position: absolute; /* fixed */
+    position: absolute; /* fixed */ /* relative */
     display: none;
     top:0;
     left: 0;
@@ -87,13 +87,13 @@ body{
 
 .active{
     background-color: orange !important;
-    border-color : orange !important
+    border-color : orange !important;
 }
 
-/* .pagination>li>a, .pagination>li>i { 
-    border-radius: 50% !important;
-    margin: 0 2px;
-} */
+.pagination .page-item.active .page-link{ 
+    background-color: orange !important;
+    border-color : orange !important;
+}
 /* ------------------------------------------------------------------------- */
 
 ::-webkit-scrollbar {

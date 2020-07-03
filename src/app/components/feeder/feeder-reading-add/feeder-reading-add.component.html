@@ -163,11 +163,7 @@
         <select [ngClass]="{'is-valid': !meterMake.errors && (meterMake.dirty || meterMake.touched),'is-invalid': meterMake.errors && (meterMake.dirty || meterMake.touched)}"
           class="form-control" [(ngModel)]="feederReading.newMeterMake" #meterMake="ngModel" id="meterMake" name="meterMake" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
-          <option>HPL</option>
-          <option>GENUS</option>
-          <option>SECURE</option>
-          <option>OMNI</option>
-          <option>OTHER</option>
+          <option *ngFor="let meter of globalConstants.METER_MAKES" [ngValue]="meter.name">{{meter.value}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="meterMake.errors && (meterMake.dirty || meterMake.touched)">
           <div *ngIf="meterMake.errors.required">required field</div>
