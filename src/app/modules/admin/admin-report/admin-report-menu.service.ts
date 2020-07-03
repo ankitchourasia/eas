@@ -15,7 +15,7 @@ export class AdminReportMenuService implements MenuInterface {
   private readonly SECOND_MENU_ACTIVE: boolean = false;
 
   public THIRD_MENU: any;
-  private readonly THIRD_MENU_NAME: string = "Consumer Complaints Redressal Input";
+  private readonly THIRD_MENU_NAME: string = "Complaints Redressal Input";
   private readonly THIRD_MENU_LINK: string = "consumer-complaints-redressal";
   private readonly THIRD_MENU_ACTIVE: boolean = false;
 

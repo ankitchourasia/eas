@@ -163,11 +163,11 @@
         <select [ngClass]="{'is-valid': !meterMake.errors && (meterMake.dirty || meterMake.touched),'is-invalid': meterMake.errors && (meterMake.dirty || meterMake.touched)}"
           class="form-control" [(ngModel)]="feederReading.newMeterMake" #meterMake="ngModel" id="meterMake" name="meterMake" required>
           <option disabled selected [ngValue]='undefined'>Select</option>
-          <option [ngValue]="HPL">HPL</option>
-            <option [ngValue]="GENUS">GENUS</option>
-            <option [ngValue]="SECURE">SECURE</option>
-            <option [ngValue]="OMNI">OMNI</option>
-            <option [ngValue]="OTHER">OTHER</option>
+          <option>HPL</option>
+          <option>GENUS</option>
+          <option>SECURE</option>
+          <option>OMNI</option>
+          <option>OTHER</option>
         </select>
         <div class="invalid-feedback" *ngIf="meterMake.errors && (meterMake.dirty || meterMake.touched)">
           <div *ngIf="meterMake.errors.required">required field</div>
@@ -175,7 +175,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-4 col-form-label">start Reading</label>
+      <label class="col-4 col-form-label">Start Reading</label>
       <div class="col-8">
         <input type="number" [ngClass]="{'is-valid': !startReading.errors && (startReading.dirty || startReading.touched),'is-invalid': startReading.errors && (startReading.dirty || startReading.touched)}"
           class="form-control" [(ngModel)]="feederReading.newMeterStartRead" #startReading="ngModel" id="startReading"  name="startReading" [min]="0" (change)="!startReading.errors && startReadChanged()" required>
@@ -237,10 +237,10 @@
     <label class="col-4 col-form-label">Assessment</label>
     <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
-        class="form-control" [(ngModel)]="feederReading.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
+        class="form-control" [(ngModel)]="feederReading.assUnit" #assessment="ngModel" id="assessment"  name="assessment" (change)="!assessment.errors && assessmentChanged()" required>
       <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
         <div *ngIf="assessment.errors.required">required field</div>
-        <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div>
+        <!-- <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div> -->
       </div>
     </div>
   </div>
