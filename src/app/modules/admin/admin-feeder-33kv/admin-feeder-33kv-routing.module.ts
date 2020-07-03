@@ -29,16 +29,16 @@ const routes: Routes = [
         path: 'view',component: AdminFeeder33KVViewComponent,
       },
       {
-        path: 'reading/add',component: AdminFeeder33KVReadingAddComponent,
+        path: 'read/add',component: AdminFeeder33KVReadingAddComponent,
       },
       {
-        path: 'reading/view',component: AdminFeeder33KVReadViewComponent,
+        path: 'read/view',component: AdminFeeder33KVReadViewComponent,
       },
       {
         path: 'import-point/add',component: AdminFeeder33KVImportPointAddComponent,
       },
       {
-        path: 'import-point/reading/add',component: AdminFeeder33KVImportPointReadingAddComponent,
+        path: 'import-point/read/add',component: AdminFeeder33KVImportPointReadingAddComponent,
       },
       {
         path: 'export-point/add',component: AdminFeeder33KVExportPointAddComponent,
@@ -47,10 +47,10 @@ const routes: Routes = [
         path: 'export-point/view',component: AdminFeeder33KVExportPointViewComponent,
       },
       {
-        path: 'export-point/reading/add',component: AdminFeeder33KVExportPointReadingAddComponent,
+        path: 'export-point/read/add',component: AdminFeeder33KVExportPointReadingAddComponent,
       },
       {
-        path: 'export-point/reading/view',component: AdminFeeder33KVExportPointReadViewComponent,
+        path: 'export-point/read/view',component: AdminFeeder33KVExportPointReadViewComponent,
       },
       { 
         path: '', redirectTo: 'home',

@@ -21,7 +21,7 @@ export class AdminReportMenuService implements MenuInterface {
 
   public FOURTH_MENU: any;
   private readonly FOURTH_MENU_NAME: string = "Feeder JSON Report";
-  private readonly FOURTH_MENU_LINK: string = "feeder/json";
+  private readonly FOURTH_MENU_LINK: string = "feeder-json";
   private readonly FOURTH_MENU_ACTIVE: boolean = false;
 
   public FIFTH_MENU: any;

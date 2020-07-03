@@ -50,7 +50,7 @@ const routes: Routes = [
         path: 'consumer-complaints-redressal',component: AdminReportConsumerComplaintsRedressalComponent,
       },
       {
-        path: 'feeder/json',component: AdminReportFeederJsonFileComponent,
+        path: 'feeder-json',component: AdminReportFeederJsonFileComponent,
       },
       { 
         path: '', redirectTo: 'home',

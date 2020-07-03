@@ -16,7 +16,7 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
 
   public THIRD_MENU: any;
   private readonly THIRD_MENU_NAME: string = "Feeder Read Add";
-  private readonly THIRD_MENU_LINK: string = "reading/add";
+  private readonly THIRD_MENU_LINK: string = "read/add";
   private readonly THIRD_MENU_ACTIVE: boolean = false;
 
   public FOURTH_MENU: any;
@@ -26,7 +26,7 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
 
   public FIFTH_MENU: any;
   private readonly FIFTH_MENU_NAME: string = "Import Point Read Add";
-  private readonly FIFTH_MENU_LINK: string = "import-point/reading/add";
+  private readonly FIFTH_MENU_LINK: string = "import-point/read/add";
   private readonly FIFTH_MENU_ACTIVE: boolean = false;
 
   public SIXTH_MENU: any;
@@ -41,7 +41,7 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
 
   public EIGHT_MENU: any;
   private readonly EIGHT_MENU_NAME: string = "Feeder Read View";
-  private readonly EIGHT_MENU_LINK: string = "reading/view";
+  private readonly EIGHT_MENU_LINK: string = "read/view";
   private readonly EIGHT_MENU_ACTIVE: boolean = false;
 
   public NINETH_MENU: any;
@@ -51,13 +51,13 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
 
   public TENTH_MENU: any;
   private readonly TENTH_MENU_NAME: string = "Export Point Read Add";
-  private readonly TENTH_MENU_LINK: string = "export-point/reading/add";
+  private readonly TENTH_MENU_LINK: string = "export-point/read/add";
   private readonly TENTH_MENU_ACTIVE: boolean = false;
 
 
   public ELEVENTH_MENU: any;
   private readonly ELEVENTH_MENU_NAME: string = "Export Point Read View";
-  private readonly ELEVENTH_MENU_LINK: string = "export-point/reading/view";
+  private readonly ELEVENTH_MENU_LINK: string = "export-point/read/view";
   private readonly ELEVENTH_MENU_ACTIVE: boolean = false;
 
   menus: any[] = new Array();
