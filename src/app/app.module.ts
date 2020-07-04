@@ -12,7 +12,6 @@ import { AuthorizationInterceptor } from './interceptors/authorization.intercept
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { GlobalDOMUtility } from '@eas-utility/global-dom-utility';
-// import { appRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ManageHttpInterceptor } from './interceptors/managehttp.interceptor';
 
@@ -36,6 +35,7 @@ import { ManageHttpInterceptor } from './interceptors/managehttp.interceptor';
     GlobalDOMUtility,
     GlobalConfiguration,
     CanActivateAuthGuard,
+    // { provide: ErrorHandler, useClass: ModuleErrorHandler},
     { provide: HTTP_INTERCEPTORS, useClass: ManageHttpInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true },
   ],

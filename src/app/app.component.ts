@@ -7,7 +7,7 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'eas';
   loading = false;
   constructor(private router: Router) {
     this.router.events.subscribe((event: RouterEvent) => {
@@ -17,11 +17,13 @@ export class AppComponent {
           break;
         }
 
-        case event instanceof (RouteConfigLoadEnd || NavigationEnd ||  NavigationCancel || NavigationError):{
+        case event instanceof (RouteConfigLoadEnd || NavigationEnd || NavigationCancel || NavigationError):{
           this.loading = false;
           break;
         }
+
         default: {
+          this.loading = false;
           break;
         }
       }
