@@ -197,7 +197,6 @@ export class ExportPointReadingAddComponent implements OnInit {
     this.formData.newMeterMake = undefined;
     this.formData.newMeterCapacity = undefined;
     this.formData.newMeterStartRead = undefined;
-    
   }
 
   meterReplacementDateChanged(){

@@ -23,6 +23,7 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
   exportPointLocationList: any;
   exportPointPreviousReading: any;
   _submitClicked : boolean;
+  _meterReplacementClicked: boolean;
   formData: any;
   constructor(public globalResources: GlobalResources, public globalConstants: GlobalConstants,
     private feederService: FeederService, private exportService: ExportService, private zoneService: ZoneService) { }
@@ -37,6 +38,7 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.circleList = [];
     this.divisionList = [];
     this.zoneList = [];
+    this._meterReplacementClicked = false;
     this.exportPointFeederList = null;
     this.exportPointLocationList = null;
     this.exportPointPreviousReading = null;
@@ -117,9 +119,9 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.exportService.getPreviousReadingBy33KVExportPointId(exportLocationNameId, false).subscribe(successResponse =>{
       this.exportPointPreviousReading = <any>successResponse;
       this.formData.previousBillMonth = this.exportPointPreviousReading.billMonth;
-      this.formData.previousRead = this.exportPointPreviousReading.currentRead;
-      this.formData.previousReadDate = this.exportPointPreviousReading.currentReadDate;
-      this.formData.previousReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.previousReadDate);
+      this.formData.previousReading = this.exportPointPreviousReading.currentRead;
+      this.formData.previousReadingDate = this.exportPointPreviousReading.currentReadDate;
+      this.formData.previousReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.previousReadingDate);
       this.formData.billMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
     }, error =>{
       console.log(error);
@@ -127,52 +129,153 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     });
   }
 
+  meterReplacementClicked(){
+    this.formData.currentReading = undefined;
+    this.formData.currentReadingDate = undefined;
+    this._meterReplacementClicked = true;
+    this.setDefaultReadingCalculation();
+  }
+
+  
+  cancleMeterReplacementClicked(){
+    this._meterReplacementClicked = false;
+    this.formData.currentReading = undefined;
+    this.formData.currentReadingDate = undefined;
+    this.clearOldAndNewMeterDetails();
+    this.setDefaultReadingCalculation();
+  }
+
+  
+  clearOldAndNewMeterDetails(){
+    this.formData.meterReplacementDate = undefined;
+    this.formData.finalRead = undefined;
+    this.formData.newMf = undefined;
+    this.formData.newMeterNo = undefined;
+    this.formData.newMeterMake = undefined;
+    this.formData.newMeterCapacity = undefined;
+    this.formData.newMeterStartRead = undefined;
+  }
+  meterReplacementDateChanged(){
+    this.calculateDifference();
+    this.formData.currentReadingDate = undefined;
+    this.formData.meterReplacementDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.meterReplacementDate);
+  }
+  
+  replacedMeterFinalReadChanged(){
+    this.calculateDifference();
+  }
+
+  newMeterMFChanged(){
+    this.calculateDifference();
+  }
+
+  newMeterStartReadChanged(){
+    this.formData.currentReading = undefined;
+    this.calculateDifference();
+  }
+
+
   currentReadingChanged(){
-    this.calculateConsumption();
+    this.calculateDifference();
   }
 
   currentReadingDateChanged(){
-    this.formData.currentReadDate = this.formData.currentReadingDate;
-    this.formData.currentReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.currentReadingDate);
+    this.formData.currentReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.currentReadingDate);
   }
 
   assessmentUnitChanged(){
-    this.formData.assessment = Number(this.formData.assessment);
+    this.formData.assessmentUnit = Number(this.formData.assessmentUnit);
     this.calculateTotalConsumption();
   }
 
-  calculateConsumption(){
-    this.formData.currentRead = Number(this.formData.currentReading);
-    this.formData.previousRead = Number(this.formData.previousRead)
-    this.formData.mf = Number(this.formData.exportPointLocation.mf);
     
-    if(this.formData.currentRead >= 0 && this.formData.previousRead >= 0 && this.formData.mf && this.formData.currentRead >= this.formData.previousRead){
-      this.formData.difference = this.globalResources.getValueAsNumberWithFixed((this.formData.currentRead - this.formData.previousRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-      this.formData.consumption = this.globalResources.getValueAsNumberWithFixed((this.formData.difference * this.formData.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-      this.calculateTotalConsumption();
+  calculateDifference(){
+    if( !this._meterReplacementClicked){
+      let mf = Number(this.formData.exportPointLocation.mf);
+      let currentReading = Number(this.formData.currentReading);
+      let previousReading = Number(this.formData.previousReading);
+      if(currentReading >= 0 && previousReading >= 0 && currentReading >= previousReading && mf > 0){
+        this.formData.difference = this.globalResources.getValueAsNumberWithFixed((currentReading - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.formData.consumption = this.globalResources.getValueAsNumberWithFixed((this.formData.difference * mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.formData.totalMeterConsumption = this.formData.consumption;
+        this.calculateTotalConsumption();
+      }else{
+        this.setDefaultReadingCalculation();
+      }
+    }else if(this._meterReplacementClicked){
+      let newMF = Number(this.formData.newMf);
+      let oldMF = Number(this.formData.exportPointLocation.mf);
+      let currentReading = Number(this.formData.currentReading);
+      let previousReading = Number(this.formData.previousReading);
+      let finalRead = Number(this.formData.finalRead);
+      let startRead = Number(this.formData.newMeterStartRead);
+      if(currentReading >= 0 && previousReading >= 0 && finalRead >= 0 && startRead >= 0 && currentReading >= startRead && finalRead >= previousReading && oldMF > 0 && newMF >= 0){
+        this.formData.oldReadingDifference = this.globalResources.getValueAsNumberWithFixed((finalRead - previousReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.formData.oldMeterConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.oldReadingDifference * oldMF), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.formData.newReadingDifference = this.globalResources.getValueAsNumberWithFixed((currentReading - startRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.formData.newMeterConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.newReadingDifference * newMF), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        //setting this to reflect on form
+        this.formData.difference = this.formData.newReadingDifference;
+        this.formData.consumption = this.globalResources.getValueAsNumberWithFixed((this.formData.oldMeterConsumption + this.formData.newMeterConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+        this.formData.totalMeterConsumption = this.formData.consumption;
+        this.calculateTotalConsumption();
+      }else{
+        this.setDefaultReadingCalculation();
+      }
     }
   }
 
   calculateTotalConsumption(){
-    if(this.formData.assessment){
-      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.consumption + this.formData.assessment), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-    } else{
-      this.formData.totalConsumption = this.formData.consumption;
+    if(this.formData.assessmentUnit){
+      this.formData.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.formData.consumption + this.formData.assessmentUnit), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+      return;
     }
+    this.formData.totalConsumption = this.formData.consumption;
+  }
+
+  setDefaultReadingCalculation(){
+    this.formData.difference = undefined;
+    this.formData.assessmentUnit = undefined;
+    this.formData.consumption = undefined;
+    this.formData.totalConsumption = undefined;
+    this.formData.totalMeterConsumption = undefined;
   }
 
   submitClicked(exportPointReadAddForm){
     if(this.globalResources.validateForm(exportPointReadAddForm)){
       this._submitClicked = true;
       this.formData.zoneId = this.formData.zone.id;
-      this.formData.feederId = this.formData.exportPointFeeder.id;
+      this.formData.feeder33KVId = this.formData.exportPointFeeder.id;
       this.formData.export33KVId = this.formData.exportPointLocation.id;
-      this.formData.mf = this.formData.exportPointLocation.overallMf;
+      this.formData.mf = this.formData.exportPointLocation.mf;
       this.formData.meterNo = this.formData.exportPointLocation.meterNo;
-			this.calculateConsumption();
+			this.calculateDifference();
       this._submitClicked = false;
-      this.addExportPointRead(exportPointReadAddForm)
+      if(this._meterReplacementClicked){
+        this.formData.oldMf = this.formData.mf;
+        this.formData.oldMeterNo = this.formData.meterNo;
+        this.addExportPointReadWithMeterReplacement(exportPointReadAddForm);
+      }else{
+        this.addExportPointRead(exportPointReadAddForm)
+      }
     }
+  }
+  
+  addExportPointReadWithMeterReplacement(exportPointReadAddForm){
+    let methodName = "addExportPointReadWithMeterReplacement";
+    this._submitClicked = true;
+    console.log(this.formData);
+    this.exportService.add33KVExportPointReadingWithMeterReplacement(this.formData, this.user.username, false).subscribe(successResponese =>{
+      this._submitClicked = false;
+      let alertResponse = this.globalResources.successAlert("Export point read added successfully");
+      alertResponse.then(result =>{
+        this.setPartialData();
+        this.globalResources.resetValidateForm(exportPointReadAddForm);
+      });
+    }, errorResponse =>{
+      this._submitClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
   }
 
   addExportPointRead(exportPointReadAddForm){

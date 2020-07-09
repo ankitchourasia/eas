@@ -193,4 +193,16 @@ export class ExportService {
       return this.httpClient.get(this.URL_PREFIX + 'export-33kv/reading/division/' + divisionId +'/bill-month/' + billMonth);
     }
   }
+
+  add33KVExportPointReadingWithMeterReplacement(exportPointReading, username, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", username);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.httpClient.post(this.URL_PREFIX + 'export-33kv/meter/replacement/', exportPointReading, options);
+  }
 }
