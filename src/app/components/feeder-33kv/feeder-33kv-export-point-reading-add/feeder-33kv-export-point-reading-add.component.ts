@@ -145,18 +145,19 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.setDefaultReadingCalculation();
   }
 
-  
   clearOldAndNewMeterDetails(){
     this.formData.meterReplacementDate = undefined;
+    this.formData.meterReplacementDateInString = undefined;
     this.formData.finalRead = undefined;
     this.formData.newMf = undefined;
     this.formData.newMeterNo = undefined;
-    this.formData.newMeterMake = undefined;
     this.formData.newMeterCapacity = undefined;
     this.formData.newMeterStartRead = undefined;
+    this.formData.newMeterConsumption = undefined;
+    this.formData.newReadingDifference = undefined;
   }
+
   meterReplacementDateChanged(){
-    this.calculateDifference();
     this.formData.currentReadingDate = undefined;
     this.formData.meterReplacementDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.meterReplacementDate);
   }
@@ -174,7 +175,6 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.calculateDifference();
   }
 
-
   currentReadingChanged(){
     this.calculateDifference();
   }
@@ -188,7 +188,6 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
     this.calculateTotalConsumption();
   }
 
-    
   calculateDifference(){
     if( !this._meterReplacementClicked){
       let mf = Number(this.formData.exportPointLocation.mf);

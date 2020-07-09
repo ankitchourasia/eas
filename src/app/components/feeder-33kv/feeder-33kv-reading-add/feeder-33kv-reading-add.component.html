@@ -1,4 +1,4 @@
-<fieldset #feederReadingAddForm="ngForm" ngForm autocomplete="off" [disabled]="loading">
+<fieldset #feederReadingAddForm="ngForm" ngForm autocomplete="off" [disabled]="_submitClicked">
   <div class="form-group row">
     <label class="col-4 col-form-label">Region</label>
     <div class="col-8">
@@ -95,6 +95,68 @@
     </div>
   </div>
   <div class="form-group row">
+    <div class="offset-4 col-8">
+      <button type="button" class="btn btn-warning btn-block" (click)="meterReplacementClicked()" *ngIf="!_meterReplacementClicked">Click for Meter Replacement</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancle for Meter Replacement</button>
+    </div>
+  </div>
+  <ng-template [ngIf]="_meterReplacementClicked">
+    <div class="form-group row">
+      <label class="col-4 col-form-label">Meter Replacement Date</label>
+      <div class="col-8">
+        <input type="date" [ngClass]="{'is-valid': !meterReplacementDate.errors && (meterReplacementDate.dirty || meterReplacementDate.touched),'is-invalid': meterReplacementDate.errors && (meterReplacementDate.dirty || meterReplacementDate.touched)}"
+          class="form-control" [(ngModel)]="feederReading.meterReplacementDate" #meterReplacementDate="ngModel" id="meterReplacementDate"  name="meterReplacementDate" [min]="feederReading.previousReadDate" required (change)="!meterReplacementDate.errors && meterReplacementDateChanged()">
+        <div class="invalid-feedback" *ngIf="meterReplacementDate.errors && (meterReplacementDate.dirty || meterReplacementDate.touched)">
+          <div [hidden]="!meterReplacementDate.errors.required">required field</div>
+          <div [hidden]="!meterReplacementDate.errors.min || meterReplacementDate.errors.required">date can not be less than Previous read date {{(feederReading.previousReadDate | date : globalConstants.DATE_FORMAT | uppercase)}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-4 col-form-label">Final Read</label>
+      <div class="col-8">
+        <input type="number" [ngClass]="{'is-valid': !replacedMeterFinalRead.errors && (replacedMeterFinalRead.dirty || replacedMeterFinalRead.touched),'is-invalid': replacedMeterFinalRead.errors && (replacedMeterFinalRead.dirty || replacedMeterFinalRead.touched)}"
+          class="form-control" [(ngModel)]="feederReading.finalRead" #replacedMeterFinalRead="ngModel" id="replacedMeterFinalRead"  name="replacedMeterFinalRead" step="0.001" [min]="feederReading.previousRead" required (change)="!replacedMeterFinalRead.errors && replacedMeterFinalReadChanged()">
+        <div class="invalid-feedback" *ngIf="replacedMeterFinalRead.errors && (replacedMeterFinalRead.dirty || replacedMeterFinalRead.touched)">
+          <div [hidden]="!replacedMeterFinalRead.errors.required">required field</div>
+          <div [hidden]="!replacedMeterFinalRead.errors.min || replacedMeterFinalRead.errors.required">can not be less than Previous read {{feederReading.previousRead}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-4 col-form-label">New Meter No</label>
+      <div class="col-8">
+        <input type="text" [ngClass]="{'is-valid': !newMeterNo.errors && (newMeterNo.dirty || newMeterNo.touched),'is-invalid': newMeterNo.errors && (newMeterNo.dirty || newMeterNo.touched)}"
+          class="form-control" [(ngModel)]="feederReading.newMeterNo" #newMeterNo="ngModel" id="newMeterNo"  name="newMeterNo" required>
+        <div class="invalid-feedback" *ngIf="newMeterNo.errors && (newMeterNo.dirty || newMeterNo.touched)">
+          <div [hidden]="!newMeterNo.errors.required">required field</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-4 col-form-label">New Meter MF</label>
+      <div class="col-8">
+        <input type="number" [ngClass]="{'is-valid': !newMeterMF.errors && (newMeterMF.dirty || newMeterMF.touched),'is-invalid': newMeterMF.errors && (newMeterMF.dirty || newMeterMF.touched)}"
+          class="form-control" [(ngModel)]="feederReading.newMf" #newMeterMF="ngModel" id="newMeterMF"  name="newMeterMF" [min]="1" required (change)="!newMeterMF.errors && newMeterMFChanged()">
+        <div class="invalid-feedback" *ngIf="newMeterMF.errors && (newMeterMF.dirty || newMeterMF.touched)">
+          <div [hidden]="!newMeterMF.errors.required">required field</div>
+          <div [hidden]="!newMeterMF.errors.min || newMeterMF.errors.required">invalid value</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-4 col-form-label">New Meter Start Read</label>
+      <div class="col-8">
+        <input type="number" [ngClass]="{'is-valid': !newMeterStartRead.errors && (newMeterStartRead.dirty || newMeterStartRead.touched),'is-invalid': newMeterStartRead.errors && (newMeterStartRead.dirty || newMeterStartRead.touched)}"
+          class="form-control" [(ngModel)]="feederReading.newMeterStartRead" #newMeterStartRead="ngModel" id="newMeterStartRead"  name="newMeterStartRead" [min]="0" step="0.001" required (change)="!newMeterStartRead.errors && newMeterStartReadChanged()">
+        <div class="invalid-feedback" *ngIf="newMeterStartRead.errors && (newMeterStartRead.dirty || newMeterStartRead.touched)">
+          <div [hidden]="!newMeterStartRead.errors.required">required field</div>
+          <div [hidden]="!newMeterStartRead.errors.min || newMeterStartRead.errors.required">invalid value</div>
+        </div>
+      </div>
+    </div>
+    </ng-template>
+  <div class="form-group row">
     <label class="col-4 col-form-label">Bill Month</label>
     <div class="col-8">
         <input type="text" class="form-control" [ngModel]="feederReading.billMonth" id="billMonth" name="billMonth" disabled>
@@ -104,21 +166,21 @@
     <label class="col-4 col-form-label">Current Reading</label>
     <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
-        class="form-control" [(ngModel)]="feederReading.currentRead" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="feederReading.previousRead" (change)="!currentReading.errors && calculateConsumption()" required>
+        class="form-control" [(ngModel)]="feederReading.currentRead" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="(feederReading.newMeterStartRead?.toString().length ? feederReading.newMeterStartRead :  feederReading.previousRead)" step="0.001" required (change)="!currentReading.errors && currentReadingChanged()">
       <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
-        <div *ngIf="currentReading.errors.required">required field</div>
-        <div [hidden]="!currentReading.errors.min || currentReading.errors.required">Current Read is less than previous read.</div>
+        <div [hidden]="!currentReading.errors.required">required field</div>
+        <div [hidden]="!currentReading.errors.min || currentReading.errors.required">can not be less than Previous/start read {{feederReading.newMeterStartRead?.toString().length ? feederReading.newMeterStartRead :  feederReading.previousRead}}</div>
       </div>
     </div>
   </div>
   <div class="form-group row">
     <label class="col-4 col-form-label">Current Read Date</label>
     <div class="col-8">
-        <input type="date" class="form-control" [ngClass]="{'is-valid': !currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched),'is-invalid': currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)}"
-        [(ngModel)]="feederReading.currentReadingDate" name="currentReadDate" id="currentReadDate" [min]="(feederReading.previousReadDate | date : 'yyyy-MM-dd')" #currentReadDate="ngModel" required>
-      <div class="invalid-feedback" *ngIf="currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)">
-        <div [hidden]="!currentReadDate.errors.required">Reading date is required</div>
-        <div [hidden]="!currentReadDate.errors.min || currentReadDate.errors.required">Reading date is more than previous reading date</div>
+      <input type="date" [ngClass]="{'is-valid': !currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched),'is-invalid': currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)}"
+        class="form-control" [(ngModel)]="feederReading.currentReadDate" #currentReadingDate="ngModel" id="currentReadingDate"  name="currentReadingDate"  [min]="(feederReading.meterReplacementDate ? feederReading.meterReplacementDate :  feederReading.previousReadDate)" required (change)="!currentReadingDate.errors && currentReadingDateChanged()">
+      <div class="invalid-feedback" *ngIf="currentReadingDate.errors && (currentReadingDate.dirty || currentReadingDate.touched)">
+        <div [hidden]="!currentReadingDate.errors.required">required field</div>
+        <div [hidden]="!currentReadingDate.errors.min || currentReadingDate.errors.required">can not be less than previous-read/meter-replacement-date {{feederReading.meterReplacementDate ? (feederReading.meterReplacementDate | date : globalConstants.DATE_FORMAT | uppercase) : (feederReading.previousReadDate | date : globalConstants.DATE_FORMAT | uppercase)}} </div>
       </div>
     </div>
   </div>
@@ -138,7 +200,7 @@
     <label class="col-4 col-form-label">Assessment</label>
     <div class="col-8">
       <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
-        class="form-control" [(ngModel)]="feederReading.assessment" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
+        class="form-control" [(ngModel)]="feederReading.assessmentUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
       <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
         <div *ngIf="assessment.errors.required">required field</div>
         <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div>

@@ -262,6 +262,16 @@ export class FeederService {
     return this.http.post(this.URL_PREFIX + 'feeder-33kv/reading', feederReading, options);
   }
 
+  add33KVFeederReadWithMeterReplacement(feederReading, punchedBy, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("punchedBy", punchedBy);
+    let options = { params: httpParams };
+    if(response){ 
+      options['observe'] = "response"; 
+    }
+    return this.http.post(this.URL_PREFIX + 'feeder-33kv/meter/replacement', feederReading, options);
+  }
+
     
   get33KVFeederReadingsByZoneIdAndBillMonth(zoneId, billMonth, response){
     if(response){

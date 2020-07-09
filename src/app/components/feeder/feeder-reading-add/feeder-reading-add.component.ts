@@ -149,26 +149,18 @@ export class FeederReadingAddComponent implements OnInit {
       if(this.feederReading.currReading >= 0 && this.feederReading.prevReading >= 0 && this.feederReading.newMeterStartRead >= 0 && this.feederReading.finalRead >= 0 && 
         this.feederReading.mf && this.feederReading.newMf && this.feederReading.currReading >= this.feederReading.newMeterStartRead &&
         this.feederReading.finalRead >= this.feederReading.prevReading){
-          // this.feederReading.oldReadingDifference = (Number(this.feederReading.finalRead) - Number(this.feederReading.prevReading)).toFixed(3);
           this.feederReading.oldReadingDifference = this.globalResources.getValueAsNumberWithFixed((this.feederReading.finalRead - this.feederReading.prevReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-          // this.feederReading.oldMeterConsumption = Number(this.feederReading.oldReadingDifference) * Number(this.feederReading.mf);
           this.feederReading.oldMeterConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.oldReadingDifference * this.feederReading.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-          // this.feederReading.newReadingDifference = (Number(this.feederReading.currReading) - Number(this.feederReading.newMeterStartRead)).toFixed(3);
           this.feederReading.newReadingDifference = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currReading - this.feederReading.newMeterStartRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-          // this.feederReading.newMeterConsumption = Number(this.feederReading.newReadingDifference) * Number(this.feederReading.newMf);
           this.feederReading.newMeterConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.newReadingDifference * this.feederReading.newMf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-          // this.feederReading.readingDiff = Number(this.feederReading.oldReadingDifference) + Number(this.feederReading.newReadingDifference);
           this.feederReading.readingDiff = this.globalResources.getValueAsNumberWithFixed((this.feederReading.oldReadingDifference + this.feederReading.newReadingDifference), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-          // this.feederReading.meterConsumption = this.feederReading.oldMeterConsumption + this.feederReading.newMeterConsumption;
           this.feederReading.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.oldMeterConsumption + this.feederReading.newMeterConsumption), GlobalConstants.CALCULATION_ROUNDING_SCALE);
           this.calculateTotalConsumption();
       }
     } else{
       if(this.feederReading.currReading >= 0 && this.feederReading.prevReading >= 0 && 
         this.feederReading.mf && this.feederReading.currReading >= this.feederReading.prevReading){
-          // this.feederReading.readingDiff = (Number(this.feederReading.currReading) - Number(this.feederReading.prevReading)).toFixed(3);
           this.feederReading.readingDiff = this.globalResources.getValueAsNumberWithFixed((this.feederReading.currReading - this.feederReading.prevReading), GlobalConstants.CALCULATION_ROUNDING_SCALE);
-          // this.feederReading.meterConsumption = this.feederReading.readingDiff * Number(this.feederReading.mf);
           this.feederReading.meterConsumption = this.globalResources.getValueAsNumberWithFixed((this.feederReading.readingDiff * this.feederReading.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
           this.calculateTotalConsumption();
       }
