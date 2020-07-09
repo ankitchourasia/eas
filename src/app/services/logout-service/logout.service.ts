@@ -2,30 +2,22 @@ import { Injectable } from '@angular/core';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogoutService {
 
-  private URL_PREFIX = GlobalConfiguration.URL_PREFIX;
-  private AUTHENTICATION_URL : string = "authentication/";
-
-  constructor(private router: Router, private globalResources: GlobalResources) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   public logout() {
     console.log("Logout called in Authorization Service");
-    let loggedInUser = this.globalResources.getUserDetails();
+    let loggedInUser = this.authenticationService.getUserDetails();
     if (loggedInUser) {
-      console.log(loggedInUser);
-      this.clearStorage('encodedCredentials');
-      this.clearStorage('userDetails');
+      this.authenticationService.clearSessionStorage();
       this.router.navigate(['login']);
     }
-  }
-
-  private clearStorage(key) {
-    sessionStorage.removeItem(key);
   }
 
 }

@@ -3,16 +3,18 @@ import { NgForm, NgModel } from '@angular/forms';
 import alert from "sweetalert2";
 import $ from 'jQuery';
 import { GlobalConstants } from './global.constants';
+import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
 
 @Injectable()
 export class GlobalResources {
 
-    constructor(private globalConstants: GlobalConstants){
+    constructor(private globalConstants: GlobalConstants,
+        private authenticationService: AuthenticationService){
 
     }
 
     getUserDetails(){
-        return JSON.parse(sessionStorage.getItem('userDetails'));
+        return this.authenticationService.getUserDetails();
     }
     
     templateAlert(templateRef, options){

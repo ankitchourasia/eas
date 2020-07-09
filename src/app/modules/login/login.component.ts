@@ -5,6 +5,7 @@ import { LoginService } from '@eas-services/login/login.service';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { ZoneService } from '@eas-services/zone/zone.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
+import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
 
 @Component({
   selector: 'eas-login',
@@ -18,47 +19,13 @@ export class LoginComponent implements OnInit {
   loginError: boolean;
   _submitClicked : boolean;
 
-  constructor(private router: Router, private globalResources: GlobalResources, private loginService : LoginService, private zoneService : ZoneService) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService,
+    private globalResources: GlobalResources, private loginService : LoginService) { }
 
   ngOnInit() {
     this.user = {};
     this.loginErrorText = undefined;
-  }
-
-  processLoginForm(){
-    this._submitClicked = true;
-    this.loginService.authenticate(this.user, true).subscribe((successResponse) =>{
-      console.log(successResponse);
-      if(successResponse && successResponse.status === 200){
-        sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
-        let user = successResponse.json();
-        sessionStorage.setItem('userDetails', JSON.stringify(user));
-        if(user.role === GlobalConfiguration.ROLE_ADMIN){
-          this.router.navigate(["/admin"]);
-          // this._submitClicked = false;
-        }else if(user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
-          this.router.navigate(["/super_admin"]);
-          this._submitClicked = false;
-          // console.log("inside super-admin");
-        }
-        else if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
-          this.router.navigate(["/admin"]);
-          this._submitClicked = false;
-          // console.log("inside field-admin");
-        }
-      }else{
-        this.loginError= true;
-        this._submitClicked = false;
-        this.loginErrorText = "Invalid username/password. Try again!";
-      }
-    }, errorResponse =>{
-      this.loginError= true;
-      this._submitClicked = false;
-      this.loginErrorText = "Invalid username/password. Try again!";
-      // alert("Invalid credentials");
-    });
-
-    
+    this.authenticationService.clearSessionStorage();
   }
 
   loginClicked(loginForm){
@@ -67,15 +34,38 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getZones(user){
-    console.log(user);
-    user.zoneList = [];
-    this.zoneService.getZonesByDivisionId(user.division.id, false).subscribe(successResponse =>{
-      user.zoneList = successResponse;
-      sessionStorage.setItem('userDetails', JSON.stringify(user));
+  processLoginForm(){
+    this._submitClicked = true;
+    this.loginService.authenticate(this.user, true).subscribe(successResponse =>{
+        this._submitClicked = false;
+      let result: any = successResponse;
+      if(result && result.status === 200){
+        let user = result.body;
+        this.authenticationService.setUserDetails(user);
+        
+        if(user.role === GlobalConfiguration.ROLE_ADMIN){
+          this.router.navigate(["/admin"]);
+          return;
+        }
+        if(user.role === GlobalConfiguration.ROLE_SUPER_ADMIN){
+          this.router.navigate(["/super_admin"]);
+          return;
+        }
+        if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
+          this.router.navigate(["/admin"]);
+          return;
+        }
+        return;
+      }
+      this.loginError= true;
+      this._submitClicked = false;
+      this.loginErrorText = "Invalid username/password. Try again!";
     }, errorResponse =>{
-      console.log(errorResponse);
+      this.loginError= true;
+      this._submitClicked = false;
+      this.loginErrorText = "Invalid username/password. Try again!";
     });
-  }
 
+    
+  }
 }
