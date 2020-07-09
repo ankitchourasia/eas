@@ -80,6 +80,7 @@ export class HtConsumer33KVAddComponent implements OnInit {
     this.htConsumer.divisionId = this.user.division.id;
     this.htConsumer.zoneId = this.htConsumer.zone.id;
     this.htConsumer.feeder33KVId = this.htConsumer.feeder.id;
+    this.htConsumer.status = "ACTIVE";
     this.add33KVHTConsumer(htConsumerAddForm);
   }
 

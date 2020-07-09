@@ -134,4 +134,13 @@ export class HtConsumerService {
       return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/reading/division/' + divisionId +'/bill-month/' + billMonth);
     }
   }
+
+  update33KVHTConsumer(htConsumer, response){
+    if(response){
+      let options : any = { observe : "response" };
+      return this.http.put(this.URL_PREFIX + 'ht-consumer-33kv/', htConsumer, options);
+    } else {
+      return this.http.put(this.URL_PREFIX + 'ht-consumer-33kv/', htConsumer);
+    }
+  }
 }

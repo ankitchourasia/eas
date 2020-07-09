@@ -109,4 +109,35 @@ export class HtConsumer33KVViewComponent implements OnInit {
     this.pager = this.paginationService.getPager(this.htConsumerList.length, page, this.pageSize);
     this.pagedHTConsumerList = this.htConsumerList.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
+
+  consumerToEdit : any;
+  editButtonClicked(feeder){
+    this.consumerToEdit = Object.assign({}, feeder);
+  }
+
+  closeModal(updateFeederForm, modalCloseButtonRef){
+    this.globalResources.resetValidateForm(updateFeederForm);
+    modalCloseButtonRef.click();
+    this._updateClicked = false;
+    this.consumerToEdit = undefined;
+  }
+
+  _updateClicked: boolean;
+  updateClicked(updateFeederForm, modalCloseButtonRef){
+    let methodName = "updateClicked";
+    if(this.globalResources.validateForm(updateFeederForm)){
+      this._updateClicked = true;
+      this.htConsumerService.update33KVHTConsumer(this.consumerToEdit, this.user.username).subscribe(successResponese =>{
+        this._updateClicked = false;
+        let alertResponse = this.globalResources.successAlert("HT Consumer updated successfully");
+        alertResponse.then(result =>{
+          this.closeModal(updateFeederForm, modalCloseButtonRef);
+          this.zoneChanged();
+        });
+      }, errorResponse =>{
+        this._updateClicked = false;
+        this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+      })
+    }
+  }
 }

@@ -20,7 +20,9 @@
         <td nowrap class="align-middle">Zone</td>
         <td nowrap class="align-middle">Feeder</td>
         <td nowrap class="align-middle">Service No</td>
-        <td nowrap class="align-middle">Cons Name</td>
+        <td nowrap class="align-middle">Name</td>
+        <td nowrap class="align-middle">Status</td>
+        <td nowrap class="align-middle">Edit</td>
       </tr>
     </thead>
     <tbody>
@@ -31,10 +33,16 @@
         <td class="align-middle">{{htConsumer.feeder33KV?.name}}</td>
         <td class="align-middle">{{htConsumer.serviceNo}}</td>
         <td class="align-middle">{{htConsumer.name}}</td>
+        <td class="align-middle">{{htConsumer.status}}</td>
+        <td class="align-middle">
+          <a href="javascript:void(0)" (click)="editButtonClicked(htConsumer)" data-toggle="modal" data-target="#update33KVHTConsumerModal">
+            <span class="fa fa-pencil"></span>
+          </a>
+        </td>
       </tr>
       </ng-template>
       <tr *ngIf="htConsumerList && !htConsumerList.length && !loading">
-        <td class="align-middle" colspan="5">No Records Found</td>
+        <td class="align-middle" colspan="7">No Records Found</td>
       </tr>
       <tr *ngIf="loading">
         <td class="align-middle" colspan="5">
@@ -65,3 +73,48 @@
     </ul>
   </nav>
 </div>
+
+<fieldset class="modal fade" data-backdrop="static" data-keyboard="false" id="update33KVHTConsumerModal" tabindex="-1" role="dialog" 
+  #ht33kvConsumerUpdateForm="ngForm" ngForm autocomplete="off" [disabled]="_updateClicked" *ngIf="consumerToEdit">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-inverse text-default">
+        <h5 class="modal-title">Edit HT Consumer</h5>
+        <button type="button" class="close text-default" data-dismiss="modal" (click)="closeModal(ht33kvConsumerUpdateForm, modalCloseButtonRef)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label class="col-4 col-form-label">Consumer Name</label>
+          <div class="col-8">
+            <input type="text" [ngClass]="{'is-valid': !consumerName.errors && (consumerName.dirty || consumerName.touched),'is-invalid': consumerName.errors && (consumerName.dirty || consumerName.touched)}"
+              class="form-control" [(ngModel)]="consumerToEdit.name" #consumerName="ngModel" id="consumerName"  name="consumerName" required>
+            <div class="invalid-feedback" *ngIf="consumerName.errors && (consumerName.dirty || consumerName.touched)">
+              <div *ngIf="consumerName.errors.required">required field</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-4 col-form-label">Status</label>
+          <div class="col-8">
+            <select class="form-control rm-control-sm" [(ngModel)]="consumerToEdit.status" id="feederMeterMake"  name="feederMeterMake" required>
+              <option>ACTIVE</option>
+              <option>INACTIVE</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-4 offset-4">
+            <button type="button" class="btn btn-success btn-block" (click)="updateClicked(ht33kvConsumerUpdateForm, modalCloseButtonRef)">
+              Update <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_updateClicked"></span>
+            </button>
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" #modalCloseButtonRef (click)="closeModal(ht33kvConsumerUpdateForm, modalCloseButtonRef)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>
