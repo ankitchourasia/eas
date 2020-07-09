@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   processLoginForm(){
     this._submitClicked = true;
-    this.loginService.authenticate(this.user).subscribe((successResponse) =>{
+    this.loginService.authenticate(this.user, true).subscribe((successResponse) =>{
+      console.log(successResponse);
       if(successResponse && successResponse.status === 200){
         sessionStorage.setItem('encodedCredentials', btoa(this.user.username + ':' + this.user.password));
         let user = successResponse.json();
