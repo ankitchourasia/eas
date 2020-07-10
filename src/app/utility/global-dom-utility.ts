@@ -1,4 +1,4 @@
-import { Injectable, Renderer } from '@angular/core';
+import { Injectable, Renderer, Renderer2 } from '@angular/core';
 
 @Injectable()
 export class GlobalDOMUtility {
@@ -11,10 +11,11 @@ export class GlobalDOMUtility {
      * with passed elementId
      * @param elementId 
      */
-    public focusOnElement(elementId: string, renderer : Renderer) {
+    public focusOnElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
         const element = document.getElementById(elementId);
         if (element && renderer) {
             renderer.invokeElementMethod(element, 'focus');
+            // renderer2.selectRootElement(element, true).focus();
         }
     }
 
@@ -22,10 +23,11 @@ export class GlobalDOMUtility {
      * Function to click element with passed elementId
      * @param elementId 
      */
-    public clickElement(elementId: string, renderer : Renderer) {
+    public clickElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
         const element = document.getElementById(elementId);
         if (element && renderer) {
             renderer.invokeElementMethod(element, 'click');
+            // renderer2.selectRootElement(element, true).click();
         }
     }
 

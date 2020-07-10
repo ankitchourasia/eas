@@ -113,6 +113,8 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
 
   getPreviousReadingBy33KVExportPointId(exportLocationNameId){
     let methodName = "getPreviousReadingBy33KVExportPointId";
+    this.formData.currentRead = undefined;
+    this.formData.currentReadDate = undefined;
     this.formData.currentReading = undefined;
     this.formData.currentReadingDate = undefined;
     this.exportPointPreviousReading = null;
@@ -123,6 +125,11 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
       this.formData.previousReadingDate = this.exportPointPreviousReading.currentReadDate;
       this.formData.previousReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.previousReadingDate);
       this.formData.billMonth = this.globalResources.getNextBillMonth(this.exportPointPreviousReading.billMonth);
+
+      this.formData.previousRead = this.formData.previousReading;
+      this.formData.previousReadDate = this.formData.previousReadingDate
+      this.formData.previousReadDateInString = this.formData.previousReadingDateInString;
+      
     }, error =>{
       console.log(error);
       let alertResponse = this.globalResources.handleError(error, this.COMPONENT_NAME, methodName);
@@ -130,6 +137,8 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
   }
 
   meterReplacementClicked(){
+    this.formData.currentRead = undefined;
+    this.formData.currentReadDate = undefined;
     this.formData.currentReading = undefined;
     this.formData.currentReadingDate = undefined;
     this._meterReplacementClicked = true;
@@ -139,6 +148,8 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
   
   cancleMeterReplacementClicked(){
     this._meterReplacementClicked = false;
+    this.formData.currentRead = undefined;
+    this.formData.currentReadDate = undefined;
     this.formData.currentReading = undefined;
     this.formData.currentReadingDate = undefined;
     this.clearOldAndNewMeterDetails();
@@ -158,6 +169,7 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
   }
 
   meterReplacementDateChanged(){
+    this.formData.currentReadDate = undefined;
     this.formData.currentReadingDate = undefined;
     this.formData.meterReplacementDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.meterReplacementDate);
   }
@@ -171,20 +183,24 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
   }
 
   newMeterStartReadChanged(){
+    this.formData.currentRead = undefined;
     this.formData.currentReading = undefined;
     this.calculateDifference();
   }
 
   currentReadingChanged(){
+    this.formData.currentRead = this.formData.currentReading;
     this.calculateDifference();
   }
 
   currentReadingDateChanged(){
     this.formData.currentReadingDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.formData.currentReadingDate);
+    this.formData.currentReadDateInString = this.formData.currentReadingDateInString;
+    this.formData.currentReadDate = this.formData.currentReadingDate;
   }
 
   assessmentUnitChanged(){
-    this.formData.assessmentUnit = Number(this.formData.assessmentUnit);
+    this.formData.assessment = this.formData.assessmentUnit;
     this.calculateTotalConsumption();
   }
 
@@ -234,6 +250,7 @@ export class Feeder33KVExportPointReadingAddComponent implements OnInit {
 
   setDefaultReadingCalculation(){
     this.formData.difference = undefined;
+    this.formData.assessment = undefined;
     this.formData.assessmentUnit = undefined;
     this.formData.consumption = undefined;
     this.formData.totalConsumption = undefined;

@@ -114,6 +114,7 @@ export class Feeder33KVReadingAddComponent implements OnInit {
 
   setDefaultReadingCalculation(){
     this.feederReading.difference = undefined;
+    this.feederReading.assessment = undefined;
     this.feederReading.assessmentUnit = undefined;
     this.feederReading.consumption = undefined;
     this.feederReading.totalConsumption = undefined;
@@ -155,6 +156,7 @@ export class Feeder33KVReadingAddComponent implements OnInit {
   }
 
   assessmentChanged(){
+    this.feederReading.assessment = this.feederReading.assessmentUnit;
     this.calculateTotalConsumption();
   }
 
