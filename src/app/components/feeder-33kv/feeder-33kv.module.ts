@@ -12,6 +12,8 @@ import { Feeder33KVViewComponent } from './feeder-33kv-view/feeder-33kv-view.com
 import { Feeder33KVExportPointViewComponent } from './feeder-33kv-export-point-view/feeder-33kv-export-point-view.component';
 import { Feeder33KVExportPointReadViewComponent } from './feeder-33kv-export-point-read-view/feeder-33kv-export-point-read-view.component';
 import { Feeder33KVReadViewComponent } from './feeder-33kv-read-view/feeder-33kv-read-view.component';
+import { Feeder33KVAbsentReadComponent } from './feeder-33kv-absent-read/feeder-33kv-absent-read.component';
+
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import { Feeder33KVReadViewComponent } from './feeder-33kv-read-view/feeder-33kv
     Feeder33KVViewComponent, 
     Feeder33KVExportPointViewComponent, 
     Feeder33KVExportPointReadViewComponent, 
-    Feeder33KVReadViewComponent
+    Feeder33KVReadViewComponent, 
+    Feeder33KVAbsentReadComponent
   ],
   exports: [
     Feeder33KVAddComponent, 
@@ -41,7 +44,8 @@ import { Feeder33KVReadViewComponent } from './feeder-33kv-read-view/feeder-33kv
     Feeder33KVViewComponent, 
     Feeder33KVExportPointViewComponent, 
     Feeder33KVExportPointReadViewComponent, 
-    Feeder33KVReadViewComponent
+    Feeder33KVReadViewComponent,
+    Feeder33KVAbsentReadComponent
   ],
 })
 export class Feeder33KVModule { }
