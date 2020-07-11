@@ -9,9 +9,13 @@ import { CompareValidatorDirective } from './compare-validator.directive';
 import { EqualValidatorDirective } from './equal-validator.directive';
 import { NumberDirective } from './number.directive';
 import { PatternDirective } from './pattern.directive';
+import { FocusSelfDirective } from './focus-self.directive';
+import { FocusNextDirective } from './focus-next.directive';
 
 @NgModule({
   declarations: [
+    FocusSelfDirective,
+    FocusNextDirective,
     LowercaseDirective,
     UppercaseDirective,
     MinValidatorDirective,
@@ -24,6 +28,8 @@ import { PatternDirective } from './pattern.directive';
     PatternDirective,
   ],
   exports:[
+    FocusSelfDirective,
+    FocusNextDirective,
     LowercaseDirective,
     UppercaseDirective,
     MinValidatorDirective,
