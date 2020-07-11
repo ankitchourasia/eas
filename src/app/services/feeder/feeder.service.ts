@@ -290,4 +290,22 @@ export class FeederService {
       return this.http.get(this.URL_PREFIX + 'feeder-33kv/reading/division/' + divisionId + '/bill-month/' + billMonth);
     }
   }
+
+  getAbsent33KVFeederReadByDivisionId(divisionId, billMonth, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/absent/reading/division/' + divisionId + '/bill-month/' + billMonth,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/absent/reading/division/' + divisionId + '/bill-month/' + billMonth);
+    }
+  }
+
+  getAbsent33KVFeederReadByZoneId(zoneId, billMonth, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/absent/reading/zone/' + zoneId + '/bill-month/' + billMonth,  options);
+    }else{
+      return this.http.get(this.URL_PREFIX + 'feeder-33kv/absent/reading/zone/' + zoneId + '/bill-month/' + billMonth);
+    }
+  }
 }
