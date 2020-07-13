@@ -1,3 +1,7 @@
-:host /deep/ .router-link-active{
-    background-color: #d3d0cd; /**spring-boot color code #34302d;**/
+/* :host /deep/ .router-link-active{
+    background-color: #d3d0cd;
+} */
+/* below code used for angular-8 and above*/
+:host ::ng-deep .router-link-active{
+    background-color: #d3d0cd;
 }

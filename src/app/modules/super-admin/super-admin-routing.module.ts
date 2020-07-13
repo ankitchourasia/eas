@@ -19,22 +19,27 @@ const routes: Routes = [
           {
             path: 'region',
             loadChildren: 'app/modules/super-admin/super-admin-region/super-admin-region.module#SuperAdminRegionModule'
+            // loadChildren: () => import('app/modules/super-admin/super-admin-region/super-admin-region.module').then(m => m.SuperAdminRegionModule)
           },
           {
             path: 'circle',
             loadChildren: 'app/modules/super-admin/super-admin-circle/super-admin-circle.module#SuperAdminCircleModule'
+            // loadChildren: () => import('app/modules/super-admin/super-admin-circle/super-admin-circle.module').then(m => m.SuperAdminCircleModule)
           },
           {
             path: 'division',
             loadChildren: 'app/modules/super-admin/super-admin-division/super-admin-division.module#SuperAdminDivisionModule'
+            // loadChildren: () => import('app/modules/super-admin/super-admin-division/super-admin-division.module').then(m => m.SuperAdminDivisionModule)
           },
           {
             path: 'zone',
             loadChildren: 'app/modules/super-admin/super-admin-zone/super-admin-zone.module#SuperAdminZoneModule'
+            // loadChildren: () => import('app/modules/super-admin/super-admin-zone/super-admin-zone.module').then(m => m.SuperAdminZoneModule)
           },
           {
             path: 'user',
             loadChildren: 'app/modules/super-admin/super-admin-user/super-admin-user.module#SuperAdminUserModule'
+            // loadChildren: () => import('app/modules/super-admin/super-admin-user/super-admin-user.module').then(m => m.SuperAdminUserModule)
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'
