@@ -21,6 +21,7 @@ import { AdminFeeder11KVHomeComponent } from './admin-feeder-11kv-home/admin-fee
 import { AdminFeeder11KVComponent } from './admin-feeder-11kv.component';
 import { AdminFeeder11KVRoutingModule } from './admin-feeder-11kv-routing.module';
 import { AdminFeeder11KVMenuService } from './admin-feeder-11kv-menu.service';
+import { Admin11KVExportAbsentReadComponent } from './admin-11kv-export-absent-read/admin-11kv-export-absent-read.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { AdminFeeder11KVMenuService } from './admin-feeder-11kv-menu.service';
     AdminFeeder11KVExportPointViewComponent,
     AdminFeeder11KVExportPointReadAddComponent,
     AdminFeeder11KVExportPointReadViewComponent,
+    Admin11KVExportAbsentReadComponent
   ],
   providers: [
     AdminFeeder11KVMenuService

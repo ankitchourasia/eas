@@ -81,6 +81,11 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
   private readonly FIFTEENTH_MENU_LINK: string = "mapping/add";
   private readonly FIFTEENTH_MENU_ACTIVE: boolean = false;
 
+  public SIXTEENTH_MENU: any;
+  private readonly SIXTEENTH_MENU_NAME: string = "Export Point Absent Read";
+  private readonly SIXTEENTH_MENU_LINK: string = "export-point-absent-read";
+  private readonly SIXTEENTH_MENU_ACTIVE: boolean = false;
+
   public LAST_MENU: any;
   private readonly LAST_MENU_NAME: string = "Export Point Read View";
   private readonly LAST_MENU_LINK: string = "export-point/read/view";
@@ -186,6 +191,12 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
       link: this.FIFTEENTH_MENU_LINK
     }
 
+    this.SIXTEENTH_MENU = {
+      name: this.SIXTEENTH_MENU_NAME,
+      active: this.SIXTEENTH_MENU_ACTIVE,
+      link: this.SIXTEENTH_MENU_LINK
+    }
+
     this.LAST_MENU = {
       name: this.LAST_MENU_NAME,
       active: this.LAST_MENU_ACTIVE,
@@ -204,6 +215,7 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
     this.menus.push(this.TWELFTH_MENU);
     this.menus.push(this.THIRTEENTH_MENU);
     this.menus.push(this.FOURTEENTH_MENU);
+    this.menus.push(this.SIXTEENTH_MENU);
     this.menus.push(this.LAST_MENU);  
     this.menus.push(this.ELEVENTH_MENU);
     this.menus.push(this.NINETH_MENU);
