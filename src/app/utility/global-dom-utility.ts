@@ -16,6 +16,7 @@ export class GlobalDOMUtility {
         if (element && renderer) {
             renderer.invokeElementMethod(element, 'focus');
             // element.focus()
+            // element['focus'].apply(element);
             // renderer2.selectRootElement(`#${elementId}`, true).focus();
         }
     }
@@ -29,6 +30,7 @@ export class GlobalDOMUtility {
         if (element && renderer) {
             renderer.invokeElementMethod(element, 'click');
             // element.click();
+            // element['click'].apply(element);
             // renderer2.selectRootElement(`#${elementId}`, true).click();
         }
     }
@@ -68,7 +70,8 @@ export class GlobalDOMUtility {
         if(element && renderer){
             renderer.invokeElementMethod(element, "scrollIntoView");
             // element.scrollIntoView({ behavior: 'smooth', block: "start" });
-           // renderer2.selectRootElement(`#${elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
+            // element['scrollIntoView'].apply(element, { behavior: 'smooth', block: "start" });
+            // renderer2.selectRootElement(`#${elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
         }
     }
 }

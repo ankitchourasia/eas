@@ -16,7 +16,9 @@ export class FocusNextDirective{
         if(event.keyCode === 13 && element){
             this.renderer.invokeElementMethod(element, 'focus');
             // element.focus()
+            // element['focus'].apply(element);
             // this.renderer2.selectRootElement(`#${elementId}`, true).focus();
+            // this.renderer2.selectRootElement(element[“nativeElement”], true).focus();
             event.preventDefault();
         }
     }

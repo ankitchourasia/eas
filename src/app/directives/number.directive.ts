@@ -1,18 +1,15 @@
-import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
+import { Directive, HostListener } from '@angular/core';
 
 @Directive({
   selector: 'input[type=number]'
 })
 export class NumberDirective {
-
-  @Output() ngModelChange: EventEmitter<any> = new EventEmitter();
-
   constructor() {}
 
   @HostListener('keydown', ['$event'])onKeyDown(event: KeyboardEvent) {
-    if((event.key === "e" || event.key === "E")){
+    if(event.key === "e" || event.key === "E"){
       event.preventDefault();
+      return;
     }
  }
-
 }
