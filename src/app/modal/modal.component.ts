@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, OnDestroy, Input, Output, EventEmitter, Inject, ElementRef } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from "@angular/common";
 import { ModalDismissReasons } from './modal-dismiss-reasons';
 import { getFocusableBoundaryElements } from './util';
 

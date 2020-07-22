@@ -205,4 +205,40 @@ export class ExportService {
     }
     return this.httpClient.post(this.URL_PREFIX + 'export-33kv/meter/replacement/', exportPointReading, options);
   }
+
+  getAbsent33KVExportReadByZoneId(zoneId, billMonth, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/read/absent/zone/' + zoneId + '/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/read/absent/zone/' + zoneId + '/bill-month/' + billMonth);
+    }
+  }
+
+  getAbsent33KVExportReadByDivisionId(divisionId, billMonth, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/read/absent/division/' + divisionId + '/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'export-33kv/read/absent/division/' + divisionId + '/bill-month/' + billMonth);
+    }
+  }
+
+  getAbsent11KVExportReadByZoneId(zoneId, billMonth, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'feederexportpoint/read/absent/zone/' + zoneId + '/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'feederexportpoint/read/absent/zone/' + zoneId + '/bill-month/' + billMonth);
+    }
+  }
+
+  getAbsent11KVExportReadByDivisionId(divisionId, billMonth, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'feederexportpoint/read/absent/division/' + divisionId + '/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'feederexportpoint/read/absent/division/' + divisionId + '/bill-month/' + billMonth);
+    }
+  }
 }

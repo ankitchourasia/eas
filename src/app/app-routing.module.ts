@@ -14,18 +14,15 @@ const routes: Routes = [
   },
   {
     path: 'super_admin',
-    loadChildren: 'app/modules/super-admin/super-admin.module#SuperAdminModule'
-    // loadChildren: () => import('app/modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
+    loadChildren: () => import('app/modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
   },
   {
     path: 'admin',
-    loadChildren: 'app/modules/admin/admin.module#AdminModule'
-    // loadChildren: () => import('app/modules/admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('app/modules/admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: 'setting',
-    loadChildren: 'app/modules/setting/setting.module#SettingModule'
-    // loadChildren: () => import('app/modules/setting/setting.module').then(m => m.SettingModule)
+    loadChildren: () => import('app/modules/setting/setting.module').then(m => m.SettingModule)
   },
   { 
     path: '**', 

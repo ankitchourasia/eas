@@ -65,6 +65,11 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
   private readonly TWELVETH_MENU_LINK: string = "absent-read";
   private readonly TWELVETH_MENU_ACTIVE: boolean = false;
 
+  public THIRTEENTH_MENU: any;
+  private readonly THIRTEENTH_MENU_NAME: string = "Export Absent Read";
+  private readonly THIRTEENTH_MENU_LINK: string = "export-absent-read";
+  private readonly THIRTEENTH_MENU_ACTIVE: boolean = false;
+
   menus: any[] = new Array();
 
   constructor() {
@@ -148,6 +153,12 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
       link: this.TWELVETH_MENU_LINK
     }
 
+    this.THIRTEENTH_MENU = {
+      name: this.THIRTEENTH_MENU_NAME,
+      active: this.THIRTEENTH_MENU_ACTIVE,
+      link: this.THIRTEENTH_MENU_LINK
+    }
+
     this.menus.push(this.FIRST_MENU); 
     this.menus.push(this.SECOND_MENU);
     this.menus.push(this.SEVENTH_MENU);
@@ -160,6 +171,7 @@ export class AdminFeeder33KVMenuService implements MenuInterface {
     this.menus.push(this.NINETH_MENU);
     this.menus.push(this.TENTH_MENU);  
     this.menus.push(this.ELEVENTH_MENU);
+    this.menus.push(this.THIRTEENTH_MENU);
   }
 
   public getMenus() {

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
@@ -9,7 +8,7 @@ export class LoginService {
 
   private URL_PREFIX = GlobalConfiguration.URL_PREFIX;
   
-  constructor(private httpClient: HttpClient, private http: Http,
+  constructor(private httpClient: HttpClient,
     private authenticationService: AuthenticationService) { }
 
   AUTHENTICATION_URL : string = this.URL_PREFIX + "authentication/login";

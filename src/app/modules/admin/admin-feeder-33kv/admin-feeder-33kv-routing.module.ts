@@ -14,6 +14,7 @@ import { AdminFeeder33KVReadViewComponent } from './admin-feeder-33kv-read-view/
 import { AdminFeeder33KVExportPointViewComponent } from './admin-feeder-33kv-export-point-view/admin-feeder-33kv-export-point-view.component';
 import { AdminFeeder33KVExportPointReadViewComponent } from './admin-feeder-33kv-export-point-read-view/admin-feeder-33kv-export-point-read-view.component';
 import { AdminFeeder33KVAbsentReadComponent } from './admin-feeder-33kv-absent-read/admin-feeder-33kv-absent-read.component';
+import { AdminFeeder33KVExportPointAbsentReadComponent } from './admin-feeder-33kv-export-point-absent-read/admin-feeder-33kv-export-point-absent-read.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,9 @@ const routes: Routes = [
       },
       {
         path: 'absent-read',component: AdminFeeder33KVAbsentReadComponent,
+      },
+      {
+        path: 'export-absent-read',component: AdminFeeder33KVExportPointAbsentReadComponent,
       },
       { 
         path: '', redirectTo: 'home',

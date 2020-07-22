@@ -1,4 +1,4 @@
-import { Injectable, Renderer, Renderer2 } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 
 @Injectable()
 export class GlobalDOMUtility {
@@ -11,12 +11,10 @@ export class GlobalDOMUtility {
      * with passed elementId
      * @param elementId 
      */
-    public focusOnElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
+    public focusOnElement(elementId: string, renderer : Renderer2) {
         const element = document.getElementById(elementId) as HTMLElement;
         if (element && renderer) {
-            renderer.invokeElementMethod(element, 'focus');
-            // element.focus()
-            // element['focus'].apply(element);
+            element.focus();
             // renderer2.selectRootElement(`#${elementId}`, true).focus();
         }
     }
@@ -25,12 +23,10 @@ export class GlobalDOMUtility {
      * Function to click element with passed elementId
      * @param elementId 
      */
-    public clickElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
+    public clickElement(elementId: string, renderer : Renderer2) {
         const element = document.getElementById(elementId) as HTMLElement;
         if (element && renderer) {
-            renderer.invokeElementMethod(element, 'click');
-            // element.click();
-            // element['click'].apply(element);
+            element.click();
             // renderer2.selectRootElement(`#${elementId}`, true).click();
         }
     }
@@ -39,10 +35,10 @@ export class GlobalDOMUtility {
      * Function to enable, disabled element with passed elementId
      * @param elementId 
      */
-    public enableElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
+    public enableElement(elementId: string, renderer : Renderer2) {
         const element = document.getElementById(elementId) as HTMLElement;
         if (element && renderer) {
-            renderer.setElementAttribute(element, 'disabled', null);
+            __ngRendererSetElementAttributeHelper(renderer, element, 'disabled', null);
             // element.removeAttribute('disabled');
             // element.setAttribute('disabled', null)
             // renderer2.setAttribute(element, 'disabled', null);
@@ -55,23 +51,43 @@ export class GlobalDOMUtility {
      * Function to disable element with passed elementId
      * @param elementId 
      */
-    public disableElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
+    public disableElement(elementId: string, renderer : Renderer2) {
         const element = document.getElementById(elementId) as HTMLElement;
         if (element && renderer) {
-            renderer.setElementAttribute(element, 'disabled', "true");
+            __ngRendererSetElementAttributeHelper(renderer, element, 'disabled', "true");
             // element.setAttribute('disabled', "true")
             // renderer2.setAttribute(element, 'disabled', 'true'); //attribute is a HTML property
             // renderer2.setProperty(element, 'disabled', true); //property is a DOM property
         }
     }
 
-    public scrollIntoViewElement(elementId: string, renderer : Renderer, renderer2 : Renderer2) {
+    public scrollIntoViewElement(elementId: string, renderer : Renderer2) {
         const element = document.getElementById(elementId) as HTMLElement;
         if(element && renderer){
-            renderer.invokeElementMethod(element, "scrollIntoView");
+            element.scrollIntoView();
             // element.scrollIntoView({ behavior: 'smooth', block: "start" });
             // element['scrollIntoView'].apply(element, { behavior: 'smooth', block: "start" });
             // renderer2.selectRootElement(`#${elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
         }
+    }
+}
+
+type AnyDuringRendererMigration = any;
+
+function __ngRendererSplitNamespaceHelper(name: AnyDuringRendererMigration) {
+    if (name[0] === ":") {
+        const match = name.match(/^:([^:]+):(.+)$/);
+        return [match[1], match[2]];
+    }
+    return ["", name];
+}
+
+function __ngRendererSetElementAttributeHelper(renderer: AnyDuringRendererMigration, element: AnyDuringRendererMigration, namespaceAndName: AnyDuringRendererMigration, value?: AnyDuringRendererMigration) {
+    const [namespace, name] = __ngRendererSplitNamespaceHelper(namespaceAndName);
+    if (value != null) {
+        renderer.setAttribute(element, name, value, namespace);
+    }
+    else {
+        renderer.removeAttribute(element, name, namespace);
     }
 }
