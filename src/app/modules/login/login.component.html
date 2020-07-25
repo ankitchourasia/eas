@@ -47,7 +47,7 @@
 </div> -->
 
 <div id="cover">
-    <div id="login-container" class="p-3">
+    <div id="login-container" class="p-3" [disableElement]="_submitClicked">
         <div>
             <!-- <h1 class="text-center text-white">Welcome to EAS</h1> -->
             <h3 class="text-center text-white">Energy Audit System</h3>
@@ -55,31 +55,29 @@
             <div class="text-center" *ngIf="loginError">
                 <label class="font-weight-bold text-default">{{loginErrorText}}</label>
             </div>
-            <fieldset [disabled]="_submitClicked">
-                <form #loginForm="ngForm" autocomplete="off">
-                    <div class="form-group">
-                        <label class="sr-only">Username</label>
-                        <input type="text" class="form-control rounded-0" name="username" id="username" [(ngModel)]="user.username" placeholder="Enter Username" #username="ngModel" 
-                        [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}" required>
-                        <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
-                            <div [hidden]="!username.errors.required">required field</div>
-                        </div>
+            <form #loginForm="ngForm" autocomplete="off">
+                <div class="form-group">
+                    <label class="sr-only">Username</label>
+                    <input type="text" class="form-control rounded-0" name="username" id="username" [(ngModel)]="user.username" placeholder="Enter Username" #username="ngModel" 
+                    [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}" required>
+                    <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
+                        <div [hidden]="!username.errors.required">required field</div>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only">Password</label>
-                        <input type="password" class="form-control rounded-0" name="password" id="password" [(ngModel)]="user.password" placeholder="Enter Password" #password="ngModel"
-                        [ngClass]="{'is-valid': !password.errors && (password.dirty || password.touched),'is-invalid': password.errors && (password.dirty || password.touched)}" required>
-                        <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
-                            <div [hidden]="!password.errors.required">required field</div>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only">Password</label>
+                    <input type="password" class="form-control rounded-0" name="password" id="password" [(ngModel)]="user.password" placeholder="Enter Password" #password="ngModel"
+                    [ngClass]="{'is-valid': !password.errors && (password.dirty || password.touched),'is-invalid': password.errors && (password.dirty || password.touched)}" required>
+                    <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+                        <div [hidden]="!password.errors.required">required field</div>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-success btn-block rounded-0" (click)="loginClicked(loginForm)">
-                            login <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
-                        </button>
-                    </div>
-                </form>
-            </fieldset>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success btn-block rounded-0" (click)="loginClicked(loginForm)">
+                        login <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
+                    </button>
+                </div>
+            </form>
             <hr>
             <h6 class="text-center text-warning"><strong>&copy; MPPKVVCL Indore</strong></h6>
         </div>

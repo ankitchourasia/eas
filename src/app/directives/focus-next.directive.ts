@@ -1,12 +1,12 @@
 import { Directive, Input, Renderer2, HostListener } from "@angular/core";
 
-@Directive({ selector: '[focusNext]' })
+@Directive({ selector: '[focus-next]' })
 export class FocusNextDirective{
 
     private elementId : string;
     constructor(private renderer2: Renderer2) { }
     
-    @Input("focusNext")
+    @Input("focus-next")
     set setFocusNext(focusNextElementId : string){
         this.elementId = focusNextElementId;
     }

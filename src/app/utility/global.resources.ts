@@ -30,9 +30,9 @@ export class GlobalResources {
             buttonsStyling: false,
             confirmButtonClass: 'btn btn-success',
             confirmButtonText: 'OK',
-            customClass:{
-                // content: "text-left"
-            },
+            // customClass: {
+            //     confirmButton: 'btn btn-success'
+            // },
             width: options.width,
             keydownListenerCapture: true,
         });
@@ -50,6 +50,9 @@ export class GlobalResources {
             buttonsStyling: false,
             confirmButtonText: 'OK',
             confirmButtonClass: 'btn btn-danger',
+            // customClass: {
+            //     confirmButton: 'btn btn-danger'
+            // },
             keydownListenerCapture: true,
         });
     }
@@ -66,6 +69,9 @@ export class GlobalResources {
             buttonsStyling: false,
             confirmButtonText: 'OK',
             confirmButtonClass: 'btn btn-success',
+            // customClass: {
+            //     confirmButton: 'btn btn-success'
+            // },
             keydownListenerCapture: true,
         });
     }
@@ -81,14 +87,25 @@ export class GlobalResources {
             allowEnterKey: true,
             focusConfirm: true,
             buttonsStyling: false,
-            confirmButtonText: 'YES ',
-            confirmButtonClass: 'btn btn-success mx-3',
             cancelButtonText: 'NO ',
+            confirmButtonText: 'YES ',
             cancelButtonClass: 'btn btn-danger',
+            confirmButtonClass: 'btn btn-success mx-3',
             keydownListenerCapture: true,
+            // customClass: {
+            //     confirmButton: 'btn btn-success mx-3',
+            //     cancelButton: 'btn btn-danger'
+            // },
+            // showClass: {
+            //     popup: 'animate__animated animate__fadeInDown',
+            // },
+            // hideClass: {
+            //      popup: 'animate__animated animate__fadeOutUp',
+            // }
             // reverseButtons: true,
-            // background: "black",
             // position: "bottom",
+            // background: "black",
+            // backdrop: "rgba(0,0,0,0.3)",
             // backdrop: "linear-gradient(yellow, orange, red, blue)",
         });
       }

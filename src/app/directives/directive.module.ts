@@ -11,6 +11,7 @@ import { NumberDirective } from './number.directive';
 import { PatternDirective } from './pattern.directive';
 import { FocusSelfDirective } from './focus-self.directive';
 import { FocusNextDirective } from './focus-next.directive';
+import { DisableDirective } from './disable.directive';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FocusNextDirective } from './focus-next.directive';
     EqualValidatorDirective,
     NumberDirective,
     PatternDirective,
+    DisableDirective,
   ],
   exports:[
     FocusSelfDirective,
@@ -39,7 +41,8 @@ import { FocusNextDirective } from './focus-next.directive';
     CompareValidatorDirective,
     EqualValidatorDirective,
     NumberDirective,
-    PatternDirective
+    PatternDirective,
+    DisableDirective,
   ],
 })
 export class DirectiveModule { }
