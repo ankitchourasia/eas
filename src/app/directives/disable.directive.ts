@@ -11,14 +11,18 @@ import { Component, Input } from '@angular/core';
     }
   `],
   template: `
-    <fieldset [disabled]="disableElement">
+    <fieldset [disabled]="disabled">
       <ng-content></ng-content>
     </fieldset>
   `
 })
 export class DisableDirective {
-  
-  @Input('disableElement') disableElement: boolean;
+  disabled : boolean;
+
+  @Input("disableElement")
+  set setDisableElement(disabled : boolean){
+    this.disabled = disabled;
+  }
 
   constructor() { }
 
