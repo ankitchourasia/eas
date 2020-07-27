@@ -27,3 +27,6 @@ export class DisableDirective {
   constructor() { }
 
 }
+// host: {
+//   "[style.background]":"'transparent'",
+// },
