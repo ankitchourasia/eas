@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { GlobalResources } from '@eas-utility/global.resources';
 declare var $:any;
 @Component({
@@ -9,7 +9,7 @@ declare var $:any;
     </div>
   `
 })
-export class PopoverDirective {
+export class PopoverDirective implements AfterViewInit{
   
   dataToggle: string;
   title : string = "";
@@ -17,12 +17,7 @@ export class PopoverDirective {
   trigger: string = "hover";
   placement: string = "auto";
   
-  constructor(private globalResources : GlobalResources) { }
-
-  @Input("data-toggle")
-  set setDataToggle(dataToggle : string){
-    this.dataToggle = dataToggle;
-  }
+  constructor(private elementRef: ElementRef, private renderer2: Renderer2, private globalResources : GlobalResources) { }
 
   @Input("title")
   set setTitle(title : string){
@@ -43,10 +38,29 @@ export class PopoverDirective {
   set setContent(content : string){
     this.content = content;
   }
+  
+  @Input("data-toggle")
+  set setDataToggle(dataToggle : string){
+    this.dataToggle = dataToggle;
+  }
 
   @HostListener('mouseenter') onAnyEvent(event: any) {
     this.globalResources.popover(this.dataToggle, this.title, this.content, this.trigger, this.placement);
     // this.popover();
+  }
+
+  ngAfterViewInit() {
+  // this.renderer2.listen(this.elementRef.nativeElement, this.trigger, (event) => {
+  //     // Do something with 'event'
+  //     console.log(event);
+  //     this.globalResources.popover(this.dataToggle, this.title, this.content, this.trigger, this.placement);
+  //   });
+  //   // You can use listenGlobal that will give you access to document, body, etc.
+  //   this.renderer2.listen('document', this.trigger, (event) => {
+  //     // Do something with 'event'
+  //     console.log(event);
+  //     this.globalResources.popover(this.dataToggle, this.title, this.content, this.trigger, this.placement);
+  //   });
   }
 
   popover(){
