@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import alert from "sweetalert2";
-import $ from 'jQuery';
 import { GlobalConstants } from './global.constants';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
-
+import $ from 'jQuery';// declare var $:any;
 @Injectable()
 export class GlobalResources {
 
@@ -456,4 +455,17 @@ export class GlobalResources {
         }
         return Number(value);
     }
+
+// <button href="javascirpt:void(0)" data-toggle="popover" (mouseenter)="popover()">Toggle popover</button>   
+  popover(dataToggle: string, title: string, content: string, trigger: string, placement: string){
+    // $('[data-toggle="popover"]').popover(
+    $(`[data-toggle=${dataToggle}]`).popover(
+      {
+        title: title,
+        content: content,
+        trigger: trigger,
+        placement: placement,
+      }
+    );
+  }
 }

@@ -13,6 +13,7 @@ import { FocusSelfDirective } from './focus-self.directive';
 import { FocusNextDirective } from './focus-next.directive';
 import { DisableDirective } from './disable.directive';
 import { CommonModule } from '@angular/common';
+import { PopoverDirective } from './popover.directive';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { CommonModule } from '@angular/common';
     NumberDirective,
     PatternDirective,
     DisableDirective,
+    PopoverDirective,
   ],
   exports:[
     FocusSelfDirective,
@@ -47,6 +49,7 @@ import { CommonModule } from '@angular/common';
     NumberDirective,
     PatternDirective,
     DisableDirective,
+    PopoverDirective,
   ],
 })
 export class DirectiveModule { }
