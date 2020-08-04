@@ -456,16 +456,13 @@ export class GlobalResources {
         return Number(value);
     }
 
-// <button href="javascirpt:void(0)" data-toggle="popover" (mouseenter)="popover()">Toggle popover</button>   
-  popover(dataToggle: string, title: string, content: string, trigger: string, placement: string){
-    // $('[data-toggle="popover"]').popover(
-    $(`[data-toggle=${dataToggle}]`).popover(
-      {
-        title: title,
-        content: content,
-        trigger: trigger,
-        placement: placement,
-      }
-    );
-  }
+    popover(){
+        let dataToggle = $(`[data-toggle='popover']`);
+        dataToggle.popover();
+    }
+
+    tooltip(){
+        let dataToggle = $(`[data-toggle='tooltip']`);
+        dataToggle.tooltip();
+    }
 }
