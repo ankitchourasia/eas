@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { LoginService } from '@eas-services/login/login.service';
-import { GlobalConstants } from '@eas-utility/global.constants';
-import { ZoneService } from '@eas-services/zone/zone.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
 
@@ -53,6 +51,10 @@ export class LoginComponent implements OnInit {
         }
         if(user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
           this.router.navigate(["/admin"]);
+          return;
+        }
+        if(user.role === GlobalConfiguration.ROLE_REPORT_ADMIN){
+          this.router.navigate(["/report_admin"]);
           return;
         }
         return;

@@ -1,0 +1,14 @@
+<eas-header></eas-header>
+<nav class="navbar bg-inverse navbar-expand-lg" id="horizontalNavBar">
+    <button class="btn bg-default d-inline-block d-lg-none ml-auto mb-1" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav ml-auto">
+            <li class="nav-item" [ngClass]="{'bg-default': menu.active}"  *ngFor="let menu of menus">
+                <a class="nav-link" [ngClass]="{'text-inverse': menu.active, 'text-default': !menu.active}" href="javascript:void(0);" (click)="menuClicked(menu)">{{menu.name}}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<router-outlet></router-outlet>

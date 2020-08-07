@@ -426,4 +426,31 @@ export class ReportService {
     }
   }
 
+  getMissingTownWiseBillDataByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/missing/town-wise-bill-data/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/missing/town-wise-bill-data/bill-month/' + billMonth);
+    }
+  }
+
+  generateAllTownD1ReportByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/bill-month/' + billMonth);
+    }
+  }
+
+  exportAllTownD1ReportByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/export/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/export/bill-month/' + billMonth);
+    }
+  }
+
 }

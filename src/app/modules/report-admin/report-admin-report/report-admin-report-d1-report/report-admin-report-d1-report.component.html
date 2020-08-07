@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-header bg-inverse text-center text-default">
+        D-1 (Town wise AT&C Loss Report)
+    </div>
+    <div class="card-body">
+        <div class="space-around form-group">
+            <div class="form-inline">
+                <label class="form-text required mx-sm-3">Bill Month</label>
+                <div class="input-group">
+                <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+                    class="form-control form-control-sm" [(ngModel)]="billingMonth.month" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
+                    <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+                    <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+                </select>
+                <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+                    class="form-control form-control-sm" [(ngModel)]="billingMonth.year" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthChanged()">
+                    <option disabled selected [ngValue]='undefined'>Year</option>
+                    <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()">
+                    Search
+                    </button>
+                </div>
+                <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+                    <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+                </div>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-primary" [disabled]="!downloadReport" (click)="downloadReportButtonClicked()">Download Report</button>
+        </div>
+        <table class="table table-sm">
+            <tr class="bg-dark text-white">
+                <td>ID</td>
+                <td>TOWN NAME</td>
+                <td>BASELINE LOSS</td>
+            </tr>
+            <tr *ngFor="let town of missingTowns; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{town.name}}</td>
+                <td>{{town.baselineLoss}}</td>
+            </tr>
+            <tr>
+                <td *ngIf="!missingTowns || missingTowns.length < 1" align="center" colspan="3">No Records found</td>
+            </tr>
+        </table>
+    </div>
+</div>

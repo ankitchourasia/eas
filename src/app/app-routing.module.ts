@@ -21,6 +21,10 @@ const routes: Routes = [
     loadChildren: () => import('app/modules/admin/admin.module').then(m => m.AdminModule)
   },
   {
+    path: 'report_admin',
+    loadChildren: () => import('app/modules/report-admin/report-admin.module').then(m => m.ReportAdminModule)
+  },
+  {
     path: 'setting',
     loadChildren: () => import('app/modules/setting/setting.module').then(m => m.SettingModule)
   },
