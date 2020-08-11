@@ -57,6 +57,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/report_admin"]);
           return;
         }
+        if(user.role === GlobalConfiguration.ROLE_TOWN_ADMIN){
+          this.router.navigate(["/town_admin"]);
+          return;
+        }
         return;
       }
       this.loginError= true;

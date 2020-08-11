@@ -453,4 +453,13 @@ export class ReportService {
     }
   }
 
+  getTownByZoneId(zoneId, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'town/zone/id/' + zoneId,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'town/zone/id/' + zoneId);
+    }
+  }
+
 }
