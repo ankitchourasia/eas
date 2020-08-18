@@ -23,7 +23,7 @@ export class MaxValidatorDirective implements Validator {
       max: {
         valid: false,
         max: this.max,
-        actual: currentValue
+        actualValue: currentValue
       }
     };
   }

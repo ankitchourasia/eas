@@ -24,7 +24,7 @@ export class MinValidatorDirective implements Validator {
       min: {
         valid: false,
         min: this.min,
-        actual: currentValue
+        actualValue: currentValue
       }
     };
   }

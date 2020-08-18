@@ -3,71 +3,73 @@
         D-1 (Town wise AT&C Loss Report)
     </div>
     <div class="card-body">
-        <div class="space-around form-group">
+        <div class="eas-space-between form-group">
             <div class="form-inline">
-                <label class="form-text required mx-sm-3">Bill Month</label>
+                <label class="form-text required mx-3">Bill Month</label>
                 <div class="input-group">
-                <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
-                    class="form-control form-control-sm" [(ngModel)]="billingMonth.month" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
-                    <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
-                    <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
-                </select>
-                <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
-                    class="form-control form-control-sm" [(ngModel)]="billingMonth.year" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthChanged()">
-                    <option disabled selected [ngValue]='undefined'>Year</option>
-                    <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
-                </select>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="searchButtonClicked">
-                    Search <span class="spinner-border spinner-border-sm" *ngIf="searchButtonClicked"></span>
-                    </button>
-                </div>
-                <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
-                    <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
-                </div>
+                    <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+                        class="form-control form-control-sm" [(ngModel)]="billingMonth.month" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
+                        <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+                        <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+                    </select>
+                    <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+                        class="form-control form-control-sm" [(ngModel)]="billingMonth.year" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthChanged()">
+                        <option disabled selected [ngValue]='undefined'>Year</option>
+                        <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="month.errors || year.errors || searching">
+                            Search <span class="spinner-border spinner-border-sm" *ngIf="searching"></span>
+                        </button>
+                    </div>
+                    <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+                        <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+                    </div>
                 </div>
             </div>
-            <button class="btn btn-sm btn-primary" [disabled]="!downloadReport || _generateClicked" (click)="generateReportButtonClicked()">Download Report
-                <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
+            <button class="btn btn-sm btn-primary" [disabled]="!downloadReport || _generateClicked" (click)="generateReportButtonClicked()">
+                Download Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
             </button>
         </div>
-        <table class="table table-sm">
-            <tr class="bg-dark text-white" align="center">
-                <!-- <td nowrap class="align-middle">S.No</td> -->
-                <td nowrap class="align-middle">Town</td>
-                <td nowrap class="align-middle">Bill Month</td>
-                <td nowrap class="align-middle">Read Inserted</td>
-                <td nowrap class="align-middle">Export Read Inserted</td>
-                <td nowrap class="align-middle">HT Read Inserted</td>
-                <td nowrap class="align-middle">Billing Data</td>
-            </tr>
-            <tr *ngFor="let data of missingData"  align="center">
-                <!-- <td>{{i + 1}}</td> -->
-                <td>{{data.town.name}}</td>
-                <td>{{data.billMonth}}</td>
-                <td class="align-middle">
-                    <span class="text-success" *ngIf="data?.feederReadingInserted"><span class="fa fa-check"></span></span> 
-                    <span class="text-danger" *ngIf="!data?.feederReadingInserted"><span class="fa fa-times"></span></span>
-                </td>
-                <td class="align-middle">
-                    <span class="text-success" *ngIf="data?.exportReadingInserted"><span class="fa fa-check"></span></span> 
-                    <span class="text-danger" *ngIf="!data?.exportReadingInserted"><span class="fa fa-times"></span></span>
-                </td>
-                <td class="align-middle">
-                    <span class="text-success" *ngIf="data?.htReadingInserted"><span class="fa fa-check"></span></span> 
-                    <span class="text-danger" *ngIf="!data?.htReadingInserted"><span class="fa fa-times"></span></span>
-                </td>
-                <td class="align-middle">
-                    <span class="text-success" *ngIf="data?.billingData"><span class="fa fa-check"></span></span> 
-                    <span class="text-danger" *ngIf="!data?.billingData"><span class="fa fa-times"></span></span>
-                    <span class="text-danger" *ngIf="!data?.billingData && data?.htReadingInserted && data?.exportReadingInserted && data?.feederReadingInserted">
-                        <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(data)" [disabled]="fetchClicked">Fetch</button>
-                    </span>
-                </td>
-            </tr>
-            <tr *ngIf="!missingData || missingData.length < 1" align="center">
-                <td colspan="6">No Records found</td>
-            </tr>
-        </table>
+        <div class="table-responsive mb-2">
+            <table class="table table-sm table-bordered table-hover text-center mb-0">
+                <tr class="bg-inverse text-default">
+                    <!-- <td nowrap class="align-middle">S.No</td> -->
+                    <td nowrap class="align-middle">Town</td>
+                    <td nowrap class="align-middle">Bill Month</td>
+                    <td nowrap class="align-middle">Read Inserted</td>
+                    <td nowrap class="align-middle">Export Read Inserted</td>
+                    <td nowrap class="align-middle">HT Read Inserted</td>
+                    <td nowrap class="align-middle">Billing Data</td>
+                </tr>
+                <tr *ngFor="let data of missingData">
+                    <!-- <td>{{i + 1}}</td> -->
+                    <td>{{data.town.name}}</td>
+                    <td>{{data.billMonth}}</td>
+                    <td class="align-middle">
+                        <span class="text-success" *ngIf="data?.feederReadingInserted"><span class="fa fa-check"></span></span>
+                        <span class="text-danger" *ngIf="!data?.feederReadingInserted"><span class="fa fa-times"></span></span>
+                    </td>
+                    <td class="align-middle">
+                        <span class="text-success" *ngIf="data?.exportReadingInserted"><span class="fa fa-check"></span></span>
+                        <span class="text-danger" *ngIf="!data?.exportReadingInserted"><span class="fa fa-times"></span></span>
+                    </td>
+                    <td class="align-middle">
+                        <span class="text-success" *ngIf="data?.htReadingInserted"><span class="fa fa-check"></span></span>
+                        <span class="text-danger" *ngIf="!data?.htReadingInserted"><span class="fa fa-times"></span></span>
+                    </td>
+                    <td class="align-middle">
+                        <span class="text-success" *ngIf="data?.billingData"><span class="fa fa-check"></span></span>
+                        <span class="text-danger" *ngIf="!data?.billingData"><span class="fa fa-times"></span></span>
+                        <span class="text-danger" *ngIf="!data?.billingData && data?.htReadingInserted && data?.exportReadingInserted && data?.feederReadingInserted">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(data)" [disabled]="fetchClicked">Fetch</button>
+                        </span>
+                    </td>
+                </tr>
+                <tr *ngIf="!missingData || missingData.length < 1">
+                    <td colspan="6">No Records found</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

@@ -15,7 +15,9 @@ export class TownAdminReportD1ReportComponent implements OnInit {
   COMPONENT_NAME = "TownAdminReportD1ReportComponent";
   missingData : any;
   billingMonth : any = {};
+  searching : boolean;
   downloadReport : boolean;
+  _generateClicked : boolean;
   user : any;
   town : any;
   constructor(private adminReportMenuService: TownAdminReportMenuService, private reportService : ReportService, 
@@ -48,7 +50,6 @@ export class TownAdminReportD1ReportComponent implements OnInit {
     }
   }
 
-  searchButtonClicked : boolean;
   searchClicked(){
     if(this.billingMonth.billMonth){
       this.getMissingDataByTownIdAndBillMonth(this.billingMonth.billMonth);
@@ -56,14 +57,15 @@ export class TownAdminReportD1ReportComponent implements OnInit {
   }
 
   getMissingDataByTownIdAndBillMonth(billMonth){
-    this.searchButtonClicked = true;
+    this.searching = true;
+    this.missingData = undefined;
     this.reportService.getD1GenerationStatusByTownIdAndBillMonth(this.town.id, billMonth, false).subscribe(success =>{
-      this.searchButtonClicked = false;
+      this.searching = false;
       console.log(success);
       this.missingData = success;
       this.downloadReport = this.checkGenerationStatus(this.missingData);
     }, error =>{
-      this.searchButtonClicked = false;
+      this.searching = false;
       console.log(error);
     })
   }
@@ -105,7 +107,6 @@ export class TownAdminReportD1ReportComponent implements OnInit {
     this.generateD1ReportForTown(this.town.id, this.billingMonth.billMonth);
   }
 
-  _generateClicked : boolean;
   generateD1ReportForTown(townId, billMonth){
     let methodName = "generateD1ReportForTown";
     this._generateClicked = true;
