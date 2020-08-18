@@ -7,15 +7,25 @@ import { Validator, AbstractControl, ValidationErrors, NG_VALIDATORS } from '@an
   providers: [{provide: NG_VALIDATORS, useExisting: MinValidatorDirective, multi: true}]
 })
 export class MinValidatorDirective implements Validator {
-    @Input() min: number;
-  
-    validate(control: AbstractControl): ValidationErrors {
-      const currentValue = control.value;
-      const isValid = currentValue >= this.min;
-      return isValid ? null : {
-        min: {
-          valid: false
-        }
-      };
-    }
+  // @Input() min: number;
+  min: number;
+
+  @Input('min')
+  setMax(min: number){
+    this.min = min;
   }
+
+  constructor() { }
+
+  validate(control: AbstractControl): ValidationErrors {
+    const currentValue = control.value;
+    const isValid = currentValue >= this.min;
+    return isValid ? null : {
+      min: {
+        valid: false,
+        min: this.min,
+        actual: currentValue
+      }
+    };
+  }
+}
