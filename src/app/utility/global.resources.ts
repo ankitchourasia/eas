@@ -456,6 +456,24 @@ export class GlobalResources {
         return Number(value);
     }
 
+    dynamicSort(property, order) {
+        let sort_order = 1;
+        if(order.toLowerCase() === "desc"){ sort_order = -1; }
+        return (a, b) => {
+            // a should come before b in the sorted order
+            if(a[property] < b[property]){ return -1 * sort_order; }
+            // a should come after b in the sorted order
+            else if(a[property] > b[property]){ return 1 * sort_order; }
+            // a and b are the same
+            else{ return 0 * sort_order; }
+        }
+    }
+    // Example:https://www.educative.io/edpresso/how-to-sort-an-array-of-objects-in-javascript
+    // cart = [{item: "Berry", qty: 2}, {item: "Apple", qty: 1}, {item: "Kiwi", qty: 3}];
+    // console.log(this.cart.sort(this.dynamicSort("qty","asc")));
+    // console.log(this.cart.sort(this.dynamicSort("item","desc")));
+    
+
     popover(){
         let dataToggle = $(`[data-toggle='popover']`);
         dataToggle.popover();

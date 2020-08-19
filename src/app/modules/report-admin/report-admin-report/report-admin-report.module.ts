@@ -6,6 +6,7 @@ import { ReportAdminReportRoutingModule } from './report-admin-report-routing.mo
 import { ReportAdminReportMenuService } from './report-admin-report-menu.service';
 import { ReportAdminReportD1ReportComponent } from './report-admin-report-d1-report/report-admin-report-d1-report.component';
 import { FormsModule } from '@angular/forms';
+import { DirectiveModule } from '@eas-directives/directive.module';
 
 
 
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    DirectiveModule,
     ReportAdminReportRoutingModule
   ],
   declarations: [

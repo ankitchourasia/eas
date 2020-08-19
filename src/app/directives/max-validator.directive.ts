@@ -6,18 +6,25 @@ import { Validator, AbstractControl, ValidationErrors, NG_VALIDATORS } from '@an
   providers: [{provide: NG_VALIDATORS, useExisting: MaxValidatorDirective, multi: true}]
 })
 export class MaxValidatorDirective implements Validator {
-  @Input() max: number;
+  // @Input() max: number;
+  max: number;
+
+  @Input('max')
+  setMax(max: number){
+    this.max = max;
+  }
+
+  constructor() { }
 
   validate(control: AbstractControl): ValidationErrors {
     const currentValue = control.value;
     const isValid = currentValue <= this.max;
     return isValid ? null : {
       max: {
-        valid: false
+        valid: false,
+        max: this.max,
+        actualValue: currentValue
       }
     };
   }
-
-  constructor() { }
-
 }

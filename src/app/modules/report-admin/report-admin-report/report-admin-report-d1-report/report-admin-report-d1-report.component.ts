@@ -14,6 +14,7 @@ export class ReportAdminReportD1ReportComponent implements OnInit {
 
   missingTowns : any;
   billingMonth : any = {};
+  searching: boolean;
   downloadReport : boolean;
   constructor(private adminReportMenuService: ReportAdminReportMenuService, private reportService : ReportService, 
     public globalConstants : GlobalConstants, private globalResources : GlobalResources) { 
@@ -26,13 +27,18 @@ export class ReportAdminReportD1ReportComponent implements OnInit {
   }
 
   getMissingTownWiseBillData(billMonth){
+    this.searching = true;
+    this.missingTowns = undefined;
     this.reportService.getMissingTownWiseBillDataByBillMonth(billMonth, false).subscribe(success =>{
+      this.searching = false;
       console.log(success);
       this.missingTowns = success;
+      this.missingTowns.sort(this.globalResources.dynamicSort("name","asc"));
       if(!this.missingTowns || this.missingTowns.length === 0){
         this.downloadReport = true;
       }
     }, error =>{
+      this.searching = false;
       console.log(error);
     })
   }

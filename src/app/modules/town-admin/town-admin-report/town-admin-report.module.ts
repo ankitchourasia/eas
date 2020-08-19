@@ -8,6 +8,7 @@ import { TownAdminReportD1ReportComponent } from './town-admin-report-d1-report/
 import { FormsModule } from '@angular/forms';
 import { TownAdminReportD4ReportComponent } from './town-admin-report-d4-report/town-admin-report-d4-report.component';
 import { TownAdminReportD7ReportComponent } from './town-admin-report-d7-report/town-admin-report-d7-report.component';
+import { DirectiveModule } from '@eas-directives/directive.module';
 
 
 
@@ -15,6 +16,7 @@ import { TownAdminReportD7ReportComponent } from './town-admin-report-d7-report/
   imports: [
     CommonModule,
     FormsModule,
+    DirectiveModule,
     TownAdminReportRoutingModule
   ],
   declarations: [
