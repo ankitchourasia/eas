@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header bg-inverse text-center text-default">
-        D-1 (Town wise AT&C Loss Report)
+        D-4 (Feeder wise AT&C loss Report (10% worst feeders) )
     </div>
     <div class="card-body">
         <div class="space-around form-group">
@@ -33,18 +33,18 @@
         </div>
         <table class="table table-sm">
             <tr class="bg-dark text-white" align="center">
-                <!-- <td nowrap class="align-middle">S.No</td> -->
-                <td nowrap class="align-middle">Town</td>
+                <td nowrap class="align-middle">Zone</td>
+                <td nowrap class="align-middle">Feeder</td>
                 <td nowrap class="align-middle">Bill Month</td>
                 <td nowrap class="align-middle">Read Inserted</td>
                 <td nowrap class="align-middle">Export Read Inserted</td>
                 <td nowrap class="align-middle">HT Read Inserted</td>
                 <td nowrap class="align-middle">Billing Data</td>
             </tr>
-            <tr *ngFor="let data of missingData"  align="center">
-                <!-- <td>{{i + 1}}</td> -->
-                <td>{{data.town.name}}</td>
-                <td>{{data.billMonth}}</td>
+            <tr *ngFor="let data of missingData" align="center">
+                <td>{{data?.feeder?.zone?.name}}</td>
+                <td>{{data?.feeder?.name}}</td>
+                <td>{{data?.billMonth}}</td>
                 <td class="align-middle">
                     <span class="text-success" *ngIf="data?.feederReadingInserted"><span class="fa fa-check"></span></span> 
                     <span class="text-danger" *ngIf="!data?.feederReadingInserted"><span class="fa fa-times"></span></span>
@@ -66,7 +66,7 @@
                 </td>
             </tr>
             <tr *ngIf="!missingData || missingData.length < 1" align="center">
-                <td colspan="6">No Records found</td>
+                <td colspan="7">No Records Found.</td>
             </tr>
         </table>
     </div>

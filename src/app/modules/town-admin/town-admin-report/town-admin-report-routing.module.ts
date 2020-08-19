@@ -5,6 +5,8 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { TownAdminReportComponent } from './town-admin-report.component';
 import { TownAdminReportHomeComponent } from './town-admin-report-home/town-admin-report-home.component';
 import { TownAdminReportD1ReportComponent } from './town-admin-report-d1-report/town-admin-report-d1-report.component';
+import { TownAdminReportD4ReportComponent } from './town-admin-report-d4-report/town-admin-report-d4-report.component';
+import { TownAdminReportD7ReportComponent } from './town-admin-report-d7-report/town-admin-report-d7-report.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,12 @@ const routes: Routes = [
           },
           {
             path: 'd1-report', component: TownAdminReportD1ReportComponent,
+          },
+          {
+            path: 'd4-report', component: TownAdminReportD4ReportComponent,
+          },
+          {
+            path: 'd7-report', component: TownAdminReportD7ReportComponent,
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

@@ -60,18 +60,17 @@
   </div>
 </fieldset>
 <div>
-  <hr>
+  <!-- <hr>
   <div class="eas-flex-end mb-2">
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" (click)="generateClicked()" 
       [disabled]="_generateClicked || !lossGenerationStatus">
-      <!-- -->
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button class="btn btn-sm btn-primary mx-sm-1" href='javascript:void(0);' *ngIf="reportGenerated" (click)="viewClicked()"
       data-toggle="modal" data-target="#d1ReportModal" >
         View 
     </button>
-  </div>
+  </div> -->
   <div class="table-responsive mb-2">
     <table class="table table-sm table-bordered table-hover text-center mb-0">
       <thead class="bg-inverse text-default">
@@ -104,12 +103,16 @@
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
             </td>
             <td class="align-middle">
-              <span class="text-success" *ngIf="searchResult?.billingData && (searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted)"><span class="fa fa-check"></span></span>
+              <!-- <span class="text-success" *ngIf="searchResult?.billingData && (searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted)"><span class="fa fa-check"></span></span>
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted || !searchResult?.exportReadingInserted || !searchResult?.feederReadingInserted">
                 <span class="fa fa-times"></span>
-              </span>
-              <span class="text-danger" *ngIf="!searchResult?.billingData && searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted">
+              </span> -->
+              <!-- <span class="text-danger" *ngIf="!searchResult?.billingData && searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted">
                 <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button>
+              </span> -->
+              <span class="text-success" *ngIf="searchResult?.billingData"><span class="fa fa-check"></span></span>
+              <span class="text-danger" *ngIf="!searchResult?.billingData">
+                <span class="fa fa-times"></span>
               </span>
             </td>
           </tr>
