@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: '[disableElement]',
+  selector: '[disableFieldset]',
   styles: [`
     fieldset {
       display: block;
@@ -19,8 +19,8 @@ import { Component, Input } from '@angular/core';
 export class DisableDirective {
   disabled : boolean;
 
-  @Input("disableElement")
-  set setDisableElement(disabled : boolean){
+  @Input("disableFieldset")
+  set setDisableFieldset(disabled : boolean){
     this.disabled = disabled;
   }
 

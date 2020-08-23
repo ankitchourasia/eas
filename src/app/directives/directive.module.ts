@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LowercaseDirective } from './lowercase.directive';
 import { UppercaseDirective } from './uppercase.directive';
 import { MinValidatorDirective } from './min-validator.directive';
@@ -12,7 +13,7 @@ import { PatternDirective } from './pattern.directive';
 import { FocusSelfDirective } from './focus-self.directive';
 import { FocusNextDirective } from './focus-next.directive';
 import { DisableDirective } from './disable.directive';
-import { CommonModule } from '@angular/common';
+import { DisableDirective2 } from './disable.directive2';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { CommonModule } from '@angular/common';
     NumberDirective,
     PatternDirective,
     DisableDirective,
+    DisableDirective2
   ],
   exports:[
     FocusSelfDirective,
@@ -47,6 +49,7 @@ import { CommonModule } from '@angular/common';
     NumberDirective,
     PatternDirective,
     DisableDirective,
+    DisableDirective2
   ],
 })
 export class DirectiveModule { }

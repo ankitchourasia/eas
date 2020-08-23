@@ -10,7 +10,7 @@ export class MaxValidatorDirective implements Validator {
   max: number;
 
   @Input('max')
-  setMax(max: number){
+  set setMax(max: number){
     this.max = max;
   }
 

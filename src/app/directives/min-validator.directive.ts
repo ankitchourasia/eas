@@ -11,7 +11,7 @@ export class MinValidatorDirective implements Validator {
   min: number;
 
   @Input('min')
-  setMax(min: number){
+  set setMin(min: number){
     this.min = min;
   }
 

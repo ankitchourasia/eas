@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   processLoginForm(){
     this._submitClicked = true;
     this.loginService.authenticate(this.user, true).subscribe(successResponse =>{
-        this._submitClicked = false;
+      this._submitClicked = false;
       let result: any = successResponse;
       if(result && result.status === 200){
         let user = result.body;
