@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation, OnChanges, DoCheck, Output, EventEmitter, KeyValueDiffers, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, OnChanges, DoCheck, Output, EventEmitter, KeyValueDiffers, SimpleChanges, IterableDiffers } from '@angular/core';
 import { PaginationService } from './pagination.service';
 
 @Component({
@@ -19,10 +19,14 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
   pager:any = {};
   pagedItems: Array<any>;
   
+  keyValueDiffer: any;
+  iterableDiffer: any;
+  
   @Output() pageChange = new EventEmitter<{pageItems: any, pager: any}>(true);
-  
-  constructor(private paginationService: PaginationService, private keyValueDiffers: KeyValueDiffers) { }
-  
+
+  constructor(private keyValueDiffers: KeyValueDiffers, private iterableDiffers: IterableDiffers,
+    private paginationService: PaginationService, ) { }
+    
   @Input('currentPage')
   set setCurrentPage(currentPage: number){
     this.currentPage = currentPage;
@@ -56,7 +60,6 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
     console.log("on init called");
   }
 
-  keyValueDiffer: any;
   ngOnChanges(changes: SimpleChanges) {
     console.log("on changes called");
   
@@ -64,6 +67,8 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
       console.log("on changes called for setItems");
       let items = changes.setItems.currentValue;
       this.keyValueDiffer = this.keyValueDiffers.find(items).create();
+      //----------OR---------------------
+      // this.iterableDiffer = this.iterableDiffers.find([]).create(null); 
     }
 
     if(this.items && changes.setPageSize && changes.setPageSize.currentValue !== changes.setPageSize.previousValue) {
@@ -82,16 +87,27 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
     }
   }
 
+    
+  // reference ngDoCheck  https://www.concretepage.com/angular/angular-ngdocheck#IterableDiffers
   ngDoCheck(): void {
     console.log("do check called");
     if(this.keyValueDiffer){
       console.log("key value differ");
-      let keyValueChanges = this.keyValueDiffer.diff(this.items);
+      const keyValueChanges = this.keyValueDiffer.diff(this.items);
       if(keyValueChanges){
         console.log("key value changes");
         this.setPage(this.currentPage);
       }
     }
+    //----------OR---------------------
+    // if(this.iterableDiffer){
+    //   console.log("iterable differ");
+    //   const iterableChanges = this.iterableDiffer.diff(this.items);
+    //   if(iterableChanges){
+    //     console.log("iterable changes");
+    //     this.setPage(this.currentPage);
+    //   }
+    // }
   }
   
   setPage(currentPage: number) {
