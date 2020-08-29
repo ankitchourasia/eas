@@ -36,8 +36,8 @@ import { EquivalentValidatorDirective } from './equivalent-validator.directive';
     PatternDirective,
     DisableDirective,
     DisableDirective2,
-    YesNoPipe,
-    EquivalentValidatorDirective
+    EquivalentValidatorDirective,
+    YesNoPipe
   ],
   exports:[
     FocusSelfDirective,
@@ -54,6 +54,7 @@ import { EquivalentValidatorDirective } from './equivalent-validator.directive';
     PatternDirective,
     DisableDirective,
     DisableDirective2,
+    EquivalentValidatorDirective,
     YesNoPipe
   ],
 })
