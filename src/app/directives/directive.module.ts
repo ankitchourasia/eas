@@ -14,6 +14,8 @@ import { FocusSelfDirective } from './focus-self.directive';
 import { FocusNextDirective } from './focus-next.directive';
 import { DisableDirective } from './disable.directive';
 import { DisableDirective2 } from './disable.directive2';
+import { YesNoPipe } from './yes-no.pipe';
+import { EquivalentValidatorDirective } from './equivalent-validator.directive';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { DisableDirective2 } from './disable.directive2';
     NumberDirective,
     PatternDirective,
     DisableDirective,
-    DisableDirective2
+    DisableDirective2,
+    YesNoPipe,
+    EquivalentValidatorDirective
   ],
   exports:[
     FocusSelfDirective,
@@ -49,7 +53,8 @@ import { DisableDirective2 } from './disable.directive2';
     NumberDirective,
     PatternDirective,
     DisableDirective,
-    DisableDirective2
+    DisableDirective2,
+    YesNoPipe
   ],
 })
 export class DirectiveModule { }
