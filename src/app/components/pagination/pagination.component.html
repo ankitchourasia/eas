@@ -20,12 +20,14 @@
 
 
 <!-- 
+  :: this. code block use for without server side pagination itemList
+
   :: Use this in parent component:
 <table>
   <tr>
     <td>Table Headers</td>
   <tr>
-  <ng-template [ngIf]="itemList && itemList.length > 0 && pagination">
+  <ng-template [ngIf]="pagination">
     <tr *ngFor="let item of pagination.pagedItems; let i = index">
       <td>{{pagination.pager.startIndex + i + 1}}</td>
       <td>{{item.propertyName}}</td>
@@ -43,13 +45,58 @@
   <input type="number" class="form-control form-control-sm" [(ngModel)]="pageSize" placeholder="Records in one page">
   <input type="number" class="form-control form-control-sm" [(ngModel)]="maxPages" placeholder="Display maximum pages">
   <input type="number" class="form-control form-control-sm" [(ngModel)]="totalItem" placeholder="Total Records">
-  <ngbadmin-pagination [items]="itemList" [pageSize]="pageSize" [maxPages]="maxPages" [totalItem]="totalItem" (pageChange)="onPageChange($event)" #pagination ></ngbadmin-pagination>
+
+  ::"itemList" attribute is required, "totalItem", "pageSize" and "maxPages" attribute are optional
+  <ngbadmin-pagination [items]="itemList" [totalItem]="totalItem" [pageSize]="pageSize" [maxPages]="maxPages" (pageChange)="onPageChange($event)" #pagination ></ngbadmin-pagination>
+  
+</div>
+
+:: Use this code in component for getting current page list and pager for custom operations
+  onPageChange(result: any) {
+    console.log(result.pagedItems, result.pager);
+  }
+-->
+
+
+<!-- 
+  :: this. code block use for without server side pagination itemList
+
+  :: Use this in parent component:
+<table>
+  <tr>
+    <td>Table Headers</td>
+  <tr>
+  <ng-template [ngIf]="pagination">
+    <tr *ngFor="let item of apiResultList; let i = index">
+      <td>{{pagination.pager.startIndex + i + 1}}</td>
+      <td>{{item.propertyName}}</td>
+      <td>{{item.propertyName}}</td>
+      <td><button class="btn btn-sm btn-primary" (click)="delete()">DELETE</button></td> // Delete perform on itemList
+      <td><button class="btn btn-sm btn-primary" (click)="update()">UPDATE</button></td> // Update perform on itemList
+      <td><button class="btn btn-sm btn-primary" (click)="add()">ADD</button></td> // Add perform on itemList
+    </tr>
+    <tr *ngIf="(!apiResultList || apiResultList.length <= 0) && (!pagination.pagedItems || pagination.pagedItems.length <=0)">
+      <td>No records found</td>
+    </tr>
+  </ng-template>  
+</table>
+<div class="eas-space-around form-inline">
+  <input type="number" class="form-control form-control-sm" [(ngModel)]="pageSize" placeholder="Records in one page">
+  <input type="number" class="form-control form-control-sm" [(ngModel)]="maxPages" placeholder="Display maximum pages">
+  <input type="number" class="form-control form-control-sm" [(ngModel)]="totalItem" placeholder="Total Records">
+
+  :: for server side use this pagination selector, "totalItem" attribute is required, "pageSize" and "maxPages" attribute are optional
+  <ngbadmin-pagination [totalItem]="totalItem" [pageSize]="pageSize" [maxPages]="maxPages" (pageChange)="onPageChange($event)" #pagination ></ngbadmin-pagination>
 </div>
 
 :: Use this code in component for getting current page list and pager
 
-  pageItemList: Array<any>;
-  onPageChange(pageOfItems: Array<any>) {
-    this.pageItemList = pageOfItems;
+  apiResultList: Array<any>;
+  onPageChange(result: any) {
+    //result.pagedItems always getting empty []. 
+    console.log(result.pagedItems, result.pager);
+
+    :: for getting server side pagination item,  call get itmes api and result asign to "this.pageItemList"
+    this.pageItemList = itemList (service result list);
   }
 -->

@@ -22,51 +22,56 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
   keyValueDiffer: any;
   iterableDiffer: any;
   
-  @Output() pageChange = new EventEmitter<{pageItems: any, pager: any}>(true);
+  @Output() pageChange = new EventEmitter<{pagedItems: any, pager: any}>(true);
 
   constructor(private keyValueDiffers: KeyValueDiffers, private iterableDiffers: IterableDiffers,
-    private paginationService: PaginationService, ) { }
+    private paginationService: PaginationService, ) {
+      console.log("pagination constructor called");
+     }
     
   @Input('currentPage')
   set setCurrentPage(currentPage: number){
-    this.currentPage = currentPage;
     console.log("current setter called");
+    this.currentPage = currentPage ? currentPage : this.currentPage;
   }
   
   @Input("totalItem")
   set setTotalItem(totalItem: number){
-    this.totalItem = totalItem;
     console.log("total item setter called");
+    this.totalItem = totalItem ? totalItem : this.totalItem;
   }
 
   @Input("items")
   set setItems(items : Array<any>){
-    this.items = items;
     console.log("items setter called", this.items);
+    this.items = items ? items : this.items;
   }
 
   @Input("pageSize")
   set setPageSize(pageSize : number){
-    this.pageSize = pageSize ? pageSize : this.pageSize;
     console.log("page size setter called");
+    this.pageSize = pageSize ? pageSize : this.pageSize;
   }
 
   @Input("maxPages")
   set setMaxPages(maxPages : number){
+    console.log("max pages setter called");
     this.maxPages = maxPages ? maxPages : this.maxPages;
   }
 
   ngOnInit() {
     console.log("on init called");
+    this.keyValueDiffer = this.keyValueDiffers.find(this.items).create();
+    //----------OR---------------------
+      // this.iterableDiffer = this.iterableDiffers.find([]).create(null); 
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("on changes called");
   
-    if(changes.setItems && JSON.stringify(changes.setItems.currentValue) !== JSON.stringify(changes.setItems.previousValue)) {
+    if(changes.setItems && changes.setItems.currentValue !== changes.setItems.previousValue) {
       console.log("on changes called for setItems");
-      let items = changes.setItems.currentValue;
-      this.keyValueDiffer = this.keyValueDiffers.find(items).create();
+      // this.keyValueDiffer = this.keyValueDiffers.find(this.items).create();
       //----------OR---------------------
       // this.iterableDiffer = this.iterableDiffers.find([]).create(null); 
     }
@@ -82,6 +87,10 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
     }
 
     if(this.items && changes.setMaxPages && changes.setMaxPages.currentValue !== changes.setMaxPages.previousValue) {
+      console.log("on changes called for setTotalItem");
+      this.setPage(this.currentPage);
+    }
+    if(this.items && changes.setCurrentPage && changes.setCurrentPage.currentValue !== changes.setCurrentPage.previousValue) {
       console.log("on changes called for setTotalItem");
       this.setPage(this.currentPage);
     }
@@ -113,19 +122,31 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
   setPage(currentPage: number) {
     console.log("set page called");
     this.currentPage = currentPage;
-    if (this.currentPage < 1) { return; }
-    
+    if(this.currentPage < 1) { return; }
+    if(!Array.isArray(this.items)){
+      throw new Error("itmes attribute not a list type.");
+    }
     let totalItem = this.totalItem > 0 ? this.totalItem : this.items.length;
     console.log("total item", totalItem);
-    this.pager = this.paginationService.getPager(totalItem, this.currentPage, this.pageSize, this.maxPages);
+
+    this.initiatePager(totalItem, this.currentPage, this.pageSize, this.maxPages);
+  
+    this.pagedItems = this.getPagedItems(this.items, this.pager.startIndex, this.pager.endIndex);
     
-    this.pagedItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    if(this.pagedItems.length <= 0){
-      this.currentPage = this.currentPage - 1;
-      this.setPage(this.currentPage);
-      return;
-    }
-    this.pageChange.emit({pageItems: this.pagedItems, pager: this.pager});
+    // if(this.pagedItems.length <= 0){
+    //   this.currentPage = this.currentPage - 1;
+    //   this.setPage(this.currentPage);
+    //   return;
+    // }
+    this.pageChange.emit({pagedItems: this.pagedItems, pager: this.pager});
+  }
+
+  initiatePager(totalItem: number, pageNo: number, pageSize: number, maxPages: number){
+    this.pager = this.paginationService.getPager(totalItem, pageNo, pageSize, maxPages);
+  }
+
+  getPagedItems(items: Array<any>, startIndex: number, endIndex){
+    return items.slice(startIndex, endIndex + 1);
   }
 
 }

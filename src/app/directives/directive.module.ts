@@ -16,6 +16,8 @@ import { DisableDirective } from './disable.directive';
 import { DisableDirective2 } from './disable.directive2';
 import { YesNoPipe } from './yes-no.pipe';
 import { EquivalentValidatorDirective } from './equivalent-validator.directive';
+import { SortingPipe } from './sorting.pipe';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   imports: [
@@ -37,7 +39,9 @@ import { EquivalentValidatorDirective } from './equivalent-validator.directive';
     DisableDirective,
     DisableDirective2,
     EquivalentValidatorDirective,
-    YesNoPipe
+    YesNoPipe,
+    SortingPipe,
+    FilterPipe
   ],
   exports:[
     FocusSelfDirective,
@@ -55,7 +59,9 @@ import { EquivalentValidatorDirective } from './equivalent-validator.directive';
     DisableDirective,
     DisableDirective2,
     EquivalentValidatorDirective,
-    YesNoPipe
+    YesNoPipe,
+    SortingPipe,
+    FilterPipe
   ],
 })
 export class DirectiveModule { }
