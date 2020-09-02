@@ -13,7 +13,7 @@ export class MinValidatorDirective implements Validator, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    throw new Error("Method not implemented.");
+    // throw new Error("Method not implemented.");
   }
 
   // ngOnChanges(changes: SimpleChanges): void {

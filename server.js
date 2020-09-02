@@ -50,7 +50,7 @@ console.log("Created https server");
 
 console.log("Starting Node Server with ngb frontend application");
 
-let port = 4202;
+let port = 4201;
 
 httpServer.listen(port, () => {
  if (DEVELOPMENT_BACKEND_SERVER) {

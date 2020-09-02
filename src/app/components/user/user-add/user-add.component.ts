@@ -20,7 +20,8 @@ export class UserAddComponent implements OnInit {
   divisionList: any;
   zoneList: any;
   _submitClicked: boolean;
-  roleList: any = [{id:1, name:"ADMIN", value:"ADMIN"},{id:2, name:"FIELD ADMIN", value:"FIELD_ADMIN"},{id:3, name:"SUERADMIN", value:"SUPER_ADMIN"}]
+  // roleList: any = [{id:1, name:"ADMIN", value:"ADMIN"},{id:2, name:"FIELD ADMIN", value:"FIELD_ADMIN"},{id:3, name:"SUERADMIN", value:"SUPER_ADMIN"}]
+  roleList: any = [{id:1, name:"ADMIN", value:"ADMIN"},{id:2, name:"TOWN ADMIN", value:"TOWN_ADMIN"}]
   constructor(public globalResources: GlobalResources, private regionService: RegionService, 
     private circleService: CircleService, private divisionService: DivisionService, 
     private zoneService: ZoneService, private userService: UserService) { }
