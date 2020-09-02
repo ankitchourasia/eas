@@ -35,8 +35,8 @@ export function getSortedList(itemList: any, sortOrder: number|string = "", sort
   }
   // sort object array
   return itemList.sort((a: any, b: any) => {
-    const propertyA: number|string = this.getProperty(a, sortBy);
-    const propertyB: number|string = this.getProperty(b, sortBy);
+    const propertyA: number|string = this.getPropertyValue(a, sortBy);
+    const propertyB: number|string = this.getPropertyValue(b, sortBy);
 
     if(propertyA < propertyB) {
       return -1 * direction;
@@ -48,15 +48,15 @@ export function getSortedList(itemList: any, sortOrder: number|string = "", sort
   });
 }
 
-// getProperty (value: { [key: string]: any}, sortBy: string): number|string {
-export function getProperty(value: any, sortBy: string): number|string {
+// getPropertyValue (item: { [key: string]: any}, propertyName: string): number|string {
+export function getPropertyValue(item: any, propertyName: string): number|string {
 
-  if(value === null || value === undefined || value && (typeof value !== 'object' || value.constructor !== Object || !(value instanceof Object))){
-    return value;
+  if(item === null || item === undefined || item && (typeof item !== 'object' || item.constructor !== Object || !(item instanceof Object))){
+    return item;
   }
 
-  const keys: string[] = sortBy.split('.');
-  let result: any = value[keys.shift()];
+  const keys: string[] = propertyName.split('.');
+  let result: any = item[keys.shift()];
   for (const key of keys) {
     // check null or undefined
     if(result === null || result === undefined) {
