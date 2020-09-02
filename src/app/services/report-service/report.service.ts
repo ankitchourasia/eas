@@ -75,6 +75,15 @@ export class ReportService {
     }
   }
 
+  getNGBBillingStatusByTownIdAndBillMonth(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'ngb-billing/status/town/id/' + townId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'ngb-billing/status/town/id/' + townId + "/bill-month/" + billMonth);
+    }
+  }
+
   getNGBBillingStatusByDivisionIdAndBillMonth(divisionId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
@@ -84,39 +93,39 @@ export class ReportService {
     }
   }
 
-  generateD7ReportForZone(d7Report, response){
+  generateD7ReportForTown(d7Report, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/',  d7Report,  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/town/',  d7Report,  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/', d7Report);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/town/', d7Report);
     }
   }
 
-  generateD7ReportForDivision(d7Report, response){
+  generateD7ReportForCircle(d7Report, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/',  d7Report,  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/circle/',  d7Report,  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/', d7Report);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/circle/', d7Report);
     }
   }
     
-  getD7ByZoneIdAndBillMonth(zoneId, billMonth, response){
+  getD7ByTownIdAndBillMonth(townId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/town/id/' + townId + "/bill-month/" + billMonth,  options);
     }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/town/id/' + townId + "/bill-month/" + billMonth);
     }
   }
 
-  getD7ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+  getD7ByCircleIdAndBillMonth(circleId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/circle/id/' + circleId + "/bill-month/" + billMonth,  options);
     }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/circle/id/' + circleId + "/bill-month/" + billMonth);
     }
   }
 

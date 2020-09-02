@@ -103,17 +103,17 @@
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted"><span class="fa fa-times"></span></span>
             </td>
             <td class="align-middle">
-              <!-- <span class="text-success" *ngIf="searchResult?.billingData && (searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted)"><span class="fa fa-check"></span></span>
+              <span class="text-success" *ngIf="searchResult?.billingData && (searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted)"><span class="fa fa-check"></span></span>
               <span class="text-danger" *ngIf="!searchResult?.htReadingInserted || !searchResult?.exportReadingInserted || !searchResult?.feederReadingInserted">
                 <span class="fa fa-times"></span>
-              </span> -->
-              <!-- <span class="text-danger" *ngIf="!searchResult?.billingData && searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted">
+              </span>
+              <span class="text-danger" *ngIf="!searchResult?.billingData && searchResult?.htReadingInserted && searchResult?.exportReadingInserted && searchResult?.feederReadingInserted">
                 <button type="button" class="btn btn-sm btn-primary" (click)="fetchButtonClicked(searchResult)" [disabled]="fetchClicked">Fetch</button>
-              </span> -->
-              <span class="text-success" *ngIf="searchResult?.billingData"><span class="fa fa-check"></span></span>
+              </span>
+              <!-- <span class="text-success" *ngIf="searchResult?.billingData"><span class="fa fa-check"></span></span>
               <span class="text-danger" *ngIf="!searchResult?.billingData">
                 <span class="fa fa-times"></span>
-              </span>
+              </span> -->
             </td>
           </tr>
         </ng-template>
