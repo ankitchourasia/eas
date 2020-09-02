@@ -33,12 +33,14 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
   set setCurrentPage(currentPage: number){
     console.log("current setter called");
     this.currentPage = currentPage ? currentPage : this.currentPage;
+    // this.setPage(this.currentPage);
   }
   
   @Input("totalItem")
   set setTotalItem(totalItem: number){
     console.log("total item setter called");
     this.totalItem = totalItem ? totalItem : this.totalItem;
+    // this.setPage(this.currentPage);
   }
 
   @Input("items")
@@ -51,12 +53,14 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
   set setPageSize(pageSize : number){
     console.log("page size setter called");
     this.pageSize = pageSize ? pageSize : this.pageSize;
+    // this.setPage(this.currentPage);
   }
 
   @Input("maxPages")
   set setMaxPages(maxPages : number){
     console.log("max pages setter called");
     this.maxPages = maxPages ? maxPages : this.maxPages;
+    // this.setPage(this.currentPage);
   }
 
   ngOnInit() {
@@ -66,6 +70,7 @@ export class PaginationComponent implements OnInit, OnChanges, DoCheck {
       // this.iterableDiffer = this.iterableDiffers.find([]).create(null); 
   }
 
+  //ngOnChanges block commented if setPage call from every "@Input".
   ngOnChanges(changes: SimpleChanges) {
     console.log("on changes called");
   
