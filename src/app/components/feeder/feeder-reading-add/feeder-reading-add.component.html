@@ -70,7 +70,7 @@
       <select [ngClass]="{'is-valid': !feederId.errors && (feederId.dirty || feederId.touched),'is-invalid': feederId.errors && (feederId.dirty || feederId.touched)}"
         class="form-control" [(ngModel)]="feederReading.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederReading.feeder)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let feeder of feeders" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
+        <option *ngFor="let feeder of feeders" [ngValue]="feeder">{{feeder.name | uppercase}} - {{feeder.feederCode}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="feederId.errors && (feederId.dirty || feederId.touched)">
         <div *ngIf="feederId.errors.required">required field</div>

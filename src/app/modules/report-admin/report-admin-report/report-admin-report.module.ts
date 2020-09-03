@@ -7,6 +7,8 @@ import { ReportAdminReportMenuService } from './report-admin-report-menu.service
 import { ReportAdminReportD1ReportComponent } from './report-admin-report-d1-report/report-admin-report-d1-report.component';
 import { FormsModule } from '@angular/forms';
 import { DirectiveModule } from '@eas-directives/directive.module';
+import { ReportAdminReportD4ReportComponent } from './report-admin-report-d4-report/report-admin-report-d4-report.component';
+import { ReportAdminReportD7ReportComponent } from './report-admin-report-d7-report/report-admin-report-d7-report.component';
 
 
 
@@ -20,7 +22,9 @@ import { DirectiveModule } from '@eas-directives/directive.module';
   declarations: [
     ReportAdminReportComponent,
     ReportAdminReportD1ReportComponent,
-    ReportAdminReportHomeComponent
+    ReportAdminReportHomeComponent,
+    ReportAdminReportD4ReportComponent,
+    ReportAdminReportD7ReportComponent
   ],
   providers: [
     ReportAdminReportMenuService
