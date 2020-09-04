@@ -412,9 +412,11 @@ export class GlobalResources {
     downloadFile(fileUrl, params){
         // Add authentication headers in URL
         let href = [fileUrl, $.param(params)].join('?');
+        let download = "filename.extension"
         window.location.href = href;
         // window.open(href, '_blank');
-        // Object.assign(document.createElement('a'), { target: '_blank', href} ).click();
+        //-----------------OR-----------------------------
+        // Object.assign(document.createElement('a'), { target: '_blank', href, download(optional)} ).click();
     }
 
     exportTableToExcel(tableID, fileName?){

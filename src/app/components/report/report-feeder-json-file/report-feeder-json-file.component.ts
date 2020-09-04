@@ -273,7 +273,7 @@ export class ReportFeederJsonFileComponent implements OnInit {
         jsonObject.footerObject = this.prepareFooterObject(this.viewResultList);
         
         let jsonData = JSON.stringify(jsonObject , null, '\t');
-        let dataType = 'data:application/octet-stream';
+        let dataType = 'data:application/octet-stream'; //'octet/stream'
         this.globalResources.downloadByBlob(jsonData, dataType, "jsonFile", "json");
       }
     },errorResponse =>{
