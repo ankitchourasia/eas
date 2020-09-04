@@ -102,3 +102,8 @@ fieldset[disabled] .form-control {
 .footer p{
     display: none !important;
 }
+
+/* a{
+    text-decoration:none; 
+    color:#0562b0;
+} */

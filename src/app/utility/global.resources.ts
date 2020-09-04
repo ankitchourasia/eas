@@ -411,9 +411,10 @@ export class GlobalResources {
         
     downloadFile(fileUrl, params){
         // Add authentication headers in URL
-        let url = [fileUrl, $.param(params)].join('?');
-        window.location.href = url;
-		// window.open(url);
+        let href = [fileUrl, $.param(params)].join('?');
+        window.location.href = href;
+        // window.open(href, '_blank');
+        // Object.assign(document.createElement('a'), { target: '_blank', href} ).click();
     }
 
     exportTableToExcel(tableID, fileName?){
@@ -439,8 +440,11 @@ export class GlobalResources {
 
     downloadByBlob(content, dataType, fileName, extention){
         let file = new Blob(['\ufeff', content], {type: dataType});
+        const fileURL = window.URL.createObjectURL(file);
+        //window.open(fileURL, '_blank');
+        //------------------OR----------------------
         let anchorElement = document.createElement("a");
-        anchorElement.href = window.URL.createObjectURL(file);
+        anchorElement.href = fileURL;
         anchorElement.download = fileName + "." + extention;
         anchorElement.click();
         anchorElement.remove();
