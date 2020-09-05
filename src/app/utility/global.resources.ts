@@ -3,7 +3,8 @@ import { NgForm, NgModel } from '@angular/forms';
 import alert from "sweetalert2";
 import { GlobalConstants } from './global.constants';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
-import $ from 'jQuery';// declare var $:any;
+declare var $:any;//import $ from 'jQuery';
+
 @Injectable()
 export class GlobalResources {
 
@@ -488,5 +489,9 @@ export class GlobalResources {
     tooltip(){
         let dataToggle = $(`[data-toggle='tooltip']`);
         dataToggle.tooltip();
+    }
+
+    modal(modalId:string, action: string){
+        $(`#${modalId}`).modal(action);
     }
 }

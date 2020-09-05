@@ -1,10 +1,10 @@
-import { Directive, Input, Renderer2 } from "@angular/core";
+import { Directive, Input, Renderer2, ElementRef } from "@angular/core";
 
 @Directive({ selector: '[focus-self]' })
 export class FocusSelfDirective{
 // export class FocusSelfDirective  implements OnInit{
 
-    constructor(private renderer2: Renderer2) { }
+    constructor(private elementRef: ElementRef, private renderer2: Renderer2) { }
 
     @Input("id")
     set setElementId(elementId : string){
@@ -15,10 +15,7 @@ export class FocusSelfDirective{
         }
     }
 
-    // ngOnInit(){
-    //     this.renderer2.selectRootElement(this.hostElement["nativeElement"], true).focus();
-    //     if (this.focus) {
-    //         this.el.nativeElement.focus();
-    //     }
-    // }
+    ngOnInit(){
+        this.renderer2.selectRootElement(this.elementRef["nativeElement"], true).focus();
+    }
 }

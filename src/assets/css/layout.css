@@ -1,3 +1,8 @@
+body{
+    /* font-size: 15px !important; */
+    background-color: #e9ecef !important;
+}
+
 router-outlet + * {
    display: flex;
    flex-direction: column;
@@ -12,6 +17,10 @@ router-outlet + * {
     background-color: var(--color-inverse) !important;
 }
 
+.bg-title{
+    background-color: var(--color-title) !important;
+}
+
 .text-default{
     color: var(--color-default) !important;
 }
@@ -20,10 +29,8 @@ router-outlet + * {
     color: var(--color-inverse) !important;
 }
 
-body{
-    background-color: rgb(231, 227, 227) !important;
-    /* background-color: var(--color-default) !important;
-    color: var(--color-inverse)  !important; */
+.text-title{
+    color: var(--color-title) !important;
 }
 
 .wrapper{
@@ -72,6 +79,8 @@ body{
     right: 0;
     bottom: 0;
     z-index: 9999;
+    /* width:100wh;
+    height: 100vh; */
 }
 
 .modal-backdrop{
@@ -88,13 +97,13 @@ body{
 }
 
 .active{
-    background-color: orange !important;
-    border-color : orange !important;
+    background-color:  var(--color-title) !important;
+    border-color :  var(--color-title) !important;
 }
 
 .pagination .page-item.active .page-link{ 
-    background-color: orange !important;
-    border-color : orange !important;
+    background-color:  var(--color-title) !important;
+    border-color :  var(--color-title) !important;
 }
 /* ------------------------------------------------------------------------- */
 

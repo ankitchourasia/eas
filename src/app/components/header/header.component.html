@@ -1,18 +1,18 @@
 <nav class="navbar bg-inverse" id="navbarHeader">
-  <div class="navbar-header ">
+  <div class="navbar-header">
     <img class="img-fluid" src="/assets/images/mppkvvcl1.png" alt="..." onerror="this.style.display='none'">
     <!-- <img class="img-fluid" src="/assets/images/mppkvvcl1.png" alt="..." onerror="this.src='/assets/images/mppkvvcl.png'"/> -->
-    <a class="navbar-brand mb-0 h1 text-warning" href="JavaScript:void(0);" (click)="titleClicked()">
+    <a class="navbar-brand mb-0 h1 text-title" href="JavaScript:void(0);" (click)="titleClicked()">
       <span class="d-none d-lg-block">ENERGY AUDIT SYSTEM</span>
       <span class="d-lg-none ml-auto ">EAS</span>
     </a>
   </div>
-  <div id="welcomeMessage">
+  <div id="welcomeMessage" *ngIf="user && user.name">
       <div class="dropdown">
           <!-- <a class="dropdown-toggle text-inverse m-1" role="button" id="dropdownMenuLink" data-toggle="dropdown" href="javascript:void(0);">
             <span class="fa fa-user" aria-hidden="true"></span>
           </a> -->
-          <a class="badge badge-pill badge-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+          <a class="badge badge-pill bg-title text-inverse dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
             {{user?.name | uppercase}} <span class="fa fa-user-circle" aria-hidden="true"></span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">

@@ -31,6 +31,17 @@ export class GlobalDOMUtility {
         }
     }
 
+    
+    public scrollIntoViewElement(elementId: string, renderer : Renderer2) {
+        const element = document.getElementById(elementId) as HTMLElement;
+        if(element && renderer){
+            element.scrollIntoView();
+            // element.scrollIntoView({ behavior: 'smooth', block: "start" });
+            // element['scrollIntoView'].apply(element, { behavior: 'smooth', block: "start" });
+            // renderer2.selectRootElement(`#${elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
+        }
+    }
+
     /**
      * Function to enable, disabled element with passed elementId
      * @param elementId 
@@ -60,16 +71,14 @@ export class GlobalDOMUtility {
             // renderer2.setProperty(element, 'disabled', true); //property is a DOM property
         }
     }
-
-    public scrollIntoViewElement(elementId: string, renderer : Renderer2) {
+    
+    public setElementAttributeHelper(elementId: string, renderer: Renderer2, attribute: string, value?: any){
         const element = document.getElementById(elementId) as HTMLElement;
         if(element && renderer){
-            element.scrollIntoView();
-            // element.scrollIntoView({ behavior: 'smooth', block: "start" });
-            // element['scrollIntoView'].apply(element, { behavior: 'smooth', block: "start" });
-            // renderer2.selectRootElement(`#${elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
+            __ngRendererSetElementAttributeHelper(renderer, element, attribute, value);
         }
     }
+
 }
 
 type AnyDuringRendererMigration = any;
