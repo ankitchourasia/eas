@@ -5,16 +5,19 @@ import { Directive, Input, Renderer2 } from '@angular/core';
 })
 export class ScrollIntoViewDirective {
 
+  _elementId: string;
   constructor(private renderer2 : Renderer2) { }
 
   @Input("id")
-  set setElementId(elementId : string){
-      const element = document.getElementById(elementId);
-      console.log(element);
-      if(element){
+  set elementId(elementId : string){
+      this._elementId = elementId
+  }
+
+  ngOnInit(){
+    const element = document.getElementById(this._elementId) as HTMLElement;
+    if (element) {
         element.scrollIntoView();
-        // this.renderer2.selectRootElement(elementId, true).scrollIntoView({ behavior: 'smooth', block: "start" });
-        // this.renderer2.selectRootElement(`#${elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
-      }
+        // this.renderer2.selectRootElement(`#${this._elementId}`, true).scrollIntoView({ behavior: 'smooth', block: "start" });
+    }
   }
 }
