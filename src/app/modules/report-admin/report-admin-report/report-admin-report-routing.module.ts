@@ -5,6 +5,7 @@ import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { ReportAdminReportComponent } from './report-admin-report.component';
 import { ReportAdminReportHomeComponent } from './report-admin-report-home/report-admin-report-home.component';
 import { ReportAdminReportD1ReportComponent } from './report-admin-report-d1-report/report-admin-report-d1-report.component';
+import { ReportAdminReportD7ReportComponent } from './report-admin-report-d7-report/report-admin-report-d7-report.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,9 @@ const routes: Routes = [
           },
           {
             path: 'd1-report', component: ReportAdminReportD1ReportComponent,
+          },
+          {
+            path: 'd7-report', component: ReportAdminReportD7ReportComponent,
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

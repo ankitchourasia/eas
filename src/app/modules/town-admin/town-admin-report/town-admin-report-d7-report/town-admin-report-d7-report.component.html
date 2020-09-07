@@ -1,1 +1,70 @@
-<p>town-admin-report-d7-report works!</p>
+<div class="card">
+    <div class="card-header bg-inverse text-center text-default">
+        D-7 (Town Wise E-Payment Status Report)
+    </div>
+    <div class="card-body">
+        <div class="space-around form-group">
+            <div class="form-inline">
+                <label class="form-text required mx-sm-3">Bill Month</label>
+                <div class="input-group">
+                <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+                    class="form-control form-control-sm" [(ngModel)]="billingMonth.month" #month="ngModel" id="month"  name="month" required (change)="!month.errors && billMonthChanged()">
+                    <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+                    <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+                </select>
+                <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+                    class="form-control form-control-sm" [(ngModel)]="billingMonth.year" #year="ngModel" id="year"  name="year" required (change)="!year.errors && billMonthChanged()">
+                    <option disabled selected [ngValue]='undefined'>Year</option>
+                    <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+                </select>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="searchButtonClicked">
+                    Search <span class="spinner-border spinner-border-sm" *ngIf="searchButtonClicked"></span>
+                    </button>
+                </div>
+                <div class="invalid-feedback" *ngIf="(month.errors && (month.dirty || month.touched)) || (year.errors && (year.dirty || year.touched))">
+                    <div [hidden]="!month.errors?.required && !year.errors?.required">required bill month</div>
+                </div>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-primary" [disabled]="!billingStatusFlag || fetchClicked" (click)="generateClicked()">Download Report
+                <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="fetchClicked"></span>
+            </button>
+        </div>
+        <div class="table-responsive mb-2">
+            <table class="table table-sm table-bordered table-hover text-center mb-0">
+              <thead class="bg-inverse text-default">
+                <tr>
+                  <td nowrap class="align-middle">S.No</td>
+                  <td nowrap class="align-middle">Town</td>
+                  <td nowrap class="align-middle">Bill Month</td>
+                  <td nowrap class="align-middle">Billing Status (Completed)</td>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template [ngIf]="billingStatusList && billingStatusList.length > 0 && !searchButtonClicked">
+                <tr *ngFor="let billingStatus of billingStatusList; let i = index">
+                  <td class="align-middle">{{i + 1}}</td>
+                  <td class="align-middle">{{billingStatus?.town?.name | uppercase}}</td>
+                  <td class="align-middle">{{billingStatus?.billMonth | uppercase}}</td>
+                  <td class="align-middle">
+                    <span class="text-success" *ngIf="billingStatusFlag"><span class="fa fa-check"></span></span> 
+                    <span class="text-danger" *ngIf="!billingStatusFlag"><span class="fa fa-times"></span></span>
+                  </td>
+                </tr>
+                </ng-template>
+                <tr *ngIf="billingStatusList && !billingStatusList.length  && !searchButtonClicked">
+                  <td colspan="4">
+                    No records found
+                  </td>
+                </tr>
+                <tr *ngIf="searchButtonClicked">
+                  <td  colspan="4">
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
