@@ -5,12 +5,14 @@ import { LoginRoutingModule } from './login-routing.module';
 import { FormsModule  } from '@angular/forms';
 import { LoginServiceModule } from '@eas-services/login/login-service.module';
 import { DirectiveModule } from '@eas-directives/directive.module';
+import { HeaderComponentModule } from '@eas-components/header/header-component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     DirectiveModule,
+    HeaderComponentModule,
     LoginServiceModule,
     LoginRoutingModule
   ],

@@ -107,7 +107,7 @@
       <tbody>
         <ng-template [ngIf]="billingStatusList && billingStatusList.length > 0 && !_searchClicked">
         <tr *ngFor="let generationStatus of billingStatusList; let i = index">
-            <td class="align-middle">1</td>
+          <td class="align-middle">{{pager?.startIndex + i + 1}}</td>
           <td class="align-middle">{{generationStatus?.feeder?.name | uppercase}}</td>
           <td class="align-middle">{{generationStatus.billMonth | uppercase}}</td>
           <td class="align-middle">

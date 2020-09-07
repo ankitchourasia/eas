@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalResources } from '@eas-utility/global.resources';
+import { GlobalResources, EASModal } from '@eas-utility/global.resources';
 import { LoginService } from '@eas-services/login/login.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
   _submitClicked : boolean;
 
   constructor(private router: Router, private authenticationService: AuthenticationService,
-    private globalResources: GlobalResources, private loginService : LoginService) { }
+    private globalResources: GlobalResources, private loginService : LoginService, private modal: EASModal) { }
 
   ngOnInit() {
     this.user = {};
     this.loginErrorText = undefined;
     this.authenticationService.clearSessionStorage();
+    this.modal.open('loginModal', {backdrop: false, keyboard: false});
   }
 
   loginClicked(loginForm){
@@ -35,9 +36,9 @@ export class LoginComponent implements OnInit {
   processLoginForm(){
     this._submitClicked = true;
     this.loginService.authenticate(this.user, true).subscribe(successResponse =>{
-      this._submitClicked = false;
       let result: any = successResponse;
       if(result && result.status === 200){
+        this.modal.action('loginModal', 'hide');
         let user = result.body;
         this.authenticationService.setUserDetails(user);
         

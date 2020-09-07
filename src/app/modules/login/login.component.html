@@ -1,55 +1,64 @@
-<!-- <div id="cover">
-    <div class="text-center">
-        <h1><strong>Welcome to EAS</strong></h1>
-        <h4><strong>Energy Audit System</strong></h4>
-    </div>
-    <br>
-    <br>
-    <div class="card text-center bg-inverse text-default mb-3">
-        <div class="card-header">EAS - Login</div>
-        <div class="card-body">
-            <div *ngIf="loginError">
-                <div class="form-group">
-                    <label class="font-weight-bold">{{loginErrorText}}</label>
-                </div>
+<eas-header></eas-header>
+<div class="modal fade" id="loginModal" role="dialog"  tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            
+            <div class="form-inline">
+                <span class="fa fa-sign-in fa-2x mr-3"></span><h4 class="text-center">ENERGY AUDIT SYSTEM</h4> 
             </div>
-            <div>
-                <fieldset #loginForm="ngForm" ngForm autocomplete="off" [disabled]="_submitClicked">
-                    <div class="form-group">
-                        <label class="sr-only">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username" placeholder="Enter Your Username" #username="ngModel" 
-                        [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}" required>
-                        <div class="invalid-feedback text-left" *ngIf="username.errors && (username.dirty || username.touched)">
-                            <div [hidden]="!username.errors.required">required field</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password" placeholder="Enter Your Password" #password="ngModel"
-                        [ngClass]="{'is-valid': !password.errors && (password.dirty || password.touched),'is-invalid': password.errors && (password.dirty || password.touched)}" required>
-                        <div class="invalid-feedback text-left" *ngIf="password.errors && (password.dirty || password.touched)">
-                            <div [hidden]="!password.errors.required">required field</div>
-                        </div>
-                    </div>
-                    <div class="eas-space-around">
-                        <button type="submit" class="btn btn-success" (click)="loginClicked(loginForm)">
-                            login <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
-                        </button>
-                        <button type="reset" class="btn btn-danger">clear</button>
-                    </div>
-                </fieldset>
+            
+            <hr>
+            <div class="form-group text-center" *ngIf="loginError">
+                <label class="font-weight-bold text-danger">{{loginErrorText}}</label>
             </div>
-        </div>
-        <div class="card-footer text-muted">
-            <strong>&copy; MPPKVVCL Indore 2019-2020</strong>
-        </div>
-    </div>
-</div> -->
 
-<div id="cover">
+            <form #loginForm="ngForm" autocorrect="off" spellcheck="false" autocomplete="off" (ngSubmit)="loginClicked(loginForm)" [disableElement]="_submitClicked">
+                
+                <input type="text" style="display: none" autocomplete="new-username">
+                <input type="password" style="display: none" autocomplete="new-password">
+                    
+                <div class="form-group form-label-group">
+                    <input [ngClass]="{'is-valid': !username.errors && (username.dirty || username.touched),'is-invalid': username.errors && (username.dirty || username.touched)}"
+                        type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username" placeholder="Username" #username="ngModel" required focus-next="password"
+                        (copy)="false" (paste)="false" (cut)="false">
+                    <label for="username">Username</label>
+                    
+                    <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
+                        <div [hidden]="!username.errors.required">required field</div>
+                    </div>
+                </div>
+
+                <div class="form-group form-label-group">
+                    <input [ngClass]="{'is-valid': !password.errors && (password.dirty || password.touched),'is-invalid': password.errors && (password.dirty || password.touched)}" 
+                        type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password" placeholder="Password" #password="ngModel" required focus-next="submitBtn"
+                        (copy)="false" (paste)="false" (cut)="false">
+                    <label for="password">Password</label>
+                    
+                    <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+                        <div [hidden]="!password.errors.required">required field</div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-success btn-block" id="submitBtn" (click)="loginForm.ngSubmit.emit()" [disabled]="!loginForm.form.valid || _submitClicked">
+                    LOGIN <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="_submitClicked"></span>
+                </button>
+            </div>
+
+            <hr>
+            <h6 class="text-center text-title"><strong>&copy; MPPKVVCL Indore</strong></h6>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- <div id="cover">
     <div id="login-container" class="p-3" [disableElement]="_submitClicked">
         <div>
-            <!-- <h1 class="text-center text-white">Welcome to EAS</h1> -->
             <h3 class="text-center text-white">Energy Audit System</h3>
             <hr>
             <div class="text-center" *ngIf="loginError">
@@ -79,7 +88,7 @@
                 </div>
             </form>
             <hr>
-            <h6 class="text-center text-warning"><strong>&copy; MPPKVVCL Indore</strong></h6>
+            <h6 class="text-center text-title"><strong>&copy; MPPKVVCL Indore</strong></h6>
         </div>
     </div>
-</div>
+</div> -->

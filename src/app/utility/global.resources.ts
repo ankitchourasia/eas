@@ -3,7 +3,8 @@ import { NgForm, NgModel } from '@angular/forms';
 import alert from "sweetalert2";
 import { GlobalConstants } from './global.constants';
 import { AuthenticationService } from '@eas-services/authentication-service/authentication.service';
-import $ from 'jQuery';// declare var $:any;
+declare var $:any;//import $ from 'jQuery';
+
 @Injectable()
 export class GlobalResources {
 
@@ -411,9 +412,12 @@ export class GlobalResources {
         
     downloadFile(fileUrl, params){
         // Add authentication headers in URL
-        let url = [fileUrl, $.param(params)].join('?');
-        window.location.href = url;
-		// window.open(url);
+        let href = [fileUrl, $.param(params)].join('?');
+        let download = "filename.extension"
+        window.location.href = href;
+        // window.open(href, '_blank');
+        //-----------------OR-----------------------------
+        // Object.assign(document.createElement('a'), { target: '_blank', href, download(optional)} ).click();
     }
 
     exportTableToExcel(tableID, fileName?){
@@ -439,8 +443,11 @@ export class GlobalResources {
 
     downloadByBlob(content, dataType, fileName, extention){
         let file = new Blob(['\ufeff', content], {type: dataType});
+        const fileURL = window.URL.createObjectURL(file);
+        //window.open(fileURL, '_blank');
+        //------------------OR----------------------
         let anchorElement = document.createElement("a");
-        anchorElement.href = window.URL.createObjectURL(file);
+        anchorElement.href = fileURL;
         anchorElement.download = fileName + "." + extention;
         anchorElement.click();
         anchorElement.remove();
@@ -483,4 +490,35 @@ export class GlobalResources {
         let dataToggle = $(`[data-toggle='tooltip']`);
         dataToggle.tooltip();
     }
+}
+
+@Injectable({providedIn: 'root'})
+export class EASModal {
+    open(modalId:string, options: ModalOptions = {}){
+        if(!options){
+            $(`#${modalId}`).modal();
+            return;
+        }
+        
+        let show = (options.show === false) ? options.show : true;
+
+        let focus = (options.focus === false) ? options.focus : true;
+
+        let backdrop = (options.backdrop === false) ? options.backdrop : true;
+        
+        let keyboard = (options.keyboard === false) ? options.keyboard : true;
+
+        $(`#${modalId}`).modal({backdrop: backdrop, keyboard: keyboard, focus: focus, show: show});
+    }
+
+    action(modalId:string, action: 'show' | 'hide' | 'toggle'){
+        $(`#${modalId}`).modal(action);
+    }
+}
+
+export interface ModalOptions {
+    backdrop?: boolean | 'static';
+    keyboard?: boolean;
+    focus?: boolean;
+    show?: boolean;
 }
