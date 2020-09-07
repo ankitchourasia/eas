@@ -471,4 +471,22 @@ export class ReportService {
     }
   }
 
+  getMissingD7DataByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/missing/d7-data/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/missing/d7-data/bill-month/' + billMonth);
+    }
+  }
+
+  generateAllTownD7ReportByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/bill-month/' + billMonth);
+    }
+  }
+
 }

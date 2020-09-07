@@ -18,8 +18,8 @@ export class ReportAdminReportD7ReportComponent implements OnInit {
   downloadReport : boolean;
   constructor(private adminReportMenuService: ReportAdminReportMenuService, private reportService : ReportService, 
     public globalConstants : GlobalConstants, private globalResources : GlobalResources) { 
-    if(!this.adminReportMenuService.D1_REPORT_MENU.active){
-      this.adminReportMenuService.menuClicked(this.adminReportMenuService.D1_REPORT_MENU);
+    if(!this.adminReportMenuService.D7_REPORT_MENU.active){
+      this.adminReportMenuService.menuClicked(this.adminReportMenuService.D7_REPORT_MENU);
     }
   }
 
@@ -29,7 +29,7 @@ export class ReportAdminReportD7ReportComponent implements OnInit {
   getMissingTownWiseBillData(billMonth){
     this.searching = true;
     this.missingTowns = undefined;
-    this.reportService.getMissingTownWiseBillDataByBillMonth(billMonth, false).subscribe(success =>{
+    this.reportService.getMissingD7DataByBillMonth(billMonth, false).subscribe(success =>{
       this.searching = false;
       console.log(success);
       this.missingTowns = success;
@@ -58,7 +58,7 @@ export class ReportAdminReportD7ReportComponent implements OnInit {
   }
 
   downloadReportButtonClicked(){
-    this.reportService.generateAllTownD1ReportByBillMonth(this.billingMonth.billMonth, false).subscribe(success =>{
+    this.reportService.generateAllTownD7ReportByBillMonth(this.billingMonth.billMonth, false).subscribe(success =>{
       console.log(success);
       this.exportReport();
     }, error =>{
@@ -71,7 +71,7 @@ export class ReportAdminReportD7ReportComponent implements OnInit {
     let params = {
       Authorization: "Basic " + encodedCredentials,
     };
-    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d1-report/export/bill-month/" + this.billingMonth.billMonth;
+    let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d7-report/export/bill-month/" + this.billingMonth.billMonth;
     this.globalResources.downloadFile(fileUrl,params);
   }
 
