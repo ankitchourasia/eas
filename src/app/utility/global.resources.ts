@@ -490,8 +490,35 @@ export class GlobalResources {
         let dataToggle = $(`[data-toggle='tooltip']`);
         dataToggle.tooltip();
     }
+}
 
-    modal(modalId:string, action: string){
+@Injectable({providedIn: 'root'})
+export class EASModal {
+    open(modalId:string, options: ModalOptions = {}){
+        if(!options){
+            $(`#${modalId}`).modal();
+            return;
+        }
+        
+        let show = (options.show === false) ? options.show : true;
+
+        let focus = (options.focus === false) ? options.focus : true;
+
+        let backdrop = (options.backdrop === false) ? options.backdrop : true;
+        
+        let keyboard = (options.keyboard === false) ? options.keyboard : true;
+
+        $(`#${modalId}`).modal({backdrop: backdrop, keyboard: keyboard, focus: focus, show: show});
+    }
+
+    action(modalId:string, action: 'show' | 'hide' | 'toggle'){
         $(`#${modalId}`).modal(action);
     }
+}
+
+export interface ModalOptions {
+    backdrop?: boolean | 'static';
+    keyboard?: boolean;
+    focus?: boolean;
+    show?: boolean;
 }
