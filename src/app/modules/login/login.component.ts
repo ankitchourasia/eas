@@ -66,11 +66,11 @@ export class LoginComponent implements OnInit {
       }
       this.loginError= true;
       this._submitClicked = false;
-      this.loginErrorText = "Invalid username/password. Try again!";
+      this.loginErrorText = "Invalid credential. Try again!";
     }, errorResponse =>{
       this.loginError= true;
       this._submitClicked = false;
-      this.loginErrorText = "Invalid username/password. Try again!";
+      this.loginErrorText = "Invalid credential. Try again!";
     });
 
     
