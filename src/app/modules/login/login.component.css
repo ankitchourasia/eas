@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.modal-dialog {
+  position: absolute !important;
+  right: 10% !important;
+}
 
 /* .modal-body{
   border-radius: 20px;
