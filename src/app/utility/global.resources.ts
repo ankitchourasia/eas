@@ -495,25 +495,24 @@ export class GlobalResources {
 @Injectable({providedIn: 'root'})
 export class EASModal {
     open(modalId:string, options: ModalOptions = {}){
-        if(!options){
-            $(`#${modalId}`).modal();
-            return;
-        }
         
         let show = (options.show === false) ? options.show : true;
 
         let focus = (options.focus === false) ? options.focus : true;
 
-        let backdrop = (options.backdrop === false) ? options.backdrop : true;
-        
         let keyboard = (options.keyboard === false) ? options.keyboard : true;
-
+        
+        let backdrop = (options.backdrop === false || options.backdrop === 'static') ? options.backdrop : true;
+        
         $(`#${modalId}`).modal({backdrop: backdrop, keyboard: keyboard, focus: focus, show: show});
     }
 
-    action(modalId:string, action: 'show' | 'hide' | 'toggle'){
-        $(`#${modalId}`).modal(action);
-    }
+    show(modalId: string){  $(`#${modalId}`).modal('show'); }
+
+    close(modalId: string){  $(`#${modalId}`).modal('hide'); }
+
+    toggle(modalId: string){  $(`#${modalId}`).modal('toggle'); }
+
 }
 
 export interface ModalOptions {

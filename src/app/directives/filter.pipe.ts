@@ -78,7 +78,7 @@ export function getPropertyValue(item: any, propertyName: string): string {
 //     <td>BANK NAME</td>
 //     <td>BANK CODE</td>
 //   </thead>
-//   <!-- <tr *ngFor="let bank of bankList | filter : {'name':searchText, 'code': searchText}""  ; let i = index">
+//   <!-- <tr *ngFor="let bank of bankList | filter : {'name':searchText, 'code': searchText}"  ; let i = index">
 //     <td>{{i + 1}}</td>
 //     <td>{{bank.name}}</td>
 //     <td>{{bank.code}}</td>
@@ -96,5 +96,5 @@ export function getPropertyValue(item: any, propertyName: string): string {
 // </table>
 
 // <div class="space-around form-inline">
-//   <ngbadmin-pagination [items]="bankList | filter : {'name':searchText, 'code': searchText, 'branch.name':searchText}""  [pageSize]="pageSize" [maxPages]="maxPages" #pagination ></ngbadmin-pagination>
+//   <ngbadmin-pagination [items]="bankList | filter : {'name':searchText, 'code': searchText, 'branch.name':searchText}"  [pageSize]="pageSize" [maxPages]="maxPages" #pagination ></ngbadmin-pagination>
 // </div>

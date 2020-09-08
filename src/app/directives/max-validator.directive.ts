@@ -30,7 +30,6 @@ export class MaxValidatorDirective implements Validator, OnChanges  {
   // }
   
   validate(control: AbstractControl): ValidationErrors {
-    console.log("current value: ", control.value, "max value: ", this.max);
     if(this.max === null || this.max === undefined){
       return null;
     }
@@ -47,7 +46,6 @@ export class MaxValidatorDirective implements Validator, OnChanges  {
 
   maxValidator(max : number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors => {
-      console.log("current value: ", control.value, "max value: ", max);
       return control.value <= max ? null : {
         max: {
           valid: false,

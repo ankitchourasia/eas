@@ -30,7 +30,6 @@ export class MinValidatorDirective implements Validator, OnChanges {
   // }
 
   validate(control: AbstractControl): ValidationErrors {
-    console.log("current value: ", control.value, "min value: ", this.min);
     if(this.min === null || this.min === undefined){
       return null;
     }
@@ -47,7 +46,6 @@ export class MinValidatorDirective implements Validator, OnChanges {
 
   minValidator(min : number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors => {
-      console.log("current value: ", control.value, "min value: ", min);
       return control.value >= min ? null : {
         min: {
           valid: false,

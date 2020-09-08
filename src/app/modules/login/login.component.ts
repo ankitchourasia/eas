@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.loginService.authenticate(this.user, true).subscribe(successResponse =>{
       let result: any = successResponse;
       if(result && result.status === 200){
-        this.modal.action('loginModal', 'hide');
+        this.modal.close('loginModal');
         let user = result.body;
         this.authenticationService.setUserDetails(user);
         

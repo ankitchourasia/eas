@@ -5,17 +5,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SortingPipe implements PipeTransform {
 
-  transform(itemList: any[], orderBy: number|string = "", sortBy: string = ""): any[] {
+  transform(itemList: any[], orderBy: 1 | -1 | 'DESC' | 'desc' | 'ASC' | 'asc', sortBy: string = ""): any[] {
   
     return getSortedList(itemList, orderBy, sortBy);
   
   }
 }
 
-export function getSortedList(itemList: any, sortOrder: number|string = "", sortBy: string = ""){
+export function getSortedList(itemList: any, sortOrder: 1 | -1 | 'DESC' | 'desc' | 'ASC' | 'asc', sortBy: string = ""){
   let direction: number;
   
-  if(!Array.isArray(itemList) || itemList.length <= 0 || sortOrder === "" || !sortOrder){
+  if(!Array.isArray(itemList) || itemList.length <= 0 || !sortOrder){
     return itemList;
   }
 
