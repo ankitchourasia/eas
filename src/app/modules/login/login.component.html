@@ -1,5 +1,5 @@
-<eas-header></eas-header>
-<div>
+<!-- <eas-header></eas-header> -->
+<div id="cover">
     <div class="modal fade" id="loginModal" role="dialog"  tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
@@ -12,7 +12,7 @@
                     
                     <hr>
                     <div class="form-group text-center" *ngIf="loginError">
-                        <label class="font-weight-bold text-danger">{{loginErrorText}}</label>
+                        <label class="font-weight-bold text-white">{{loginErrorText}}</label>
                     </div>
 
                     <form #loginForm="ngForm" autocorrect="off" spellcheck="false" autocomplete="off" (ngSubmit)="loginClicked(loginForm)" [disableElement]="_submitClicked">
@@ -30,7 +30,7 @@
                             <!-- <label for="username">Username</label> -->
                             
                             <div class="invalid-feedback" *ngIf="username.errors && (username.dirty || username.touched)">
-                                <div [hidden]="!username.errors.required">required field</div>
+                                <div [hidden]="!username.errors.required" class="text-white">required field</div>
                             </div>
                         </div>
 
@@ -44,7 +44,7 @@
                             <!-- <label for="password">Password</label> -->
                             
                             <div class="invalid-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
-                                <div [hidden]="!password.errors.required">required field</div>
+                                <div [hidden]="!password.errors.required" class="text-white">required field</div>
                             </div>
                         </div>
 
