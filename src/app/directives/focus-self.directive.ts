@@ -1,7 +1,7 @@
-import { Directive, Input, Renderer2, ElementRef } from "@angular/core";
+import { Directive, Input, Renderer2, ElementRef, OnInit } from "@angular/core";
 
 @Directive({ selector: '[focus-self]' })
-export class FocusSelfDirective{
+export class FocusSelfDirective implements OnInit{
 // export class FocusSelfDirective  implements OnInit{
 
     _elementId: string;
