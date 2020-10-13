@@ -492,32 +492,36 @@ export class GlobalResources {
     }
 }
 
-@Injectable({providedIn: 'root'})
-export class EASModal {
-    open(modalId:string, options: ModalOptions = {}){
-        
-        let show = (options.show === false) ? options.show : true;
-
-        let focus = (options.focus === false) ? options.focus : true;
-
-        let keyboard = (options.keyboard === false) ? options.keyboard : true;
-        
-        let backdrop = (options.backdrop === false || options.backdrop === 'static') ? options.backdrop : true;
-        
-        $(`#${modalId}`).modal({backdrop: backdrop, keyboard: keyboard, focus: focus, show: show});
-    }
-
-    show(modalId: string){  $(`#${modalId}`).modal('show'); }
-
-    close(modalId: string){  $(`#${modalId}`).modal('hide'); }
-
-    toggle(modalId: string){  $(`#${modalId}`).modal('toggle'); }
-
-}
-
 export interface ModalOptions {
     backdrop?: boolean | 'static';
     keyboard?: boolean;
     focus?: boolean;
     show?: boolean;
+}
+
+@Injectable({providedIn: 'root'})
+export class ModalConfig implements ModalOptions {
+  backdrop: boolean | 'static' = true;
+  keyboard: boolean = true;
+  focus: boolean = true;
+  show: boolean = true;
+}
+
+@Injectable({providedIn: 'root'})
+export class EASModal {
+
+    constructor(private _modalConfig: ModalConfig){ }
+
+    open(_modalId:string, _options: ModalOptions = {}){
+
+        let combinedOptions = Object.assign({}, this._modalConfig, _options);
+        $(`#${_modalId}`).modal(combinedOptions);
+    }
+
+    show(_modalId: string){  $(`#${_modalId}`).modal('show'); }
+
+    close(_modalId: string){  $(`#${_modalId}`).modal('hide'); }
+
+    toggle(_modalId: string){  $(`#${_modalId}`).modal('toggle'); }
+
 }
