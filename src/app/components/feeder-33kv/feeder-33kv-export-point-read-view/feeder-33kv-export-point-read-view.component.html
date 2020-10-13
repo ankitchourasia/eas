@@ -43,7 +43,8 @@
         <td nowrap class="align-middle">#</td>
         <td nowrap class="align-middle">Zone</td>
         <td nowrap class="align-middle">Feeder</td>
-        <td nowrap class="align-middle">Location Name</td>
+        <td nowrap class="align-middle">Location</td>
+        <td nowrap class="align-middle">Meter</td>
         <td nowrap class="align-middle">MF</td>
         <td nowrap class="align-middle">Prev Read</td>
         <td nowrap class="align-middle">Prev Read Date</td>
@@ -64,6 +65,7 @@
         <td class="align-middle">{{reading.export33kvPoint?.feeder33KV?.zone?.name | uppercase}}</td>
         <td class="align-middle">{{reading.export33kvPoint?.feeder33KV?.name}}</td>
         <td class="align-middle">{{reading.export33kvPoint?.locationName}}</td>
+        <td class="align-middle">{{reading.export33kvPoint?.meterNo}}</td>
         <td class="align-middle">{{reading.mf}}</td>
         <td class="align-middle">{{reading.previousRead}}</td>
         <td class="align-middle">{{reading.previousReadDate | date : globalConstants.DATE_FORMAT | uppercase}}</td>

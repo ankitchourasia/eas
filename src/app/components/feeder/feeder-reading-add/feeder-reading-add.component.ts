@@ -78,6 +78,7 @@ export class FeederReadingAddComponent implements OnInit {
 
   substationChanged(substationId){
     this.feederReading.feeder = undefined;
+    console.log(substationId);
     this.getFeedersBySubstationId(substationId);
   }
 
