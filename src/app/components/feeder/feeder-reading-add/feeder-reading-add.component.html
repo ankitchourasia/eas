@@ -57,7 +57,7 @@
       <select [ngClass]="{'is-valid': !substation.errors && (substation.dirty || substation.touched),'is-invalid': substation.errors && (substation.dirty || substation.touched)}"
         class="form-control" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let substation of substations" [ngValue]="substation.id">{{substation.name | uppercase}}</option>
+        <option *ngFor="let substation of substations" [ngValue]="substation.id">{{substation.id}} {{substation.name | uppercase}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="substation.errors && (substation.dirty || substation.touched)">
         <div *ngIf="substation.errors.required">required field</div>
