@@ -149,15 +149,6 @@ export class ExportService {
     }
   }
 
-  add33KVExportPointReading(exportPointReading, response){
-    if(response){
-      let options : any = {observe : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading,  options);
-    }else{
-      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading);
-    }
-  }
-
   get33KVExportPointsByZoneId(zoneId, response){
     if(response){
       let options : any = {'observe' : 'response'};
@@ -194,6 +185,15 @@ export class ExportService {
     }
   }
 
+  add33KVExportPointReading(exportPointReading, response){
+    if(response){
+      let options : any = {observe : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + 'export-33kv/reading', exportPointReading);
+    }
+  }
+
   add33KVExportPointReadingWithMeterReplacement(exportPointReading, username, response){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("punchedBy", username);
@@ -204,6 +204,18 @@ export class ExportService {
       options['observe'] = "response";
     }
     return this.httpClient.post(this.URL_PREFIX + 'export-33kv/meter/replacement/', exportPointReading, options);
+  }
+
+  update33KVExportPointReading(exportPointReading, nextBillMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("nextBillMonth", nextBillMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.httpClient.put(this.URL_PREFIX + 'export-33kv/reading/id/' + exportPointReading.id, exportPointReading, options);
   }
 
   getAbsent33KVExportReadByZoneId(zoneId, billMonth, response){

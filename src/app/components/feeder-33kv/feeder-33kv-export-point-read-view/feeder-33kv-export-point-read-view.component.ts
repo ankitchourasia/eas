@@ -25,6 +25,8 @@ export class Feeder33KVExportPointReadViewComponent implements OnInit {
   zoneList: any;
   pager: any;
   pageSize: number;
+  readingToEdit: any;
+  _updateClicked: boolean;
   public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
   
   constructor(private exportService: ExportService, private zoneService: ZoneService,
@@ -42,6 +44,7 @@ export class Feeder33KVExportPointReadViewComponent implements OnInit {
   }
 
   setInitailValue(){
+    this. readingToEdit = undefined;
     this.exportPointReadingList = [];
     this.pagedExportPointReadingList = [];
   }
@@ -122,5 +125,70 @@ export class Feeder33KVExportPointReadViewComponent implements OnInit {
     }
     this.pager = this.paginationService.getPager(this.exportPointReadingList.length, page, this.pageSize);
     this.pagedExportPointReadingList = this.exportPointReadingList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+  editClicked(reading){
+    this.readingToEdit = JSON.parse(JSON.stringify(reading));
+    this.readingToEdit.currentReadDate = this.globalResources.getDateFromDatetimestamp(this.readingToEdit.currentReadDate);
+  }
+
+  readingChanged(){
+    this.calculateConsumption();
+  }
+
+  assessmentChanged(){
+      this.calculateConsumption();
+  }
+
+  calculateConsumption(){
+    this.readingToEdit.difference = this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.currentRead - this.readingToEdit.previousRead), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.readingToEdit.consumption =  this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.difference * this.readingToEdit.mf), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    this.calculateTotalConsumption();
+  }
+
+  calculateTotalConsumption(){
+    if(this.readingToEdit.assessment){
+      this.readingToEdit.totalConsumption = this.globalResources.getValueAsNumberWithFixed((this.readingToEdit.consumption + this.readingToEdit.assessment), GlobalConstants.CALCULATION_ROUNDING_SCALE);
+    } else{
+      this.readingToEdit.totalConsumption = this.readingToEdit.consumption;
+    }
+  }
+
+  updateClicked(updateForm, closeButtonRef){
+    if(this.globalResources.validateForm(updateForm)){
+      this.readingToEdit.currentReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.readingToEdit.currentReadDate);
+      
+      this.calculateConsumption();
+      this.updateReading(updateForm, closeButtonRef);
+    }
+  }
+
+  updateReading(updateForm, closeButtonRef){
+    let methodName = "updateReading";
+    this._updateClicked = true;
+    let nextBillMonth = this.globalResources.getNextBillMonth(this.readingToEdit.billMonth);
+    this.exportService.update33KVExportPointReading(this.readingToEdit, nextBillMonth, true).subscribe(success =>{
+      this._updateClicked = false;
+      let aletResponse = this.globalResources.successAlert("Feeder reading updated successfully");
+      aletResponse.then(result =>{
+        this.updateFeederReadingList();
+        this.closeModal(updateForm, closeButtonRef);
+      });
+    }, errorResponse =>{
+      this._updateClicked = false;
+      this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+    });
+  }
+
+  updateFeederReadingList(){
+    let itemIndex = this.exportPointReadingList.findIndex((reading) => (reading.id === this.readingToEdit.id));
+    this.exportPointReadingList[itemIndex] = this.readingToEdit;
+    this.setPage(this.pager.currentPage);
+  }
+
+  closeModal(updateForm, closeButtonRef){
+    this.globalResources.resetValidateForm(updateForm);
+    closeButtonRef.click();
+    this._updateClicked = false;
+    this.readingToEdit = undefined;
   }
 }

@@ -156,6 +156,7 @@ export class Feeder33KVReadViewComponent implements OnInit {
 
   updateClicked(updateForm, closeButtonRef){
     if(this.globalResources.validateForm(updateForm)){
+      this.readingToEdit.currentReadDateInString = this.globalResources.makeDateAsDD_MM_YYYY(this.readingToEdit.currentReadDate);
       this.calculateConsumption();
       this.updateReading(updateForm, closeButtonRef);
     }
