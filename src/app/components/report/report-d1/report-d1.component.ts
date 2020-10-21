@@ -3,7 +3,6 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { RegionService } from '@eas-services/region-service/region.service';
 import { CircleService } from '@eas-services/circle-service/circle.service';
-import { DivisionService } from '@eas-services/division-service/division.service';
 import { ReportService } from '@eas-services/report-service/report.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
 import { GlobalConfiguration } from '@eas-utility/global-configuration';

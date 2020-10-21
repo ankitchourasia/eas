@@ -23,6 +23,16 @@ export class TownAdminReportMenuService implements MenuInterface {
   private readonly D7_REPORT_MENU_NAME: string = "D7";
   private readonly D7_REPORT_MENU_LINK: string = "d7-report";
   private readonly D7_REPORT_MENU_ACTIVE: boolean = false;
+
+  public TOWN_BILLING_DATA_REPORT_MENU: any;
+  private readonly TOWN_BILLING_DATA_REPORT_MENU_NAME: string = "Town Bill Data";
+  private readonly TOWN_BILLING_DATA_REPORT_MENU_LINK: string = "town-billing-data";
+  private readonly TOWN_BILLING_DATA_REPORT_MENU_ACTIVE: boolean = false;
+
+  public FEEDER_BILLING_DATA_REPORT_MENU: any;
+  private readonly FEEDER_BILLING_DATA_REPORT_MENU_NAME: string = "Feeder Bill Data";
+  private readonly FEEDER_BILLING_DATA_REPORT_MENU_LINK: string = "feeder-billing-data";
+  private readonly FEEDER_BILLING_DATA_REPORT_MENU_ACTIVE: boolean = false;
  
   menus: any[] = new Array();
 
@@ -63,6 +73,20 @@ export class TownAdminReportMenuService implements MenuInterface {
       link: this.D7_REPORT_MENU_LINK
     };
     this.menus.push(this.D7_REPORT_MENU);
+
+    this.TOWN_BILLING_DATA_REPORT_MENU = {
+      name: this.TOWN_BILLING_DATA_REPORT_MENU_NAME,
+      active: this.TOWN_BILLING_DATA_REPORT_MENU_ACTIVE,
+      link: this.TOWN_BILLING_DATA_REPORT_MENU_LINK
+    };
+    this.menus.push(this.TOWN_BILLING_DATA_REPORT_MENU);
+
+    this.FEEDER_BILLING_DATA_REPORT_MENU = {
+      name: this.FEEDER_BILLING_DATA_REPORT_MENU_NAME,
+      active: this.FEEDER_BILLING_DATA_REPORT_MENU_ACTIVE,
+      link: this.FEEDER_BILLING_DATA_REPORT_MENU_LINK
+    };
+    this.menus.push(this.FEEDER_BILLING_DATA_REPORT_MENU);
   }
 
   public getMenus() {

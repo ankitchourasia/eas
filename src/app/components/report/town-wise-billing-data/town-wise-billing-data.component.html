@@ -1,0 +1,22 @@
+<table class="table table-sm table-bordered">
+    <thead class="bg-inverse text-default">
+        <tr align="center">
+            <td>S.No</td>
+            <td>TOWN NAME</td>
+            <td>BILL MONTH</td>
+            <!-- <td>INPUT ENERGY</td> -->
+            <td>ENERGY BILLED</td>
+            <td>AMOUNT BILLED</td>
+            <td>AMOUNT COLLECTED</td>
+        </tr>
+    </thead>
+    <tr *ngFor="let data of billingData; let i = index" align="center">
+        <td>{{i + 1}}</td>
+        <td>{{data.town.name}}</td>
+        <td>{{data.billMonth}}</td>
+        <!-- <td>{{data.inputEnergy}}</td> -->
+        <td>{{data.energyBilled}}</td>
+        <td>{{data.amountBilled}}</td>
+        <td>{{data.amountCollected}}</td>
+    </tr>
+</table>

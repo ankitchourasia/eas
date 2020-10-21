@@ -11,12 +11,14 @@ import { ReportD2Component } from './report-d2/report-d2.component';
 import { ReportConsumerComplaintsRedressalComponent } from './report-consumer-complaints-redressal/report-consumer-complaints-redressal.component';
 import { ReportD3Component } from './report-d3/report-d3.component';
 import { ReportFeederJsonFileComponent } from './report-feeder-json-file/report-feeder-json-file.component';
+import { TownWiseBillingDataComponent } from './town-wise-billing-data/town-wise-billing-data.component';
+import { TownWiseFeederDataComponent } from './town-wise-feeder-data/town-wise-feeder-data.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    DirectiveModule,
+    DirectiveModule
   ],
   declarations: [
     ReportD1Component,
@@ -27,7 +29,9 @@ import { ReportFeederJsonFileComponent } from './report-feeder-json-file/report-
     ReportD2Component,
     ReportConsumerComplaintsRedressalComponent,
     ReportD3Component, 
-    ReportFeederJsonFileComponent
+    ReportFeederJsonFileComponent, 
+    TownWiseBillingDataComponent, 
+    TownWiseFeederDataComponent
   ],
  
   exports: [
@@ -39,7 +43,9 @@ import { ReportFeederJsonFileComponent } from './report-feeder-json-file/report-
     ReportD2Component,
     ReportConsumerComplaintsRedressalComponent, 
     ReportD3Component,
-    ReportFeederJsonFileComponent
+    ReportFeederJsonFileComponent,
+    TownWiseBillingDataComponent,
+    TownWiseFeederDataComponent
   ]
 })
 export class ReportComponentModule { }

@@ -7,6 +7,8 @@ import { TownAdminReportHomeComponent } from './town-admin-report-home/town-admi
 import { TownAdminReportD1ReportComponent } from './town-admin-report-d1-report/town-admin-report-d1-report.component';
 import { TownAdminReportD4ReportComponent } from './town-admin-report-d4-report/town-admin-report-d4-report.component';
 import { TownAdminReportD7ReportComponent } from './town-admin-report-d7-report/town-admin-report-d7-report.component';
+import { TownAdminReportTownWiseBillingDataComponent } from './town-admin-report-town-wise-billing-data/town-admin-report-town-wise-billing-data.component';
+import { TownAdminReportTownWiseFeederDataComponent } from './town-admin-report-town-wise-feeder-data/town-admin-report-town-wise-feeder-data.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,12 @@ const routes: Routes = [
           },
           {
             path: 'd7-report', component: TownAdminReportD7ReportComponent,
+          },
+          {
+            path: 'town-billing-data', component: TownAdminReportTownWiseBillingDataComponent,
+          },
+          {
+            path: 'feeder-billing-data', component: TownAdminReportTownWiseFeederDataComponent,
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

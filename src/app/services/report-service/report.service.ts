@@ -489,4 +489,22 @@ export class ReportService {
     }
   }
 
+  getD1BillingDataByTownId(townId, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/billing-data/town/id/' + townId,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd1-report/billing-data/town/id/' + townId);
+    }
+  }
+
+  getFeederWiseBillingDataByTownId(townId, billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + 'feeder/reading/data/town/id/' + townId + "/bill-month/" + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + 'feeder/reading/data/town/id/' + townId + "/bill-month/" + billMonth);
+    }
+  }
+
 }

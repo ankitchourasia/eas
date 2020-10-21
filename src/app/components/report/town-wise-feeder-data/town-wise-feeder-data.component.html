@@ -1,0 +1,57 @@
+<div class="eas-flex-end mb-2 form-group">
+    <div>
+        <small class="form-text text-muted required">Bill Month</small>
+        <div class="input-group">
+            <select [ngClass]="{'is-valid': !mon.errors && (mon.dirty || mon.touched),'is-invalid': mon.errors && (mon.dirty || mon.touched)}"
+                class="form-control form-control-sm" [(ngModel)]="selectedMonth" #mon="ngModel" id="month"  name="mon" required>
+                <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+                <option *ngFor="let mon of globalConstants.MONTHS" [ngValue]="mon">{{mon | uppercase}}</option>
+            </select>
+            <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+                class="form-control form-control-sm" [(ngModel)]="selectedYear" #year="ngModel" id="year"  name="year" required>
+                <option disabled selected [ngValue]='undefined'>Year</option>
+                <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+            </select>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="mon.errors || year.errors || loading">
+                    Search
+                </button>
+            </div>
+            <div class="invalid-feedback" *ngIf="(mon.errors && (mon.dirty || mon.touched)) || (year.errors && (year.dirty || year.touched))">
+                <div [hidden]="!mon.errors?.required && !year.errors?.required">required bill month</div>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-sm table-bordered">
+    <thead class="bg-inverse text-default">
+        <tr align="center">
+            <td>S.No</td>
+            <td>TOWN NAME</td>
+            <td>BILL MONTH</td>
+            <!-- <td>INPUT ENERGY</td> -->
+            <td>FEEDER INPUT</td>
+            <td>EXPORT</td>
+            <td>HT CONSUMPTION</td>
+        </tr>
+    </thead>
+    <tr *ngFor="let data of billingData; let i = index" align="center">
+        <td>{{i + 1}}</td>
+        <td>{{data.town.name}}</td>
+        <td>{{data.billMonth}}</td>
+        <!-- <td>{{data.inputEnergy}}</td> -->
+        <td>{{data.feederInput}}</td>
+        <td>{{data.totalExport}}</td>
+        <td>{{data.totalHTInput}}</td>
+    </tr>
+    <tr *ngIf="loading">
+        <td colspan="6" align="center">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...
+        </td>
+    </tr>
+    <tr *ngIf="!loading && !billingData">
+        <td colspan="6" align="center">
+            No Records.
+        </td>
+    </tr>
+</table>
