@@ -22,12 +22,15 @@ import { AdminFeeder11KVComponent } from './admin-feeder-11kv.component';
 import { AdminFeeder11KVRoutingModule } from './admin-feeder-11kv-routing.module';
 import { AdminFeeder11KVMenuService } from './admin-feeder-11kv-menu.service';
 import { Admin11KVExportAbsentReadComponent } from './admin-11kv-export-absent-read/admin-11kv-export-absent-read.component';
+import { AdminFeeder11KVLossDataComponent } from './admin-feeder-11kv-loss-data/admin-feeder-11kv-loss-data.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     FeederComponentModule,
     ExportComponentModule,
+    FormsModule,
     AdminFeeder11KVRoutingModule
   ],
   declarations: [
@@ -48,7 +51,8 @@ import { Admin11KVExportAbsentReadComponent } from './admin-11kv-export-absent-r
     AdminFeeder11KVExportPointViewComponent,
     AdminFeeder11KVExportPointReadAddComponent,
     AdminFeeder11KVExportPointReadViewComponent,
-    Admin11KVExportAbsentReadComponent
+    Admin11KVExportAbsentReadComponent,
+    AdminFeeder11KVLossDataComponent
   ],
   providers: [
     AdminFeeder11KVMenuService

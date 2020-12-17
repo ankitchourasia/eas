@@ -1,0 +1,90 @@
+<div class="card">
+    <div class="card-header bg-inverse text-center text-default">
+        Feeder Loss View
+    </div>
+    <div class="card-body">
+        <div class="eas-space-between mb-2">
+            <div class="form-inline align-items-baseline">
+              <div class="input-group mx-sm-2">
+                <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
+                  class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required [disabled]="loading">
+                  <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+                  <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+                </select>
+                <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
+                  class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required [disabled]="loading">
+                  <option disabled selected [ngValue]='undefined'>Year</option>
+                  <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+                </select>
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="billmonth.errors || billMonthyear.errors || loading">
+                   Search 
+                  </button>
+                </div>
+                <div class="invalid-feedback" *ngIf="(billmonth.errors && (billmonth.dirty || billmonth.touched)) || (billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched))">
+                  <div [hidden]="!billmonth.errors?.required && !billMonthyear.errors?.required">required bill month</div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="table-responsive mb-2">
+            <table class="table table-sm table-bordered table-hover text-center mb-0">
+              <thead class="bg-inverse text-default">
+                <tr>
+                  <td nowrap class="align-middle">S.NO</td>
+                  <td nowrap class="align-middle">ZONE</td>
+                  <td nowrap class="align-middle">FEEDER</td>
+                  <td nowrap class="align-middle">FEEDER CODE</td>
+                  <td nowrap class="align-middle">BILL MONTH</td>
+                  <td nowrap class="align-middle">CONSUMER COUNT</td>
+                  <td nowrap class="align-middle">DEMAND</td>
+                  <td nowrap class="align-middle">SOLD UNIT</td>
+                  <td nowrap class="align-middle">COLLECTION</td>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-template [ngIf]="feederData && feederData.length && !loading">
+                <tr *ngFor="let data of pagedFeederData; let i = index">
+                  <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
+                  <td class="align-middle">{{data.feeder.zone.name | uppercase}}</td>
+                  <td class="align-middle">{{data.feeder.name}}</td>
+                  <td class="align-middle">{{data.feederCode}}</td>
+                  <td class="align-middle">{{data.billMonth}}</td>
+                  <td class="align-middle">{{data.consumerCount}}</td>
+                  <td class="align-middle">{{data.demand}}</td>
+                  <td class="align-middle">{{data.soldUnit}}</td>
+                  <td class="align-middle">{{data.netBill - data.arrearNextMonth}}</td>
+                </tr>
+                </ng-template>
+                <tr *ngIf="feederData && !feederData.length && !loading">
+                  <td class="align-middle" colspan="9">No Records Found</td>
+                </tr>
+                <tr *ngIf="loading">
+                  <td class="align-middle" colspan="9">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Loading...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav id="pagination" *ngIf="feederData && feederData.length > pageSize" class="eas-flex-center">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+              <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" href="javascript:void(0)" (click)="setPage(1)"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+              </li>
+              <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage - 1)"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+              </li>
+              <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a class="page-link" href="javascript:void(0)" (click)="setPage(page)">{{page}}</a>
+              </li>
+              <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.currentPage + 1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+              </li>
+              <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="page-link" href="javascript:void(0)" (click)="setPage(pager.totalPages)"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+              </li>
+            </ul>
+          </nav>
+    </div>
+</div>

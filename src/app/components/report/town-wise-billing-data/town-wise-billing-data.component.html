@@ -4,9 +4,9 @@
             <td>S.No</td>
             <td>TOWN NAME</td>
             <td>BILL MONTH</td>
-            <!-- <td>INPUT ENERGY</td> -->
-            <td>ENERGY BILLED</td>
-            <td>AMOUNT BILLED</td>
+            <td>INPUT ENERGY</td>
+            <td>ENERGY BILLED(SOLD)</td>
+            <td>AMOUNT BILLED(DEMAND)</td>
             <td>AMOUNT COLLECTED</td>
         </tr>
     </thead>
@@ -14,9 +14,19 @@
         <td>{{i + 1}}</td>
         <td>{{data.town.name}}</td>
         <td>{{data.billMonth}}</td>
-        <!-- <td>{{data.inputEnergy}}</td> -->
+        <td>{{data.inputEnergy}}</td>
         <td>{{data.energyBilled}}</td>
         <td>{{data.amountBilled}}</td>
         <td>{{data.amountCollected}}</td>
+    </tr>
+    <tr *ngIf="loading">
+        <td colspan="7" align="center">
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...
+        </td>
+    </tr>
+    <tr *ngIf="!loading && !billingData">
+        <td colspan="7" align="center">
+            No Records.
+        </td>
     </tr>
 </table>

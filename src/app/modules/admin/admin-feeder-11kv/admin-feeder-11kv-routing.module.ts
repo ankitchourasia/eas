@@ -19,6 +19,7 @@ import { AdminFeeder11KVExportPointViewComponent } from './admin-feeder-11kv-exp
 import { AdminFeeder11KVExportPointReadAddComponent } from './admin-feeder-11kv-export-point-read-add/admin-feeder-11kv-export-point-read-add.component';
 import { AdminFeeder11KVExportPointReadViewComponent } from './admin-feeder-11kv-export-point-read-view/admin-feeder-11kv-export-point-read-view.component';
 import { Admin11KVExportAbsentReadComponent } from './admin-11kv-export-absent-read/admin-11kv-export-absent-read.component';
+import { AdminFeeder11KVLossDataComponent } from './admin-feeder-11kv-loss-data/admin-feeder-11kv-loss-data.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,9 @@ const routes: Routes = [
       },
       {
         path: 'export-point-absent-read',component: Admin11KVExportAbsentReadComponent,
+      },
+      {
+        path: 'loss-data',component: AdminFeeder11KVLossDataComponent,
       },
       { 
         path: '', redirectTo: 'home',

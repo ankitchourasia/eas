@@ -11,7 +11,7 @@ import { GlobalResources } from '@eas-utility/global.resources';
 })
 export class TownWiseFeederDataComponent implements OnInit {
 
-  constructor(private circleService : CircleService, private globalResources : GlobalResources, private reportService : ReportService, private globalConstants : GlobalConstants) { }
+  constructor(private circleService : CircleService, private globalResources : GlobalResources, private reportService : ReportService, public globalConstants : GlobalConstants) { }
 
   ngOnInit(): void {
     this.user = this.globalResources.getUserDetails();

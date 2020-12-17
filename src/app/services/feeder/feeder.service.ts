@@ -73,6 +73,10 @@ export class FeederService {
     return this.http.get(this.URL_PREFIX + this.FEEDER_URL + 'reading/division/id/' + divisionId, options);
   }
 
+  getFeederLossDataByDivisionId(divisionId, billMonth){
+    return this.http.get(this.URL_PREFIX + 'feeder-loss-data/division/id/' + divisionId + "/bill-month/" + billMonth);
+  }
+
   updateFeederReading(reading, nextBillMonth, updatedBy){
     let httpParams = new HttpParams();
     httpParams = httpParams.append("nextBillMonth", nextBillMonth)

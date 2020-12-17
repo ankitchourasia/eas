@@ -21,22 +21,29 @@ export class TownWiseBillingDataComponent implements OnInit {
   town : any = {};
   user : any;
   billingData : any;
+  loading : boolean;
   getTownListByZoneId(zoneId){
+    this.loading = true;
     this.town = [];
     this.circleService.getTownByZoneId(zoneId, false).subscribe(successResponse =>{
+      this.loading = false;
       this.town = successResponse;
       console.log(this.town);
       this.getBillingDataByTownId(this.town.id);
     },errorResponse =>{
+      this.loading = false;
       console.log(errorResponse);
     });
   }
 
   getBillingDataByTownId(townId){
+    this.loading = true;
     this.reportService.getD1BillingDataByTownId(townId, false).subscribe(success =>{
+      this.loading = false;
       this.billingData = success;
       console.log(this.billingData);
     }, error =>{
+      this.loading = false;
       console.log(error);
     });
   }

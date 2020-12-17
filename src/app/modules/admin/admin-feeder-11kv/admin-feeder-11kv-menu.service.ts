@@ -86,6 +86,11 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
   private readonly SIXTEENTH_MENU_LINK: string = "export-point-absent-read";
   private readonly SIXTEENTH_MENU_ACTIVE: boolean = false;
 
+  public SEVENTEENTH_MENU: any;
+  private readonly SEVENTEENTH_MENU_NAME: string = "Feeder Bill Data";
+  private readonly SEVENTEENTH_MENU_LINK: string = "loss-data";
+  private readonly SEVENTEENTH_MENU_ACTIVE: boolean = false;
+
   public LAST_MENU: any;
   private readonly LAST_MENU_NAME: string = "Export Point Read View";
   private readonly LAST_MENU_LINK: string = "export-point/read/view";
@@ -197,6 +202,12 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
       link: this.SIXTEENTH_MENU_LINK
     }
 
+    this.SEVENTEENTH_MENU = {
+      name: this.SEVENTEENTH_MENU_NAME,
+      active: this.SEVENTEENTH_MENU_ACTIVE,
+      link: this.SEVENTEENTH_MENU_LINK
+    }
+
     this.LAST_MENU = {
       name: this.LAST_MENU_NAME,
       active: this.LAST_MENU_ACTIVE,
@@ -212,14 +223,15 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
     this.menus.push(this.FIFTH_MENU); 
     this.menus.push(this.SIXTH_MENU);
     this.menus.push(this.SEVENTH_MENU);
+    this.menus.push(this.SEVENTEENTH_MENU);
     this.menus.push(this.TWELFTH_MENU);
     this.menus.push(this.THIRTEENTH_MENU);
     this.menus.push(this.FOURTEENTH_MENU);
     this.menus.push(this.SIXTEENTH_MENU);
     this.menus.push(this.LAST_MENU);  
-    this.menus.push(this.ELEVENTH_MENU);
-    this.menus.push(this.NINETH_MENU);
-    this.menus.push(this.TENTH_MENU);
+    // this.menus.push(this.ELEVENTH_MENU);
+    // this.menus.push(this.NINETH_MENU);
+    // this.menus.push(this.TENTH_MENU);
     
   }
 
