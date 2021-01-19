@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-header bg-inverse text-center text-default">
-        Feeder Loss View
+        Feeder Loss Report
     </div>
     <div class="card-body">
-        <div class="eas-space-between mb-2">
-            <div class="form-inline align-items-baseline">
-              <div class="input-group mx-sm-2">
+        <!-- <div class="eas-space-between mb-2"> -->
+            <div class="form-group form-inline eas-space-between">
+              <div class="input-group">
                 <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
                   class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required [disabled]="loading">
                   <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
@@ -25,8 +25,13 @@
                   <div [hidden]="!billmonth.errors?.required && !billMonthyear.errors?.required">required bill month</div>
                 </div>
               </div>
+              <div>
+                <button class="btn btn-sm btn-primary" (click)="generateButtonClicked()" [disabled]="billmonth.errors || billMonthyear.errors || generateClicked">
+                  <span class="spinner-border spinner-border-sm" *ngIf="generateClicked"></span> Generate
+                </button>
+              </div>
             </div>
-        </div>
+        <!-- </div> -->
         <div class="table-responsive mb-2">
             <table class="table table-sm table-bordered table-hover text-center mb-0">
               <thead class="bg-inverse text-default">
@@ -34,13 +39,11 @@
                   <td nowrap class="align-middle">S.NO</td>
                   <td nowrap class="align-middle">ZONE</td>
                   <td nowrap class="align-middle">FEEDER</td>
-                  <td nowrap class="align-middle">FEEDER CODE</td>
                   <td nowrap class="align-middle">BILL MONTH</td>
-                  <td nowrap class="align-middle">CONSUMER COUNT</td>
-                  <td nowrap class="align-middle">INPUT</td>
-                  <td nowrap class="align-middle">DEMAND</td>
-                  <td nowrap class="align-middle">SOLD UNIT</td>
-                  <td nowrap class="align-middle">COLLECTION</td>
+                  <td nowrap class="align-middle">BILLING EFFICIENCY</td>
+                  <td nowrap class="align-middle">COLLECTION EFFICIENCY</td>
+                  <td nowrap class="align-middle">T&D LOSS</td>
+                  <td nowrap class="align-middle">AT&C LOSS</td>
                 </tr>
               </thead>
               <tbody>
@@ -49,20 +52,18 @@
                   <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
                   <td class="align-middle">{{data.feeder.zone.name | uppercase}}</td>
                   <td class="align-middle">{{data.feeder.name}}</td>
-                  <td class="align-middle">{{data.feederCode}}</td>
                   <td class="align-middle">{{data.billMonth}}</td>
-                  <td class="align-middle">{{data.consumerCount}}</td>
-                  <td class="align-middle">{{data.feederReading.totalConsumption}}</td>
-                  <td class="align-middle">{{data.demand}}</td>
-                  <td class="align-middle">{{data.soldUnit}}</td>
-                  <td class="align-middle">{{data.netBill - data.arrearNextMonth}}</td>
+                  <td class="align-middle">{{data.billingEfficiency}}</td>
+                  <td class="align-middle">{{data.collectionEfficiency}}</td>
+                  <td class="align-middle">{{data.tndLoss}}</td>
+                  <td class="align-middle">{{data.atncLoss}}</td>
                 </tr>
                 </ng-template>
                 <tr *ngIf="feederData && !feederData.length && !loading">
-                  <td class="align-middle" colspan="10">No Records Found</td>
+                  <td class="align-middle" colspan="8">No Records Found</td>
                 </tr>
                 <tr *ngIf="loading">
-                  <td class="align-middle" colspan="10">
+                  <td class="align-middle" colspan="8">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Loading...
                   </td>
                 </tr>

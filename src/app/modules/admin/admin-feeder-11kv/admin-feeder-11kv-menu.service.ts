@@ -91,6 +91,11 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
   private readonly SEVENTEENTH_MENU_LINK: string = "loss-data";
   private readonly SEVENTEENTH_MENU_ACTIVE: boolean = false;
 
+  public EIGHTEENTH_MENU: any;
+  private readonly EIGHTEENTH_MENU_NAME: string = "Feeder Loss";
+  private readonly EIGHTEENTH_MENU_LINK: string = "loss-report";
+  private readonly EIGHTEENTH_MENU_ACTIVE: boolean = false;
+
   public LAST_MENU: any;
   private readonly LAST_MENU_NAME: string = "Export Point Read View";
   private readonly LAST_MENU_LINK: string = "export-point/read/view";
@@ -208,6 +213,12 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
       link: this.SEVENTEENTH_MENU_LINK
     }
 
+    this.EIGHTEENTH_MENU = {
+      name: this.EIGHTEENTH_MENU_NAME,
+      active: this.EIGHTEENTH_MENU_ACTIVE,
+      link: this.EIGHTEENTH_MENU_LINK
+    }
+
     this.LAST_MENU = {
       name: this.LAST_MENU_NAME,
       active: this.LAST_MENU_ACTIVE,
@@ -224,6 +235,7 @@ export class AdminFeeder11KVMenuService  implements MenuInterface {
     this.menus.push(this.SIXTH_MENU);
     this.menus.push(this.SEVENTH_MENU);
     this.menus.push(this.SEVENTEENTH_MENU);
+    this.menus.push(this.EIGHTEENTH_MENU);
     this.menus.push(this.TWELFTH_MENU);
     this.menus.push(this.THIRTEENTH_MENU);
     this.menus.push(this.FOURTEENTH_MENU);

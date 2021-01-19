@@ -81,7 +81,7 @@
 <div>
   <hr>
   <div class="eas-flex-end mb-2">
-    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && !billingData" [disabled]="_searchClicked || _generateClicked || !readingData" (click)="generateClicked()">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && !billingData" [disabled]="_searchClicked || _generateClicked" (click)="generateClicked()">
       Fetch Billing Data <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && billingData" [disabled]="_searchClicked || _generateClicked || !billingData" (click)="generateJsonInputForZone()">

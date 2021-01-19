@@ -6,13 +6,13 @@ import { GlobalResources } from '@eas-utility/global.resources';
 import { AdminFeeder11KVMenuService } from '../admin-feeder-11kv-menu.service';
 
 @Component({
-  selector: 'eas-admin-feeder-11kv-loss-data',
-  templateUrl: './admin-feeder-11kv-loss-data.component.html',
-  styleUrls: ['./admin-feeder-11kv-loss-data.component.css']
+  selector: 'eas-admin-feeder-11kv-loss-report',
+  templateUrl: './admin-feeder-11kv-loss-report.component.html',
+  styleUrls: ['./admin-feeder-11kv-loss-report.component.css']
 })
-export class AdminFeeder11KVLossDataComponent implements OnInit {
+export class AdminFeeder11KVLossReportComponent implements OnInit {
 
-  COMPONENT_NAME = "AdminFeeder11KVLossDataComponent";
+  COMPONENT_NAME = "AdminFeeder11KVLossReportComponent";
   user: any = {};
   billMonth: string;
   feederData: any;
@@ -27,10 +27,9 @@ export class AdminFeeder11KVLossDataComponent implements OnInit {
 
   constructor(private feederService: FeederService, public globalConstants: GlobalConstants,
     private globalResources: GlobalResources, private paginationService: PaginationService, private adminFeeder11KVMenuService: AdminFeeder11KVMenuService) { 
-      if(!this.adminFeeder11KVMenuService.SEVENTEENTH_MENU.active){
-        this.adminFeeder11KVMenuService.menuClicked(this.adminFeeder11KVMenuService.SEVENTEENTH_MENU);
+      if(!this.adminFeeder11KVMenuService.EIGHTEENTH_MENU.active){
+        this.adminFeeder11KVMenuService.menuClicked(this.adminFeeder11KVMenuService.EIGHTEENTH_MENU);
       }
-      
     }
 
     ngOnInit() {
@@ -45,16 +44,16 @@ export class AdminFeeder11KVLossDataComponent implements OnInit {
   
     searchClicked(){
       this.setInitialValues();
-      this.getFeederLossData();
+      this.getFeederLoss();
     }
     
-    getFeederLossData(){
-      let methodName = "getFeederLossData";
+    getFeederLoss(){
+      let methodName = "getFeederLoss";
       this.feederData = [];
       this.billMonth = this.month + '-' + this.year;
       if(this.user && this.user.division){
         this.loading =true;
-        this.feederService.getFeederLossDataByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
+        this.feederService.getFeederLossByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
           this.loading = false;
           this.feederData = successResponse;
           this.initializePaginationVariables();
@@ -64,6 +63,25 @@ export class AdminFeeder11KVLossDataComponent implements OnInit {
         }, errorResponse =>{
           this.loading = false;
           this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+        });
+      }
+    }
+
+    generateClicked : boolean;
+    generateButtonClicked(){
+      let methodName = "generateButtonClicked";
+      this.billMonth = this.month + '-' + this.year;
+      if(this.user && this.user.division){
+        this.generateClicked =true;
+        this.feederService.generateFeederLossByDivisionId(this.user.division.id, this.billMonth).subscribe(successResponse =>{
+          this.generateClicked = false;
+          this.getFeederLoss();
+        }, errorResponse =>{
+          this.generateClicked = false;
+          this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
+          if(errorResponse.error.status === 417){
+            this.getFeederLoss();
+          }
         });
       }
     }

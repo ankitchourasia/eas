@@ -321,4 +321,18 @@ export class FeederService {
       return this.http.get(this.URL_PREFIX + 'feeder-33kv/absent/reading/zone/' + zoneId + '/bill-month/' + billMonth);
     }
   }
+
+  generateFeederLossByDivisionId(divisionId, billMonth){
+    return this.http.post(this.URL_PREFIX + 'feeder-loss/division/id/' + divisionId + "/bill-month/" + billMonth, null);
+  }
+
+  getFeederLossByDivisionId(divisionId, billMonth){
+    return this.http.get(this.URL_PREFIX + 'feeder-loss/division/id/' + divisionId + "/bill-month/" + billMonth);
+  }
+
+  uploadHT11KVReadFile(file){
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(this.URL_PREFIX + 'htreading/file/upload/', formData);
+  }
 }

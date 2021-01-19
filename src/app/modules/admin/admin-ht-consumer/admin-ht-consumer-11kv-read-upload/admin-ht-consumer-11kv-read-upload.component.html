@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-header bg-inverse text-default text-center">
+    11KV HT Read Upload
+  </div>
+  <div class="card-body">
+    <div class="eas-flex-center">
+      <div class="flex-column">
+        <div class="form-inline eas-flex-center align-items-baseline">
+          <div>
+            <div class="custom-file">
+              <input type="file" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
+                class="custom-file-input" accept=".csv,.txt" [(ngModel)]="fileName" #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged($event)" [disabled]="uploadButtonClicked">
+              <small class="custom-file-label text-muted text-left text-truncate" for="fileInput">{{fileName}}</small>
+            </div>
+          </div>
+          <!-- <input type="file" accept=".csv,.txt" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
+            ngModel #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged($event)"> -->
+          <button class="btn btn-primary btn-sm mx-sm-3" type="button" id="upload" name="upload" [disabled]="fileInput.errors || uploadButtonClicked" (click)=uploadClicked()>
+            UPLOAD <span class="spinner-border spinner-border-sm" *ngIf="uploadButtonClicked"></span></button>
+        </div>
+        <small class="form-text text-muted text-center">Select file to be uploaded from your computer & click upload.</small>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- <div class="eas-flex-center mb-2">
+    <label class="font-weight-bold">NOT UPLOADED BILL FILE LIST</label>
+    <div class="form-inline eas-flex-center">
+      <div class="mx-5">
+        <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+          class="form-control form-control-sm" [(ngModel)]="selectedZone" #zone="ngModel" id="zone"  name="zone" required [disabled]="searchButtonClicked">
+          <option disabled selected [ngValue]='undefined'>Select Zone</option>
+          <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
+        </select>
+      </div>
+      <div class="form-inline">
+        <label class="mx-1">Bill Month</label>
+        <div class="mx-1">
+          <select [ngClass]="{'is-valid': !month.errors && (month.dirty || month.touched),'is-invalid': month.errors && (month.dirty || month.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="billMonth" #month="ngModel" id="month"  name="month" required [disabled]="searchButtonClicked">
+            <option disabled selected [ngValue]='undefined'>Month</option>
+            <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+          </select>
+        </div>
+        <div class="mx-1">
+          <select [ngClass]="{'is-valid': !year.errors && (year.dirty || year.touched),'is-invalid': year.errors && (year.dirty || year.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="billMonthYear" #year="ngModel" id="year"  name="year" required [disabled]="searchButtonClicked">
+            <option disabled selected [ngValue]='undefined'>Year</option>
+            <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="mx-5">
+        <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="zone.errors || month.errors || year.errors || searchButtonClicked">
+          Search <span class="spinner-border spinner-border-sm" *ngIf="searchButtonClicked"></span>
+        </button>
+      </div>
+    </div>
+</div> -->

@@ -14,10 +14,13 @@ import { AdminHTConsumerRoutingModule } from './admin-ht-consumer-routing.module
 import { AdminHTConsumerMenuService } from './admin-ht-consumer-menu.service';
 import { AdminHTConsumer33KVReadingViewComponent } from './admin-ht-consumer-33kv-reading-view/admin-ht-consumer-33kv-reading-view.component';
 import { AdminHTConsumer33KVViewComponent } from './admin-ht-consumer-33kv-view/admin-ht-consumer-33kv-view.component';
+import { AdminHTConsumer11KVReadUploadComponent } from './admin-ht-consumer-11kv-read-upload/admin-ht-consumer-11kv-read-upload.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     HTConsumerComponentModule,
     AdminHTConsumerRoutingModule
   ],
@@ -33,6 +36,7 @@ import { AdminHTConsumer33KVViewComponent } from './admin-ht-consumer-33kv-view/
     AdminHTConsumer33KVReadingAddComponent,
     AdminHTConsumer33KVReadingViewComponent,
     AdminHTConsumer33KVViewComponent,
+    AdminHTConsumer11KVReadUploadComponent,
   ],
   providers: [
     AdminHTConsumerMenuService

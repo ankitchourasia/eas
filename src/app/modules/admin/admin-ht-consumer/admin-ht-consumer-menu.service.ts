@@ -51,6 +51,11 @@ export class AdminHTConsumerMenuService implements MenuInterface {
   private readonly NINETH_MENU_LINK: string = "33kv/read/view";
   private readonly NINETH_MENU_ACTIVE: boolean = false;
 
+  public TENTH_MENU: any;
+  private readonly TENTH_MENU_NAME: string = "11KV HT Read Upload";
+  private readonly TENTH_MENU_LINK: string = "11kv/read/upload";
+  private readonly TENTH_MENU_ACTIVE: boolean = false;
+
   public LAST_MENU: any;
   private readonly LAST_MENU_NAME: string = "33KV Consumer Read Add";
   private readonly LAST_MENU_LINK: string = "33kv/read/add";
@@ -123,6 +128,12 @@ export class AdminHTConsumerMenuService implements MenuInterface {
       link: this.NINETH_MENU_LINK
     }
 
+    this.TENTH_MENU = {
+      name: this.TENTH_MENU_NAME,
+      active: this.TENTH_MENU_ACTIVE,
+      link: this.TENTH_MENU_LINK
+    }
+
     this.LAST_MENU = {
       name: this.LAST_MENU_NAME,
       active: this.LAST_MENU_ACTIVE,
@@ -135,6 +146,7 @@ export class AdminHTConsumerMenuService implements MenuInterface {
     this.menus.push(this.FOURTH_MENU);
     this.menus.push(this.FIFTH_MENU); 
     this.menus.push(this.SIXTH_MENU);
+    this.menus.push(this.TENTH_MENU);
     this.menus.push(this.SEVENTH_MENU);
     this.menus.push(this.EIGHT_MENU);
     this.menus.push(this.LAST_MENU);  
