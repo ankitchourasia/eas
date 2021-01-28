@@ -148,6 +148,19 @@ export class HtConsumerService {
     return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/absent/read',  options);
   }
 
+  get33KVHTConsumerAbsentReadsByDivisionIdAndbillMonth(divisionId, billMonth, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("divisionId", divisionId);
+    httpParams = httpParams.append("billMonth", billMonth);
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + 'ht-consumer-33kv/absent/read',  options);
+  }
+
   update33KVHTConsumer(htConsumer, response){
     if(response){
       let options : any = { observe : "response" };

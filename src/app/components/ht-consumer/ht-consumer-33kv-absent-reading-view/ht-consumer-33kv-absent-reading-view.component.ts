@@ -79,7 +79,7 @@ export class HtConsumer33KVAbsentReadingViewComponent implements OnInit {
     let methodName = "getHTConsumerAbsentReadsByDivisionIdAndBillMonth";
     this.loading =true;
     this.htConsumerReadingList = [];
-    this.htConsumerService.get33KVHTConsumerReadsByDivisionIdAndbillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
+    this.htConsumerService.get33KVHTConsumerAbsentReadsByDivisionIdAndbillMonth(divisionId, billMonth, false).subscribe(successResponse =>{
       this.loading = false;
       this.htConsumerReadingList = successResponse;
       this.initializePaginationVariables();
