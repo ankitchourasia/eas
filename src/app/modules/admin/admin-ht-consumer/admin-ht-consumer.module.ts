@@ -16,6 +16,7 @@ import { AdminHTConsumer33KVReadingViewComponent } from './admin-ht-consumer-33k
 import { AdminHTConsumer33KVViewComponent } from './admin-ht-consumer-33kv-view/admin-ht-consumer-33kv-view.component';
 import { AdminHTConsumer11KVReadUploadComponent } from './admin-ht-consumer-11kv-read-upload/admin-ht-consumer-11kv-read-upload.component';
 import { FormsModule } from '@angular/forms';
+import { AdminHTConsumer33KVReadingViewAbsentComponent } from './admin-ht-consumer-33kv-reading-view-absent/admin-ht-consumer-33kv-reading-view-absent.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { FormsModule } from '@angular/forms';
     AdminHTConsumer33KVReadingViewComponent,
     AdminHTConsumer33KVViewComponent,
     AdminHTConsumer11KVReadUploadComponent,
+    AdminHTConsumer33KVReadingViewAbsentComponent
   ],
   providers: [
     AdminHTConsumerMenuService

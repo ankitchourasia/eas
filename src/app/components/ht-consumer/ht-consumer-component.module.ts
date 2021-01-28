@@ -11,6 +11,7 @@ import { HtConsumer33KVAddComponent } from './ht-consumer-33kv-add/ht-consumer-3
 import { HtConsumer33KVReadingAddComponent } from './ht-consumer-33kv-reading-add/ht-consumer-33kv-reading-add.component';
 import { HtConsumer33KVViewComponent } from './ht-consumer-33kv-view/ht-consumer-33kv-view.component';
 import { HtConsumer33KVReadingViewComponent } from './ht-consumer-33kv-reading-view/ht-consumer-33kv-reading-view.component';
+import { HtConsumer33KVAbsentReadingViewComponent } from './ht-consumer-33kv-absent-reading-view/ht-consumer-33kv-absent-reading-view.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { HtConsumer33KVReadingViewComponent } from './ht-consumer-33kv-reading-v
     HtConsumer33KVAddComponent,
     HtConsumer33KVReadingAddComponent,
     HtConsumer33KVViewComponent,
-    HtConsumer33KVReadingViewComponent
+    HtConsumer33KVReadingViewComponent,
+    HtConsumer33KVAbsentReadingViewComponent
   ],
   exports: [
     HtConsumerViewComponent, 
@@ -38,7 +40,8 @@ import { HtConsumer33KVReadingViewComponent } from './ht-consumer-33kv-reading-v
     HtConsumer33KVAddComponent,
     HtConsumer33KVReadingAddComponent,
     HtConsumer33KVViewComponent,
-    HtConsumer33KVReadingViewComponent
+    HtConsumer33KVReadingViewComponent,
+    HtConsumer33KVAbsentReadingViewComponent
   ],
   
 })
