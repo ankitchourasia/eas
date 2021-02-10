@@ -19,6 +19,11 @@ export class ReportAdminReportMenuService implements MenuInterface {
   private readonly D7_REPORT_MENU_LINK: string = "d7-report";
   private readonly D7_REPORT_MENU_ACTIVE: boolean = false;
 
+  public ONLINE_FEEDER_REPORT_MENU: any;
+  private readonly ONLINE_FEEDER_REPORT_MENU_NAME: string = "Online Feeder";
+  private readonly ONLINE_FEEDER_REPORT_MENU_LINK: string = "online-feeder-report";
+  private readonly ONLINE_FEEDER_REPORT_MENU_ACTIVE: boolean = false;
+
  
   menus: any[] = new Array();
 
@@ -52,6 +57,13 @@ export class ReportAdminReportMenuService implements MenuInterface {
       link: this.D7_REPORT_MENU_LINK
     };
     this.menus.push(this.D7_REPORT_MENU);
+
+    this.ONLINE_FEEDER_REPORT_MENU = {
+      name: this.ONLINE_FEEDER_REPORT_MENU_NAME,
+      active: this.ONLINE_FEEDER_REPORT_MENU_ACTIVE,
+      link: this.ONLINE_FEEDER_REPORT_MENU_LINK
+    };
+    this.menus.push(this.ONLINE_FEEDER_REPORT_MENU);
   }
 
   public getMenus() {

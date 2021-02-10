@@ -291,6 +291,15 @@ export class ReportService {
     }
   }
 
+  getJsonInputByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/bill-month/' + billMonth);
+    }
+  }
+
   getD1ReportDataByZoneIdAndBillMonth(zoneId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
@@ -480,12 +489,21 @@ export class ReportService {
     }
   }
 
-  generateAllTownD7ReportByBillMonth(billMonth, response){
+  getAllTownD7ReportByBillMonth(billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/bill-month/' + billMonth,  options);
     }else{
       return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd7-report/bill-month/' + billMonth);
+    }
+  }
+
+  generateAllTownD7ReportByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd7-report/bill-month/' + billMonth, null);
     }
   }
 
@@ -507,4 +525,12 @@ export class ReportService {
     }
   }
 
+  getMissingOnlineFeederReportDataByBillMonth(billMonth, response){
+    if(response){
+      let options : any = {'observe' : 'response'};
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/missing/data/bill-month/' + billMonth,  options);
+    }else{
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'feeder/monitoring/missing/data/bill-month/' + billMonth);
+    }
+  }
 }

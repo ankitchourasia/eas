@@ -6,6 +6,7 @@ import { ReportAdminReportComponent } from './report-admin-report.component';
 import { ReportAdminReportHomeComponent } from './report-admin-report-home/report-admin-report-home.component';
 import { ReportAdminReportD1ReportComponent } from './report-admin-report-d1-report/report-admin-report-d1-report.component';
 import { ReportAdminReportD7ReportComponent } from './report-admin-report-d7-report/report-admin-report-d7-report.component';
+import { ReportAdminOnlineFeederReportComponent } from './report-admin-online-feeder-report/report-admin-online-feeder-report.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,9 @@ const routes: Routes = [
           },
           {
             path: 'd7-report', component: ReportAdminReportD7ReportComponent,
+          },
+          {
+            path: 'online-feeder-report', component: ReportAdminOnlineFeederReportComponent,
           },
           {
             path: '', redirectTo: 'home', pathMatch: 'full'

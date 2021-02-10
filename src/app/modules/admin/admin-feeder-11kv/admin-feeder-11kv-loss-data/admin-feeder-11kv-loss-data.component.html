@@ -55,7 +55,7 @@
                   <td class="align-middle">{{data.feederReading.totalConsumption}}</td>
                   <td class="align-middle">{{data.demand}}</td>
                   <td class="align-middle">{{data.soldUnit}}</td>
-                  <td class="align-middle">{{data.netBill - data.arrearNextMonth}}</td>
+                  <td class="align-middle">{{data.collection}}</td>
                 </tr>
                 </ng-template>
                 <tr *ngIf="feederData && !feederData.length && !loading">

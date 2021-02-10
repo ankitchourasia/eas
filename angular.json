@@ -143,5 +143,8 @@
       }
     }
   },
-  "defaultProject": "eas"
+  "defaultProject": "eas",
+  "cli": {
+    "analytics": "22d05150-bbf3-41ed-bc39-17650f96598f"
+  }
 }

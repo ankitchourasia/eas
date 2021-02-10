@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-header bg-inverse text-center text-default">
-        D-7 (Town Wise E-Payment Status Report)
+        Online Feeder Report
     </div>
     <div class="card-body">
-        <div class="eas-space-between form-group">
+        <div class="eas-space-around form-group">
             <div class="form-inline">
                 <label class="form-text required mx-3">Bill Month</label>
                 <div class="input-group">
@@ -34,9 +34,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-sm btn-primary"
-                (click)="generateReportButtonClicked()">Generate Report</button>
-            <button class="btn btn-sm btn-primary" [disabled]="!downloadReport"
+            <button class="btn btn-sm btn-primary" [disabled]="month.errors || year.errors"
                 (click)="downloadReportButtonClicked()">Download Report</button>
         </div>
         <div class="card">
@@ -50,18 +48,24 @@
                         <!-- <tr class="bg-inverse text-default"><td colspan="3">Missing Town Data</td></tr> -->
                         <tr class="bg-inverse text-default">
                             <td>ID</td>
-                            <td>TOWN NAME</td>
+                            <td>FEEDER NAME</td>
                             <td>BILL MONTH</td>
-                            <td>BASELINE LOSS</td>
+                            <td>FEEDER CODE</td>
+                            <td>SUBSTATION</td>
+                            <td>ZONE</td>
+                            <td>DIVISION</td>
                         </tr>
-                        <tr *ngFor="let town of missingTowns; let i = index">
+                        <tr *ngFor="let data of missingData; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{town.name}}</td>
+                            <td>{{data.name | uppercase}}</td>
                             <td>{{billingMonth.billMonth}}</td>
-                            <td>{{town.baselineLoss}}</td>
+                            <td>{{data.feederCode}}</td>
+                            <td>{{data.substation.name | uppercase}}</td>
+                            <td>{{data.zone.name | uppercase}}</td>
+                            <td>{{data.zone.division.name | uppercase}}</td>
                         </tr>
                         <tr>
-                            <td *ngIf="!missingTowns || missingTowns.length < 1" colspan="4">No Records found</td>
+                            <td *ngIf="!missingData || missingData.length < 1" colspan="7">No Records found</td>
                         </tr>
                     </table>
                 </div>

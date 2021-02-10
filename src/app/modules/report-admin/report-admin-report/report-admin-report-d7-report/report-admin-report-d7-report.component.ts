@@ -58,7 +58,7 @@ export class ReportAdminReportD7ReportComponent implements OnInit {
   }
 
   downloadReportButtonClicked(){
-    this.reportService.generateAllTownD7ReportByBillMonth(this.billingMonth.billMonth, false).subscribe(success =>{
+    this.reportService.getAllTownD7ReportByBillMonth(this.billingMonth.billMonth, false).subscribe(success =>{
       console.log(success);
       this.exportReport();
     }, error =>{
@@ -73,6 +73,19 @@ export class ReportAdminReportD7ReportComponent implements OnInit {
     };
     let fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "report/d7-report/export/bill-month/" + this.billingMonth.billMonth;
     this.globalResources.downloadFile(fileUrl,params);
+  }
+
+  loading : boolean;
+  generateReportButtonClicked(){
+    this.loading = true;
+    this.reportService.generateAllTownD7ReportByBillMonth(this.billingMonth.billMonth, false).subscribe(success =>{
+      this.loading = false;
+      console.log(success);
+      this.globalResources.successAlert("D7 Reports generated successfully.");
+    }, error =>{
+      this.loading = false;
+      console.log(error);
+    });
   }
 
 }

@@ -14,16 +14,11 @@ export class AdminHTConsumer11KVReadUploadComponent implements OnInit {
 
   file: any;
   fileName: any;
+  month : string;
+  year : string;
   billMonth: any;
-  billMonthYear: any;
   user: any;
   zoneList: any;
-  selectedZone: any;
-  billFileRefs: any;
-  pager: any;
-  pageSize: number;
-  missingBillFileRefFeederList: any;
-  pagedMissingBillFileRefFeederList: any;
   searchButtonClicked: boolean;
   uploadButtonClicked: boolean;
 
@@ -31,20 +26,20 @@ export class AdminHTConsumer11KVReadUploadComponent implements OnInit {
     private feederService: FeederService, private zoneService: ZoneService) { }
 
   ngOnInit() {
-    this.setPartialData();
+    // this.setPartialData();
   }
 
-  setPartialData(){
-    this.zoneList = [];
-    this.user = this.globalResources.getUserDetails();
-    if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
-      // this.zoneList = this.user.zoneList;
-      this.getZoneListByDivisionId(this.user.division.id);
-    }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
-      this.zoneList.push(this.user.zone);
-      this.selectedZone = this.user.zone;
-    }
-  }
+  // setPartialData(){
+  //   this.zoneList = [];
+  //   this.user = this.globalResources.getUserDetails();
+  //   if(this.user.role === GlobalConfiguration.ROLE_ADMIN){
+  //     // this.zoneList = this.user.zoneList;
+  //     this.getZoneListByDivisionId(this.user.division.id);
+  //   }else if(this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN){
+  //     this.zoneList.push(this.user.zone);
+  //     this.selectedZone = this.user.zone;
+  //   }
+  // }
 
   getZoneListByDivisionId(divisionId){
     this.zoneList = [];
@@ -68,10 +63,12 @@ export class AdminHTConsumer11KVReadUploadComponent implements OnInit {
 
   uploadClicked(){
     this.uploadButtonClicked = true;
-    this.feederService.uploadHT11KVReadFile(this.file).subscribe(
+    this.billMonth = this.month + '-' + this.year;
+    this.feederService.uploadHT11KVReadFile(this.file, this.billMonth).subscribe(
       successResponse =>{
         let result = <any>successResponse;
-        this.file.upload = result.body;
+        // this.file.upload = result.body;
+        this.globalResources.successAlert("File uploaded successfully");
         this.uploadButtonClicked = false;
       },
       errorResponse =>{
