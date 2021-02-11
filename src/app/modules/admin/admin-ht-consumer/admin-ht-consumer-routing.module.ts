@@ -14,6 +14,7 @@ import { AdminHTConsumer33KVViewComponent } from './admin-ht-consumer-33kv-view/
 import { AdminHTConsumer33KVReadingViewComponent } from './admin-ht-consumer-33kv-reading-view/admin-ht-consumer-33kv-reading-view.component';
 import { AdminHTConsumer11KVReadUploadComponent } from './admin-ht-consumer-11kv-read-upload/admin-ht-consumer-11kv-read-upload.component';
 import { AdminHTConsumer33KVReadingViewAbsentComponent } from './admin-ht-consumer-33kv-reading-view-absent/admin-ht-consumer-33kv-reading-view-absent.component';
+import { AdminHTConsumer33KVReadUploadComponent } from './admin-ht-consumer-33kv-read-upload/admin-ht-consumer-33kv-read-upload.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,9 @@ const routes: Routes = [
       },
       {
         path: '33kv/read/view/absent',component: AdminHTConsumer33KVReadingViewAbsentComponent,
+      },
+      {
+        path: '33kv/read/upload',component: AdminHTConsumer33KVReadUploadComponent,
       },
       { 
         path: '', redirectTo: 'home',

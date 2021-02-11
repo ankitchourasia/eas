@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header bg-inverse text-default text-center">
+    33KV HT Read Upload
+  </div>
+  <div class="card-body">
+    <div class="form-inline eas-space-around align-items-baseline">
+      <div class="form-inline">
+        <label>Bill Month </label>
+        <div class="input-group mx-2">
+          <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" [disabled]="uploadButtonClicked" required>
+            <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+            <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+          </select>
+          <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
+            class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" [disabled]="uploadButtonClicked" required>
+            <option disabled selected [ngValue]='undefined'>Year</option>
+            <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="flex-column">
+        <div class="form-inline">
+          <div>
+            <div class="custom-file">
+              <input type="file" [ngClass]="{'is-valid': !fileInput.errors && (fileInput.dirty || fileInput.touched),'is-invalid': fileInput.errors && (fileInput.dirty || fileInput.touched)}"
+                class="custom-file-input" accept=".csv,.txt" [(ngModel)]="fileName" #fileInput="ngModel" name="fileInput" id="fileInput" required (change)="fileChanged($event)" [disabled]="uploadButtonClicked || !month || !year">
+              <small class="custom-file-label text-muted text-left text-truncate" for="fileInput">{{fileName}}</small>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm mx-sm-3" type="button" id="upload" name="upload" [disabled]="fileInput.errors || uploadButtonClicked" (click)=uploadClicked()>
+            UPLOAD <span class="spinner-border spinner-border-sm" *ngIf="uploadButtonClicked"></span></button>
+        </div>
+        <!-- <small class="form-text text-muted text-center">Select file to be uploaded from your computer & click upload.</small> -->
+      </div>
+    </div>
+  </div>
+</div>

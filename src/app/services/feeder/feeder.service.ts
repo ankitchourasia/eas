@@ -335,4 +335,10 @@ export class FeederService {
     formData.append('file', file, file.name);
     return this.http.post(this.URL_PREFIX + 'htreading/file/upload/bill-month/' + billMonth, formData);
   }
+
+  uploadHT33KVReadFile(file, billMonth){
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/reading/file/upload/bill-month/' + billMonth, formData);
+  }
 }

@@ -66,6 +66,11 @@ export class AdminHTConsumerMenuService implements MenuInterface {
   private readonly LAST_MENU_LINK: string = "33kv/read/add";
   private readonly LAST_MENU_ACTIVE: boolean = false;
 
+  public TWELFTH_MENU: any;
+  private readonly TWELFTH_MENU_NAME: string = "33KV HT Read Upload";
+  private readonly TWELFTH_MENU_LINK: string = "33kv/read/upload";
+  private readonly TWELFTH_MENU_ACTIVE: boolean = false;
+
   menus: any[] = new Array();
 
   constructor() {
@@ -151,6 +156,12 @@ export class AdminHTConsumerMenuService implements MenuInterface {
       link: this.LAST_MENU_LINK
     }
 
+    this.TWELFTH_MENU = {
+      name: this.TWELFTH_MENU_NAME,
+      active: this.TWELFTH_MENU_ACTIVE,
+      link: this.TWELFTH_MENU_LINK
+    }
+
     this.menus.push(this.FIRST_MENU); 
     this.menus.push(this.SECOND_MENU);
     this.menus.push(this.THIRD_MENU); 
@@ -163,6 +174,7 @@ export class AdminHTConsumerMenuService implements MenuInterface {
     this.menus.push(this.LAST_MENU);  
     this.menus.push(this.NINETH_MENU);
     this.menus.push(this.ELEVENTH_MENU);
+    this.menus.push(this.TWELFTH_MENU);
 
   }
 
