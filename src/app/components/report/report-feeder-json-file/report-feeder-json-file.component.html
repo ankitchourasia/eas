@@ -84,10 +84,10 @@
     <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && !billingData" [disabled]="_searchClicked || _generateClicked" (click)="generateClicked()">
       Fetch Billing Data <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
-    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated && billingData" [disabled]="_searchClicked || _generateClicked || !billingData" (click)="generateJsonInputForZone()">
+    <button type="button" class="btn btn-sm btn-warning mx-sm-1" *ngIf="!reportGenerated" [disabled]="_searchClicked || _generateClicked" (click)="generateJsonInputForZone()">
       Generate Report <span class="spinner-border spinner-border-sm" aria-hidden="true" *ngIf="_generateClicked"></span>
     </button>
-    <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked && reportGenerated" (click)="viewClicked()">
+    <button class="btn btn-sm btn-primary mx-sm-1" *ngIf="!_generateClicked" (click)="viewClicked()">
       <span class="fa fa-download"> Export </span>
     </button>
   </div>

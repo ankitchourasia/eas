@@ -341,4 +341,17 @@ export class FeederService {
     formData.append('file', file, file.name);
     return this.http.post(this.URL_PREFIX + 'ht-consumer-33kv/reading/file/upload/bill-month/' + billMonth, formData);
   }
+
+  getFeeder33KVReadingsByFeederId(feederId, response){
+    let httpParams = new HttpParams();
+    httpParams = httpParams.append("feederId", feederId)
+    .append("meterNo", 'dummy');
+    let options = {
+      params: httpParams
+    };
+    if(response){
+      options['observe'] = "response";
+    }
+    return this.http.get(this.URL_PREFIX + 'feeder-33kv/reading', options);
+  }
 }

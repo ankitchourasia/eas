@@ -17,6 +17,7 @@ import { AdminFeeder33KVExportPointViewComponent } from './admin-feeder-33kv-exp
 import { AdminFeeder33KVViewComponent } from './admin-feeder-33kv-view/admin-feeder-33kv-view.component';
 import { AdminFeeder33KVAbsentReadComponent } from './admin-feeder-33kv-absent-read/admin-feeder-33kv-absent-read.component';
 import { AdminFeeder33KVExportPointAbsentReadComponent } from './admin-feeder-33kv-export-point-absent-read/admin-feeder-33kv-export-point-absent-read.component';
+import { AdminFeeder33KVInitialReadAddComponent } from './admin-feeder-33kv-initial-read-add/admin-feeder-33kv-initial-read-add.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { AdminFeeder33KVExportPointAbsentReadComponent } from './admin-feeder-33
     AdminFeeder33KVExportPointViewComponent, 
     AdminFeeder33KVViewComponent, 
     AdminFeeder33KVAbsentReadComponent, 
-    AdminFeeder33KVExportPointAbsentReadComponent
+    AdminFeeder33KVExportPointAbsentReadComponent,
+    AdminFeeder33KVInitialReadAddComponent
   ],
   providers: [
     AdminFeeder33KVMenuService

@@ -66,7 +66,7 @@ export class ExportPointReadingViewComponent implements OnInit {
   searchClicked(){
     this.setInitialValue();
     let billingMonth = this.billMonth + "-" + this.billMonthYear;
-    this.get11KVExportPointReadingsByZoneIdAndBillMonth(this.user.zone.id, billingMonth);
+    this.get11KVExportPointReadingsByZoneIdAndBillMonth(this.selectedZone.id, billingMonth);
   }
 
   get11KVExportPointReadingsByZoneIdAndBillMonth(zoneId, billingMonth){

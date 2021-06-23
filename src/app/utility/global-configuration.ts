@@ -13,7 +13,7 @@ export class GlobalConfiguration {
     // public static readonly URL_PREFIX_FOR_FILE_EXPORT = "http://10.98.4.118:8080/ROOT/backend/";
     // public static readonly URL_PREFIX_FOR_FILE_EXPORT = "http://10.98.4.114:8080/eas/backend/";
     //File Export for production
-    public static readonly URL_PREFIX_FOR_FILE_EXPORT = "http://localhost:8080/eas/backend/";
+    public static readonly URL_PREFIX_FOR_FILE_EXPORT = "/eas/backend/";
     
     constructor () {}
 

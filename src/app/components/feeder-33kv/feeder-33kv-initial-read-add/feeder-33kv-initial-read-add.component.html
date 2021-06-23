@@ -1,0 +1,197 @@
+<fieldset #feederReadingAddForm="ngForm" ngForm autocomplete="off" [disabled]="loading">
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Region</label>
+    <div class="col-8">
+      <select [ngClass]="{'is-valid': !region.errors && (region.dirty || region.touched),'is-invalid': region.errors && (region.dirty || region.touched)}"
+        class="form-control" [(ngModel)]="feederReading.region" #region="ngModel" id="region"  name="region" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let region of regionList" [ngValue]="region">{{region.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="region.errors && (region.dirty || region.touched)">
+        <div [hidden]="!region.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Circle</label>
+    <div class="col-8">
+      <select [ngClass]="{'is-valid': !circle.errors && (circle.dirty || circle.touched),'is-invalid': circle.errors && (circle.dirty || circle.touched)}"
+        class="form-control" [(ngModel)]="feederReading.circle" #circle="ngModel" id="circle"  name="circle" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let circle of circleList" [ngValue]="circle">{{circle.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="circle.errors && (circle.dirty || circle.touched)">
+        <div [hidden]="!circle.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Division</label>
+    <div class="col-8">
+      <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
+        class="form-control" [(ngModel)]="feederReading.division" #division="ngModel" id="division"  name="division" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
+        <div [hidden]="!division.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Zone</label>
+    <div class="col-8">
+      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
+        class="form-control" [(ngModel)]="feederReading.zoneId" #zone="ngModel" id="zone" name="zone" (change)="zoneChanged(feederReading.zoneId)" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let zone of zoneList" [ngValue]="zone.id">{{zone.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
+        <div *ngIf="zone.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="form-group row">
+    <label class="col-4 col-form-label">Substation</label>
+    <div class="col-8">
+      <select [ngClass]="{'is-valid': !substation.errors && (substation.dirty || substation.touched),'is-invalid': substation.errors && (substation.dirty || substation.touched)}"
+        class="form-control" [(ngModel)]="feederReading.substationId" #substation="ngModel" id="substation" name="substation" (change)="substationChanged(feederReading.substationId)" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let substation of substations" [ngValue]="substation.id">{{substation.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="substation.errors && (substation.dirty || substation.touched)">
+        <div *ngIf="substation.errors.required">required field</div>
+      </div>
+    </div>
+  </div> -->
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Feeder</label>
+    <div class="col-8">
+      <select [ngClass]="{'is-valid': !feederId.errors && (feederId.dirty || feederId.touched),'is-invalid': feederId.errors && (feederId.dirty || feederId.touched)}"
+        class="form-control" [(ngModel)]="feederReading.feeder" #feederId="ngModel" id="feeder" name="feeder" (change)="feederChanged(feederReading.feeder)" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <option *ngFor="let feeder of feeders" [ngValue]="feeder">{{feeder.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="feederId.errors && (feederId.dirty || feederId.touched)">
+        <div *ngIf="feederId.errors.required">required field</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Group No</label>
+    <div class="col-8">
+        <input type="text" class="form-control" [ngModel]="feederReading.groupNo" id="groupNo" name="groupNo" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Meter MF</label>
+    <div class="col-8">
+      <input type="text" class="form-control" [ngModel]="feederReading.mf" id="mf" name="mf" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Meter No</label>
+    <div class="col-8">
+      <input type="text" class="form-control" [ngModel]="feederReading.meterNo" id="meterNo" name="meterNo" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Bill Month</label>
+    <div class="input-group col-8">
+      <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
+        class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
+        <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+        <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+      </select>
+      <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
+        class="form-control" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required>
+        <option disabled selected [ngValue]='undefined'>Year</option>
+        <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="(billmonth.errors && (billmonth.dirty || billmonth.touched)) || (billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched))">
+        <div [hidden]="!billmonth.errors?.required && !billMonthyear.errors?.required">required bill month</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Previous Reading</label>
+    <div class="col-8">
+      <input type="number" [ngClass]="{'is-valid': !previousReading.errors && (previousReading.dirty || previousReading.touched),'is-invalid': previousReading.errors && (previousReading.dirty || previousReading.touched)}"
+        class="form-control" [(ngModel)]="feederReading.prevReading" #previousReading="ngModel" id="previousReading"  name="previousReading" [min]="0" (change)="!previousReading.errors && previousReadingChanged()" required>
+      <div class="invalid-feedback" *ngIf="previousReading.errors && (previousReading.dirty || previousReading.touched)">
+        <div *ngIf="previousReading.errors.required">required field</div>
+        <div [hidden]="!previousReading.errors.min || previousReading.errors.required">Current Read is less than previous read / final read.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Previous Read Date</label>
+    <div class="col-8">
+        <input type="date" class="form-control" [ngClass]="{'is-valid': !previousReadDate.errors && (previousReadDate.dirty || previousReadDate.touched),'is-invalid': previousReadDate.errors && (previousReadDate.dirty || previousReadDate.touched)}"
+        [(ngModel)]="formDates.prevReadingDate" name="previousReadDate" id="previousReadDate" #previousReadDate="ngModel" (change)="previousReadDateChanged()" required>
+      <div class="invalid-feedback" *ngIf="previousReadDate.errors && (previousReadDate.dirty || previousReadDate.touched)">
+        <div [hidden]="!previousReadDate.errors.required">Reading date is required</div>
+        <div [hidden]="!previousReadDate.errors.min || previousReadDate.errors.required">Reading date is more than previous reading date</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Current Reading</label>
+    <div class="col-8">
+      <input type="number" [ngClass]="{'is-valid': !currentReading.errors && (currentReading.dirty || currentReading.touched),'is-invalid': currentReading.errors && (currentReading.dirty || currentReading.touched)}"
+        class="form-control" [(ngModel)]="feederReading.currReading" #currentReading="ngModel" id="currentReading"  name="currentReading" [min]="feederReading.prevReading" (change)="!currentReading.errors && calculateConsumption()" required>
+      <div class="invalid-feedback" *ngIf="currentReading.errors && (currentReading.dirty || currentReading.touched)">
+        <div *ngIf="currentReading.errors.required">required field</div>
+        <div [hidden]="!currentReading.errors.min || currentReading.errors.required">Current Read is less than previous read / final read.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Current Read Date</label>
+    <div class="col-8">
+        <input type="date" class="form-control" [ngClass]="{'is-valid': !currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched),'is-invalid': currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)}"
+        [(ngModel)]="formDates.currReadingDate" name="currentReadDate" id="currentReadDate" [min]="formDates.prevReadingDate | date : 'yyyy-MM-dd'" #currentReadDate="ngModel" required>
+      <div class="invalid-feedback" *ngIf="currentReadDate.errors && (currentReadDate.dirty || currentReadDate.touched)">
+        <div [hidden]="!currentReadDate.errors.required">Reading date is required</div>
+        <div [hidden]="!currentReadDate.errors.min || currentReadDate.errors.required">Reading date is more than previous reading date</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Difference</label>
+    <div class="col-8">
+        <input type="text" class="form-control" [ngModel]="feederReading.readingDiff" id="readingDiff" name="readingDiff" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Consumption</label>
+    <div class="col-8">
+        <input type="text" class="form-control" [ngModel]="feederReading.meterConsumption" id="meterConsumption" name="meterConsumption" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Assessment</label>
+    <div class="col-8">
+      <input type="number" [ngClass]="{'is-valid': !assessment.errors && (assessment.dirty || assessment.touched),'is-invalid': assessment.errors && (assessment.dirty || assessment.touched)}"
+        class="form-control" [(ngModel)]="feederReading.assUnit" #assessment="ngModel" id="assessment"  name="assessment" [min]="0" (change)="!assessment.errors && assessmentChanged()" required>
+      <div class="invalid-feedback" *ngIf="assessment.errors && (assessment.dirty || assessment.touched)">
+        <div *ngIf="assessment.errors.required">required field</div>
+        <div [hidden]="!assessment.errors.min || assessment.errors.required">Assessment can not be less than 0.</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-4 col-form-label">Total Consumption</label>
+    <div class="col-8">
+        <input type="text" class="form-control" [ngModel]="feederReading.totalConsumption" id="totalConsumption" name="totalConsumption" disabled>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-4 offset-4">
+      <button type="button" class="btn btn-success btn-block" (click)="submitClicked(feederReadingAddForm)">Submit</button>
+    </div>
+    <div class="col-4">
+      <button type="button" class="btn btn-danger btn-block" (click)="resetClicked(feederReadingAddForm)">Reset</button>
+    </div>
+  </div>
+</fieldset>

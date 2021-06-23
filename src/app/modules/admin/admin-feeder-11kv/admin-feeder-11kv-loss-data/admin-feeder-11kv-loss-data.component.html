@@ -41,6 +41,8 @@
                   <td nowrap class="align-middle">DEMAND</td>
                   <td nowrap class="align-middle">SOLD UNIT</td>
                   <td nowrap class="align-middle">COLLECTION</td>
+                  <td nowrap class="align-middle">HT SOLD</td>
+                  <td nowrap class="align-middle">HT COLLECTION</td>
                 </tr>
               </thead>
               <tbody>
@@ -56,13 +58,15 @@
                   <td class="align-middle">{{data.demand}}</td>
                   <td class="align-middle">{{data.soldUnit}}</td>
                   <td class="align-middle">{{data.collection}}</td>
+                  <td class="align-middle">{{data.htConsumption}}</td>
+                  <td class="align-middle">{{data.htCollection}}</td>
                 </tr>
                 </ng-template>
                 <tr *ngIf="feederData && !feederData.length && !loading">
-                  <td class="align-middle" colspan="10">No Records Found</td>
+                  <td class="align-middle" colspan="12">No Records Found</td>
                 </tr>
                 <tr *ngIf="loading">
-                  <td class="align-middle" colspan="10">
+                  <td class="align-middle" colspan="12">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Loading...
                   </td>
                 </tr>
