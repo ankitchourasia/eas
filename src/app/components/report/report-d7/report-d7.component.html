@@ -87,8 +87,8 @@
           <td class="align-middle">{{billingStatus?.town?.name | uppercase}}</td>
           <td class="align-middle">{{searchFormData.billingMonth | uppercase}}</td>
           <td class="align-middle">
-            <span class="text-success" *ngIf="billingStatusFlag"><span class="fa fa-check"></span></span> 
-            <span class="text-danger" *ngIf="!billingStatusFlag"><span class="fa fa-times"></span></span>
+            <span class="text-success" *ngIf="billingStatus.billingStatus"><span class="fa fa-check"></span></span> 
+            <span class="text-danger" *ngIf="!billingStatus.billingStatus"><span class="fa fa-times"></span></span>
           </td>
         </tr>
         </ng-template>

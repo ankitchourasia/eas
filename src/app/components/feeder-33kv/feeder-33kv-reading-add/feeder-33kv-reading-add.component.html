@@ -89,7 +89,7 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-4 col-form-label">Prev Bill Month</label>
+    <label class="col-4 col-form-label">Prev Read Month</label>
     <div class="col-8">
         <input type="text" class="form-control" [ngModel]="feederReading.prevBillMonth" id="prevBillMonth" name="prevBillMonth" disabled>
     </div>
@@ -97,7 +97,7 @@
   <div class="form-group row">
     <div class="offset-4 col-8">
       <button type="button" class="btn btn-warning btn-block" (click)="meterReplacementClicked()" *ngIf="!_meterReplacementClicked">Click for Meter Replacement</button>
-      <button type="button" class="btn btn-danger btn-block" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancle for Meter Replacement</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="cancleMeterReplacementClicked()" *ngIf="_meterReplacementClicked">Cancel for Meter Replacement</button>
     </div>
   </div>
   <ng-template [ngIf]="_meterReplacementClicked">
@@ -157,7 +157,7 @@
     </div>
     </ng-template>
   <div class="form-group row">
-    <label class="col-4 col-form-label">Bill Month</label>
+    <label class="col-4 col-form-label">Read Month</label>
     <div class="col-8">
         <input type="text" class="form-control" [ngModel]="feederReading.billMonth" id="billMonth" name="billMonth" disabled>
     </div>

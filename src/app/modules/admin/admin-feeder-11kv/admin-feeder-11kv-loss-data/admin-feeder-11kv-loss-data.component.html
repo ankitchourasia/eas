@@ -4,28 +4,33 @@
     </div>
     <div class="card-body">
         <div class="eas-space-between mb-2">
-            <div class="form-inline align-items-baseline">
-              <div class="input-group mx-sm-2">
-                <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
-                  class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required [disabled]="loading">
-                  <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
-                  <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
-                </select>
-                <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
-                  class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required [disabled]="loading">
-                  <option disabled selected [ngValue]='undefined'>Year</option>
-                  <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
-                </select>
-                <div class="input-group-append">
-                  <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="billmonth.errors || billMonthyear.errors || loading">
-                   Search 
-                  </button>
-                </div>
-                <div class="invalid-feedback" *ngIf="(billmonth.errors && (billmonth.dirty || billmonth.touched)) || (billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched))">
-                  <div [hidden]="!billmonth.errors?.required && !billMonthyear.errors?.required">required bill month</div>
-                </div>
+          <div class="form-inline align-items-baseline">
+            <div class="input-group mx-sm-2">
+              <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
+                class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required [disabled]="loading">
+                <option disabled selected [ngValue]='undefined'>Month<span>&nbsp;&nbsp;</span></option>
+                <option *ngFor="let month of globalConstants.MONTHS" [ngValue]="month">{{month | uppercase}}</option>
+              </select>
+              <select [ngClass]="{'is-valid': !billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched),'is-invalid': billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched)}"
+                class="form-control form-control-sm" [(ngModel)]="year" #billMonthyear="ngModel" id="billMonthyear"  name="billMonthyear" required [disabled]="loading">
+                <option disabled selected [ngValue]='undefined'>Year</option>
+                <option *ngFor="let year of globalConstants.YEARS" [ngValue]="(year-2000)">{{year}}</option>
+              </select>
+              <div class="input-group-append">
+                <button type="button" class="btn btn-sm btn-primary" (click)="searchClicked()" [disabled]="billmonth.errors || billMonthyear.errors || loading">
+                  Search 
+                </button>
+              </div>
+              <div class="invalid-feedback" *ngIf="(billmonth.errors && (billmonth.dirty || billmonth.touched)) || (billMonthyear.errors && (billMonthyear.dirty || billMonthyear.touched))">
+                <div [hidden]="!billmonth.errors?.required && !billMonthyear.errors?.required">required bill month</div>
               </div>
             </div>
+          </div>
+          <div>
+            <button class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="feederData && !feederData.length || loading">
+              <span class="fa fa-download"> Export</span>
+            </button>
+          </div>
         </div>
         <div class="table-responsive mb-2">
             <table class="table table-sm table-bordered table-hover text-center mb-0">
@@ -36,7 +41,7 @@
                   <td nowrap class="align-middle">FEEDER</td>
                   <td nowrap class="align-middle">FEEDER CODE</td>
                   <td nowrap class="align-middle">BILL MONTH</td>
-                  <td nowrap class="align-middle">CONSUMER COUNT</td>
+                  <td nowrap class="align-middle">CONS COUNT</td>
                   <td nowrap class="align-middle">INPUT</td>
                   <td nowrap class="align-middle">DEMAND</td>
                   <td nowrap class="align-middle">SOLD UNIT</td>

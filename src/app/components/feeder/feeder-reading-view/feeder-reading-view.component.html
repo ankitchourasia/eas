@@ -30,7 +30,7 @@
         <td nowrap class="align-middle">S.No</td>
         <td nowrap class="align-middle">Zone</td>
         <td nowrap class="align-middle">Feeder</td>
-        <td nowrap class="align-middle">GR no</td>
+        <!-- <td nowrap class="align-middle">GR no</td> -->
         <td nowrap class="align-middle">Mtr No</td>
         <td nowrap class="align-middle">MF</td>
         <td nowrap class="align-middle">Prev Read</td>
@@ -51,7 +51,7 @@
         <td class="align-middle">{{((pager.currentPage - 1) * pageSize)  + i + 1}}</td>
         <td class="align-middle">{{reading.zone.name | uppercase}}</td>
         <td class="align-middle">{{reading.feeder.name}}</td>
-        <td class="align-middle">{{reading.feeder.groupNo}}</td>
+        <!-- <td class="align-middle">{{reading.feeder.groupNo}}</td> -->
         <td class="align-middle">{{reading.feeder.meterNo}}</td>
         <td class="align-middle">{{reading.feeder.mf}}</td>
         <td class="align-middle">{{reading.prevReading}}</td>
@@ -71,10 +71,10 @@
       </tr>
       </ng-template>
       <tr *ngIf="feederReadingList && !feederReadingList.length && !loading">
-        <td class="align-middle" colspan="16">No Records Found</td>
+        <td class="align-middle" colspan="15">No Records Found</td>
       </tr>
       <tr *ngIf="loading">
-        <td class="align-middle" colspan="16">
+        <td class="align-middle" colspan="15">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span> Loading...
         </td>
       </tr>

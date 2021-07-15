@@ -11,6 +11,7 @@
         <td nowrap class="align-middle">Zone</td>
         <td nowrap class="align-middle">Substation</td>
         <td nowrap class="align-middle">Feeder</td>
+        <td nowrap class="align-middle">Feeder Code</td>
         <td nowrap class="align-middle">Service No</td>
         <td nowrap class="align-middle">Cons Name</td>
         <!-- <td nowrap class="align-middle">Address</td> -->
@@ -26,6 +27,7 @@
         <td class="align-middle">{{htConsumer.zone?.name | uppercase}}</td>
         <td class="align-middle">{{htConsumer.substation?.name | uppercase}}</td>
         <td class="align-middle">{{htConsumer.feeder?.name | uppercase}}</td>
+        <td class="align-middle">{{htConsumer.feeder?.feederCode}}</td>
         <td class="align-middle">{{htConsumer.serviceNumber}}</td>
         <td class="align-middle">{{htConsumer.consumerName}}</td>
         <td class="align-middle">{{htConsumer.contractDemand}}</td>
@@ -42,10 +44,10 @@
       </tr>
       </ng-template>
       <tr *ngIf="htConsumerList && !htConsumerList.length && !loading">
-        <td class="align-middle" [attr.colspan]="(user.role === ROLE_HTM_ADMIN)  ? 9 : 7">No Records Found</td>
+        <td class="align-middle" [attr.colspan]="(user.role === ROLE_HTM_ADMIN)  ? 10 : 8">No Records Found</td>
       </tr>
       <tr *ngIf="loading">
-        <td class="align-middle" [attr.colspan]="(user.role === ROLE_HTM_ADMIN)  ? 9 : 7">
+        <td class="align-middle" [attr.colspan]="(user.role === ROLE_HTM_ADMIN)  ? 10 : 8">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...</td>
       </tr>
     </tbody>

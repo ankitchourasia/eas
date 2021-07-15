@@ -13,10 +13,10 @@
         <td nowrap class="align-middle">Feeder</td>
         <td nowrap class="align-middle">Code</td>
         <td nowrap class="align-middle">Type</td>
-        <td nowrap class="align-middle">GR No.</td>
+        <!-- <td nowrap class="align-middle">GR No.</td> -->
         <td nowrap class="align-middle">Incharge</td>
-        <td nowrap class="align-middle">STM ID</td>
-        <td nowrap class="align-middle">GIS ID</td>
+        <!-- <td nowrap class="align-middle">STM ID</td>
+        <td nowrap class="align-middle">GIS ID</td> -->
         <td nowrap class="align-middle">Mtr No.</td>
         <td nowrap class="align-middle">Mtr Make</td>
         <td nowrap class="align-middle">MF</td>
@@ -33,10 +33,10 @@
         <td class="align-middle">{{feeder.name}}</td>
         <td class="align-middle">{{feeder.feederCode}}</td>
         <td class="align-middle">{{feeder.type}}</td>
-        <td class="align-middle">{{feeder.groupNo}}</td>
+        <!-- <td class="align-middle">{{feeder.groupNo}}</td> -->
         <td class="align-middle">{{feeder.link}}</td>
-        <td class="align-middle">{{feeder.feederSTMId}}</td>
-        <td class="align-middle">{{feeder.feederGISId}}</td>
+        <!-- <td class="align-middle">{{feeder.feederSTMId}}</td>
+        <td class="align-middle">{{feeder.feederGISId}}</td> -->
         <td class="align-middle">{{feeder.meterNo}}</td>
         <td class="align-middle">{{feeder.meterMake}}</td>
         <td class="align-middle">{{feeder.mf}}</td>
@@ -53,10 +53,10 @@
       </tr>
       </ng-template>
       <tr *ngIf="feederList && !feederList.length && !loading">
-        <td class="align-middle" colspan="15">No Records Found</td>
+        <td class="align-middle" colspan="12">No Records Found</td>
       </tr>
       <tr *ngIf="loading">
-        <td class="align-middle" colspan="15">
+        <td class="align-middle" colspan="12">
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
         </td>
       </tr>

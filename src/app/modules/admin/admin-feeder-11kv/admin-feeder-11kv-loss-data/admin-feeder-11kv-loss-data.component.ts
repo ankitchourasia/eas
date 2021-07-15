@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FeederService } from '@eas-services/feeder/feeder.service';
 import { PaginationService } from '@eas-services/pagination/pagination.service';
+import { GlobalConfiguration } from '@eas-utility/global-configuration';
 import { GlobalConstants } from '@eas-utility/global.constants';
 import { GlobalResources } from '@eas-utility/global.resources';
 import { AdminFeeder11KVMenuService } from '../admin-feeder-11kv-menu.service';
@@ -81,6 +82,16 @@ export class AdminFeeder11KVLossDataComponent implements OnInit {
       }
       this.pager = this.paginationService.getPager(this.feederData.length, page, this.pageSize);
       this.pagedFeederData = this.feederData.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
+
+    public readonly ROLE_ADMIN = GlobalConfiguration.ROLE_ADMIN;
+    exportClicked(){
+      var params = {Authorization: 'Basic ' + sessionStorage.getItem('encodedCredentials')};
+      let fileUrl = undefined;
+      if(this.user.role === this.ROLE_ADMIN){
+        fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/feeder-loss-data/division/id/" + this.user.division.id + "/bill-month/" + this.billMonth;
+      }
+      this.globalResources.downloadFile(fileUrl, params)
     }
 
 }

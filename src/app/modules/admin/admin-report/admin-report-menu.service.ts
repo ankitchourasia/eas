@@ -20,7 +20,7 @@ export class AdminReportMenuService implements MenuInterface {
   private readonly THIRD_MENU_ACTIVE: boolean = false;
 
   public FOURTH_MENU: any;
-  private readonly FOURTH_MENU_NAME: string = "Feeder JSON Report";
+  private readonly FOURTH_MENU_NAME: string = "Online Feeder Monitoring Report";
   private readonly FOURTH_MENU_LINK: string = "feeder-json";
   private readonly FOURTH_MENU_ACTIVE: boolean = false;
 

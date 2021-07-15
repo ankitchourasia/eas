@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="inner-group">
-    <small class="form-text text-muted">Bill Month</small>
+    <small class="form-text text-muted">Read Month</small>
     <div class="input-group">
       <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
         class="form-control form-control-sm" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required [disabled]="loading" (change)="billMonthChanged()">
@@ -47,7 +47,7 @@
         <td nowrap class="align-middle">MF</td>
         <td nowrap class="align-middle">Prev Read</td>
         <td nowrap class="align-middle">Prev Read Date</td>
-        <td nowrap class="align-middle">Bill Month</td>
+        <td nowrap class="align-middle">Read Month</td>
         <td nowrap class="align-middle">Curr Read</td>
         <td nowrap class="align-middle">Curr Read Date</td>
         <td nowrap class="align-middle">Difference</td>

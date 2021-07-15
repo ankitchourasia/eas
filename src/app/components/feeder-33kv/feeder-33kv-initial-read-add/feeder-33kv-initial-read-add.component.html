@@ -96,7 +96,7 @@
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-4 col-form-label">Bill Month</label>
+    <label class="col-4 col-form-label">Read Month</label>
     <div class="input-group col-8">
       <select [ngClass]="{'is-valid': !billmonth.errors && (billmonth.dirty || billmonth.touched),'is-invalid': billmonth.errors && (billmonth.dirty || billmonth.touched)}"
         class="form-control" [(ngModel)]="month" #billmonth="ngModel" id="billmonth"  name="billmonth" required>
