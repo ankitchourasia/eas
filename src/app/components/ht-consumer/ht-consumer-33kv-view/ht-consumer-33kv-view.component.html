@@ -10,6 +10,9 @@
       <div [hidden]="!selectedZone.errors.required">required field</div>
     </div>
   </div>
+  <button type="button" class="btn btn-sm btn-primary" (click)="exportClicked()" [disabled]="htConsumerList && !htConsumerList.length && zone !== 'ALL'">
+    <span class="fa fa-download"> Export</span>
+  </button>
 </div>
 
 <div class="table-responsive mb-2">

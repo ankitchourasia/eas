@@ -155,10 +155,7 @@ export class ReportConsumerComplaintsRedressalComponent implements OnInit {
     let methodName = "submitClicked"
 
     if(this.globalResources.validateForm(nscMonitoringInputForm)){
-      return;
-    }
-
-    this._submintClicked = true;
+      this._submintClicked = true;
     
     this.formData.regionId = this.formData.region.id;
     this.formData.circleId = this.formData.circle.id;
@@ -180,6 +177,7 @@ export class ReportConsumerComplaintsRedressalComponent implements OnInit {
       this._submintClicked = false;
       this.globalResources.handleError(errorResponse, this.COMPONENT_NAME, methodName);
     });
+    }
   }
 
 }

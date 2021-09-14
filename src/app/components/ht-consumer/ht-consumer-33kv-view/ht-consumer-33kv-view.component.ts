@@ -140,4 +140,15 @@ export class HtConsumer33KVViewComponent implements OnInit {
       })
     }
   }
+
+  exportClicked(){
+		let params = {
+				Authorization: 'Basic '+ sessionStorage.getItem("encodedCredentials")
+		};
+		let fileUrl;
+		if(this.user.role === GlobalConfiguration.ROLE_HTM_ADMIN || this.user.role === GlobalConfiguration.ROLE_FIELD_ADMIN || GlobalConfiguration.ROLE_ADMIN){
+			fileUrl = GlobalConfiguration.URL_PREFIX_FOR_FILE_EXPORT + "export/ht33KVConsumer/division/id/" + this.user.division.id;
+		}
+		this.globalResources.downloadFile(fileUrl, params)
+	};
 }
