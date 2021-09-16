@@ -204,74 +204,74 @@ export class ReportService {
   generateNscMonitoringInput(nscMonitoringInput, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone',  nscMonitoringInput,  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/town',  nscMonitoringInput,  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone', nscMonitoringInput);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/town', nscMonitoringInput);
     }
   }
   
-  generateD2ReportForZone(d2Report, response){
+  generateD2ReportForTown(d2Report, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/',  d2Report,  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/town/',  d2Report,  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/', d2Report);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/town/', d2Report);
     }
   }
 
-  generateD2ReportForDivision(d2Report, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/',  d2Report,  options);
-    }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/', d2Report);
-    }
-  }
+  // generateD2ReportForDivision(d2Report, response){
+  //   if(response){
+  //     let options : any = {'observe' : 'response'};
+  //     return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/',  d2Report,  options);
+  //   }else{
+  //     return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/', d2Report);
+  //   }
+  // }
     
-  getD2ByZoneIdAndBillMonth(zoneId, billMonth, response){
+  getD2ByTownIdAndBillMonth(townId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/town/id/' + townId + "/bill-month/" + billMonth,  options);
     }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/town/id/' + townId + "/bill-month/" + billMonth);
     }
   }
 
-  getD2ByDivisionIdAndBillMonth(divisionId, billMonth, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
-    }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/id/' + divisionId + "/bill-month/" + billMonth);
-    }
-  }
+  // getD2ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+  //   if(response){
+  //     let options : any = {'observe' : 'response'};
+  //     return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+  //   }else{
+  //     return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd2-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+  //   }
+  // }
 
   generateConsumerComplaintsRedressal(consumerComplaintsRedressal, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone',  consumerComplaintsRedressal,  options);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd3-report/town',  consumerComplaintsRedressal,  options);
     }else{
-      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone', consumerComplaintsRedressal);
+      return this.httpClient.post(this.URL_PREFIX + this.REPORT_URL + 'd3-report/town', consumerComplaintsRedressal);
     }
   }
 
-  getD3ByZoneIdAndBillMonth(zoneId, billMonth, response){
+  getD3ByTownIdAndBillMonth(zoneId, billMonth, response){
     if(response){
       let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone/id/' + zoneId + "/bill-month/" + billMonth,  options);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/town/id/' + zoneId + "/bill-month/" + billMonth,  options);
     }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/zone/id/' + zoneId + "/bill-month/" + billMonth);
+      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/town/id/' + zoneId + "/bill-month/" + billMonth);
     }
   }
 
-  getD3ByDivisionIdAndBillMonth(divisionId, billMonth, response){
-    if(response){
-      let options : any = {'observe' : 'response'};
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
-    }else{
-      return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth);
-    }
-  }
+  // getD3ByDivisionIdAndBillMonth(divisionId, billMonth, response){
+  //   if(response){
+  //     let options : any = {'observe' : 'response'};
+  //     return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth,  options);
+  //   }else{
+  //     return this.httpClient.get(this.URL_PREFIX + this.REPORT_URL + 'd3-report/division/id/' + divisionId + "/bill-month/" + billMonth);
+  //   }
+  // }
 
   generateJsonInputForZone(zoneId, billMonth, response){
     if(response){

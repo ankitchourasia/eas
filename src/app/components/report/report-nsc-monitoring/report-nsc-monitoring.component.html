@@ -23,25 +23,15 @@
       </div>
     </div>
     <div class="inner-group">
-      <small class="form-text text-muted required">Division</small>
-      <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(formData.division)">
+      <small class="form-text text-muted required">Town</small>
+      <select [ngClass]="{'is-valid': !town.errors && (town.dirty || town.touched),'is-invalid': town.errors && (town.dirty || town.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="formData.town" #town="ngModel" id="town"  name="town" required>
         <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let division of divisionList" [ngValue]="division">{{division.name | uppercase}}</option>
+        <!-- <option *ngIf="townList && townList.length > 1">ALL</option> -->
+        <option *ngFor="let town of townList" [ngValue]="town">{{town.name | uppercase}}</option>
       </select>
-      <div class="invalid-feedback" *ngIf="division.errors && (division.dirty || division.touched)">
-        <div [hidden]="!division.errors.required">required field</div>
-      </div>
-    </div>
-    <div class="inner-group">
-      <small class="form-text text-muted required">Zone</small>
-      <select [ngClass]="{'is-valid': !zone.errors && (zone.dirty || zone.touched),'is-invalid': zone.errors && (zone.dirty || zone.touched)}"
-        class="form-control form-control-sm" [(ngModel)]="formData.zone" #zone="ngModel" id="zone"  name="zone" required (change)="!zone.errors && zoneChanged(formData.zone)">
-        <option disabled selected [ngValue]='undefined'>Select</option>
-        <option *ngFor="let zone of zoneList" [ngValue]="zone">{{zone.name | uppercase}}</option>
-      </select>
-      <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
-        <div [hidden]="!zone.errors.required">required field</div>
+      <div class="invalid-feedback" *ngIf="town.errors && (town.dirty || town.touched)">
+        <div [hidden]="!town.errors.required">required field</div>
       </div>
     </div>
     <div class="inner-group">

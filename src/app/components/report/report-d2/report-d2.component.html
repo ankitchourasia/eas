@@ -23,6 +23,18 @@
       </div>
     </div>
     <div class="inner-group">
+      <small class="form-text text-muted required">Town</small>
+      <select [ngClass]="{'is-valid': !town.errors && (town.dirty || town.touched),'is-invalid': town.errors && (town.dirty || town.touched)}"
+        class="form-control form-control-sm" [(ngModel)]="searchFormData.town" #town="ngModel" id="town"  name="town" (change)="townChanged()" required>
+        <option disabled selected [ngValue]='undefined'>Select</option>
+        <!-- <option *ngIf="townList && townList.length > 1">ALL</option> -->
+        <option *ngFor="let town of townList" [ngValue]="town">{{town.name | uppercase}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="town.errors && (town.dirty || town.touched)">
+        <div [hidden]="!town.errors.required">required field</div>
+      </div>
+    </div>
+    <!-- <div class="inner-group">
       <small class="form-text text-muted required">Division</small>
       <select [ngClass]="{'is-valid': !division.errors && (division.dirty || division.touched),'is-invalid': division.errors && (division.dirty || division.touched)}"
         class="form-control form-control-sm" [(ngModel)]="searchFormData.division" #division="ngModel" id="division"  name="division" required (change)="!division.errors && divisionChanged(searchFormData.division)">
@@ -44,7 +56,7 @@
       <div class="invalid-feedback" *ngIf="zone.errors && (zone.dirty || zone.touched)">
         <div [hidden]="!zone.errors.required">required field</div>
       </div>
-    </div>
+    </div> -->
     <div class="inner-group">
       <small class="form-text text-muted required">Reporting Month</small>
       <div class="input-group">
@@ -101,7 +113,7 @@
         <ng-template [ngIf]="viewResultList && viewResultList.length && !_viewClicked">
           <tr *ngFor="let viewResult of viewResultList; let i = index">
             <td class="align-middle">{{i + 1}}</td>
-            <td class="align-middle">{{viewResult.zone?.name | uppercase}}</td>
+            <td class="align-middle">{{viewResult.town?.name | uppercase}}</td>
             <td class="align-middle">{{viewResult.previousPendingNSC}}</td>
             <td class="align-middle">{{viewResult.currentAppliedNSC}}</td>
             <td class="align-middle">{{viewResult.totalPendingNSC}}</td>
