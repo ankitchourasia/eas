@@ -111,7 +111,7 @@ export class ReportNscMonitoringComponent implements OnInit {
     
     this.formData.regionId = this.formData.region.id;
     this.formData.circleId = this.formData.circle.id;
-    this.formData.townId = this.formData.twon.id;
+    this.formData.townId = this.formData.town.id;
 
     this.formData.totalPendingNSC = this.globalResources.getValueAsNumberWithFixed((this.formData.previousPendingNSC + this.formData.currentAppliedNSC), GlobalConstants.CALCULATION_ROUNDING_SCALE);
     this.formData.currentPendingNSC = this.globalResources.getValueAsNumberWithFixed((this.formData.totalPendingNSC - this.formData.currentReleasedNSC), GlobalConstants.CALCULATION_ROUNDING_SCALE);
